@@ -162,6 +162,112 @@
   }
   #controlsHud .hud-item span { opacity: 0.75; }
   #controlsHud kbd { font-size: 9px; padding: 3px 7px; min-width: 24px; }
+  #mobileControls {
+    --joy-travel: 52px;
+    position: fixed;
+    inset: 0;
+    z-index: 6;
+    pointer-events: none;
+    touch-action: none;
+  }
+  #mobileControls.hidden { display: none; }
+  .touch-joystick-zone {
+    --joy-travel: 52px;
+    position: absolute;
+    bottom: max(calc(var(--joy-travel) + 48px), calc(env(safe-area-inset-bottom) + var(--joy-travel) + 32px));
+    width: 140px;
+    height: 140px;
+    pointer-events: auto;
+    touch-action: none;
+  }
+  #mobileControls.layout-joy-right .touch-joystick-zone {
+    right: max(calc(var(--joy-travel) + 48px), calc(env(safe-area-inset-right) + var(--joy-travel) + 32px));
+    left: auto;
+  }
+  #mobileControls.layout-joy-left .touch-joystick-zone {
+    left: max(calc(var(--joy-travel) + 48px), calc(env(safe-area-inset-left) + var(--joy-travel) + 32px));
+    right: auto;
+  }
+  .touch-joystick-base {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: rgba(8, 22, 12, 0.58);
+    border: 3px solid rgba(125, 255, 154, 0.32);
+    box-shadow: inset 0 0 24px rgba(0, 0, 0, 0.35), 0 4px 12px rgba(0, 0, 0, 0.25);
+  }
+  .touch-joystick-zone.active .touch-joystick-base {
+    border-color: rgba(125, 255, 154, 0.55);
+    background: rgba(12, 32, 20, 0.72);
+  }
+  .touch-joystick-knob {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 58px;
+    height: 58px;
+    margin: -29px 0 0 -29px;
+    border-radius: 50%;
+    background: linear-gradient(180deg, rgba(55, 105, 65, 0.95), rgba(22, 48, 28, 0.98));
+    border: 3px solid rgba(125, 255, 154, 0.6);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+    pointer-events: none;
+    will-change: transform;
+  }
+  .touch-actions {
+    position: absolute;
+    bottom: max(calc(var(--joy-travel, 52px) + 48px), calc(env(safe-area-inset-bottom) + 80px));
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    pointer-events: auto;
+  }
+  #mobileControls.layout-joy-right .touch-actions {
+    left: max(calc(var(--joy-travel) + 48px), calc(env(safe-area-inset-left) + var(--joy-travel) + 32px));
+    right: auto;
+  }
+  #mobileControls.layout-joy-left .touch-actions {
+    right: max(12px, env(safe-area-inset-right));
+    left: auto;
+  }
+  .touch-btn {
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    border: 3px solid rgba(125, 255, 154, 0.55);
+    background: linear-gradient(180deg, rgba(40, 80, 50, 0.88), rgba(18, 40, 24, 0.92));
+    border-radius: 12px;
+    min-width: 56px;
+    min-height: 56px;
+    padding: 0;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: none;
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.35);
+    transition: transform 0.05s, background 0.05s;
+  }
+  .touch-btn:active, .touch-btn.pressed {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 rgba(0, 0, 0, 0.35);
+    background: linear-gradient(180deg, rgba(60, 110, 70, 0.95), rgba(24, 55, 32, 0.95));
+  }
+  .touch-btn.touch-action {
+    min-width: 72px;
+    min-height: 52px;
+    font-size: 11px;
+    letter-spacing: 0.5px;
+  }
+  .touch-btn.gold { border-color: #c9a227; color: #ffd700; background: linear-gradient(180deg, rgba(70, 55, 12, 0.92), rgba(35, 25, 6, 0.95)); }
+  .touch-btn.gold:active, .touch-btn.gold.pressed { background: linear-gradient(180deg, rgba(95, 75, 18, 0.95), rgba(45, 32, 8, 0.98)); }
+  .touch-btn.purple { border-color: #aa70ff; color: #e0c0ff; background: linear-gradient(180deg, rgba(50, 22, 75, 0.92), rgba(22, 8, 38, 0.95)); }
+  .touch-btn.purple.ready { box-shadow: 0 0 16px rgba(170, 112, 255, 0.55), 0 4px 0 rgba(0, 0, 0, 0.35); }
+  .touch-btn.yellow { border-color: #f1c40f; color: #ffe066; background: linear-gradient(180deg, rgba(70, 55, 8, 0.92), rgba(35, 28, 4, 0.95)); }
+  .touch-btn.dimmed { opacity: 0.45; }
+  body.mobile-game { touch-action: none; overscroll-behavior: none; }
+  body.mobile-game #controlsHud { display: none !important; }
   .menu-hint {
     margin-top: 20px;
     font-size: 10px;
@@ -483,6 +589,17 @@
       <option value="ru">Русский</option>
     </select>
   </div>
+  <div class="lang-selector touch-layout-selector hidden" id="touchLayoutSelector">
+    <label for="touchLayoutSelect" data-i18n="touchLayout">Touch layout</label>
+    <select id="touchLayoutSelect" aria-label="Touch layout">
+      <option value="joy-right">Joystick right</option>
+      <option value="joy-left">Joystick left</option>
+    </select>
+  </div>
+  <label class="gacha-autogacha" id="damageNumbersLabel">
+    <input type="checkbox" id="damageNumbersToggle">
+    <span data-i18n="damageNumbers">Show enemy damage numbers</span>
+  </label>
   <button class="btn" id="startBtn" data-i18n="start">START</button>
   <button class="btn help-btn" id="helpBtnMain" data-i18n="help">HELP</button>
   <div class="controls-panel">
@@ -526,6 +643,18 @@
   <div class="hud-item" id="hudGacha"><kbd class="gold wide">Space</kbd><span data-i18n="gachaWheel">Gacha wheel (160g)</span></div>
   <div class="hud-item" id="hudUlt"><kbd class="purple">Q</kbd><span data-i18n="ultimate">Ultimate</span></div>
   <div class="hud-item"><kbd class="yellow">Esc</kbd><span data-i18n="pause">Pause</span></div>
+</div>
+<div id="mobileControls" class="hidden layout-joy-right">
+  <div class="touch-joystick-zone" id="touchJoystick">
+    <div class="touch-joystick-base">
+      <div class="touch-joystick-knob" id="touchJoystickKnob"></div>
+    </div>
+  </div>
+  <div class="touch-actions">
+    <button type="button" class="touch-btn touch-action gold" id="touchGacha" data-i18n="touchGacha">Gacha</button>
+    <button type="button" class="touch-btn touch-action purple" id="touchUlt" data-i18n="touchUlt">Ult</button>
+    <button type="button" class="touch-btn touch-action yellow" id="touchPause" data-i18n="touchPause">Pause</button>
+  </div>
 </div>
 <div id="toast"></div>
 
@@ -588,6 +717,9 @@ class I18n {
       title: 'GACHA SURVIVORS',
       subtitle: 'Survive the endless field.<br>Roll gacha. Grow stronger.',
       language: 'Language',
+      touchLayout: 'Touch layout',
+      touchLayoutJoyRight: 'Joystick right',
+      touchLayoutJoyLeft: 'Joystick left',
       start: 'START',
       continue: 'CONTINUE',
       help: 'HELP',
@@ -597,6 +729,10 @@ class I18n {
       ultimate: 'Ultimate',
       ultimateReady: 'Ultimate — READY!',
       pause: 'Pause',
+      touchGacha: 'Gacha',
+      touchUlt: 'Ult',
+      touchPause: 'Pause',
+      damageNumbers: 'Show enemy damage numbers',
       chestHint: 'Walk near chests to auto-open',
       paused: 'PAUSED',
       resume: 'Resume',
@@ -667,6 +803,9 @@ class I18n {
       title: 'GACHA SURVIVORS',
       subtitle: 'Выживите на бесконечном поле.<br>Крутите gacha. Становитесь сильнее.',
       language: 'Язык',
+      touchLayout: 'Расположение',
+      touchLayoutJoyRight: 'Джойстик справа',
+      touchLayoutJoyLeft: 'Джойстик слева',
       start: 'НАЧАТЬ',
       continue: 'ПРОДОЛЖИТЬ',
       help: 'СПРАВКА',
@@ -676,6 +815,10 @@ class I18n {
       ultimate: 'Ультимейт',
       ultimateReady: 'Ультимейт — ГОТОВ!',
       pause: 'Пауза',
+      touchGacha: 'Gacha',
+      touchUlt: 'Ульт',
+      touchPause: 'Пауза',
+      damageNumbers: 'Показывать урон врагов',
       chestHint: 'Подойдите к сундукам для авто-открытия',
       paused: 'ПАУЗА',
       resume: 'Продолжить',
@@ -916,6 +1059,7 @@ class I18n {
     const spinAgainBtn = document.getElementById('gachaSpinAgainBtn');
     if (spinBtn) spinBtn.textContent = this.t('spin');
     if (spinAgainBtn) spinAgainBtn.textContent = this.t('spinAgain');
+    MobileControls.updateLayoutLabels();
   }
 
   static init() {
@@ -1093,6 +1237,226 @@ class SoundManager {
         this.ui();
       });
     });
+  }
+}
+
+/* ============================================================
+   MOBILE TOUCH CONTROLS
+   ============================================================ */
+class MobileControls {
+  static LAYOUT_KEY = 'gachaSurvivorsTouchLayout';
+  static isMobile = false;
+  static game = null;
+  static el = null;
+  static touchGacha = null;
+  static touchUlt = null;
+  static joystickZone = null;
+  static joystickKnob = null;
+  static joystickActive = false;
+  static joyTravel = 52;
+  static joyDeadzone = 0.14;
+  static layout = 'joy-right';
+
+  static detect() {
+    const touch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    const coarse = window.matchMedia('(pointer: coarse)').matches;
+    const narrow = window.matchMedia('(max-width: 900px)').matches;
+    return touch && (coarse || narrow);
+  }
+
+  static loadLayout() {
+    try {
+      const v = localStorage.getItem(this.LAYOUT_KEY);
+      if (v === 'joy-left' || v === 'joy-right') this.layout = v;
+    } catch (e) {}
+  }
+
+  static updateLayoutLabels() {
+    const sel = document.getElementById('touchLayoutSelect');
+    if (!sel || sel.options.length < 2) return;
+    sel.options[0].textContent = I18n.t('touchLayoutJoyRight');
+    sel.options[1].textContent = I18n.t('touchLayoutJoyLeft');
+  }
+
+  static applyLayout() {
+    if (!this.el) this.el = document.getElementById('mobileControls');
+    if (!this.el) return;
+    this.el.classList.remove('layout-joy-right', 'layout-joy-left');
+    this.el.classList.add(this.layout === 'joy-left' ? 'layout-joy-left' : 'layout-joy-right');
+    const sel = document.getElementById('touchLayoutSelect');
+    if (sel) sel.value = this.layout;
+  }
+
+  static setLayout(layout) {
+    this.layout = layout === 'joy-left' ? 'joy-left' : 'joy-right';
+    try { localStorage.setItem(this.LAYOUT_KEY, this.layout); } catch (e) {}
+    this.applyLayout();
+  }
+
+  static _syncMobileMenu() {
+    const row = document.getElementById('touchLayoutSelector');
+    if (row) row.classList.toggle('hidden', !this.isMobile);
+  }
+
+  static init(game) {
+    this.game = game;
+    this.loadLayout();
+    this.el = document.getElementById('mobileControls');
+    this.touchGacha = document.getElementById('touchGacha');
+    this.touchUlt = document.getElementById('touchUlt');
+    this.joystickZone = document.getElementById('touchJoystick');
+    this.joystickKnob = document.getElementById('touchJoystickKnob');
+    this.applyLayout();
+    this.updateLayoutLabels();
+
+    const layoutSel = document.getElementById('touchLayoutSelect');
+    if (layoutSel) {
+      layoutSel.onchange = () => this.setLayout(layoutSel.value);
+    }
+
+    this.isMobile = this.detect();
+    this._syncMobileMenu();
+
+    if (!this.isMobile) return;
+
+    document.body.classList.add('mobile-game');
+    this._bindJoystick();
+    this._bindActions();
+    window.addEventListener('resize', () => {
+      const was = this.isMobile;
+      this.isMobile = this.detect();
+      this._syncMobileMenu();
+      if (this.isMobile !== was) {
+        document.body.classList.toggle('mobile-game', this.isMobile);
+        if (!this.isMobile) this.setVisible(false);
+      }
+    });
+  }
+
+  static _bindJoystick() {
+    const zone = this.joystickZone;
+    const knob = this.joystickKnob;
+    const base = zone.querySelector('.touch-joystick-base');
+
+    const center = () => {
+      const r = base.getBoundingClientRect();
+      return { x: r.left + r.width * 0.5, y: r.top + r.height * 0.5 };
+    };
+
+    const update = (clientX, clientY) => {
+      const c = center();
+      let dx = clientX - c.x;
+      let dy = clientY - c.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 0;
+      const max = this.joyTravel;
+      if (dist > max) {
+        dx = (dx / dist) * max;
+        dy = (dy / dist) * max;
+      }
+      knob.style.transform = `translate(${dx}px, ${dy}px)`;
+      this._applyStick(dx / max, dy / max, dist / max);
+    };
+
+    const end = () => {
+      if (!this.joystickActive) return;
+      this.joystickActive = false;
+      zone.classList.remove('active');
+      knob.style.transform = '';
+      this.resetInput();
+    };
+
+    zone.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      zone.setPointerCapture(e.pointerId);
+      this.joystickActive = true;
+      zone.classList.add('active');
+      SoundManager.unlock();
+      update(e.clientX, e.clientY);
+    });
+    zone.addEventListener('pointermove', (e) => {
+      if (!this.joystickActive) return;
+      e.preventDefault();
+      update(e.clientX, e.clientY);
+    });
+    zone.addEventListener('pointerup', end);
+    zone.addEventListener('pointercancel', end);
+  }
+
+  static _applyStick(nx, ny, mag) {
+    if (!this.game) return;
+    const i = this.game.input;
+    if (mag < this.joyDeadzone) {
+      i.up = i.down = i.left = i.right = false;
+      return;
+    }
+    i.up = ny < -0.22;
+    i.down = ny > 0.22;
+    i.left = nx < -0.22;
+    i.right = nx > 0.22;
+  }
+
+  static _bindActions() {
+    this.touchGacha.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      SoundManager.unlock();
+      SoundManager.ui();
+      const g = this.game;
+      if (g.state !== 'playing') return;
+      if (g.gacha.isOpen()) g.gacha.handleSpace(g);
+      else g.gacha.tryOpen(g);
+    });
+
+    this.touchUlt.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      SoundManager.unlock();
+      const g = this.game;
+      if (g.state !== 'playing' || g.gacha.isOpen()) return;
+      g.input.ult = true;
+    });
+
+    document.getElementById('touchPause').addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      SoundManager.unlock();
+      SoundManager.ui();
+      const g = this.game;
+      if (g.help.isOpen()) g.help.close();
+      else if (g.gacha.isOpen()) g.gacha.exit(g);
+      else g.togglePause();
+    });
+  }
+
+  static _setDir(dir, on) {
+    if (!this.game) return;
+    const i = this.game.input;
+    if (dir === 'up') i.up = on;
+    if (dir === 'down') i.down = on;
+    if (dir === 'left') i.left = on;
+    if (dir === 'right') i.right = on;
+  }
+
+  static resetInput() {
+    if (this.joystickKnob) this.joystickKnob.style.transform = '';
+    if (this.joystickZone) this.joystickZone.classList.remove('active');
+    this.joystickActive = false;
+    this._setDir('up', false);
+    this._setDir('down', false);
+    this._setDir('left', false);
+    this._setDir('right', false);
+  }
+
+  static setVisible(visible) {
+    if (!this.isMobile || !this.el) return;
+    this.el.classList.toggle('hidden', !visible);
+    if (!visible) this.resetInput();
+  }
+
+  static updateHud(player, gachaCost, autoGacha) {
+    if (!this.isMobile || !player) return;
+    const canGacha = player.currency >= gachaCost;
+    const ultReady = player.energy >= player.maxEnergy && player.ultCD <= 0;
+    this.touchGacha.classList.toggle('dimmed', !canGacha && !autoGacha);
+    this.touchUlt.classList.toggle('ready', ultReady);
+    this.touchUlt.classList.toggle('dimmed', !ultReady);
   }
 }
 
@@ -3144,7 +3508,13 @@ class UI {
   }
 
   setControlsVisible(visible) {
-    this.controlsHud.classList.toggle('hidden', !visible);
+    if (MobileControls.isMobile) {
+      MobileControls.setVisible(visible);
+      this.controlsHud.classList.add('hidden');
+    } else {
+      MobileControls.setVisible(false);
+      this.controlsHud.classList.toggle('hidden', !visible);
+    }
   }
 
   updateControlsHud(player, gachaCost, autoGacha) {
@@ -3176,7 +3546,10 @@ class UI {
       if (this.toastTimer <= 0) this.toastEl.className = '';
     }
     if (this.goldPulse > 0) this.goldPulse -= dt;
-    if (player) this.updateControlsHud(player, gachaCost, autoGacha);
+    if (player) {
+      this.updateControlsHud(player, gachaCost, autoGacha);
+      MobileControls.updateHud(player, gachaCost, autoGacha);
+    }
   }
 
   draw(ctx, player, cam, enemyCount, gachaCost) {
@@ -3518,6 +3891,10 @@ class Game {
     this.killCount = 0;
     this.survived = 0;
     this.lastGameOverStats = null;
+    this.showEnemyDamageNumbers = false;
+    try {
+      this.showEnemyDamageNumbers = localStorage.getItem('gachaSurvivorsShowEnemyDamage') === '1';
+    } catch (e) {}
 
     this.input = {
       up: false, down: false, left: false, right: false,
@@ -3526,6 +3903,7 @@ class Game {
 
     this._bindUI();
     this._bindInput();
+    MobileControls.init(this);
     this.canvas.addEventListener('pointerdown', () => SoundManager.unlock());
     this._resize();
     window.addEventListener('resize', () => this._resize());
@@ -3565,6 +3943,20 @@ class Game {
     document.getElementById('goMenuBtn').onclick = () => this.toMenu();
     document.getElementById('helpBtnMain').onclick = () => this.help.open('menu');
     document.getElementById('helpBtnPause').onclick = () => this.help.open('pause');
+
+    const dmgToggle = document.getElementById('damageNumbersToggle');
+    if (dmgToggle) {
+      dmgToggle.checked = !!this.showEnemyDamageNumbers;
+      dmgToggle.onchange = () => {
+        this.showEnemyDamageNumbers = !!dmgToggle.checked;
+        try {
+          localStorage.setItem(
+            'gachaSurvivorsShowEnemyDamage',
+            this.showEnemyDamageNumbers ? '1' : '0'
+          );
+        } catch (e) {}
+      };
+    }
   }
 
   _bindInput() {
@@ -3874,6 +4266,11 @@ class Game {
           const dy = e.y - p.y;
           if (dx * dx + dy * dy < (e.radius + p.radius) * (e.radius + p.radius)) {
             const dead = e.takeDamage(p.damage);
+
+            if (this.showEnemyDamageNumbers && this.floatingTextPool.countActive() < 28) {
+              const dmg = Math.max(1, Math.round(p.damage));
+              this.spawnFloatingText(e.x, e.y, String(dmg));
+            }
             p.active = false;
             if (dead) {
               SoundManager.kill();
