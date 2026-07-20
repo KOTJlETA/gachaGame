@@ -934,6 +934,169 @@ class I18n {
 }
 
 /* ============================================================
+   SOUND — procedural 8-bit Web Audio
+   ============================================================ */
+class SoundManager {
+  static ctx = null;
+  static master = null;
+  static enabled = true;
+  static lastShoot = 0;
+  static lastKill = 0;
+
+  static init() {
+    try {
+      if (localStorage.getItem('gachaSurvivorsSound') === '0') this.enabled = false;
+    } catch (e) {}
+  }
+
+  static unlock() {
+    if (!this.enabled) return;
+    try {
+      if (!this.ctx) {
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return;
+        this.ctx = new AC();
+        this.master = this.ctx.createGain();
+        this.master.gain.value = 0.32;
+        this.master.connect(this.ctx.destination);
+      }
+      if (this.ctx.state === 'suspended') this.ctx.resume();
+    } catch (e) {}
+  }
+
+  static _t() {
+    return this.ctx ? this.ctx.currentTime : 0;
+  }
+
+  static _tone(freq, dur, type = 'square', vol = 0.14, delay = 0, slide = null) {
+    if (!this.enabled || !this.ctx || !this.master) return;
+    const t0 = this._t() + delay;
+    const osc = this.ctx.createOscillator();
+    const gain = this.ctx.createGain();
+    osc.type = type;
+    osc.frequency.setValueAtTime(Math.max(40, freq), t0);
+    if (slide) osc.frequency.exponentialRampToValueAtTime(Math.max(40, slide), t0 + dur);
+    gain.gain.setValueAtTime(vol, t0);
+    gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+    osc.connect(gain);
+    gain.connect(this.master);
+    osc.start(t0);
+    osc.stop(t0 + dur + 0.03);
+  }
+
+  static _seq(notes, step = 0.07, type = 'square', vol = 0.12) {
+    notes.forEach((n, i) => this._tone(n, step * 0.9, type, vol, i * step));
+  }
+
+  static _noise(dur, vol = 0.1, freq = 900) {
+    if (!this.enabled || !this.ctx || !this.master) return;
+    const t0 = this._t();
+    const len = Math.floor(this.ctx.sampleRate * dur);
+    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+    const d = buf.getChannelData(0);
+    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const src = this.ctx.createBufferSource();
+    src.buffer = buf;
+    const filt = this.ctx.createBiquadFilter();
+    filt.type = 'lowpass';
+    filt.frequency.value = freq;
+    const gain = this.ctx.createGain();
+    gain.gain.setValueAtTime(vol, t0);
+    gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
+    src.connect(filt);
+    filt.connect(gain);
+    gain.connect(this.master);
+    src.start(t0);
+    src.stop(t0 + dur + 0.02);
+  }
+
+  static ui() {
+    this._tone(520, 0.05, 'square', 0.1);
+    this._tone(780, 0.04, 'square', 0.06, 0.03);
+  }
+
+  static shoot(crit = false) {
+    const now = performance.now();
+    if (now - this.lastShoot < 45) return;
+    this.lastShoot = now;
+    if (crit) {
+      this._tone(990, 0.05, 'square', 0.11);
+      this._tone(1480, 0.06, 'square', 0.09, 0.04);
+    } else {
+      this._tone(740, 0.045, 'square', 0.08);
+      this._tone(1100, 0.035, 'triangle', 0.05, 0.025);
+    }
+  }
+
+  static kill() {
+    const now = performance.now();
+    if (now - this.lastKill < 25) return;
+    this.lastKill = now;
+    this._tone(320, 0.07, 'square', 0.1);
+    this._tone(180, 0.09, 'square', 0.08, 0.04, 90);
+  }
+
+  static hurt() {
+    this._tone(220, 0.12, 'sawtooth', 0.12, 0, 110);
+    this._noise(0.06, 0.06, 600);
+  }
+
+  static chest(tier = 'common') {
+    const sets = {
+      common: [523, 659],
+      rare: [523, 659, 784],
+      epic: [523, 659, 784, 1047]
+    };
+    this._seq(sets[tier] || sets.common, 0.08, 'square', 0.11);
+    this._tone(1047, 0.1, 'triangle', 0.07, 0.24);
+  }
+
+  static heal() {
+    this._seq([440, 554, 659, 880], 0.09, 'triangle', 0.1);
+  }
+
+  static gachaResult(rarity = 'common') {
+    const sets = {
+      common: [392, 494],
+      rare: [392, 494, 587],
+      epic: [392, 494, 587, 740],
+      legendary: [392, 494, 587, 740, 988, 1175]
+    };
+    this._seq(sets[rarity] || sets.common, 0.1, 'square', 0.12);
+    if (rarity === 'legendary') this._tone(1175, 0.2, 'triangle', 0.1, 0.55);
+  }
+
+  static gachaTick() {
+    this._tone(300 + Math.random() * 80, 0.025, 'square', 0.04);
+  }
+
+  static ultimate() {
+    this._noise(0.15, 0.14, 400);
+    this._seq([196, 262, 330, 392, 523], 0.09, 'square', 0.13);
+    this._tone(523, 0.25, 'sawtooth', 0.1, 0.4, 196);
+  }
+
+  static bomber() {
+    this._noise(0.2, 0.18, 500);
+    this._tone(120, 0.25, 'square', 0.14, 0, 40);
+  }
+
+  static death() {
+    this._seq([330, 262, 196, 147, 98], 0.14, 'square', 0.12);
+    this._noise(0.2, 0.08, 700);
+  }
+
+  static bindUiClicks() {
+    document.querySelectorAll('.btn, .help-tab').forEach((el) => {
+      el.addEventListener('click', () => {
+        this.unlock();
+        this.ui();
+      });
+    });
+  }
+}
+
+/* ============================================================
    SPRITE FACTORY — original 16x16 anime-fantasy pixel art
    ============================================================ */
 class SpriteFactory {
@@ -1853,6 +2016,7 @@ class Enemy {
     if (dist < this.radius + player.radius && this.contactCD <= 0) {
       if (this.type === 'bomber') {
         this.active = false;
+        SoundManager.bomber();
         player.bomberHit();
         game.spawnExplosion(this.x, this.y);
         return;
@@ -1988,6 +2152,7 @@ class ChickenLeg {
       const healed = player.healPercent(0.05);
       game.spawnHealParticles(this.x, this.y);
       if (healed > 0) {
+        SoundManager.heal();
         game.ui.toast(I18n.t('chickenLegHeal', Math.ceil(healed)), 'epic');
       }
     }
@@ -2041,6 +2206,7 @@ class Chest {
       game.addCurrency(amount);
       game.spawnGoldCoins(this.x, this.y, amount);
       game.spawnChestParticles(this.x, this.y, this.tier);
+      SoundManager.chest(this.tier);
       game.ui.toast(I18n.t('chestGold', amount, I18n.chestTierLabel(this.tier)), this.tier === 'epic' ? 'epic' : this.tier === 'rare' ? 'rare' : '');
     }
   }
@@ -2184,6 +2350,7 @@ class Player {
     }
     if (amount > 0) {
       this.health -= amount;
+      SoundManager.hurt();
       if (this.health <= 0) {
         this.health = 0;
         this.alive = false;
@@ -2268,11 +2435,13 @@ class Player {
     const baseAngle = Math.atan2(dy, dx);
     const count = Math.floor(this.stats.bulletCount);
     const spread = count > 1 ? 0.15 * (count - 1) : 0;
+    let anyCrit = false;
 
     for (let i = 0; i < count; i++) {
       const angle = baseAngle - spread * 0.5 + (count > 1 ? (spread / (count - 1)) * i : 0);
       const spd = 140 + this.stats.bulletSpeed * 0.5;
       const isCrit = Math.random() < this.stats.critChance;
+      if (isCrit) anyCrit = true;
       const dmg = this.stats.attack * (isCrit ? this.stats.critDamage : 1);
       game.spawnPlayerProjectile(
         this.x, this.y,
@@ -2280,6 +2449,7 @@ class Player {
         dmg, isCrit
       );
     }
+    SoundManager.shoot(anyCrit);
   }
 
   draw(ctx, cam) {
@@ -2391,6 +2561,7 @@ class GachaSystem {
     this.autoGacha = false;
     this.autoCooldown = 0;
     this.autoInterval = 0.12;
+    this.spinTick = 0;
 
     this.overlay = document.getElementById('gachaOverlay');
     this.wheelCanvas = document.getElementById('gachaWheel');
@@ -2487,6 +2658,7 @@ class GachaSystem {
     this.resultIndex = this.pool.indexOf(this.result);
     this.phase = 'spinning';
     this.spinTime = 0;
+    this.spinTick = 0;
     this.spinStart = this.rotation;
     this.spinTarget = this._rotationForIndex(this.resultIndex, this.rotation);
 
@@ -2550,6 +2722,11 @@ class GachaSystem {
     if (!this.active || this.phase !== 'spinning') return;
 
     this.spinTime += dt;
+    this.spinTick += dt;
+    if (this.spinTick >= 0.18) {
+      this.spinTick = 0;
+      SoundManager.gachaTick();
+    }
     const t = Math.min(1, this.spinTime / this.spinDuration);
     const ease = 1 - Math.pow(1 - t, 4);
     this.rotation = this.spinStart + (this.spinTarget - this.spinStart) * ease;
@@ -2563,6 +2740,7 @@ class GachaSystem {
     this.rotation = this.spinTarget;
     this.phase = 'result';
     this._applyResult(this.pendingPlayer);
+    if (this.result) SoundManager.gachaResult(this.result.rarity);
     this._showResult(game);
     this._drawWheel();
   }
@@ -3348,6 +3526,7 @@ class Game {
 
     this._bindUI();
     this._bindInput();
+    this.canvas.addEventListener('pointerdown', () => SoundManager.unlock());
     this._resize();
     window.addEventListener('resize', () => this._resize());
     this._updateStartButton();
@@ -3415,7 +3594,10 @@ class Game {
           break;
       }
     };
-    window.addEventListener('keydown', (e) => set(e, true));
+    window.addEventListener('keydown', (e) => {
+      SoundManager.unlock();
+      set(e, true);
+    });
     window.addEventListener('keyup', (e) => set(e, false));
   }
 
@@ -3510,6 +3692,7 @@ class Game {
     this.ultWave = null;
 
     this.state = 'gameover';
+    SoundManager.death();
     this._updateGameOverStats();
     document.getElementById('gameOverMenu').classList.remove('hidden');
     this.ui.setControlsVisible(false);
@@ -3610,6 +3793,7 @@ class Game {
   }
 
   activateUltimate() {
+    SoundManager.ultimate();
     const cx = this.player.x;
     const cy = this.player.y;
     this.ultWave = { x: cx, y: cy, r: 0, maxR: Math.max(this.camera.w, this.camera.h) * 0.75, life: 0.6 };
@@ -3692,6 +3876,7 @@ class Game {
             const dead = e.takeDamage(p.damage);
             p.active = false;
             if (dead) {
+              SoundManager.kill();
               this.addCurrency(e.goldDrop);
               this.killCount++;
               this.spawnGoldCoins(e.x, e.y, e.goldDrop);
@@ -3814,6 +3999,8 @@ class Game {
 
 // Boot
 I18n.init();
+SoundManager.init();
+SoundManager.bindUiClicks();
 window.game = new Game();
 </script>
 </body>
