@@ -1,0 +1,3820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gacha Survivors</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    width: 100%; height: 100%; overflow: hidden;
+    background: #0a1a0a;
+    font-family: 'Courier New', Courier, monospace;
+    color: #fff;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  #gameCanvas {
+    display: block;
+    width: 100%; height: 100%;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    cursor: crosshair;
+  }
+  .overlay {
+    position: fixed; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    background: rgba(5, 20, 10, 0.88);
+    z-index: 10;
+    pointer-events: auto;
+  }
+  .overlay.hidden { display: none; }
+  .hidden { display: none !important; }
+  .title {
+    font-size: clamp(18px, 4vw, 36px);
+    color: #7dff9a;
+    text-shadow: 0 0 20px #2aff6a, 4px 4px 0 #0a3a1a;
+    margin-bottom: 12px;
+    letter-spacing: 2px;
+    text-align: center;
+  }
+  .subtitle {
+    font-size: 10px;
+    color: #a8d4b0;
+    margin-bottom: 40px;
+    text-align: center;
+    line-height: 1.8;
+  }
+  .btn {
+    font-family: inherit;
+    font-size: 14px;
+    padding: 16px 40px;
+    margin: 8px;
+    background: linear-gradient(180deg, #3a8f4a, #1e5a2a);
+    border: 3px solid #7dff9a;
+    color: #fff;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #0a2a12, 0 0 20px rgba(125,255,154,0.3);
+    transition: transform 0.1s, box-shadow 0.1s;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #0a2a12, 0 0 30px rgba(125,255,154,0.5);
+    background: linear-gradient(180deg, #4ab85a, #2a7a3a);
+  }
+  .btn:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #0a2a12;
+  }
+  .hint {
+    margin-top: 32px;
+    font-size: 11px;
+    color: #6a9a72;
+    text-align: center;
+    line-height: 2.2;
+  }
+  .controls-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    margin-top: 28px;
+    padding: 16px 22px;
+    background: rgba(10, 30, 18, 0.75);
+    border: 2px solid rgba(125, 255, 154, 0.25);
+    border-radius: 6px;
+  }
+  .controls-title {
+    font-size: 10px;
+    color: #7dff9a;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+  .controls-grid {
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    gap: 8px 24px;
+    justify-content: center;
+  }
+  .control-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    color: #a8d4b0;
+    white-space: nowrap;
+  }
+  .control-row.wide {
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+  kbd, .key {
+    display: inline-block;
+    min-width: 28px;
+    padding: 4px 8px;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    background: linear-gradient(180deg, #3a4a3a, #1a2a1a);
+    border: 2px solid #5a7a5a;
+    border-bottom-width: 3px;
+    border-radius: 4px;
+    box-shadow: 0 2px 0 rgba(0,0,0,0.4);
+    line-height: 1.2;
+  }
+  kbd.wide, .key.wide {
+    min-width: 52px;
+    padding: 4px 10px;
+  }
+  kbd.gold, .key.gold { border-color: #c9a227; background: linear-gradient(180deg, #5a4a10, #2a2008); color: #ffd700; }
+  kbd.blue, .key.blue { border-color: #3498db; background: linear-gradient(180deg, #1a3a5a, #0a1a2a); color: #a0d0ff; }
+  kbd.purple, .key.purple { border-color: #aa70ff; background: linear-gradient(180deg, #3a1a5a, #1a0a2a); color: #e0c0ff; }
+  kbd.yellow, .key.yellow { border-color: #f1c40f; background: linear-gradient(180deg, #5a4a0a, #2a2008); color: #ffe066; }
+  #controlsHud {
+    position: fixed;
+    left: 50%;
+    bottom: 90px;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 6px 14px;
+    padding: 8px 16px;
+    background: rgba(8, 22, 12, 0.82);
+    border: 2px solid rgba(125, 255, 154, 0.2);
+    border-radius: 8px;
+    z-index: 5;
+    pointer-events: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 96vw;
+  }
+  #controlsHud .hud-item.auto-on span { color: #ffe066; opacity: 1; }
+  #controlsHud .hud-item.auto-on kbd { border-color: #ffd700; }
+  #controlsHud .hud-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    color: rgba(200, 230, 210, 0.85);
+  }
+  #controlsHud .hud-item span { opacity: 0.75; }
+  #controlsHud kbd { font-size: 9px; padding: 3px 7px; min-width: 24px; }
+  .menu-hint {
+    margin-top: 20px;
+    font-size: 10px;
+    color: #6a9a72;
+    text-align: center;
+  }
+  .lang-selector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    font-size: 11px;
+    color: #a8d4b0;
+  }
+  .lang-selector select {
+    font-family: inherit;
+    font-size: 11px;
+    padding: 6px 10px;
+    background: rgba(10, 30, 18, 0.9);
+    border: 2px solid rgba(125, 255, 154, 0.35);
+    color: #fff;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  .lang-selector select:focus {
+    outline: none;
+    border-color: #7dff9a;
+  }
+  #pauseMenu .title { color: #ffe066; text-shadow: 0 0 16px #ffaa00, 3px 3px 0 #3a2a00; }
+  #gameOverMenu .title { color: #ff6b6b; text-shadow: 0 0 16px #ff2222, 3px 3px 0 #3a0000; }
+  .stat-line {
+    font-size: 9px;
+    color: #c8e8d0;
+    margin: 6px 0;
+    line-height: 1.6;
+  }
+  #toast {
+    position: fixed;
+    top: 18%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 11px;
+    padding: 12px 20px;
+    background: rgba(10, 40, 20, 0.92);
+    border: 2px solid #7dff9a;
+    color: #7dff9a;
+    z-index: 20;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+    text-align: center;
+    max-width: 90vw;
+  }
+  #toast.show { opacity: 1; }
+  #toast.rare { border-color: #66aaff; color: #66aaff; }
+  #toast.epic { border-color: #cc66ff; color: #cc66ff; }
+  #toast.legendary { border-color: #ffd700; color: #ffd700; box-shadow: 0 0 24px rgba(255,215,0,0.4); }
+
+  /* Gacha wheel overlay */
+  #gachaOverlay {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(4, 14, 8, 0.88);
+    z-index: 50;
+    pointer-events: auto;
+  }
+  #gachaOverlay.hidden { display: none; }
+  .gacha-panel {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 24px 28px 20px;
+    background: linear-gradient(180deg, rgba(18, 45, 28, 0.98), rgba(8, 22, 12, 0.98));
+    border: 3px solid #7dff9a;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(125,255,154,0.25), 0 8px 0 #0a2a12;
+    max-width: 96vw;
+    animation: gachaPop 0.25s ease-out;
+  }
+  @keyframes gachaPop {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .gacha-title {
+    font-size: clamp(14px, 3vw, 22px);
+    color: #ffd700;
+    text-shadow: 0 0 16px rgba(255,215,0,0.5);
+    margin-bottom: 16px;
+    letter-spacing: 3px;
+  }
+  .gacha-wheel-wrap {
+    position: relative;
+    width: min(340px, 78vw);
+    height: min(340px, 78vw);
+    margin-bottom: 16px;
+  }
+  #gachaWheel {
+    display: block;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: #0a1a0a;
+    box-shadow: 0 0 0 6px #1a3a22, 0 0 0 10px #7dff9a, 0 0 30px rgba(125,255,154,0.35);
+  }
+  .gacha-pointer {
+    position: absolute;
+    top: -6px; left: 50%;
+    transform: translateX(-50%);
+    width: 0; height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-top: 28px solid #ffd700;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+    z-index: 2;
+  }
+  .gacha-pointer::after {
+    content: '';
+    position: absolute;
+    top: -30px; left: -8px;
+    width: 16px; height: 16px;
+    background: #ffd700;
+    border-radius: 50%;
+    border: 2px solid #fff;
+  }
+  .gacha-status {
+    font-size: 11px;
+    color: #a8d4b0;
+    margin-bottom: 12px;
+    min-height: 18px;
+    text-align: center;
+  }
+  .gacha-result {
+    text-align: center;
+    padding: 12px 20px;
+    margin-bottom: 14px;
+    border-radius: 8px;
+    background: rgba(0,0,0,0.35);
+    min-width: 260px;
+    animation: resultReveal 0.35s ease-out;
+  }
+  .gacha-result.hidden { display: none; }
+  @keyframes resultReveal {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  .gacha-result.rarity-common { border: 2px solid #7dff9a; box-shadow: 0 0 20px rgba(125,255,154,0.2); }
+  .gacha-result.rarity-rare { border: 2px solid #66aaff; box-shadow: 0 0 24px rgba(102,170,255,0.3); }
+  .gacha-result.rarity-epic { border: 2px solid #cc66ff; box-shadow: 0 0 28px rgba(204,102,255,0.35); }
+  .gacha-result.rarity-legendary { border: 2px solid #ffd700; box-shadow: 0 0 32px rgba(255,215,0,0.45); }
+  .gacha-result-rarity {
+    font-size: 10px;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .gacha-result-rarity.common { color: #7dff9a; }
+  .gacha-result-rarity.rare { color: #66aaff; }
+  .gacha-result-rarity.epic { color: #cc66ff; }
+  .gacha-result-rarity.legendary { color: #ffd700; }
+  .gacha-result-name {
+    font-size: 14px;
+    color: #fff;
+    margin-bottom: 4px;
+  }
+  .gacha-result-bonus {
+    font-size: 20px;
+    color: #ffd700;
+    text-shadow: 0 0 12px rgba(255,215,0,0.4);
+  }
+  .gacha-actions {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  .gacha-btn {
+    font-size: 11px;
+    padding: 12px 20px;
+    margin: 0;
+  }
+  .gacha-btn.hidden { display: none; }
+  .gacha-btn.confirm { background: linear-gradient(180deg, #3a8f4a, #1e5a2a); border-color: #7dff9a; }
+  .gacha-btn.spin { background: linear-gradient(180deg, #8f7a3a, #5a4a1e); border-color: #ffd700; color: #ffd700; }
+  .gacha-btn.exit { background: linear-gradient(180deg, #4a4a4a, #2a2a2a); border-color: #888; }
+  .gacha-hints {
+    font-size: 10px;
+    color: #6a9a72;
+    text-align: center;
+    line-height: 2;
+  }
+  .gacha-gold {
+    font-size: 11px;
+    color: #ffd700;
+    margin-bottom: 8px;
+  }
+  .gacha-autogacha {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    margin-bottom: 22px;
+    padding: 10px 14px;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(125,255,154,0.25);
+    border-radius: 6px;
+    font-size: 10px;
+    color: #c8e8d0;
+    cursor: pointer;
+    user-select: none;
+  }
+  .gacha-autogacha:hover { border-color: rgba(125,255,154,0.45); }
+  .gacha-autogacha input {
+    width: 16px; height: 16px;
+    accent-color: #ffd700;
+    cursor: pointer;
+  }
+  .gacha-autogacha.active { border-color: #ffd700; background: rgba(80,60,10,0.35); color: #ffe066; }
+
+  /* Help overlay */
+  #helpOverlay { z-index: 40; }
+  .help-panel {
+    display: flex; flex-direction: column; align-items: center;
+    width: min(720px, 94vw);
+    max-height: 90vh;
+    padding: 20px 24px 16px;
+    background: linear-gradient(180deg, rgba(18, 45, 28, 0.98), rgba(8, 22, 12, 0.98));
+    border: 3px solid #7dff9a;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(125,255,154,0.2);
+  }
+  .help-title {
+    font-size: clamp(16px, 3vw, 24px);
+    color: #7dff9a;
+    letter-spacing: 3px;
+    margin-bottom: 14px;
+  }
+  .help-tabs {
+    display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; justify-content: center;
+  }
+  .help-tab {
+    font-family: inherit;
+    font-size: 10px;
+    padding: 8px 16px;
+    background: rgba(20, 50, 30, 0.9);
+    border: 2px solid #3a6a4a;
+    color: #a8d4b0;
+    cursor: pointer;
+  }
+  .help-tab.active {
+    background: linear-gradient(180deg, #3a8f4a, #1e5a2a);
+    border-color: #7dff9a;
+    color: #fff;
+  }
+  .help-content {
+    width: 100%;
+    flex: 1;
+    overflow-y: auto;
+    max-height: calc(90vh - 160px);
+    padding-right: 6px;
+    margin-bottom: 14px;
+  }
+  .help-content::-webkit-scrollbar { width: 6px; }
+  .help-content::-webkit-scrollbar-thumb { background: #3a6a4a; border-radius: 3px; }
+  .help-section-title {
+    font-size: 11px;
+    color: #ffd700;
+    letter-spacing: 2px;
+    margin: 12px 0 10px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid rgba(125,255,154,0.25);
+  }
+  .help-section-title:first-child { margin-top: 0; }
+  .stat-entry {
+    margin-bottom: 12px;
+    padding: 8px 10px;
+    background: rgba(0,0,0,0.25);
+    border-left: 3px solid #7dff9a;
+    border-radius: 0 4px 4px 0;
+  }
+  .stat-entry .stat-name { font-size: 11px; color: #7dff9a; margin-bottom: 4px; }
+  .stat-entry .stat-abbr { font-size: 9px; color: #6a9a72; margin-left: 6px; }
+  .stat-entry .stat-desc { font-size: 10px; color: #c8e8d0; line-height: 1.55; }
+  .bestiary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 12px;
+  }
+  .bestiary-card {
+    display: flex; gap: 12px;
+    padding: 12px;
+    background: rgba(0,0,0,0.3);
+    border: 2px solid rgba(125,255,154,0.2);
+    border-radius: 8px;
+  }
+  .bestiary-card.threat-low { border-color: rgba(125,255,154,0.35); }
+  .bestiary-card.threat-mid { border-color: rgba(255,200,80,0.4); }
+  .bestiary-card.threat-high { border-color: rgba(255,100,80,0.45); }
+  .bestiary-card.threat-extreme { border-color: rgba(255,50,50,0.6); box-shadow: 0 0 12px rgba(255,50,50,0.2); }
+  .bestiary-art {
+    flex-shrink: 0;
+    width: 64px; height: 64px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(10,30,18,0.8);
+    border-radius: 6px;
+    border: 1px solid rgba(125,255,154,0.15);
+  }
+  .bestiary-art canvas { image-rendering: pixelated; max-width: 56px; max-height: 56px; }
+  .bestiary-info { flex: 1; min-width: 0; }
+  .bestiary-name { font-size: 12px; color: #fff; margin-bottom: 4px; }
+  .bestiary-tags { font-size: 9px; color: #ffd700; margin-bottom: 6px; }
+  .bestiary-statline { font-size: 9px; color: #a8d4b0; line-height: 1.6; }
+  .bestiary-desc { font-size: 9px; color: #8ab898; line-height: 1.55; margin-top: 6px; }
+  .help-btn { font-size: 11px; padding: 12px 28px; margin: 6px; }
+  .help-close { margin-top: 4px; }
+</style>
+</head>
+<body>
+<canvas id="gameCanvas"></canvas>
+<div id="mainMenu" class="overlay">
+  <div class="title" data-i18n="title">GACHA SURVIVORS</div>
+  <div class="subtitle" data-i18n-html="subtitle">Survive the endless field.<br>Roll gacha. Grow stronger.</div>
+  <div class="lang-selector">
+    <label for="langSelect" data-i18n="language">Language</label>
+    <select id="langSelect" aria-label="Language">
+      <option value="en">English</option>
+      <option value="ru">Русский</option>
+    </select>
+  </div>
+  <button class="btn" id="startBtn" data-i18n="start">START</button>
+  <button class="btn help-btn" id="helpBtnMain" data-i18n="help">HELP</button>
+  <div class="controls-panel">
+    <div class="controls-title" data-i18n="controls">CONTROLS</div>
+    <div class="controls-grid">
+      <div class="control-row"><kbd class="wide">WASD</kbd><span data-i18n="move">Move</span></div>
+      <div class="control-row"><kbd class="wide">Arrows</kbd><span data-i18n="move">Move</span></div>
+      <div class="control-row"><kbd class="gold wide">Space</kbd><span data-i18n="gachaWheel">Gacha wheel (160g)</span></div>
+      <div class="control-row"><kbd class="purple">Q</kbd><span data-i18n="ultimate">Ultimate</span></div>
+      <div class="control-row"><kbd class="yellow">Esc</kbd><span data-i18n="pause">Pause</span></div>
+      <div class="control-row wide"><span data-i18n="chestHint">Walk near chests to auto-open</span></div>
+    </div>
+  </div>
+</div>
+<div id="pauseMenu" class="overlay hidden">
+  <div class="title" data-i18n="paused">PAUSED</div>
+  <button class="btn" id="resumeBtn" data-i18n="resume">RESUME</button>
+  <button class="btn" id="restartBtn" data-i18n="restart">RESTART</button>
+  <button class="btn" id="menuBtn" data-i18n="mainMenu">MAIN MENU</button>
+  <button class="btn help-btn" id="helpBtnPause" data-i18n="help">HELP</button>
+  <div class="controls-panel">
+    <div class="controls-title" data-i18n="controls">CONTROLS</div>
+    <div class="controls-grid">
+      <div class="control-row"><kbd class="wide">WASD</kbd><span data-i18n="move">Move</span></div>
+      <div class="control-row"><kbd class="wide">Arrows</kbd><span data-i18n="move">Move</span></div>
+      <div class="control-row"><kbd class="gold wide">Space</kbd><span data-i18n="gachaWheel">Gacha wheel (160g)</span></div>
+      <div class="control-row"><kbd class="purple">Q</kbd><span data-i18n="ultimate">Ultimate</span></div>
+      <div class="control-row"><kbd class="yellow">Esc</kbd><span data-i18n="resume">Resume</span></div>
+    </div>
+  </div>
+</div>
+<div id="gameOverMenu" class="overlay hidden">
+  <div class="title" data-i18n="defeated">DEFEATED</div>
+  <div class="stat-line" id="goStats"></div>
+  <button class="btn" id="goMenuBtn" data-i18n="mainMenu">MAIN MENU</button>
+  <div class="menu-hint" data-i18n="gameOverHint">Press buttons above or return to menu</div>
+</div>
+<div id="controlsHud" class="hidden">
+  <div class="hud-item"><kbd class="wide">WASD</kbd><span data-i18n="move">Move</span></div>
+  <div class="hud-item"><kbd class="wide">Arrows</kbd><span data-i18n="move">Move</span></div>
+  <div class="hud-item" id="hudGacha"><kbd class="gold wide">Space</kbd><span data-i18n="gachaWheel">Gacha wheel (160g)</span></div>
+  <div class="hud-item" id="hudUlt"><kbd class="purple">Q</kbd><span data-i18n="ultimate">Ultimate</span></div>
+  <div class="hud-item"><kbd class="yellow">Esc</kbd><span data-i18n="pause">Pause</span></div>
+</div>
+<div id="toast"></div>
+
+<div id="gachaOverlay" class="hidden">
+  <div class="gacha-panel">
+    <div class="gacha-title" data-i18n="gachaWheelTitle">GACHA WHEEL</div>
+    <div class="gacha-gold" id="gachaGold">Gold: 0</div>
+    <label class="gacha-autogacha" id="autoGachaLabel">
+      <input type="checkbox" id="autoGachaToggle">
+      <span id="autoGachaText" data-i18n="autoGacha">Auto-Gacha — spend 160g in background (close wheel first)</span>
+    </label>
+    <div class="gacha-wheel-wrap">
+      <div class="gacha-pointer"></div>
+      <canvas id="gachaWheel" width="340" height="340"></canvas>
+    </div>
+    <div class="gacha-status" id="gachaStatus">Spinning...</div>
+    <div id="gachaResult" class="gacha-result hidden">
+      <div class="gacha-result-rarity" id="gachaResultRarity">COMMON</div>
+      <div class="gacha-result-name" id="gachaResultName">Attack</div>
+      <div class="gacha-result-bonus" id="gachaResultBonus">+2</div>
+    </div>
+    <div class="gacha-actions">
+      <button class="btn gacha-btn spin hidden" id="gachaSpinBtn" data-i18n="spin">SPIN (160g)</button>
+      <button class="btn gacha-btn confirm hidden" id="gachaConfirmBtn" data-i18n="confirm">CONFIRM</button>
+      <button class="btn gacha-btn spin hidden" id="gachaSpinAgainBtn" data-i18n="spinAgain">SPIN AGAIN (160g)</button>
+      <button class="btn gacha-btn exit hidden" id="gachaExitBtn" data-i18n="exit">EXIT</button>
+    </div>
+    <div class="gacha-hints" id="gachaHints">
+      <kbd class="gold wide">Space</kbd> Skip spin &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit
+    </div>
+  </div>
+</div>
+
+<div id="helpOverlay" class="overlay hidden">
+  <div class="help-panel">
+    <div class="help-title" data-i18n="helpTitle">HELP &amp; BESTIARY</div>
+    <div class="help-tabs">
+      <button class="help-tab active" data-tab="stats" data-i18n="tabStats">STATS</button>
+      <button class="help-tab" data-tab="bestiary" data-i18n="tabBestiary">BESTIARY</button>
+      <button class="help-tab" data-tab="items" data-i18n="tabItems">ITEMS</button>
+    </div>
+    <div class="help-content" id="helpContent"></div>
+    <button class="btn help-close" id="helpCloseBtn" data-i18n="back">BACK</button>
+  </div>
+</div>
+
+<script>
+'use strict';
+
+/* ============================================================
+   I18N
+   ============================================================ */
+class I18n {
+  static KEY = 'gachaSurvivorsLang';
+  static lang = 'en';
+  static listeners = [];
+
+  static strings = {
+    en: {
+      title: 'GACHA SURVIVORS',
+      subtitle: 'Survive the endless field.<br>Roll gacha. Grow stronger.',
+      language: 'Language',
+      start: 'START',
+      continue: 'CONTINUE',
+      help: 'HELP',
+      controls: 'CONTROLS',
+      move: 'Move',
+      gachaWheel: 'Gacha wheel (160g)',
+      ultimate: 'Ultimate',
+      ultimateReady: 'Ultimate — READY!',
+      pause: 'Pause',
+      chestHint: 'Walk near chests to auto-open',
+      paused: 'PAUSED',
+      resume: 'Resume',
+      restart: 'RESTART',
+      mainMenu: 'MAIN MENU',
+      defeated: 'DEFEATED',
+      tryAgain: 'TRY AGAIN',
+      gameOverHint: 'Press buttons above or return to menu',
+      gachaWheelTitle: 'GACHA WHEEL',
+      autoGacha: 'Auto-Gacha — spend 160g in background (close wheel first)',
+      spin: 'SPIN (160g)',
+      confirm: 'CONFIRM',
+      spinAgain: 'SPIN AGAIN (160g)',
+      exit: 'EXIT',
+      back: 'BACK',
+      helpTitle: 'HELP & BESTIARY',
+      tabStats: 'STATS',
+      tabBestiary: 'BESTIARY',
+      tabItems: 'ITEMS',
+      gold: 'Gold: {0}',
+      spinning: 'Spinning... (5 sec) — Press Space to skip',
+      needGoldSpin: 'Need {0}g to spin (you have {1}g)',
+      needGoldMore: 'Need {0} more gold to spin again.',
+      bonusSpinAgain: 'Bonus applied! Spin again or confirm.',
+      bonusConfirm: 'Bonus applied! Confirm to continue.',
+      hintDefeatGold: 'Defeat enemies & open chests for gold · Esc Exit',
+      hintSkipSpin: 'Space Skip spin · Esc Skip to result',
+      hintSpinAgain: 'Space Spin again · Confirm or Exit below · Esc Exit',
+      hintConfirmExit: 'Confirm or Exit · Esc Exit',
+      hintDefeatGoldHtml: 'Defeat enemies & open chests for gold &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit',
+      hintSkipSpinHtml: '<kbd class="gold wide">Space</kbd> Skip spin &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Skip to result',
+      hintSpinAgainHtml: '<kbd class="gold wide">Space</kbd> Spin again &nbsp;·&nbsp; Confirm or Exit below &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit',
+      hintConfirmExitHtml: 'Confirm or Exit &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit',
+      escExit: 'Exit',
+      escSkipResult: 'Skip to result',
+      autoGachaOn: 'Auto-Gacha ON ({0}g/roll)',
+      autoGachaNeed: 'Auto-Gacha ON — need {0}g',
+      gachaWheelHud: 'Gacha wheel ({0}g)',
+      gachaWheelNeed: 'Gacha wheel ({0}g — need {1}g)',
+      hudGachaReady: '[Space] Gacha wheel',
+      hudGachaNeed: '[Space] Gacha ({0}g)',
+      hudUltReady: '[Q] ULT READY',
+      hudUlt: '[Q] Ultimate',
+      hudPause: '[Esc] Pause',
+      goldLabel: 'GOLD',
+      enemiesLabel: 'ENEMIES',
+      shieldLabel: 'SHIELD',
+      hpLabel: 'HP',
+      ultLabel: 'ULT',
+      ultKeyLabel: 'ULT [Q]',
+      levelStat: 'Level {0}',
+      goldStat: 'Gold {0}',
+      killsStat: 'Kills {0}',
+      timeStat: 'Time {0}s',
+      chestGold: '+{0}g ({1})',
+      chickenLegHeal: '+{0} HP (chicken leg)',
+      ultimateToast: 'ULTIMATE! {0} foes vanquished',
+      gachaHub: 'GACHA',
+      rarityCommon: 'COMMON',
+      rarityRare: 'RARE',
+      rarityEpic: 'EPIC',
+      rarityLegendary: 'LEGENDARY',
+      chestCommon: 'common',
+      chestRare: 'rare',
+      chestEpic: 'epic'
+    },
+    ru: {
+      title: 'GACHA SURVIVORS',
+      subtitle: 'Выживите на бесконечном поле.<br>Крутите gacha. Становитесь сильнее.',
+      language: 'Язык',
+      start: 'НАЧАТЬ',
+      continue: 'ПРОДОЛЖИТЬ',
+      help: 'СПРАВКА',
+      controls: 'УПРАВЛЕНИЕ',
+      move: 'Движение',
+      gachaWheel: 'Колесо gacha (160 з.)',
+      ultimate: 'Ультимейт',
+      ultimateReady: 'Ультимейт — ГОТОВ!',
+      pause: 'Пауза',
+      chestHint: 'Подойдите к сундукам для авто-открытия',
+      paused: 'ПАУЗА',
+      resume: 'Продолжить',
+      restart: 'ЗАНОВО',
+      mainMenu: 'ГЛАВНОЕ МЕНЮ',
+      defeated: 'ПОРАЖЕНИЕ',
+      tryAgain: 'ЕЩЁ РАЗ',
+      gameOverHint: 'Нажмите кнопки выше или вернитесь в меню',
+      gachaWheelTitle: 'КОЛЕСО GACHA',
+      autoGacha: 'Авто-Gacha — тратит 160 з. в фоне (сначала закройте колесо)',
+      spin: 'КРУТИТЬ (160 з.)',
+      confirm: 'ПОДТВЕРДИТЬ',
+      spinAgain: 'КРУТИТЬ СНОВА (160 з.)',
+      exit: 'ВЫХОД',
+      back: 'НАЗАД',
+      helpTitle: 'СПРАВКА И БЕСТИАРИЙ',
+      tabStats: 'СТАТЫ',
+      tabBestiary: 'ВРАГИ',
+      tabItems: 'ПРЕДМЕТЫ',
+      gold: 'Золото: {0}',
+      spinning: 'Крутится... (5 сек) — Space чтобы пропустить',
+      needGoldSpin: 'Нужно {0} з. для вращения (у вас {1} з.)',
+      needGoldMore: 'Нужно ещё {0} з. для повторного вращения.',
+      bonusSpinAgain: 'Бонус применён! Крутите снова или подтвердите.',
+      bonusConfirm: 'Бонус применён! Подтвердите для продолжения.',
+      hintDefeatGold: 'Убивайте врагов и открывайте сундуки · Esc Выход',
+      hintSkipSpin: 'Space Пропустить · Esc К результату',
+      hintSpinAgain: 'Space Крутить снова · Подтвердите или выйдите · Esc Выход',
+      hintConfirmExit: 'Подтвердите или выйдите · Esc Выход',
+      hintDefeatGoldHtml: 'Убивайте врагов и открывайте сундуки &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Выход',
+      hintSkipSpinHtml: '<kbd class="gold wide">Space</kbd> Пропустить &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> К результату',
+      hintSpinAgainHtml: '<kbd class="gold wide">Space</kbd> Крутить снова &nbsp;·&nbsp; Подтвердите или выйдите ниже &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Выход',
+      hintConfirmExitHtml: 'Подтвердите или выйдите &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Выход',
+      escExit: 'Выход',
+      escSkipResult: 'К результату',
+      autoGachaOn: 'Авто-Gacha ВКЛ ({0} з./крут)',
+      autoGachaNeed: 'Авто-Gacha ВКЛ — нужно {0} з.',
+      gachaWheelHud: 'Колесо gacha ({0} з.)',
+      gachaWheelNeed: 'Колесо gacha ({0} з. — нужно {1} з.)',
+      hudGachaReady: '[Space] Колесо gacha',
+      hudGachaNeed: '[Space] Gacha ({0} з.)',
+      hudUltReady: '[Q] УЛЬТ ГОТОВ',
+      hudUlt: '[Q] Ультимейт',
+      hudPause: '[Esc] Пауза',
+      goldLabel: 'ЗОЛОТО',
+      enemiesLabel: 'ВРАГИ',
+      shieldLabel: 'ЩИТ',
+      hpLabel: 'ОЗ',
+      ultLabel: 'УЛЬТ',
+      ultKeyLabel: 'УЛЬТ [Q]',
+      levelStat: 'Уровень {0}',
+      goldStat: 'Золото {0}',
+      killsStat: 'Убийств {0}',
+      timeStat: 'Время {0}с',
+      chestGold: '+{0} з. ({1})',
+      chickenLegHeal: '+{0} OЗ (куриная ножка)',
+      ultimateToast: 'УЛЬТИМЕЙТ! {0} врагов уничтожено',
+      gachaHub: 'GACHA',
+      rarityCommon: 'ОБЫЧНЫЙ',
+      rarityRare: 'РЕДКИЙ',
+      rarityEpic: 'ЭПИЧЕСКИЙ',
+      rarityLegendary: 'ЛЕГЕНДАРНЫЙ',
+      chestCommon: 'обычный',
+      chestRare: 'редкий',
+      chestEpic: 'эпический'
+    }
+  };
+
+  static statNames = {
+    en: {
+      moveSpeed: 'Movement Speed', maxHealth: 'Max Health', maxShield: 'Max Shield',
+      attack: 'Attack', attackSpeed: 'Attack Speed', bulletSpeed: 'Bullet Speed',
+      shieldRegen: 'Shield Regen', critChance: 'Crit Chance', critDamage: 'Crit Damage',
+      bulletCount: 'Bullet Count', expMultiplier: 'Exp Multiplier', luck: 'Luck',
+      energyRegen: 'Energy Regeneration'
+    },
+    ru: {
+      moveSpeed: 'Скорость', maxHealth: 'Макс. здоровье', maxShield: 'Макс. щит',
+      attack: 'Атака', attackSpeed: 'Скорость атаки', bulletSpeed: 'Скорость пуль',
+      shieldRegen: 'Реген. щита', critChance: 'Шанс крита', critDamage: 'Урон крита',
+      bulletCount: 'Число пуль', expMultiplier: 'Множ. опыта', luck: 'Удача',
+      energyRegen: 'Реген. энергии'
+    }
+  };
+
+  static helpStats = {
+    en: [
+      { abbr: 'SPD', name: 'Movement Speed', desc: 'How fast you move across the field. Higher speed helps dodge enemy swarms and reach chests.' },
+      { abbr: 'HP', name: 'Health', desc: 'Your life total. When HP reaches zero, the run ends. Max Health can be upgraded via gacha.' },
+      { abbr: 'SHD', name: 'Shield', desc: 'Extra protection layer absorbed before HP damage. Regenerates continuously at your Shield Regen rate.' },
+      { abbr: 'ATK', name: 'Attack', desc: 'Base damage of each projectile. Critical hits multiply this value by Crit Damage.' },
+      { abbr: 'ASP', name: 'Attack Speed', desc: 'How many shots you fire per second. Auto-targets the nearest enemy within range.' },
+      { abbr: 'BLT', name: 'Bullet Count', desc: 'Number of projectiles per volley. Extra bullets spread in a small arc toward the target.' },
+      { abbr: 'BSP', name: 'Bullet Speed', desc: 'Projectile travel speed. Faster bullets hit distant enemies sooner.' },
+      { abbr: 'CRT', name: 'Critical Chance', desc: 'Probability each shot critically hits. Crits roll independently per bullet.' },
+      { abbr: 'CDM', name: 'Critical Damage', desc: 'Damage multiplier applied on critical hits (e.g. 1.5× = +50% damage).' },
+      { abbr: 'ERG', name: 'Energy Regeneration', desc: 'Ultimate energy recovered per second. Ultimate requires 1000 energy; press Q when full.' },
+      { abbr: 'SRG', name: 'Shield Regeneration', desc: 'Shield restored per second when below maximum. No delay after taking damage.' },
+      { abbr: 'EXP', name: 'Experience Multiplier', desc: 'Multiplies XP gained from all gold pickups. XP raises level and scales difficulty.' },
+      { abbr: 'LCK', name: 'Luck', desc: 'Increases chest spawn rate and improves the chance of rare and epic chest quality.' }
+    ],
+    ru: [
+      { abbr: 'SPD', name: 'Скорость', desc: 'Скорость передвижения по полю. Помогает уклоняться от толпы и добираться до сундуков.' },
+      { abbr: 'HP', name: 'Здоровье', desc: 'Запас жизни. При нуле OЗ забег заканчивается. Макс. здоровье можно улучшить через gacha.' },
+      { abbr: 'SHD', name: 'Щит', desc: 'Дополнительная защита до урона по OЗ. Восстанавливается с вашей скоростью реген. щита.' },
+      { abbr: 'ATK', name: 'Атака', desc: 'Базовый урон снаряда. Криты умножают это значение на урон крита.' },
+      { abbr: 'ASP', name: 'Скорость атаки', desc: 'Выстрелов в секунду. Автонаведение на ближайшего врага в радиусе.' },
+      { abbr: 'BLT', name: 'Число пуль', desc: 'Снарядов за залп. Лишние пули расходятся дугой к цели.' },
+      { abbr: 'BSP', name: 'Скорость пуль', desc: 'Скорость полёта снарядов. Быстрее попадают по дальним целям.' },
+      { abbr: 'CRT', name: 'Шанс крита', desc: 'Вероятность критического попадания для каждого выстрела.' },
+      { abbr: 'CDM', name: 'Урон крита', desc: 'Множитель урона при крите (напр. 1.5× = +50% урона).' },
+      { abbr: 'ERG', name: 'Реген. энергии', desc: 'Энергии ультимейта в секунду. Нужно 1000 энергии; нажмите Q когда полная.' },
+      { abbr: 'SRG', name: 'Реген. щита', desc: 'Щита в секунду ниже максимума. Без задержки после получения урона.' },
+      { abbr: 'EXP', name: 'Множ. опыта', desc: 'Умножает опыт от всего золота. Опыт повышает уровень и сложность.' },
+      { abbr: 'LCK', name: 'Удача', desc: 'Чаще появляются сундуки и выше шанс редких и эпических.' }
+    ]
+  };
+
+  static helpSystems = {
+    en: {
+      playerStats: 'PLAYER STATS',
+      combatSystems: 'COMBAT & SYSTEMS',
+      ultimateTitle: 'Ultimate [Q]',
+      ultimateDesc: 'Costs 1000 energy. Releases a wave that instantly kills all on-screen enemies. 3 second cooldown after use. Starts fully charged.',
+      gachaTitle: 'Gacha Wheel [Space]',
+      gachaDesc: 'Spend 160 gold to spin for a random stat upgrade. Rarity varies — Energy Regen is legendary.',
+      difficultyTitle: 'Difficulty Scaling',
+      difficultyDesc: 'XP and level increase spawn rate, enemy count, HP, damage, speed, and dangerous enemy mix. From level 50 onward scaling ramps up sharply.',
+      enemies: 'ENEMIES',
+      items: 'FIELD ITEMS',
+      goldSources: 'GOLD SOURCES',
+      goldSourcesDesc: 'Defeating enemies drops gold coins (amount varies by type). Chests and gacha spending also affect your economy. All gold gained adds experience.',
+      speed: 'Speed',
+      autoOpen: 'Auto-open near player'
+    },
+    ru: {
+      playerStats: 'СТАТЫ ИГРОКА',
+      combatSystems: 'БОЙ И СИСТЕМЫ',
+      ultimateTitle: 'Ультимейт [Q]',
+      ultimateDesc: 'Стоит 1000 энергии. Волна мгновенно убивает всех врагов на экране. Перезарядка 3 сек. Начинается с полной энергией.',
+      gachaTitle: 'Колесо Gacha [Space]',
+      gachaDesc: 'Потратьте 160 золота на случайное улучшение стата. Редкость различается — реген. энергии легендарный.',
+      difficultyTitle: 'Масштаб сложности',
+      difficultyDesc: 'Опыт и уровень повышают частоту спавна, число врагов, HP, урон, скорость и долю опасных типов. С 50 уровня рост резкий.',
+      enemies: 'ВРАГИ',
+      items: 'ПРЕДМЕТЫ НА ПОЛЕ',
+      goldSources: 'ИСТОЧНИКИ ЗОЛОТА',
+      goldSourcesDesc: 'Враги роняют монеты (зависит от типа). Сундуки и gacha тоже влияют на экономику. Всё золото даёт опыт.',
+      speed: 'Скорость',
+      autoOpen: 'Авто-открытие рядом'
+    }
+  };
+
+  static helpEnemies = {
+    en: [
+      { id: 'slime', name: 'Forest Slime', threat: 'low', gold: 1, speed: '35 (+scale)', hp: '20 (+scale)', dmg: '8 (+scale)', ability: 'Contact damage', desc: 'Slow blob that pauses, then jumps toward you in a burst. Common early-game fodder.', sprite: 'slime' },
+      { id: 'skeleton', name: 'Sword Skeleton', threat: 'mid', gold: 3, speed: '70 (+scale)', hp: '35 (+scale)', dmg: '12 (+scale)', ability: 'Erratic chase · Contact', desc: 'Chases unpredictably with sudden direction changes. Harder to predict than slimes.', sprite: 'skeleton' },
+      { id: 'archer', name: 'Archer Zombie', threat: 'mid', gold: 4, speed: '50 (+scale)', hp: '25 (+scale)', dmg: '10 (+scale)', ability: 'Ranged arrows · Keeps distance', desc: 'Maintains ~220px range, strafes sideways, and fires slow dodgable arrows every 1.8s (120 speed, 400 range).', sprite: 'archer' },
+      { id: 'mage', name: 'Dark Mage', threat: 'high', gold: 6, speed: '45 (+scale)', hp: '40 (+scale)', dmg: '18 (+scale)', ability: 'Delayed AoE circles', desc: 'Stays at long range (~280px). Summons warning circles that explode after 1–1.4s. Multiple AoEs can overlap.', sprite: 'mage' },
+      { id: 'bomber', name: 'Bomb Goblin', threat: 'extreme', gold: 8, speed: '140 (+scale)', hp: '1', dmg: 'Instant kill', ability: 'Suicide explosion', desc: 'Fastest enemy with only 1 HP. On contact: destroys all shield, or kills instantly if shield is empty. Rare spawn.', sprite: 'bomber' }
+    ],
+    ru: [
+      { id: 'slime', name: 'Лесной слайм', threat: 'low', gold: 1, speed: '35 (+масш.)', hp: '20 (+масш.)', dmg: '8 (+масш.)', ability: 'Контактный урон', desc: 'Медленная капля: пауза, затем прыжок к вам. Обычный ранний враг.', sprite: 'slime' },
+      { id: 'skeleton', name: 'Скелет-мечник', threat: 'mid', gold: 3, speed: '70 (+масш.)', hp: '35 (+масш.)', dmg: '12 (+масш.)', ability: 'Хаотичная погоня · Контакт', desc: 'Преследует непредсказуемо, резко меняя направление. Сложнее слаймов.', sprite: 'skeleton' },
+      { id: 'archer', name: 'Зомби-лучник', threat: 'mid', gold: 4, speed: '50 (+масш.)', hp: '25 (+масш.)', dmg: '10 (+масш.)', ability: 'Стрелы · Дистанция', desc: 'Держит ~220px, стрейфит и стреляет каждые 1.8с (скор. 120, дальн. 400).', sprite: 'archer' },
+      { id: 'mage', name: 'Тёмный маг', threat: 'high', gold: 6, speed: '45 (+масш.)', hp: '40 (+масш.)', dmg: '18 (+масш.)', ability: 'AoE с задержкой', desc: 'Дальний бой (~280px). Круги-предупреждения взрываются через 1–1.4с. Могут накладываться.', sprite: 'mage' },
+      { id: 'bomber', name: 'Гоблин-бомба', threat: 'extreme', gold: 8, speed: '140 (+масш.)', hp: '1', dmg: 'Мгнов. смерть', ability: 'Самоподрыв', desc: 'Самый быстрый, 1 HP. Контакт: снимает весь щит или убивает без щита. Редкий спавн.', sprite: 'bomber' }
+    ]
+  };
+
+  static helpItems = {
+    en: [
+      { tier: 'common', name: 'Common Chest', gold: 5, threat: 'low', sprite: 'chestCommon', desc: 'Auto-opens when you walk nearby. Most frequent chest type.' },
+      { tier: 'rare', name: 'Rare Chest', gold: 15, threat: 'mid', sprite: 'chestRare', desc: 'Blue-glowing chest. Luck increases spawn and quality odds.' },
+      { tier: 'epic', name: 'Epic Chest', gold: 50, threat: 'high', sprite: 'chestEpic', desc: 'Purple-glowing chest with the largest gold reward.' },
+      { id: 'chickenLeg', name: 'Chicken Leg', threat: 'high', sprite: 'chickenLeg', tags: 'Epic rarity · Auto-pickup', statline: 'Restores 5% max HP', desc: 'Very rare heal pickup. Spawns on the field like chests; same epic-tier Luck roll. Walk nearby to collect.' }
+    ],
+    ru: [
+      { tier: 'common', name: 'Обычный сундук', gold: 5, threat: 'low', sprite: 'chestCommon', desc: 'Открывается при приближении. Самый частый тип.' },
+      { tier: 'rare', name: 'Редкий сундук', gold: 15, threat: 'mid', sprite: 'chestRare', desc: 'Синее свечение. Удача повышает шанс появления и качества.' },
+      { tier: 'epic', name: 'Эпический сундук', gold: 50, threat: 'high', sprite: 'chestEpic', desc: 'Фиолетовое свечение, максимальная награда золотом.' },
+      { id: 'chickenLeg', name: 'Куриная ножка', threat: 'high', sprite: 'chickenLeg', tags: 'Эпич. редкость · Авто-подбор', statline: 'Восстанавливает 5% макс. OЗ', desc: 'Очень редкое лечение. Появляется на поле как сундуки; тот же эпич. бросок с бонусом Удачи. Подойдите для подбора.' }
+    ]
+  };
+
+  static t(key, ...args) {
+    let s = this.strings[this.lang]?.[key] ?? this.strings.en[key] ?? key;
+    args.forEach((a, i) => { s = s.replace(`{${i}}`, a); });
+    return s;
+  }
+
+  static statName(key) {
+    return this.statNames[this.lang]?.[key] ?? this.statNames.en[key] ?? key;
+  }
+
+  static rarityLabel(rarity) {
+    const map = { common: 'rarityCommon', rare: 'rarityRare', epic: 'rarityEpic', legendary: 'rarityLegendary' };
+    return this.t(map[rarity] ?? 'rarityCommon');
+  }
+
+  static chestTierLabel(tier) {
+    const map = { common: 'chestCommon', rare: 'chestRare', epic: 'chestEpic' };
+    return this.t(map[tier] ?? 'chestCommon');
+  }
+
+  static hintHtml(key) {
+    const htmlKey = key + 'Html';
+    return this.t(htmlKey);
+  }
+
+  static onChange(fn) { this.listeners.push(fn); }
+
+  static setLang(lang) {
+    if (!this.strings[lang]) return;
+    this.lang = lang;
+    try { localStorage.setItem(this.KEY, lang); } catch (e) {}
+    document.documentElement.lang = lang;
+    const sel = document.getElementById('langSelect');
+    if (sel) sel.value = lang;
+    this.applyDom();
+    for (const fn of this.listeners) fn();
+  }
+
+  static applyDom() {
+    document.querySelectorAll('[data-i18n]').forEach((el) => {
+      const key = el.dataset.i18n;
+      if (key === 'start') return;
+      el.textContent = this.t(key);
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach((el) => {
+      el.innerHTML = this.t(el.dataset.i18nHtml);
+    });
+    const startBtn = document.getElementById('startBtn');
+    if (startBtn) {
+      startBtn.textContent = SaveManager.hasSave() ? this.t('continue') : this.t('start');
+    }
+    const spinBtn = document.getElementById('gachaSpinBtn');
+    const spinAgainBtn = document.getElementById('gachaSpinAgainBtn');
+    if (spinBtn) spinBtn.textContent = this.t('spin');
+    if (spinAgainBtn) spinAgainBtn.textContent = this.t('spinAgain');
+  }
+
+  static init() {
+    try {
+      const saved = localStorage.getItem(this.KEY);
+      if (saved && this.strings[saved]) this.lang = saved;
+    } catch (e) {}
+    document.documentElement.lang = this.lang;
+    const sel = document.getElementById('langSelect');
+    if (sel) {
+      sel.value = this.lang;
+      sel.onchange = () => this.setLang(sel.value);
+    }
+    this.applyDom();
+  }
+}
+
+/* ============================================================
+   SPRITE FACTORY — original 16x16 anime-fantasy pixel art
+   ============================================================ */
+class SpriteFactory {
+  static create(pixels, palette, scale = 3) {
+    const size = 16;
+    const c = document.createElement('canvas');
+    c.width = size * scale;
+    c.height = size * scale;
+    const ctx = c.getContext('2d');
+    ctx.imageSmoothingEnabled = false;
+    for (let y = 0; y < size; y++) {
+      for (let x = 0; x < size; x++) {
+        const i = y * size + x;
+        const ci = pixels[i];
+        if (ci === 0) continue;
+        ctx.fillStyle = palette[ci];
+        ctx.fillRect(x * scale, y * scale, scale, scale);
+      }
+    }
+    return c;
+  }
+
+  static player() {
+    // Hero mage-knight — teal cloak, gold trim, bright hair
+    const p = [
+      '#0000','#1a1a2e','#2d5a4a','#3dff9a','#ffd93d','#ffeaa7',
+      '#c0392b','#e74c3c','#3498db','#fff','#5dade2','#27ae60'
+    ];
+    const px = [
+      0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,
+      0,0,0,0,1,5,5,5,5,5,5,1,0,0,0,0,
+      0,0,0,1,5,5,5,5,5,5,5,5,1,0,0,0,
+      0,0,0,1,5,5,4,5,5,4,5,5,1,0,0,0,
+      0,0,0,1,5,9,9,9,9,9,9,5,1,0,0,0,
+      0,0,0,0,1,9,1,9,9,1,9,1,0,0,0,0,
+      0,0,0,0,1,9,9,9,9,9,9,1,0,0,0,0,
+      0,0,0,0,0,1,6,6,6,6,1,0,0,0,0,0,
+      0,0,0,1,3,3,3,3,3,3,3,3,1,0,0,0,
+      0,0,1,3,3,3,4,3,3,4,3,3,3,1,0,0,
+      0,0,1,3,3,3,3,3,3,3,3,3,3,1,0,0,
+      0,0,1,2,3,3,3,3,3,3,3,3,2,1,0,0,
+      0,0,0,1,2,2,1,1,1,1,2,2,1,0,0,0,
+      0,0,0,0,1,1,8,0,0,8,1,1,0,0,0,0,
+      0,0,0,0,1,8,8,0,0,8,8,1,0,0,0,0,
+      0,0,0,0,1,1,1,0,0,1,1,1,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static slime() {
+    const p = ['#0000','#0d3d1a','#1a8f3a','#3dff6a','#a8ffc0','#fff','#1a5a2a'];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,1,2,3,3,3,3,2,1,0,0,0,0,
+      0,0,0,1,2,3,3,4,4,3,3,2,1,0,0,0,
+      0,0,1,2,3,3,5,3,3,5,3,3,2,1,0,0,
+      0,0,1,2,3,3,1,3,3,1,3,3,2,1,0,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,3,2,1,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,3,2,1,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,3,2,1,0,
+      0,1,6,2,3,3,3,3,3,3,3,3,2,6,1,0,
+      0,0,1,6,2,2,3,3,3,3,2,2,6,1,0,0,
+      0,0,0,1,6,6,2,2,2,2,6,6,1,0,0,0,
+      0,0,0,0,1,1,6,6,6,6,1,1,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static skeleton() {
+    const p = ['#0000','#1a1a1a','#e8e0d0','#c8c0b0','#a09080','#ff4444','#888','#ffd700'];
+    const px = [
+      0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,
+      0,0,0,0,1,2,2,2,2,2,2,1,0,0,0,0,
+      0,0,0,1,2,5,2,2,2,2,5,2,1,0,0,0,
+      0,0,0,1,2,2,2,2,2,2,2,2,1,0,0,0,
+      0,0,0,0,1,2,3,3,3,3,2,1,0,0,0,0,
+      0,0,0,0,0,1,2,2,2,2,1,0,0,0,0,0,
+      0,0,0,7,7,1,3,3,3,3,1,0,0,0,0,0,
+      0,0,7,7,0,1,2,2,2,2,1,1,1,0,0,0,
+      0,0,7,0,1,2,2,2,2,2,2,2,1,0,0,0,
+      0,0,0,0,1,2,1,2,2,1,2,1,0,0,0,0,
+      0,0,0,0,1,2,0,1,1,0,2,1,0,0,0,0,
+      0,0,0,0,1,3,0,0,0,0,3,1,0,0,0,0,
+      0,0,0,0,1,2,1,0,0,1,2,1,0,0,0,0,
+      0,0,0,0,1,2,1,0,0,1,2,1,0,0,0,0,
+      0,0,0,0,1,3,1,0,0,1,3,1,0,0,0,0,
+      0,0,0,0,1,1,0,0,0,0,1,1,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static archer() {
+    const p = ['#0000','#1a2a1a','#4a7a3a','#6aaa4a','#8a5a3a','#c09060','#2a4a2a','#ff6666','#ddd'];
+    const px = [
+      0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,1,2,2,2,2,2,1,0,0,0,0,0,
+      0,0,0,1,2,2,7,2,7,2,2,1,0,0,0,0,
+      0,0,0,1,2,2,2,2,2,2,2,1,0,0,0,0,
+      0,0,0,0,1,2,6,6,6,2,1,0,0,0,0,0,
+      0,0,0,0,0,1,5,5,5,1,0,0,0,0,4,0,
+      0,0,0,1,2,2,2,2,2,2,2,1,0,0,4,0,
+      0,0,1,2,2,2,2,2,2,2,2,2,1,4,4,0,
+      0,0,1,2,2,2,2,2,2,2,2,2,1,4,0,0,
+      0,0,1,6,2,2,2,2,2,2,2,6,1,0,0,0,
+      0,0,0,1,6,6,1,1,1,6,6,1,0,0,0,0,
+      0,0,0,0,1,1,3,0,3,1,1,0,0,0,0,0,
+      0,0,0,0,1,3,3,0,3,3,1,0,0,0,0,0,
+      0,0,0,0,1,3,1,0,1,3,1,0,0,0,0,0,
+      0,0,0,0,1,6,1,0,1,6,1,0,0,0,0,0,
+      0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static bomber() {
+    const p = ['#0000','#1a0a0a','#8b0000','#ff2222','#ff6666','#ffaa00','#333','#fff','#ff0'];
+    const px = [
+      0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,2,2,2,1,0,0,0,0,0,
+      0,0,0,0,1,2,3,3,3,3,2,1,0,0,0,0,
+      0,0,0,1,2,3,7,3,3,7,3,2,1,0,0,0,
+      0,0,0,1,2,3,3,3,3,3,3,2,1,0,0,0,
+      0,0,1,2,3,3,3,4,4,3,3,3,2,1,0,0,
+      0,0,1,2,3,3,3,3,3,3,3,3,2,1,0,0,
+      0,0,1,2,2,3,3,3,3,3,3,2,2,1,0,0,
+      0,0,0,1,6,2,2,2,2,2,2,6,1,0,0,0,
+      0,0,0,0,1,6,6,2,2,6,6,1,0,0,0,0,
+      0,0,0,0,0,1,1,6,6,1,1,0,0,0,0,0,
+      0,0,0,0,0,0,1,3,3,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static mage() {
+    const p = ['#0000','#1a0a2a','#4a2080','#7a40c0','#aa70ff','#ffd700','#fff','#e0c0ff','#2a1050'];
+    const px = [
+      0,0,0,0,0,0,5,5,5,0,0,0,0,0,0,0,
+      0,0,0,0,0,5,5,6,5,5,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,1,2,4,4,4,2,1,0,0,0,0,0,
+      0,0,0,1,2,4,6,4,6,4,2,1,0,0,0,0,
+      0,0,0,1,2,4,4,4,4,4,2,1,0,0,0,0,
+      0,0,0,0,1,2,7,7,7,2,1,0,0,0,0,0,
+      0,0,1,2,2,2,2,2,2,2,2,2,1,0,0,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,2,1,0,0,
+      0,1,2,3,3,4,3,3,4,3,3,3,2,1,0,0,
+      0,1,8,2,3,3,3,3,3,3,3,2,8,1,0,0,
+      0,0,1,8,2,2,3,3,3,2,2,8,1,0,0,0,
+      0,0,0,1,8,8,1,1,1,8,8,1,0,0,0,0,
+      0,0,0,0,1,1,2,0,2,1,1,0,0,0,0,0,
+      0,0,0,0,1,2,2,0,2,2,1,0,0,0,0,0,
+      0,0,0,0,1,1,1,0,1,1,1,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static chickenLeg() {
+    const p = ['#0000', '#3a2010', '#6b3a18', '#a05828', '#d08040', '#f0a858', '#f5deb3', '#fff'];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,1,2,3,4,4,3,2,1,0,0,0,0,
+      0,0,0,1,2,3,4,5,5,4,3,2,1,0,0,0,
+      0,0,0,1,2,3,4,5,6,4,3,2,1,0,0,0,
+      0,0,0,0,1,2,3,4,4,3,2,1,0,0,0,0,
+      0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,7,7,7,7,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static chest(tier) {
+    const pals = {
+      common: ['#0000','#3a2a10','#8b6914','#c9a227','#e8d48b','#5a4010','#fff'],
+      rare:   ['#0000','#0a1a3a','#1a4a8a','#4a90ff','#a0c8ff','#0a2a5a','#fff'],
+      epic:   ['#0000','#2a0a3a','#6a20a0','#c040ff','#e8a0ff','#1a0530','#ffd700']
+    };
+    const p = pals[tier];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,
+      0,0,1,2,2,2,2,2,2,2,2,2,2,1,0,0,
+      0,0,1,2,3,3,3,3,3,3,3,3,2,1,0,0,
+      0,0,1,2,3,3,4,4,4,4,3,3,2,1,0,0,
+      0,0,1,2,2,2,2,4,4,2,2,2,2,1,0,0,
+      0,1,1,1,1,1,1,5,5,1,1,1,1,1,1,0,
+      0,1,2,2,2,2,2,5,5,2,2,2,2,2,1,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,3,2,1,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,3,2,1,0,
+      0,1,2,3,3,3,3,3,3,3,3,3,3,2,1,0,
+      0,1,2,2,2,2,2,2,2,2,2,2,2,2,1,0,
+      0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
+  static bullet() {
+    const p = ['#0000','#1a4a8a','#4a90ff','#a0d0ff','#fff'];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,1,2,3,4,4,3,2,1,0,0,0,0,
+      0,0,0,0,1,2,3,4,4,3,2,1,0,0,0,0,
+      0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p, 2);
+  }
+
+  static arrow() {
+    const p = ['#0000','#3a2a10','#8b6914','#c9a227','#5a4010','#aaa'];
+    const c = document.createElement('canvas');
+    c.width = 16; c.height = 8;
+    const ctx = c.getContext('2d');
+    ctx.fillStyle = p[2];
+    ctx.fillRect(2, 3, 10, 2);
+    ctx.fillStyle = p[5];
+    ctx.beginPath();
+    ctx.moveTo(12, 0); ctx.lineTo(16, 4); ctx.lineTo(12, 8);
+    ctx.fill();
+    ctx.fillStyle = p[1];
+    ctx.fillRect(0, 2, 2, 1);
+    ctx.fillRect(0, 5, 2, 1);
+    return c;
+  }
+
+  static flower(variant) {
+    const pals = [
+      ['#0000','#2a6a20','#4aaa30','#ff6688','#ffaabb','#fff'],
+      ['#0000','#2a6a20','#4aaa30','#ffaa22','#ffcc66','#fff'],
+      ['#0000','#2a6a20','#4aaa30','#6688ff','#aaccff','#fff']
+    ];
+    const p = pals[variant % 3];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,3,3,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,3,4,4,3,0,0,0,0,0,0,0,
+      0,0,0,0,3,4,5,5,4,3,0,0,0,0,0,0,
+      0,0,0,0,0,3,4,4,3,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,3,1,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,2,1,2,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p, 2);
+  }
+
+  static stone() {
+    const p = ['#0000','#3a3a3a','#6a6a6a','#9a9a9a','#2a2a2a'];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,3,2,1,0,0,0,0,0,0,
+      0,0,0,0,1,2,3,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,1,2,3,3,2,4,1,0,0,0,0,0,
+      0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p, 2);
+  }
+
+  static plant() {
+    const p = ['#0000','#1a5a10','#2a8a20','#4aba30'];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,3,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,3,2,3,0,0,0,0,0,0,0,
+      0,0,0,0,0,2,2,1,2,2,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p, 2);
+  }
+}
+
+/* ============================================================
+   OBJECT POOL
+   ============================================================ */
+class Pool {
+  constructor(factory, size = 64) {
+    this.factory = factory;
+    this.items = [];
+    for (let i = 0; i < size; i++) this.items.push(factory());
+  }
+  acquire() {
+    for (let i = 0; i < this.items.length; i++) {
+      if (!this.items[i].active) return this.items[i];
+    }
+    const extra = this.factory();
+    this.items.push(extra);
+    return extra;
+  }
+  forEachActive(fn) {
+    for (let i = 0; i < this.items.length; i++) {
+      if (this.items[i].active) fn(this.items[i], i);
+    }
+  }
+  countActive() {
+    let n = 0;
+    for (let i = 0; i < this.items.length; i++) if (this.items[i].active) n++;
+    return n;
+  }
+}
+
+/* ============================================================
+   CAMERA
+   ============================================================ */
+class Camera {
+  constructor() {
+    this.x = 0;
+    this.y = 0;
+    this.w = 800;
+    this.h = 600;
+  }
+  follow(target) {
+    this.x = target.x - this.w * 0.5;
+    this.y = target.y - this.h * 0.5;
+  }
+  resize(w, h) {
+    this.w = w;
+    this.h = h;
+  }
+  worldToScreen(wx, wy) {
+    return { x: wx - this.x, y: wy - this.y };
+  }
+}
+
+/* ============================================================
+   PARTICLE
+   ============================================================ */
+class Particle {
+  constructor() {
+    this.active = false;
+    this.x = 0; this.y = 0;
+    this.vx = 0; this.vy = 0;
+    this.life = 0; this.maxLife = 0;
+    this.color = '#fff';
+    this.size = 3;
+    this.gravity = 0;
+  }
+  spawn(x, y, vx, vy, life, color, size, gravity = 0) {
+    this.active = true;
+    this.x = x; this.y = y;
+    this.vx = vx; this.vy = vy;
+    this.life = life; this.maxLife = life;
+    this.color = color; this.size = size;
+    this.gravity = gravity;
+  }
+  update(dt) {
+    if (!this.active) return;
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+    this.vy += this.gravity * dt;
+    this.life -= dt;
+    if (this.life <= 0) this.active = false;
+  }
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const a = this.life / this.maxLife;
+    ctx.globalAlpha = a;
+    ctx.fillStyle = this.color;
+    const s = cam.worldToScreen(this.x, this.y);
+    ctx.fillRect(s.x - this.size * 0.5, s.y - this.size * 0.5, this.size, this.size);
+    ctx.globalAlpha = 1;
+  }
+}
+
+/* ============================================================
+   GOLD COIN — flies to HUD gold counter (screen space)
+   ============================================================ */
+class GoldCoin {
+  constructor() {
+    this.active = false;
+    this.x = 0; this.y = 0;
+    this.vx = 0; this.vy = 0;
+    this.phase = 'burst';
+    this.timer = 0;
+    this.targetX = 72;
+    this.targetY = 24;
+    this.size = 8;
+    this.rotation = 0;
+    this.spin = 0;
+    this.flip = 0;
+    this.flipSpeed = 10;
+  }
+
+  spawn(sx, sy, tx, ty) {
+    this.active = true;
+    this.x = sx;
+    this.y = sy;
+    this.targetX = tx;
+    this.targetY = ty;
+    const a = Math.random() * Math.PI * 2;
+    const sp = 50 + Math.random() * 90;
+    this.vx = Math.cos(a) * sp;
+    this.vy = Math.sin(a) * sp;
+    this.phase = 'burst';
+    this.timer = 0.12 + Math.random() * 0.18;
+    this.rotation = Math.random() * Math.PI * 2;
+    this.spin = (Math.random() - 0.5) * 10;
+    this.flip = Math.random() * Math.PI * 2;
+    this.flipSpeed = 9 + Math.random() * 8;
+    this.size = 7 + Math.random() * 5;
+  }
+
+  update(dt, ui) {
+    if (!this.active) return;
+    this.rotation += this.spin * dt;
+    this.flip += this.flipSpeed * dt;
+
+    if (this.phase === 'burst') {
+      this.x += this.vx * dt;
+      this.y += this.vy * dt;
+      this.vx *= Math.pow(0.9, dt * 60);
+      this.vy *= Math.pow(0.9, dt * 60);
+      this.timer -= dt;
+      if (this.timer <= 0) this.phase = 'fly';
+      return;
+    }
+
+    const dx = this.targetX - this.x;
+    const dy = this.targetY - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    if (dist < 10) {
+      this.active = false;
+      if (ui) ui.pulseGold();
+      return;
+    }
+    const accel = 320 + dist * 3;
+    this.x += (dx / dist) * accel * dt;
+    this.y += (dy / dist) * accel * dt;
+    this.flipSpeed += dt * 4;
+  }
+
+  _drawMilledRing(ctx, r, radius, lineW) {
+    const segments = 48;
+    ctx.strokeStyle = '#9a7518';
+    ctx.lineWidth = lineW;
+    for (let i = 0; i < segments; i++) {
+      if (i % 2) continue;
+      const a0 = (i / segments) * Math.PI * 2;
+      const a1 = ((i + 1) / segments) * Math.PI * 2;
+      ctx.beginPath();
+      ctx.arc(0, 0, radius, a0, a1);
+      ctx.stroke();
+    }
+  }
+
+  _drawCoinEdge(ctx, r) {
+    const w = r;
+    const h = r * 1.2;
+    const edgeGrad = ctx.createLinearGradient(0, -h, 0, h);
+    edgeGrad.addColorStop(0, '#5a4010');
+    edgeGrad.addColorStop(0.12, '#8b6914');
+    edgeGrad.addColorStop(0.35, '#ffd700');
+    edgeGrad.addColorStop(0.5, '#fff8c8');
+    edgeGrad.addColorStop(0.65, '#ffd700');
+    edgeGrad.addColorStop(0.88, '#8b6914');
+    edgeGrad.addColorStop(1, '#4a3510');
+
+    ctx.fillStyle = edgeGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, 0, w, h, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(0,0,0,0.25)';
+    ctx.lineWidth = 0.6;
+    const ridges = Math.max(6, Math.floor(h * 1.2));
+    for (let i = 0; i < ridges; i++) {
+      const y = -h + (i / ridges) * h * 2;
+      ctx.beginPath();
+      ctx.moveTo(-w * 0.92, y);
+      ctx.lineTo(w * 0.92, y);
+      ctx.stroke();
+    }
+
+    const capGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, w);
+    capGrad.addColorStop(0, '#ffe066');
+    capGrad.addColorStop(1, '#9a7518');
+    ctx.fillStyle = capGrad;
+    ctx.beginPath();
+    ctx.ellipse(0, -h * 0.98, w * 0.96, w * 0.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.beginPath();
+    ctx.ellipse(0, h * 0.98, w * 0.96, w * 0.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  _drawCoinFace(ctx, r) {
+    const faceGrad = ctx.createRadialGradient(-r * 0.38, -r * 0.42, r * 0.08, 0, 0, r);
+    faceGrad.addColorStop(0, '#fffde8');
+    faceGrad.addColorStop(0.3, '#ffe566');
+    faceGrad.addColorStop(0.62, '#daa520');
+    faceGrad.addColorStop(1, '#7a5a10');
+    ctx.beginPath();
+    ctx.arc(0, 0, r, 0, Math.PI * 2);
+    ctx.fillStyle = faceGrad;
+    ctx.fill();
+
+    this._drawMilledRing(ctx, r, r - r * 0.1, r * 0.11);
+
+    ctx.strokeStyle = '#6a5010';
+    ctx.lineWidth = r * 0.05;
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.78, 0, Math.PI * 2);
+    ctx.stroke();
+
+    const innerGrad = ctx.createRadialGradient(-r * 0.15, -r * 0.18, 0, 0, 0, r * 0.72);
+    innerGrad.addColorStop(0, '#ffee99');
+    innerGrad.addColorStop(0.55, '#e8b020');
+    innerGrad.addColorStop(1, '#a07810');
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.74, 0, Math.PI * 2);
+    ctx.fillStyle = innerGrad;
+    ctx.fill();
+
+    ctx.strokeStyle = '#8b6914';
+    ctx.lineWidth = r * 0.04;
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.74, 0, Math.PI * 2);
+    ctx.stroke();
+
+    const fontSize = Math.max(6, r * 1.05);
+    ctx.font = `bold ${fontSize}px Georgia, serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(60,40,5,0.45)';
+    ctx.fillText('G', r * 0.06, r * 0.08);
+    ctx.fillStyle = '#7a5a08';
+    ctx.fillText('G', r * 0.03, r * 0.04);
+    const textGrad = ctx.createLinearGradient(0, -fontSize * 0.5, 0, fontSize * 0.5);
+    textGrad.addColorStop(0, '#fff8d0');
+    textGrad.addColorStop(0.5, '#ffd700');
+    textGrad.addColorStop(1, '#b8860b');
+    ctx.fillStyle = textGrad;
+    ctx.fillText('G', 0, 0);
+
+    ctx.fillStyle = 'rgba(255,255,255,0.5)';
+    ctx.beginPath();
+    ctx.ellipse(-r * 0.34, -r * 0.38, r * 0.26, r * 0.14, -0.6, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.strokeStyle = 'rgba(255,255,255,0.2)';
+    ctx.lineWidth = r * 0.03;
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 0.55, -1.2, 0.2);
+    ctx.stroke();
+  }
+
+  draw(ctx) {
+    if (!this.active) return;
+    const r = this.size;
+    const squash = Math.max(0.1, Math.abs(Math.cos(this.flip)));
+    const edgeView = squash < 0.38;
+
+    ctx.save();
+    ctx.translate(this.x, this.y);
+
+    ctx.fillStyle = 'rgba(0,0,0,0.22)';
+    ctx.beginPath();
+    ctx.ellipse(2, r * 0.85, r * squash * 0.9, r * 0.2, 0, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.rotate(this.rotation);
+    ctx.scale(squash, 1);
+
+    if (edgeView) {
+      this._drawCoinEdge(ctx, r);
+    } else {
+      this._drawCoinFace(ctx, r);
+    }
+
+    ctx.restore();
+  }
+}
+
+/* ============================================================
+   PROJECTILE
+   ============================================================ */
+class Projectile {
+  constructor() {
+    this.active = false;
+    this.x = 0; this.y = 0;
+    this.vx = 0; this.vy = 0;
+    this.damage = 0;
+    this.isCrit = false;
+    this.radius = 6;
+    this.life = 0;
+    this.fromPlayer = true;
+    this.sprite = null;
+    this.angle = 0;
+    this.piercing = false;
+  }
+  spawn(x, y, vx, vy, damage, isCrit, fromPlayer, sprite, life = 2) {
+    this.active = true;
+    this.x = x; this.y = y;
+    this.vx = vx; this.vy = vy;
+    this.damage = damage;
+    this.isCrit = isCrit;
+    this.fromPlayer = fromPlayer;
+    this.sprite = sprite;
+    this.life = life;
+    this.angle = Math.atan2(vy, vx);
+    this.radius = fromPlayer ? 6 : 5;
+  }
+  update(dt) {
+    if (!this.active) return;
+    this.x += this.vx * dt;
+    this.y += this.vy * dt;
+    this.life -= dt;
+    if (this.life <= 0) this.active = false;
+  }
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const s = cam.worldToScreen(this.x, this.y);
+    if (this.sprite) {
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.rotate(this.angle);
+      const sw = this.sprite.width;
+      const sh = this.sprite.height;
+      ctx.drawImage(this.sprite, -sw * 0.5, -sh * 0.5);
+      ctx.restore();
+      if (this.isCrit) {
+        ctx.fillStyle = 'rgba(255,200,50,0.4)';
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, 10, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    } else {
+      ctx.fillStyle = this.fromPlayer ? '#4af' : '#f44';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+    }
+  }
+}
+
+/* ============================================================
+   AOE WARNING / DAMAGE ZONE (Mage)
+   ============================================================ */
+class AoEZone {
+  constructor() {
+    this.active = false;
+    this.x = 0; this.y = 0;
+    this.radius = 60;
+    this.timer = 0;
+    this.warnTime = 1.2;
+    this.damageTime = 0.4;
+    this.damage = 15;
+    this.phase = 'warn'; // warn | damage
+    this.damaged = false;
+  }
+  spawn(x, y, radius, damage, warnTime) {
+    this.active = true;
+    this.x = x; this.y = y;
+    this.radius = radius;
+    this.damage = damage;
+    this.warnTime = warnTime;
+    this.timer = 0;
+    this.phase = 'warn';
+    this.damaged = false;
+    this.damageTime = 0.35;
+  }
+  update(dt, player) {
+    if (!this.active) return;
+    this.timer += dt;
+    if (this.phase === 'warn') {
+      if (this.timer >= this.warnTime) {
+        this.phase = 'damage';
+        this.timer = 0;
+        this.damaged = false;
+      }
+    } else {
+      if (!this.damaged) {
+        const dx = player.x - this.x;
+        const dy = player.y - this.y;
+        if (dx * dx + dy * dy < this.radius * this.radius) {
+          player.takeDamage(this.damage);
+        }
+        this.damaged = true;
+      }
+      if (this.timer >= this.damageTime) this.active = false;
+    }
+  }
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const s = cam.worldToScreen(this.x, this.y);
+    if (this.phase === 'warn') {
+      const t = this.timer / this.warnTime;
+      ctx.strokeStyle = `rgba(180,60,255,${0.3 + t * 0.5})`;
+      ctx.lineWidth = 2;
+      ctx.setLineDash([6, 4]);
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.fillStyle = `rgba(180,60,255,${0.08 + t * 0.12})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.radius * t, 0, Math.PI * 2);
+      ctx.fill();
+    } else {
+      ctx.fillStyle = 'rgba(200,40,255,0.45)';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.strokeStyle = '#e0a0ff';
+      ctx.lineWidth = 3;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+  }
+}
+
+/* ============================================================
+   ENEMY
+   ============================================================ */
+class Enemy {
+  static goldDrops = {
+    slime: 1,
+    skeleton: 3,
+    archer: 4,
+    bomber: 8,
+    mage: 6
+  };
+
+  static _getLevelMult(level) {
+    if (level < 50) {
+      if (level < 30) return 1;
+      return 1 + (level - 29) * 0.02; // lv30→1.02 … lv49→1.4
+    }
+    if (level < 70) return 2;
+    // 70+: +1× every 10 levels (lv70→3×, lv80→4×, lv90→5× …)
+    return 2 + Math.ceil((level - 69) / 10);
+  }
+
+  constructor() {
+    this.active = false;
+    this.type = 'slime';
+    this.x = 0; this.y = 0;
+    this.vx = 0; this.vy = 0;
+    this.hp = 1; this.maxHp = 1;
+    this.speed = 40;
+    this.radius = 14;
+    this.damage = 10;
+    this.sprite = null;
+    this.flash = 0;
+    this.timer = 0;
+    this.state = 0;
+    this.wanderAngle = 0;
+    this.shootCD = 0;
+    this.aoeCD = 0;
+    this.jumping = false;
+    this.jumpVy = 0;
+    this.groundY = 0;
+    this.contactCD = 0;
+    this.goldDrop = 1;
+    this.levelMult = 1;
+  }
+
+  spawn(type, x, y, sprites, difficulty, level = 1) {
+    this.active = true;
+    this.type = type;
+    this.goldDrop = Enemy.goldDrops[type] || 1;
+    this.x = x; this.y = y;
+    this.vx = 0; this.vy = 0;
+    this.flash = 0;
+    this.timer = 0;
+    this.state = 0;
+    this.wanderAngle = Math.random() * Math.PI * 2;
+    this.shootCD = 1 + Math.random();
+    this.aoeCD = 2 + Math.random() * 2;
+    this.jumping = false;
+    this.contactCD = 0;
+    const d = 1 + difficulty * 0.08;
+    const lvMult = Enemy._getLevelMult(level);
+    const speedMult = 1 + (lvMult - 1) * 0.45;
+    this.levelMult = lvMult;
+
+    switch (type) {
+      case 'slime':
+        this.hp = this.maxHp = Math.floor(20 * d * lvMult);
+        this.speed = (35 + difficulty * 0.5) * speedMult;
+        this.damage = (8 + difficulty * 0.3) * lvMult;
+        this.radius = 16;
+        this.sprite = sprites.slime;
+        break;
+      case 'skeleton':
+        this.hp = this.maxHp = Math.floor(35 * d * lvMult);
+        this.speed = (70 + difficulty * 0.8) * speedMult;
+        this.damage = (12 + difficulty * 0.4) * lvMult;
+        this.radius = 14;
+        this.sprite = sprites.skeleton;
+        break;
+      case 'archer':
+        this.hp = this.maxHp = Math.floor(25 * d * lvMult);
+        this.speed = (50 + difficulty * 0.5) * speedMult;
+        this.damage = (10 + difficulty * 0.3) * lvMult;
+        this.radius = 14;
+        this.sprite = sprites.archer;
+        break;
+      case 'bomber':
+        this.hp = this.maxHp = 1;
+        this.speed = (140 + difficulty * 1.5) * speedMult;
+        this.damage = 9999;
+        this.radius = 12;
+        this.sprite = sprites.bomber;
+        break;
+      case 'mage':
+        this.hp = this.maxHp = Math.floor(40 * d * lvMult);
+        this.speed = (45 + difficulty * 0.4) * speedMult;
+        this.damage = (18 + difficulty * 0.5) * lvMult;
+        this.radius = 14;
+        this.sprite = sprites.mage;
+        break;
+    }
+  }
+
+  takeDamage(amount) {
+    this.hp -= amount;
+    this.flash = 0.12;
+    if (this.hp <= 0) {
+      this.active = false;
+      return true;
+    }
+    return false;
+  }
+
+  update(dt, player, game) {
+    if (!this.active) return;
+    this.timer += dt;
+    if (this.flash > 0) this.flash -= dt;
+    if (this.contactCD > 0) this.contactCD -= dt;
+
+    const dx = player.x - this.x;
+    const dy = player.y - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const nx = dx / dist;
+    const ny = dy / dist;
+
+    switch (this.type) {
+      case 'slime':
+        this._updateSlime(dt, nx, ny, dist);
+        break;
+      case 'skeleton':
+        this._updateSkeleton(dt, nx, ny);
+        break;
+      case 'archer':
+        this._updateArcher(dt, nx, ny, dist, player, game);
+        break;
+      case 'bomber':
+        this.x += nx * this.speed * dt;
+        this.y += ny * this.speed * dt;
+        break;
+      case 'mage':
+        this._updateMage(dt, nx, ny, dist, player, game);
+        break;
+    }
+
+    // Contact damage
+    if (dist < this.radius + player.radius && this.contactCD <= 0) {
+      if (this.type === 'bomber') {
+        this.active = false;
+        player.bomberHit();
+        game.spawnExplosion(this.x, this.y);
+        return;
+      }
+      player.takeDamage(this.damage);
+      this.contactCD = 0.6;
+    }
+  }
+
+  _updateSlime(dt, nx, ny, dist) {
+    if (!this.jumping) {
+      this.state += dt;
+      if (this.state > 0.9) {
+        this.jumping = true;
+        this.state = 0;
+        this.vx = nx * this.speed * 2.2;
+        this.vy = ny * this.speed * 2.2;
+        this.jumpVy = -120;
+      }
+    } else {
+      this.x += this.vx * dt;
+      this.y += this.vy * dt;
+      this.jumpVy += 400 * dt;
+      this.state += dt;
+      if (this.state > 0.45) {
+        this.jumping = false;
+        this.vx = 0; this.vy = 0;
+        this.state = 0;
+      }
+    }
+  }
+
+  _updateSkeleton(dt, nx, ny) {
+    this.state += dt;
+    if (this.state > 0.4) {
+      this.state = 0;
+      this.wanderAngle = Math.atan2(ny, nx) + (Math.random() - 0.5) * 1.8;
+    }
+    this.x += Math.cos(this.wanderAngle) * this.speed * dt;
+    this.y += Math.sin(this.wanderAngle) * this.speed * dt;
+  }
+
+  _updateArcher(dt, nx, ny, dist, player, game) {
+    const preferred = 220;
+    if (dist < preferred - 30) {
+      this.x -= nx * this.speed * dt;
+      this.y -= ny * this.speed * dt;
+    } else if (dist > preferred + 40) {
+      this.x += nx * this.speed * 0.7 * dt;
+      this.y += ny * this.speed * 0.7 * dt;
+    } else {
+      // strafe
+      this.x += -ny * this.speed * 0.5 * dt;
+      this.y += nx * this.speed * 0.5 * dt;
+    }
+    this.shootCD -= dt;
+    if (this.shootCD <= 0 && dist < 400) {
+      this.shootCD = 1.8 / Math.sqrt(this.levelMult || 1);
+      const spd = 120 * (1 + ((this.levelMult || 1) - 1) * 0.25);
+      game.spawnEnemyProjectile(this.x, this.y, nx * spd, ny * spd, this.damage * 0.7);
+    }
+  }
+
+  _updateMage(dt, nx, ny, dist, player, game) {
+    const preferred = 280;
+    if (dist < preferred - 40) {
+      this.x -= nx * this.speed * dt;
+      this.y -= ny * this.speed * dt;
+    } else if (dist > preferred + 50) {
+      this.x += nx * this.speed * 0.6 * dt;
+      this.y += ny * this.speed * 0.6 * dt;
+    }
+    this.aoeCD -= dt;
+    if (this.aoeCD <= 0) {
+      this.aoeCD = (2.5 + Math.random()) / Math.sqrt(this.levelMult || 1);
+      const ox = player.x + (Math.random() - 0.5) * 80;
+      const oy = player.y + (Math.random() - 0.5) * 80;
+      game.spawnAoE(ox, oy, 55 + Math.random() * 25, this.damage, 1.0 + Math.random() * 0.4);
+    }
+  }
+
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const s = cam.worldToScreen(this.x, this.y);
+    if (this.sprite) {
+      const bob = this.type === 'slime' && this.jumping ? -8 : (Math.sin(this.timer * 6) * 1.5);
+      if (this.flash > 0) ctx.globalAlpha = 0.5;
+      ctx.drawImage(this.sprite, s.x - this.sprite.width * 0.5, s.y - this.sprite.height * 0.5 + bob);
+      ctx.globalAlpha = 1;
+    }
+    // HP bar for non-bombers
+    if (this.type !== 'bomber' && this.hp < this.maxHp) {
+      const bw = 28, bh = 3;
+      ctx.fillStyle = '#222';
+      ctx.fillRect(s.x - bw * 0.5, s.y - 28, bw, bh);
+      ctx.fillStyle = '#e74c3c';
+      ctx.fillRect(s.x - bw * 0.5, s.y - 28, bw * (this.hp / this.maxHp), bh);
+    }
+  }
+}
+
+/* ============================================================
+   CHICKEN LEG — rare field heal pickup (epic chest rarity)
+   ============================================================ */
+class ChickenLeg {
+  constructor() {
+    this.active = false;
+    this.x = 0;
+    this.y = 0;
+    this.sprite = null;
+    this.radius = 28;
+    this.bob = 0;
+    this.collected = false;
+  }
+
+  spawn(x, y, sprite) {
+    this.active = true;
+    this.x = x;
+    this.y = y;
+    this.sprite = sprite;
+    this.collected = false;
+    this.bob = Math.random() * Math.PI * 2;
+  }
+
+  update(dt, player, game) {
+    if (!this.active || this.collected) return;
+    this.bob += dt * 3;
+    const dx = player.x - this.x;
+    const dy = player.y - this.y;
+    if (dx * dx + dy * dy < this.radius * this.radius) {
+      this.collected = true;
+      this.active = false;
+      const healed = player.healPercent(0.05);
+      game.spawnHealParticles(this.x, this.y);
+      if (healed > 0) {
+        game.ui.toast(I18n.t('chickenLegHeal', Math.ceil(healed)), 'epic');
+      }
+    }
+  }
+
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const s = cam.worldToScreen(this.x, this.y);
+    const by = Math.sin(this.bob) * 3;
+    ctx.fillStyle = 'rgba(255,160,60,0.3)';
+    ctx.beginPath();
+    ctx.arc(s.x, s.y + by, 22, 0, Math.PI * 2);
+    ctx.fill();
+    if (this.sprite) {
+      ctx.drawImage(this.sprite, s.x - this.sprite.width * 0.5, s.y - this.sprite.height * 0.5 + by);
+    }
+  }
+}
+
+/* ============================================================
+   CHEST
+   ============================================================ */
+class Chest {
+  constructor() {
+    this.active = false;
+    this.x = 0; this.y = 0;
+    this.tier = 'common';
+    this.sprite = null;
+    this.radius = 28;
+    this.bob = 0;
+    this.opened = false;
+  }
+  spawn(x, y, tier, sprites) {
+    this.active = true;
+    this.x = x; this.y = y;
+    this.tier = tier;
+    this.sprite = sprites[tier];
+    this.opened = false;
+    this.bob = Math.random() * Math.PI * 2;
+  }
+  update(dt, player, game) {
+    if (!this.active || this.opened) return;
+    this.bob += dt * 3;
+    const dx = player.x - this.x;
+    const dy = player.y - this.y;
+    if (dx * dx + dy * dy < this.radius * this.radius) {
+      this.opened = true;
+      this.active = false;
+      const rewards = { common: 5, rare: 15, epic: 50 };
+      const amount = rewards[this.tier];
+      game.addCurrency(amount);
+      game.spawnGoldCoins(this.x, this.y, amount);
+      game.spawnChestParticles(this.x, this.y, this.tier);
+      game.ui.toast(I18n.t('chestGold', amount, I18n.chestTierLabel(this.tier)), this.tier === 'epic' ? 'epic' : this.tier === 'rare' ? 'rare' : '');
+    }
+  }
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const s = cam.worldToScreen(this.x, this.y);
+    const by = Math.sin(this.bob) * 3;
+    if (this.sprite) {
+      ctx.drawImage(this.sprite, s.x - this.sprite.width * 0.5, s.y - this.sprite.height * 0.5 + by);
+    }
+    // glow
+    const colors = { common: 'rgba(200,180,50,0.25)', rare: 'rgba(70,140,255,0.3)', epic: 'rgba(180,60,255,0.35)' };
+    ctx.fillStyle = colors[this.tier];
+    ctx.beginPath();
+    ctx.arc(s.x, s.y + by, 22, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+/* ============================================================
+   PLAYER
+   ============================================================ */
+class Player {
+  constructor(sprites) {
+    this.sprite = sprites.player;
+    this.x = 0; this.y = 0;
+    this.radius = 14;
+    this.reset();
+  }
+
+  reset() {
+    this.x = 0; this.y = 0;
+    this.alive = true;
+    this.currency = 8000;
+    this.experience = 0;
+    this.level = 1;
+    this.xpToNext = 20;
+
+    this.stats = {
+      moveSpeed: 140,
+      maxHealth: 100,
+      maxShield: 30,
+      attack: 8,
+      attackSpeed: 1.0,
+      bulletCount: 1,
+      bulletSpeed: 280,
+      critChance: 0.05,
+      critDamage: 1.5,
+      energyRegen: 10,
+      shieldRegen: 2,
+      expMultiplier: 1,
+      luck: 0
+    };
+
+    this.health = this.stats.maxHealth;
+    this.shield = this.stats.maxShield;
+    this.energy = 1000;
+    this.maxEnergy = 1000;
+    this.fireCD = 0;
+    this.shieldRegenDelay = 0;
+    this.ultCD = 0;
+    this.hurtFlash = 0;
+    this.facing = 1;
+    this.anim = 0;
+  }
+
+  toSaveData() {
+    return {
+      x: this.x,
+      y: this.y,
+      alive: this.alive,
+      currency: this.currency,
+      experience: this.experience,
+      level: this.level,
+      xpToNext: this.xpToNext,
+      stats: { ...this.stats },
+      health: this.health,
+      shield: this.shield,
+      energy: this.energy,
+      maxEnergy: this.maxEnergy,
+      facing: this.facing
+    };
+  }
+
+  loadSaveData(data) {
+    this.x = data.x ?? 0;
+    this.y = data.y ?? 0;
+    this.alive = data.alive ?? true;
+    this.currency = data.currency ?? 16000;
+    this.experience = data.experience ?? 0;
+    this.level = data.level ?? 1;
+    this.xpToNext = data.xpToNext ?? 20;
+    this.stats = { ...this.stats, ...data.stats };
+    this.maxEnergy = data.maxEnergy ?? 1000;
+    this.health = data.health ?? this.stats.maxHealth;
+    this.shield = data.shield ?? this.stats.maxShield;
+    this.energy = data.energy ?? this.maxEnergy;
+    this.facing = data.facing ?? 1;
+    this.fireCD = 0;
+    this.shieldRegenDelay = 0;
+    this.ultCD = 0;
+    this.hurtFlash = 0;
+    this.anim = 0;
+  }
+
+  reviveRun() {
+    this.alive = true;
+    this.x = 0;
+    this.y = 0;
+    this.health = this.stats.maxHealth;
+    this.shield = this.stats.maxShield;
+    this.fireCD = 0;
+    this.shieldRegenDelay = 0;
+    this.ultCD = 0;
+    this.hurtFlash = 0;
+  }
+
+  getDifficulty() {
+    return Math.sqrt(this.experience) * 0.4 + this.level * 0.3;
+  }
+
+  addCurrency(amount) {
+    this.currency += amount;
+    const xpGain = amount * this.stats.expMultiplier;
+    this.experience += xpGain;
+    while (this.experience >= this.xpToNext) {
+      this.experience -= this.xpToNext;
+      this.level++;
+      this.xpToNext = Math.floor(20 + this.level * 15 + this.level * this.level * 0.5);
+    }
+  }
+
+  takeDamage(amount) {
+    if (!this.alive) return;
+    this.hurtFlash = 0.15;
+    this.shieldRegenDelay = 0;
+    if (this.shield > 0) {
+      const absorbed = Math.min(this.shield, amount);
+      this.shield -= absorbed;
+      amount -= absorbed;
+    }
+    if (amount > 0) {
+      this.health -= amount;
+      if (this.health <= 0) {
+        this.health = 0;
+        this.alive = false;
+      }
+    }
+  }
+
+  healPercent(pct) {
+    if (!this.alive || pct <= 0) return 0;
+    const before = this.health;
+    this.health = Math.min(this.stats.maxHealth, this.health + this.stats.maxHealth * pct);
+    return this.health - before;
+  }
+
+  bomberHit() {
+    if (!this.alive) return;
+    this.hurtFlash = 0.2;
+    this.shieldRegenDelay = 0;
+    if (this.shield > 0) {
+      this.shield = 0;
+    } else {
+      this.health = 0;
+      this.alive = false;
+    }
+  }
+
+  update(dt, input, game) {
+    if (!this.alive) return;
+    this.anim += dt;
+
+    let mx = 0, my = 0;
+    if (input.up) my -= 1;
+    if (input.down) my += 1;
+    if (input.left) mx -= 1;
+    if (input.right) mx += 1;
+    if (mx || my) {
+      const len = Math.sqrt(mx * mx + my * my);
+      mx /= len; my /= len;
+      this.x += mx * this.stats.moveSpeed * dt;
+      this.y += my * this.stats.moveSpeed * dt;
+      if (mx !== 0) this.facing = mx > 0 ? 1 : -1;
+    }
+
+    // Shield regen
+    if (this.shieldRegenDelay > 0) {
+      this.shieldRegenDelay -= dt;
+    } else if (this.shield < this.stats.maxShield) {
+      this.shield = Math.min(this.stats.maxShield, this.shield + this.stats.shieldRegen * dt);
+    }
+
+    // Energy regen
+    if (this.stats.energyRegen > 0 && this.energy < this.maxEnergy) {
+      this.energy = Math.min(this.maxEnergy, this.energy + this.stats.energyRegen * dt);
+    }
+
+    if (this.ultCD > 0) this.ultCD -= dt;
+    if (this.hurtFlash > 0) this.hurtFlash -= dt;
+    if (this.fireCD > 0) this.fireCD -= dt;
+
+    // Auto shoot
+    if (this.fireCD <= 0) {
+      const target = game.findNearestEnemy(this.x, this.y, 500);
+      if (target) {
+        this.fireCD = 1 / this.stats.attackSpeed;
+        this._shoot(target, game);
+      }
+    }
+
+    // Ultimate
+    if (input.ult && this.energy >= this.maxEnergy && this.ultCD <= 0) {
+      input.ult = false;
+      this.energy = 0;
+      this.ultCD = 3;
+      game.activateUltimate();
+    }
+  }
+
+  _shoot(target, game) {
+    const dx = target.x - this.x;
+    const dy = target.y - this.y;
+    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+    const baseAngle = Math.atan2(dy, dx);
+    const count = Math.floor(this.stats.bulletCount);
+    const spread = count > 1 ? 0.15 * (count - 1) : 0;
+
+    for (let i = 0; i < count; i++) {
+      const angle = baseAngle - spread * 0.5 + (count > 1 ? (spread / (count - 1)) * i : 0);
+      const spd = 140 + this.stats.bulletSpeed * 0.5;
+      const isCrit = Math.random() < this.stats.critChance;
+      const dmg = this.stats.attack * (isCrit ? this.stats.critDamage : 1);
+      game.spawnPlayerProjectile(
+        this.x, this.y,
+        Math.cos(angle) * spd, Math.sin(angle) * spd,
+        dmg, isCrit
+      );
+    }
+  }
+
+  draw(ctx, cam) {
+    const s = cam.worldToScreen(this.x, this.y);
+    const bob = Math.sin(this.anim * 8) * 2;
+    ctx.save();
+    ctx.translate(s.x, s.y + bob);
+    ctx.scale(this.facing, 1);
+    if (this.hurtFlash > 0) ctx.globalAlpha = 0.5;
+    ctx.drawImage(this.sprite, -this.sprite.width * 0.5, -this.sprite.height * 0.5);
+    ctx.restore();
+
+    // Soft shadow
+    ctx.fillStyle = 'rgba(0,0,0,0.25)';
+    ctx.beginPath();
+    ctx.ellipse(s.x, s.y + 22, 12, 4, 0, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+/* ============================================================
+   FLOATING TEXT — stat popups above player
+   ============================================================ */
+class FloatingText {
+  constructor() {
+    this.active = false;
+    this.x = 0; this.y = 0;
+    this.vy = -50;
+    this.life = 0;
+    this.maxLife = 1.4;
+    this.text = '';
+  }
+
+  spawn(wx, wy, text) {
+    this.active = true;
+    this.x = wx + (Math.random() - 0.5) * 16;
+    this.y = wy - 28;
+    this.text = text;
+    this.life = this.maxLife;
+    this.vy = -48 - Math.random() * 20;
+  }
+
+  update(dt) {
+    if (!this.active) return;
+    this.y += this.vy * dt;
+    this.vy *= Math.pow(0.98, dt * 60);
+    this.life -= dt;
+    if (this.life <= 0) this.active = false;
+  }
+
+  draw(ctx, cam) {
+    if (!this.active) return;
+    const s = cam.worldToScreen(this.x, this.y);
+    const a = Math.min(1, this.life / (this.maxLife * 0.65));
+    ctx.save();
+    ctx.globalAlpha = a;
+    ctx.font = 'bold 12px "Courier New", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.strokeStyle = 'rgba(0,0,0,0.65)';
+    ctx.lineWidth = 4;
+    ctx.lineJoin = 'round';
+    ctx.strokeText(this.text, s.x, s.y);
+    ctx.fillStyle = '#ffffff';
+    ctx.fillText(this.text, s.x, s.y);
+    ctx.restore();
+  }
+}
+
+/* ============================================================
+   GACHA SYSTEM
+   ============================================================ */
+class GachaSystem {
+  constructor() {
+    this.cost = 160;
+    this.pool = [
+      { key: 'moveSpeed',     short: 'SPD', weight: 18, amount: 8,    rarity: 'common' },
+      { key: 'maxHealth',     short: 'HP',  weight: 16, amount: 15,   rarity: 'common' },
+      { key: 'maxShield',     short: 'SHD', weight: 14, amount: 10,   rarity: 'common' },
+      { key: 'attack',        short: 'ATK', weight: 16, amount: 2,    rarity: 'common' },
+      { key: 'attackSpeed',   short: 'ASP', weight: 12, amount: 0.08, rarity: 'common' },
+      { key: 'bulletSpeed',   short: 'BSP', weight: 12, amount: 10,   rarity: 'common' },
+      { key: 'shieldRegen',   short: 'SRG', weight: 10, amount: 0.5,  rarity: 'rare' },
+      { key: 'critChance',    short: 'CRT', weight: 8,  amount: 0.03, rarity: 'rare' },
+      { key: 'critDamage',    short: 'CDM', weight: 7,  amount: 0.15, rarity: 'rare' },
+      { key: 'bulletCount',   short: 'BLT', weight: 5,  amount: 1,    rarity: 'epic' },
+      { key: 'expMultiplier', short: 'EXP', weight: 6,  amount: 0.1,  rarity: 'rare' },
+      { key: 'luck',          short: 'LCK', weight: 8,  amount: 1,    rarity: 'rare' },
+      { key: 'energyRegen',   short: 'ERG', weight: 2,  amount: 8,    rarity: 'legendary' }
+    ];
+
+    this.rarityColors = {
+      common:    { fill: '#2a6a3a', stroke: '#7dff9a', text: '#e8ffe8' },
+      rare:      { fill: '#1a4a7a', stroke: '#66aaff', text: '#d0e8ff' },
+      epic:      { fill: '#4a1a7a', stroke: '#cc66ff', text: '#f0d0ff' },
+      legendary: { fill: '#5a4a0a', stroke: '#ffd700', text: '#fff8c0' }
+    };
+
+    this.active = false;
+    this.phase = 'closed'; // closed | ready | spinning | result
+    this.rotation = 0;
+    this.spinStart = 0;
+    this.spinTarget = 0;
+    this.spinTime = 0;
+    this.spinDuration = 5;
+    this.result = null;
+    this.resultIndex = 0;
+    this.pendingPlayer = null;
+    this.autoGacha = false;
+    this.autoCooldown = 0;
+    this.autoInterval = 0.12;
+
+    this.overlay = document.getElementById('gachaOverlay');
+    this.wheelCanvas = document.getElementById('gachaWheel');
+    this.wheelCtx = this.wheelCanvas.getContext('2d');
+    this.statusEl = document.getElementById('gachaStatus');
+    this.goldEl = document.getElementById('gachaGold');
+    this.resultEl = document.getElementById('gachaResult');
+    this.resultRarityEl = document.getElementById('gachaResultRarity');
+    this.resultNameEl = document.getElementById('gachaResultName');
+    this.resultBonusEl = document.getElementById('gachaResultBonus');
+    this.hintsEl = document.getElementById('gachaHints');
+    this.spinBtn = document.getElementById('gachaSpinBtn');
+    this.confirmBtn = document.getElementById('gachaConfirmBtn');
+    this.spinAgainBtn = document.getElementById('gachaSpinAgainBtn');
+    this.exitBtn = document.getElementById('gachaExitBtn');
+    this.autoGachaToggle = document.getElementById('autoGachaToggle');
+    this.autoGachaLabel = document.getElementById('autoGachaLabel');
+
+    this.spinBtn.onclick = () => this.spinAgain(this._game);
+    this.confirmBtn.onclick = () => this.confirm(this._game);
+    this.spinAgainBtn.onclick = () => this.spinAgain(this._game);
+    this.exitBtn.onclick = () => this.exit(this._game);
+    this.autoGachaToggle.onchange = () => this.setAutoGacha(this.autoGachaToggle.checked);
+
+    this._drawWheel();
+  }
+
+  setAutoGacha(enabled) {
+    this.autoGacha = enabled;
+    this.autoGachaToggle.checked = enabled;
+    this.autoGachaLabel.classList.toggle('active', enabled);
+    if (enabled) this.autoCooldown = 0;
+  }
+
+  _syncAutoToggle() {
+    this.autoGachaToggle.checked = this.autoGacha;
+    this.autoGachaLabel.classList.toggle('active', this.autoGacha);
+  }
+
+  bindGame(game) {
+    this._game = game;
+  }
+
+  isOpen() {
+    return this.active;
+  }
+
+  tryOpen(game) {
+    if (this.active) return;
+    this.active = true;
+    this.phase = 'ready';
+    game.ui.setControlsVisible(false);
+    this.overlay.classList.remove('hidden');
+    this.resultEl.classList.add('hidden');
+    this.confirmBtn.classList.add('hidden');
+    this.spinAgainBtn.classList.add('hidden');
+    this.exitBtn.classList.remove('hidden');
+    this._syncAutoToggle();
+    this._updateGold(game.player);
+    this._drawWheel();
+
+    if (game.player.currency >= this.cost) {
+      this.startSpin(game);
+    } else {
+      this._setStatus(I18n.t('needGoldSpin', this.cost, Math.floor(game.player.currency)));
+      this.spinBtn.classList.add('hidden');
+      this.hintsEl.innerHTML = I18n.hintHtml('hintDefeatGold');
+    }
+  }
+
+  handleSpace(game) {
+    if (!this.active) return;
+    if (this.phase === 'spinning') {
+      this.completeSpin(game);
+    } else if (this.phase === 'result') {
+      this.spinAgain(game);
+    } else if (this.phase === 'ready') {
+      if (game.player.currency >= this.cost) this.startSpin(game);
+    }
+  }
+
+  startSpin(game) {
+    if (game.player.currency < this.cost) {
+      this.phase = 'ready';
+      this._updateGold(game.player);
+      this._setStatus(I18n.t('needGoldSpin', this.cost, Math.floor(game.player.currency)));
+      this.spinBtn.classList.add('hidden');
+      return;
+    }
+
+    game.player.currency -= this.cost;
+    this.pendingPlayer = game.player;
+    this.result = this._pickReward();
+    this.resultIndex = this.pool.indexOf(this.result);
+    this.phase = 'spinning';
+    this.spinTime = 0;
+    this.spinStart = this.rotation;
+    this.spinTarget = this._rotationForIndex(this.resultIndex, this.rotation);
+
+    this.resultEl.classList.add('hidden');
+    this.confirmBtn.classList.add('hidden');
+    this.spinBtn.classList.add('hidden');
+    this.spinAgainBtn.classList.add('hidden');
+    this.exitBtn.classList.remove('hidden');
+    this._setStatus(I18n.t('spinning'));
+    this.hintsEl.innerHTML = I18n.hintHtml('hintSkipSpin');
+    this._updateGold(game.player);
+    this._drawWheel();
+  }
+
+  spinAgain(game) {
+    if (this.phase === 'spinning') return;
+    if (game.player.currency < this.cost) {
+      this._setStatus(I18n.t('needGoldMore', this.cost - Math.floor(game.player.currency)));
+      return;
+    }
+    this.startSpin(game);
+  }
+
+  completeSpin(game) {
+    if (this.phase !== 'spinning') return;
+    this.rotation = this.spinTarget;
+    this.spinTime = this.spinDuration;
+    this._finishSpin(game);
+  }
+
+  confirm(game) {
+    if (this.phase !== 'result') return;
+    this.close(game);
+  }
+
+  exit(game) {
+    if (this.phase === 'spinning') {
+      this.completeSpin(game);
+      return;
+    }
+    this.close(game);
+  }
+
+  close(game) {
+    this.active = false;
+    this.phase = 'closed';
+    this.result = null;
+    this.pendingPlayer = null;
+    this.overlay.classList.add('hidden');
+    this.resultEl.classList.add('hidden');
+    this.confirmBtn.classList.add('hidden');
+    this.spinBtn.classList.add('hidden');
+    this.spinAgainBtn.classList.add('hidden');
+    this.exitBtn.classList.add('hidden');
+    if (game && game.state === 'playing') game.ui.setControlsVisible(true);
+    if (this.autoGacha) this.autoCooldown = 0;
+  }
+
+  update(dt, game) {
+    this._updateAuto(dt, game);
+    if (!this.active || this.phase !== 'spinning') return;
+
+    this.spinTime += dt;
+    const t = Math.min(1, this.spinTime / this.spinDuration);
+    const ease = 1 - Math.pow(1 - t, 4);
+    this.rotation = this.spinStart + (this.spinTarget - this.spinStart) * ease;
+    this._drawWheel();
+
+    if (t >= 1) this._finishSpin(game);
+  }
+
+  _finishSpin(game) {
+    if (this.phase !== 'spinning') return;
+    this.rotation = this.spinTarget;
+    this.phase = 'result';
+    this._applyResult(this.pendingPlayer);
+    this._showResult(game);
+    this._drawWheel();
+  }
+
+  _pickReward() {
+    let total = 0;
+    for (const e of this.pool) total += e.weight;
+    let r = Math.random() * total;
+    for (const e of this.pool) {
+      r -= e.weight;
+      if (r <= 0) return e;
+    }
+    return this.pool[0];
+  }
+
+  _rotationForIndex(index, fromRotation) {
+    const n = this.pool.length;
+    const seg = (Math.PI * 2) / n;
+    const desired = -index * seg - seg / 2;
+    const mod = ((fromRotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+    let delta = desired - mod;
+    const minSpins = 5 + Math.floor(Math.random() * 3);
+    while (delta < minSpins * Math.PI * 2) delta += Math.PI * 2;
+    return fromRotation + delta;
+  }
+
+  _formatAmount(entry) {
+    if (entry.key === 'critChance') return `+${(entry.amount * 100).toFixed(0)}%`;
+    if (entry.key === 'attackSpeed' || entry.key === 'expMultiplier' || entry.key === 'critDamage') {
+      return `+${entry.amount.toFixed(2)}`;
+    }
+    if (entry.key === 'shieldRegen') return `+${entry.amount.toFixed(1)}`;
+    return `+${entry.amount}`;
+  }
+
+  _applyResult(player) {
+    if (!player || !this.result) return;
+    this._applyPick(player, this.result);
+  }
+
+  _applyPick(player, pick) {
+    const s = player.stats;
+    s[pick.key] += pick.amount;
+    if (pick.key === 'maxHealth') {
+      player.health = Math.min(s.maxHealth, player.health + pick.amount);
+    }
+    if (pick.key === 'maxShield') {
+      player.shield = Math.min(s.maxShield, player.shield + pick.amount);
+    }
+  }
+
+  _formatLabel(pick) {
+    return `${this._formatAmount(pick)} ${I18n.statName(pick.key)}`;
+  }
+
+  _rollAuto(game) {
+    const player = game.player;
+    if (player.currency < this.cost) return false;
+    player.currency -= this.cost;
+    const pick = this._pickReward();
+    this._applyPick(player, pick);
+    game.spawnFloatingText(player.x, player.y, this._formatLabel(pick));
+    return true;
+  }
+
+  _updateAuto(dt, game) {
+    if (!this.autoGacha || this.active) return;
+    if (!game || game.state !== 'playing' || !game.player.alive) return;
+
+    this.autoCooldown -= dt;
+    if (this.autoCooldown > 0) return;
+    if (game.player.currency < this.cost) return;
+
+    const excess = game.player.currency / this.cost;
+    const rollsMax = Math.min(8, 1 + Math.floor(excess / 10));
+    let rolls = 0;
+    while (game.player.currency >= this.cost && rolls < rollsMax) {
+      if (!this._rollAuto(game)) break;
+      rolls++;
+    }
+
+    const speedMult = Math.min(6, Math.sqrt(excess));
+    this.autoCooldown = Math.max(0.05, this.autoInterval / speedMult);
+  }
+
+  _showResult(game) {
+    const pick = this.result;
+    const display = this._formatAmount(pick);
+    const rarityLabel = I18n.rarityLabel(pick.rarity);
+
+    this.resultEl.className = 'gacha-result rarity-' + pick.rarity;
+    this.resultRarityEl.className = 'gacha-result-rarity ' + pick.rarity;
+    this.resultRarityEl.textContent = rarityLabel;
+    this.resultNameEl.textContent = I18n.statName(pick.key);
+    this.resultBonusEl.textContent = display;
+    this.resultEl.classList.remove('hidden');
+
+    this.confirmBtn.classList.remove('hidden');
+    this.exitBtn.classList.remove('hidden');
+    this.spinBtn.classList.add('hidden');
+    if (game.player.currency >= this.cost) {
+      this.spinAgainBtn.classList.remove('hidden');
+      this.spinAgainBtn.textContent = I18n.t('spinAgain');
+      this._setStatus(I18n.t('bonusSpinAgain'));
+      this.hintsEl.innerHTML = I18n.hintHtml('hintSpinAgain');
+    } else {
+      this.spinAgainBtn.classList.add('hidden');
+      this._setStatus(I18n.t('bonusConfirm'));
+      this.hintsEl.innerHTML = I18n.hintHtml('hintConfirmExit');
+    }
+    this._updateGold(game.player);
+  }
+
+  _updateGold(player) {
+    this.goldEl.textContent = I18n.t('gold', Math.floor(player.currency));
+  }
+
+  refreshLocale() {
+    if (!this._game) return;
+    I18n.applyDom();
+    if (this.active && this._game.player) {
+      this._updateGold(this._game.player);
+      if (this.phase === 'ready') {
+        this._setStatus(I18n.t('needGoldSpin', this.cost, Math.floor(this._game.player.currency)));
+        this.hintsEl.innerHTML = I18n.hintHtml('hintDefeatGold');
+      } else if (this.phase === 'spinning') {
+        this._setStatus(I18n.t('spinning'));
+        this.hintsEl.innerHTML = I18n.hintHtml('hintSkipSpin');
+      } else if (this.phase === 'result' && this.result) {
+        this._showResult(this._game);
+      }
+    }
+    this._drawWheel();
+  }
+
+  _setStatus(text) {
+    this.statusEl.textContent = text;
+  }
+
+  _drawWheel() {
+    const ctx = this.wheelCtx;
+    const size = this.wheelCanvas.width;
+    const cx = size / 2;
+    const cy = size / 2;
+    const radius = size / 2 - 8;
+    const n = this.pool.length;
+    const seg = (Math.PI * 2) / n;
+
+    ctx.clearRect(0, 0, size, size);
+
+    // Background disc
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
+    ctx.fillStyle = '#0d2014';
+    ctx.fill();
+
+    // Outer ring glow while spinning
+    if (this.phase === 'spinning') {
+      ctx.save();
+      ctx.beginPath();
+      ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255,215,0,${0.3 + Math.sin(this.spinTime * 12) * 0.15})`;
+      ctx.lineWidth = 4;
+      ctx.stroke();
+      ctx.restore();
+    }
+
+    ctx.save();
+    ctx.translate(cx, cy);
+    ctx.rotate(this.rotation);
+
+    for (let i = 0; i < n; i++) {
+      const start = i * seg - Math.PI / 2;
+      const end = start + seg;
+      const item = this.pool[i];
+      const colors = this.rarityColors[item.rarity];
+
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, radius, start, end);
+      ctx.closePath();
+      ctx.fillStyle = colors.fill;
+      ctx.fill();
+      ctx.strokeStyle = colors.stroke;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.save();
+      ctx.rotate(start + seg / 2);
+      ctx.textAlign = 'right';
+      ctx.fillStyle = colors.text;
+      ctx.font = 'bold 13px "Courier New", monospace';
+      ctx.fillText(item.short, radius - 14, 5);
+      ctx.font = '9px "Courier New", monospace';
+      ctx.fillStyle = 'rgba(255,255,255,0.65)';
+      ctx.fillText(this._formatAmount(item), radius - 14, 18);
+      ctx.restore();
+    }
+
+    // Center hub
+    const hubGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 36);
+    hubGrad.addColorStop(0, '#ffd700');
+    hubGrad.addColorStop(1, '#8b6914');
+    ctx.beginPath();
+    ctx.arc(0, 0, 36, 0, Math.PI * 2);
+    ctx.fillStyle = hubGrad;
+    ctx.fill();
+    ctx.strokeStyle = '#fff';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.fillStyle = '#1a2a1a';
+    ctx.font = 'bold 11px "Courier New", monospace';
+    ctx.textAlign = 'center';
+    ctx.fillText(I18n.t('gachaHub'), 0, 4);
+
+    ctx.restore();
+
+    // Highlight winning segment on result
+    if (this.phase === 'result') {
+      ctx.save();
+      ctx.translate(cx, cy);
+      ctx.rotate(this.rotation);
+      const winStart = this.resultIndex * seg - Math.PI / 2;
+      ctx.beginPath();
+      ctx.moveTo(0, 0);
+      ctx.arc(0, 0, radius + 4, winStart, winStart + seg);
+      ctx.closePath();
+      ctx.strokeStyle = '#ffd700';
+      ctx.lineWidth = 4;
+      ctx.shadowColor = '#ffd700';
+      ctx.shadowBlur = 12;
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+}
+
+/* ============================================================
+   WAVE MANAGER
+   ============================================================ */
+class WaveManager {
+  constructor() {
+    this.spawnTimer = 0;
+    this.chestTimer = 0;
+    this.elapsed = 0;
+  }
+
+  reset() {
+    this.spawnTimer = 0;
+    this.chestTimer = 2;
+    this.elapsed = 0;
+  }
+
+  loadSaveData(data) {
+    this.elapsed = data.elapsed ?? 0;
+    this.spawnTimer = 0;
+    this.chestTimer = 2;
+  }
+
+  _getLevelDensityMult(level) {
+    if (level < 50) return 1;
+    if (level < 70) return 2;
+    // 70+: +1× every 10 levels (lv70→3×, lv80→4×, lv90→5× …)
+    return 2 + Math.ceil((level - 69) / 10);
+  }
+
+  update(dt, game) {
+    this.elapsed += dt;
+    const diff = game.player.getDifficulty();
+    const exp = game.player.experience;
+    const level = game.player.level;
+    const density = this._getLevelDensityMult(level);
+
+    // Spawn rate scales with experience and level density
+    const baseInterval = Math.max(0.05, (1.2 - exp * 0.002 - diff * 0.03) / density);
+    this.spawnTimer -= dt;
+
+    const maxEnemies = Math.min(
+      800,
+      Math.floor((40 + Math.floor(exp * 0.15) + Math.floor(diff * 8) + level * 2) * density)
+    );
+    const active = game.enemyPool.countActive();
+
+    if (this.spawnTimer <= 0 && active < maxEnemies) {
+      this.spawnTimer = baseInterval;
+      const baseBurst = 1 + Math.floor(diff / 3) + Math.floor(exp / 80);
+      const burst = Math.min(32, Math.max(1, Math.floor(baseBurst * density)));
+      for (let i = 0; i < burst && game.enemyPool.countActive() < maxEnemies; i++) {
+        this._spawnEnemy(game, diff, exp);
+      }
+    }
+
+    // Chests & rare field pickups
+    this.chestTimer -= dt;
+    const luck = game.player.stats.luck;
+    const chestInterval = Math.max(3, 12 - luck * 0.4);
+    if (this.chestTimer <= 0) {
+      this.chestTimer = chestInterval * (0.7 + Math.random() * 0.6);
+      if (game.chestPool.countActive() < 12) {
+        this._spawnChest(game, luck);
+      }
+      if (game.chickenLegPool.countActive() < 4 && this._rollEpicFieldItem(luck)) {
+        this._spawnChickenLeg(game);
+      }
+    }
+  }
+
+  _rollEpicFieldItem(luck) {
+    const roll = Math.random() + luck * 0.02;
+    return roll > 0.92;
+  }
+
+  _pickFieldSpawnPos(player) {
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 200 + Math.random() * 350;
+    return {
+      x: player.x + Math.cos(angle) * dist,
+      y: player.y + Math.sin(angle) * dist
+    };
+  }
+
+  _spawnEnemy(game, diff, exp) {
+    const angle = Math.random() * Math.PI * 2;
+    const dist = 420 + Math.random() * 200;
+    const x = game.player.x + Math.cos(angle) * dist;
+    const y = game.player.y + Math.sin(angle) * dist;
+    const type = this._pickType(diff, exp, game.player.level);
+    const e = game.enemyPool.acquire();
+    e.spawn(type, x, y, game.sprites, diff, game.player.level);
+  }
+
+  _pickType(diff, exp, level) {
+    const late = Math.max(0, level - 25);
+    const weights = {
+      slime: Math.max(6, 40 - late * 0.45),
+      skeleton: 15 + diff * 2 + late * 0.35,
+      archer: 8 + diff * 1.5 + late * 0.3,
+      bomber: Math.max(0, -10 + diff * 0.55 + exp * 0.004 + late * 0.04),
+      mage: Math.max(0, -8 + diff * 1.5 + exp * 0.008 + late * 0.05)
+    };
+    let total = 0;
+    for (const k in weights) total += weights[k];
+    let r = Math.random() * total;
+    for (const k in weights) {
+      r -= weights[k];
+      if (r <= 0) return k;
+    }
+    return 'slime';
+  }
+
+  _spawnChest(game, luck) {
+    const pos = this._pickFieldSpawnPos(game.player);
+
+    // Luck improves quality
+    const roll = Math.random() + luck * 0.02;
+    let tier = 'common';
+    if (roll > 0.92) tier = 'epic';
+    else if (roll > 0.7) tier = 'rare';
+
+    const c = game.chestPool.acquire();
+    c.spawn(pos.x, pos.y, tier, {
+      common: game.sprites.chestCommon,
+      rare: game.sprites.chestRare,
+      epic: game.sprites.chestEpic
+    });
+  }
+
+  _spawnChickenLeg(game) {
+    const pos = this._pickFieldSpawnPos(game.player);
+    const item = game.chickenLegPool.acquire();
+    item.spawn(pos.x, pos.y, game.sprites.chickenLeg);
+  }
+}
+
+/* ============================================================
+   UI
+   ============================================================ */
+class UI {
+  constructor() {
+    this.toastEl = document.getElementById('toast');
+    this.toastTimer = 0;
+    this.controlsHud = document.getElementById('controlsHud');
+    this.hudGacha = document.getElementById('hudGacha');
+    this.hudUlt = document.getElementById('hudUlt');
+    this.goldPulse = 0;
+    this.goldTarget = { x: 72, y: 24 };
+  }
+
+  getGoldCounterPos() {
+    return this.goldTarget;
+  }
+
+  pulseGold() {
+    this.goldPulse = 0.25;
+  }
+
+  toast(msg, rarity) {
+    this.toastEl.textContent = msg;
+    this.toastEl.className = 'show' + (rarity ? ' ' + rarity : '');
+    this.toastTimer = 2.2;
+  }
+
+  setControlsVisible(visible) {
+    this.controlsHud.classList.toggle('hidden', !visible);
+  }
+
+  updateControlsHud(player, gachaCost, autoGacha) {
+    if (!player) return;
+    const canGacha = player.currency >= gachaCost;
+    const ultReady = player.energy >= player.maxEnergy && player.ultCD <= 0;
+    const gachaSpan = this.hudGacha.querySelector('span');
+    if (autoGacha) {
+      this.hudGacha.classList.add('auto-on');
+      gachaSpan.textContent = canGacha
+        ? I18n.t('autoGachaOn', gachaCost)
+        : I18n.t('autoGachaNeed', gachaCost - Math.floor(player.currency));
+    } else {
+      this.hudGacha.classList.remove('auto-on');
+      gachaSpan.textContent = canGacha
+        ? I18n.t('gachaWheelHud', gachaCost)
+        : I18n.t('gachaWheelNeed', gachaCost, gachaCost - Math.floor(player.currency));
+    }
+    this.hudGacha.style.opacity = canGacha || autoGacha ? '1' : '0.55';
+    this.hudUlt.querySelector('span').textContent = ultReady ? I18n.t('ultimateReady') : I18n.t('ultimate');
+    this.hudUlt.style.opacity = ultReady ? '1' : '0.7';
+    const ultKbd = this.hudUlt.querySelector('kbd');
+    if (ultReady) ultKbd.classList.add('purple');
+  }
+
+  update(dt, player, gachaCost, autoGacha) {
+    if (this.toastTimer > 0) {
+      this.toastTimer -= dt;
+      if (this.toastTimer <= 0) this.toastEl.className = '';
+    }
+    if (this.goldPulse > 0) this.goldPulse -= dt;
+    if (player) this.updateControlsHud(player, gachaCost, autoGacha);
+  }
+
+  draw(ctx, player, cam, enemyCount, gachaCost) {
+    const pad = 16;
+    const s = player.stats;
+
+    // Top-left: currency + stats
+    const goldScale = 1 + this.goldPulse * 0.35;
+    ctx.save();
+    ctx.translate(pad, 28);
+    ctx.scale(goldScale, goldScale);
+    ctx.translate(-pad, -28);
+    ctx.font = 'bold 14px "Courier New", monospace';
+    if (this.goldPulse > 0) {
+      ctx.shadowColor = '#ffd700';
+      ctx.shadowBlur = 8 + this.goldPulse * 40;
+    }
+    ctx.fillStyle = '#ffd700';
+    ctx.textAlign = 'left';
+    ctx.fillText(`${I18n.t('goldLabel')} ${Math.floor(player.currency)}`, pad, 28);
+    ctx.shadowBlur = 0;
+    ctx.restore();
+
+    ctx.font = '12px "Courier New", monospace';
+    ctx.fillStyle = 'rgba(200,230,210,0.9)';
+    const lines = [
+      `SPD  ${s.moveSpeed.toFixed(0)}`,
+      `HP   ${Math.ceil(player.health)}/${s.maxHealth}`,
+      `SHD  ${Math.ceil(player.shield)}/${s.maxShield}`,
+      `ATK  ${s.attack.toFixed(1)}`,
+      `ASP  ${s.attackSpeed.toFixed(2)}`,
+      `BLT  ${Math.floor(s.bulletCount)}`,
+      `BSP  ${s.bulletSpeed.toFixed(0)}`,
+      `CRT  ${(s.critChance * 100).toFixed(0)}% x${s.critDamage.toFixed(2)}`,
+      `ERG  ${s.energyRegen.toFixed(1)}`,
+      `SRG  ${s.shieldRegen.toFixed(1)}`,
+      `EXP  x${s.expMultiplier.toFixed(2)}`,
+      `LCK  ${s.luck.toFixed(0)}`
+    ];
+    let y = 48;
+    for (const line of lines) {
+      ctx.fillText(line, pad, y);
+      y += 15;
+    }
+
+    // Top center: XP bar + level
+    const barW = Math.min(320, cam.w * 0.35);
+    const barX = cam.w * 0.5 - barW * 0.5;
+    const barY = 18;
+    ctx.fillStyle = 'rgba(0,0,0,0.55)';
+    ctx.fillRect(barX - 2, barY - 2, barW + 4, 14);
+    ctx.fillStyle = '#1a3a2a';
+    ctx.fillRect(barX, barY, barW, 10);
+    const xpPct = player.experience / player.xpToNext;
+    const grad = ctx.createLinearGradient(barX, 0, barX + barW, 0);
+    grad.addColorStop(0, '#2ecc71');
+    grad.addColorStop(1, '#7dff9a');
+    ctx.fillStyle = grad;
+    ctx.fillRect(barX, barY, barW * xpPct, 10);
+    ctx.font = 'bold 12px "Courier New", monospace';
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'center';
+    ctx.fillText(`LV ${player.level}`, cam.w * 0.5, barY + 26);
+
+    const ultReady = player.energy >= player.maxEnergy && player.ultCD <= 0;
+
+    // Top-right: compact control hints
+    ctx.font = '10px "Courier New", monospace';
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(180,220,190,0.55)';
+    const gachaHint = player.currency >= gachaCost ? I18n.t('hudGachaReady') : I18n.t('hudGachaNeed', gachaCost);
+    const ultHint = ultReady ? I18n.t('hudUltReady') : I18n.t('hudUlt');
+    ctx.fillText(`${gachaHint}   ${ultHint}   ${I18n.t('hudPause')}`, cam.w - pad, 28);
+
+    // Bottom center: shield / health / energy
+    const bw = Math.min(280, cam.w * 0.4);
+    const bx = cam.w * 0.5 - bw * 0.5;
+    const by = cam.h - 70;
+
+    this._bar(ctx, bx, by, bw, 10, player.shield / s.maxShield, '#3498db', '#1a4a6a', I18n.t('shieldLabel'));
+    this._bar(ctx, bx, by + 18, bw, 12, player.health / s.maxHealth, '#e74c3c', '#5a1a1a', I18n.t('hpLabel'));
+    this._bar(ctx, bx, by + 38, bw, 10, player.energy / player.maxEnergy, '#f1c40f', '#5a4a0a', ultReady ? I18n.t('ultKeyLabel') : I18n.t('ultLabel'));
+
+    ctx.font = '11px "Courier New", monospace';
+    ctx.fillStyle = 'rgba(180,220,190,0.6)';
+    ctx.textAlign = 'left';
+    ctx.fillText(`${I18n.t('enemiesLabel')} ${enemyCount}`, pad, cam.h - 100);
+  }
+
+  _bar(ctx, x, y, w, h, pct, color, bg, label) {
+    ctx.fillStyle = 'rgba(0,0,0,0.5)';
+    ctx.fillRect(x - 2, y - 2, w + 4, h + 4);
+    ctx.fillStyle = bg;
+    ctx.fillRect(x, y, w, h);
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w * Math.max(0, Math.min(1, pct)), h);
+    ctx.font = '10px "Courier New", monospace';
+    ctx.fillStyle = '#fff';
+    ctx.textAlign = 'left';
+    ctx.fillText(label, x + 4, y + h - 1);
+  }
+}
+
+/* ============================================================
+   SAVE MANAGER
+   ============================================================ */
+class SaveManager {
+  static KEY = 'gachaSurvivorsSave';
+  static VERSION = 1;
+
+  static save(game) {
+    try {
+      const data = {
+        version: SaveManager.VERSION,
+        player: game.player.toSaveData(),
+        killCount: game.killCount,
+        survived: game.survived,
+        waves: { elapsed: game.waves.elapsed },
+        autoGacha: game.gacha.autoGacha
+      };
+      localStorage.setItem(SaveManager.KEY, JSON.stringify(data));
+    } catch (e) { /* storage full or unavailable */ }
+  }
+
+  static load(game) {
+    try {
+      const raw = localStorage.getItem(SaveManager.KEY);
+      if (!raw) return false;
+      const data = JSON.parse(raw);
+      if (!data || !data.player) return false;
+      game.player.loadSaveData(data.player);
+      game.killCount = data.killCount ?? 0;
+      game.survived = data.survived ?? 0;
+      game.waves.loadSaveData(data.waves ?? {});
+      if (game.gacha) game.gacha.setAutoGacha(!!data.autoGacha);
+      return true;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  static clear() {
+    try { localStorage.removeItem(SaveManager.KEY); } catch (e) {}
+  }
+
+  static hasSave() {
+    try { return !!localStorage.getItem(SaveManager.KEY); } catch (e) { return false; }
+  }
+}
+
+/* ============================================================
+   HELP PANEL
+   ============================================================ */
+class HelpPanel {
+  constructor() {
+    this.overlay = document.getElementById('helpOverlay');
+    this.content = document.getElementById('helpContent');
+    this.returnTo = 'menu';
+    this.currentTab = 'stats';
+    this.sprites = null;
+    this.built = false;
+
+    document.getElementById('helpCloseBtn').onclick = () => this.close();
+    this.overlay.querySelectorAll('.help-tab').forEach((btn) => {
+      btn.onclick = () => this.showTab(btn.dataset.tab);
+    });
+  }
+
+  init(sprites) {
+    this.sprites = sprites;
+    this.rebuild();
+  }
+
+  rebuild() {
+    this.built = false;
+    if (this.sprites) {
+      this._buildAll();
+      this.built = true;
+      if (!this.overlay.classList.contains('hidden')) {
+        this.showTab(this.currentTab);
+      }
+    }
+  }
+
+  _artHtml(spriteKey) {
+    const spr = this.sprites[spriteKey];
+    if (!spr) return '';
+    return `<div class="bestiary-art"><canvas width="${spr.width}" height="${spr.height}" data-sprite="${spriteKey}"></canvas></div>`;
+  }
+
+  _paintSprites() {
+    this.content.querySelectorAll('canvas[data-sprite]').forEach((c) => {
+      const key = c.dataset.sprite;
+      const spr = this.sprites[key];
+      if (!spr) return;
+      c.width = spr.width;
+      c.height = spr.height;
+      c.getContext('2d').drawImage(spr, 0, 0);
+    });
+  }
+
+  _buildAll() {
+    const sys = I18n.helpSystems[I18n.lang] || I18n.helpSystems.en;
+    const stats = I18n.helpStats[I18n.lang] || I18n.helpStats.en;
+    const enemies = I18n.helpEnemies[I18n.lang] || I18n.helpEnemies.en;
+    const items = I18n.helpItems[I18n.lang] || I18n.helpItems.en;
+
+    const statsEl = document.createElement('div');
+    statsEl.id = 'helpStats';
+    statsEl.innerHTML = `<div class="help-section-title">${sys.playerStats}</div>` +
+      stats.map((s) =>
+        `<div class="stat-entry"><div class="stat-name">${s.name}<span class="stat-abbr">[${s.abbr}]</span></div><div class="stat-desc">${s.desc}</div></div>`
+      ).join('') +
+      `<div class="help-section-title">${sys.combatSystems}</div>` +
+      `<div class="stat-entry"><div class="stat-name">${sys.ultimateTitle}</div><div class="stat-desc">${sys.ultimateDesc}</div></div>` +
+      `<div class="stat-entry"><div class="stat-name">${sys.gachaTitle}</div><div class="stat-desc">${sys.gachaDesc}</div></div>` +
+      `<div class="stat-entry"><div class="stat-name">${sys.difficultyTitle}</div><div class="stat-desc">${sys.difficultyDesc}</div></div>`;
+
+    const bestEl = document.createElement('div');
+    bestEl.id = 'helpBestiary';
+    bestEl.className = 'hidden';
+    bestEl.innerHTML = `<div class="help-section-title">${sys.enemies}</div><div class="bestiary-grid">` +
+      enemies.map((e) =>
+        `<div class="bestiary-card threat-${e.threat}">${this._artHtml(e.sprite)}<div class="bestiary-info">
+          <div class="bestiary-name">${e.name}</div>
+          <div class="bestiary-tags">${e.gold}g · ${e.ability}</div>
+          <div class="bestiary-statline">${sys.speed} ${e.speed}<br>HP ${e.hp} · DMG ${e.dmg}</div>
+          <div class="bestiary-desc">${e.desc}</div>
+        </div></div>`
+      ).join('') + '</div>';
+
+    const itemsEl = document.createElement('div');
+    itemsEl.id = 'helpItems';
+    itemsEl.className = 'hidden';
+    itemsEl.innerHTML = `<div class="help-section-title">${sys.items}</div><div class="bestiary-grid">` +
+      items.map((item) => {
+        const tags = item.tags ?? `${item.gold} ${I18n.lang === 'ru' ? 'зол.' : 'gold'} · ${sys.autoOpen}`;
+        const statline = item.statline
+          ? `<div class="bestiary-statline">${item.statline}</div>`
+          : '';
+        return `<div class="bestiary-card threat-${item.threat}">${this._artHtml(item.sprite)}<div class="bestiary-info">
+          <div class="bestiary-name">${item.name}</div>
+          <div class="bestiary-tags">${tags}</div>
+          ${statline}
+          <div class="bestiary-desc">${item.desc}</div>
+        </div></div>`;
+      }).join('') + '</div>' +
+      `<div class="help-section-title">${sys.goldSources}</div>` +
+      `<div class="stat-entry"><div class="stat-desc">${sys.goldSourcesDesc}</div></div>`;
+
+    this.content.innerHTML = '';
+    this.content.appendChild(statsEl);
+    this.content.appendChild(bestEl);
+    this.content.appendChild(itemsEl);
+    this._paintSprites();
+  }
+
+  showTab(tab) {
+    this.currentTab = tab;
+    this.overlay.querySelectorAll('.help-tab').forEach((b) => {
+      b.classList.toggle('active', b.dataset.tab === tab);
+    });
+    document.getElementById('helpStats').classList.toggle('hidden', tab !== 'stats');
+    document.getElementById('helpBestiary').classList.toggle('hidden', tab !== 'bestiary');
+    document.getElementById('helpItems').classList.toggle('hidden', tab !== 'items');
+    this.content.scrollTop = 0;
+  }
+
+  open(from) {
+    this.returnTo = from;
+    if (from === 'menu') document.getElementById('mainMenu').classList.add('hidden');
+    if (from === 'pause') document.getElementById('pauseMenu').classList.add('hidden');
+    this.overlay.classList.remove('hidden');
+    this.showTab(this.currentTab);
+    this._paintSprites();
+  }
+
+  close() {
+    this.overlay.classList.add('hidden');
+    if (this.returnTo === 'menu') document.getElementById('mainMenu').classList.remove('hidden');
+    if (this.returnTo === 'pause') document.getElementById('pauseMenu').classList.remove('hidden');
+  }
+
+  isOpen() {
+    return !this.overlay.classList.contains('hidden');
+  }
+}
+
+/* ============================================================
+   GAME
+   ============================================================ */
+class Game {
+  constructor() {
+    this.canvas = document.getElementById('gameCanvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.ctx.imageSmoothingEnabled = false;
+
+    this.sprites = {
+      player: SpriteFactory.player(),
+      slime: SpriteFactory.slime(),
+      skeleton: SpriteFactory.skeleton(),
+      archer: SpriteFactory.archer(),
+      bomber: SpriteFactory.bomber(),
+      mage: SpriteFactory.mage(),
+      chestCommon: SpriteFactory.chest('common'),
+      chestRare: SpriteFactory.chest('rare'),
+      chestEpic: SpriteFactory.chest('epic'),
+      chickenLeg: SpriteFactory.chickenLeg(),
+      bullet: SpriteFactory.bullet(),
+      arrow: SpriteFactory.arrow(),
+      flower0: SpriteFactory.flower(0),
+      flower1: SpriteFactory.flower(1),
+      flower2: SpriteFactory.flower(2),
+      stone: SpriteFactory.stone(),
+      plant: SpriteFactory.plant()
+    };
+
+    this.camera = new Camera();
+    this.player = new Player(this.sprites);
+    this.ui = new UI();
+    this.gacha = new GachaSystem();
+    this.gacha.bindGame(this);
+    this.waves = new WaveManager();
+    this.help = new HelpPanel();
+    this.help.init(this.sprites);
+
+    this.enemyPool = new Pool(() => new Enemy(), 200);
+    this.projPool = new Pool(() => new Projectile(), 150);
+    this.chestPool = new Pool(() => new Chest(), 20);
+    this.chickenLegPool = new Pool(() => new ChickenLeg(), 8);
+    this.particlePool = new Pool(() => new Particle(), 200);
+    this.goldCoinPool = new Pool(() => new GoldCoin(), 36);
+    this.floatingTextPool = new Pool(() => new FloatingText(), 32);
+    this.aoePool = new Pool(() => new AoEZone(), 40);
+
+    this.state = 'menu'; // menu | playing | paused | gameover
+    this.lastTime = 0;
+    this.ultWave = null;
+    this.killCount = 0;
+    this.survived = 0;
+    this.lastGameOverStats = null;
+
+    this.input = {
+      up: false, down: false, left: false, right: false,
+      gacha: false, ult: false
+    };
+
+    this._bindUI();
+    this._bindInput();
+    this._resize();
+    window.addEventListener('resize', () => this._resize());
+    this._updateStartButton();
+
+    I18n.onChange(() => {
+      this._updateStartButton();
+      this.help.rebuild();
+      this.gacha.refreshLocale();
+      if (this.state === 'gameover') this._updateGameOverStats();
+    });
+
+    requestAnimationFrame((t) => this.loop(t));
+  }
+
+  _updateGameOverStats() {
+    if (!this.lastGameOverStats) return;
+    const s = this.lastGameOverStats;
+    const el = document.getElementById('goStats');
+    el.innerHTML =
+      `${I18n.t('levelStat', s.level)}<br>` +
+      `${I18n.t('goldStat', s.gold)}<br>` +
+      `${I18n.t('killsStat', s.kills)}<br>` +
+      `${I18n.t('timeStat', s.time)}`;
+  }
+
+  _updateStartButton() {
+    const btn = document.getElementById('startBtn');
+    btn.textContent = SaveManager.hasSave() ? I18n.t('continue') : I18n.t('start');
+  }
+
+  _bindUI() {
+    document.getElementById('startBtn').onclick = () => this.startGame();
+    document.getElementById('resumeBtn').onclick = () => this.resume();
+    document.getElementById('restartBtn').onclick = () => this.restartGame();
+    document.getElementById('menuBtn').onclick = () => this.toMenu();
+    document.getElementById('goMenuBtn').onclick = () => this.toMenu();
+    document.getElementById('helpBtnMain').onclick = () => this.help.open('menu');
+    document.getElementById('helpBtnPause').onclick = () => this.help.open('pause');
+  }
+
+  _bindInput() {
+    const set = (e, v) => {
+      switch (e.code) {
+        case 'KeyW': case 'ArrowUp': this.input.up = v; break;
+        case 'KeyS': case 'ArrowDown': this.input.down = v; break;
+        case 'KeyA': case 'ArrowLeft': this.input.left = v; break;
+        case 'KeyD': case 'ArrowRight': this.input.right = v; break;
+        case 'Space':
+          if (!v || e.repeat) break;
+          e.preventDefault();
+          if (this.state === 'playing') {
+            if (this.gacha.isOpen()) this.gacha.handleSpace(this);
+            else this.gacha.tryOpen(this);
+          }
+          break;
+        case 'KeyQ':
+          if (v && !this.gacha.isOpen()) this.input.ult = true;
+          break;
+        case 'Escape':
+          if (v) {
+            if (this.help.isOpen()) this.help.close();
+            else if (this.gacha.isOpen()) this.gacha.exit(this);
+            else this.togglePause();
+          }
+          break;
+      }
+    };
+    window.addEventListener('keydown', (e) => set(e, true));
+    window.addEventListener('keyup', (e) => set(e, false));
+  }
+
+  _resize() {
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+    this.camera.resize(this.canvas.width, this.canvas.height);
+  }
+
+  startGame() {
+    this._clearPools();
+    this.gacha.close(this);
+    this.ultWave = null;
+
+    const loaded = SaveManager.load(this);
+    if (!loaded) {
+      this.player.reset();
+      this.waves.reset();
+      this.killCount = 0;
+      this.survived = 0;
+    } else if (!this.player.alive) {
+      this.player.reviveRun();
+      this._clearPools();
+    }
+
+    this.state = 'playing';
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('pauseMenu').classList.add('hidden');
+    document.getElementById('gameOverMenu').classList.add('hidden');
+    this.ui.setControlsVisible(true);
+  }
+
+  restartGame() {
+    SaveManager.clear();
+    this._clearPools();
+    this.gacha.close(this);
+    this.player.reset();
+    this.waves.reset();
+    this.killCount = 0;
+    this.survived = 0;
+    this.ultWave = null;
+    this.state = 'playing';
+    document.getElementById('mainMenu').classList.add('hidden');
+    document.getElementById('pauseMenu').classList.add('hidden');
+    document.getElementById('gameOverMenu').classList.add('hidden');
+    this.ui.setControlsVisible(true);
+  }
+
+  toMenu() {
+    this.gacha.close(this);
+    this.state = 'menu';
+    document.getElementById('mainMenu').classList.remove('hidden');
+    document.getElementById('pauseMenu').classList.add('hidden');
+    document.getElementById('gameOverMenu').classList.add('hidden');
+    this.ui.setControlsVisible(false);
+    this._updateStartButton();
+  }
+
+  togglePause() {
+    if (this.gacha.isOpen() || this.help.isOpen()) return;
+    if (this.state === 'playing') {
+      this.state = 'paused';
+      document.getElementById('pauseMenu').classList.remove('hidden');
+      this.ui.setControlsVisible(false);
+      SaveManager.save(this);
+    } else if (this.state === 'paused') {
+      this.resume();
+    }
+  }
+
+  resume() {
+    this.state = 'playing';
+    document.getElementById('pauseMenu').classList.add('hidden');
+    this.ui.setControlsVisible(true);
+  }
+
+  gameOver() {
+    this.lastGameOverStats = {
+      level: this.player.level,
+      gold: Math.floor(this.player.currency),
+      kills: this.killCount,
+      time: Math.floor(this.survived)
+    };
+
+    SaveManager.clear();
+    this.gacha.close(this);
+    this._clearPools();
+    this.player.reset();
+    this.waves.reset();
+    this.killCount = 0;
+    this.survived = 0;
+    this.ultWave = null;
+
+    this.state = 'gameover';
+    this._updateGameOverStats();
+    document.getElementById('gameOverMenu').classList.remove('hidden');
+    this.ui.setControlsVisible(false);
+  }
+
+  _clearPools() {
+    for (const p of [this.enemyPool, this.projPool, this.chestPool, this.chickenLegPool, this.particlePool, this.goldCoinPool, this.floatingTextPool, this.aoePool]) {
+      for (const item of p.items) item.active = false;
+    }
+  }
+
+  spawnFloatingText(wx, wy, text) {
+    const t = this.floatingTextPool.acquire();
+    t.spawn(wx, wy, text);
+  }
+
+  spawnGoldCoins(wx, wy, amount) {
+    const maxOnScreen = 20;
+    const active = this.goldCoinPool.countActive();
+    if (active >= maxOnScreen) return;
+
+    const s = this.camera.worldToScreen(wx, wy);
+    const target = this.ui.getGoldCounterPos();
+    const slots = maxOnScreen - active;
+    const count = Math.min(slots, Math.min(5, Math.max(1, Math.ceil(Math.sqrt(amount) * 0.5))));
+    for (let i = 0; i < count; i++) {
+      const c = this.goldCoinPool.acquire();
+      const spread = 14 + count * 2;
+      c.spawn(
+        s.x + (Math.random() - 0.5) * spread,
+        s.y + (Math.random() - 0.5) * spread,
+        target.x + (Math.random() - 0.5) * 6,
+        target.y + (Math.random() - 0.5) * 4
+      );
+    }
+  }
+
+  addCurrency(amount) {
+    this.player.addCurrency(amount);
+  }
+
+  findNearestEnemy(x, y, maxDist) {
+    let best = null;
+    let bestD = maxDist * maxDist;
+    this.enemyPool.forEachActive((e) => {
+      const dx = e.x - x;
+      const dy = e.y - y;
+      const d = dx * dx + dy * dy;
+      if (d < bestD) { bestD = d; best = e; }
+    });
+    return best;
+  }
+
+  spawnPlayerProjectile(x, y, vx, vy, dmg, isCrit) {
+    const p = this.projPool.acquire();
+    p.spawn(x, y, vx, vy, dmg, isCrit, true, this.sprites.bullet, 1.8);
+  }
+
+  spawnEnemyProjectile(x, y, vx, vy, dmg) {
+    const p = this.projPool.acquire();
+    p.spawn(x, y, vx, vy, dmg, false, false, this.sprites.arrow, 3.5);
+  }
+
+  spawnAoE(x, y, radius, damage, warnTime) {
+    const a = this.aoePool.acquire();
+    a.spawn(x, y, radius, damage, warnTime);
+  }
+
+  spawnExplosion(x, y) {
+    for (let i = 0; i < 18; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 40 + Math.random() * 120;
+      const p = this.particlePool.acquire();
+      p.spawn(x, y, Math.cos(a) * sp, Math.sin(a) * sp, 0.4 + Math.random() * 0.3,
+        Math.random() > 0.5 ? '#ff4400' : '#ffaa00', 3 + Math.random() * 4);
+    }
+  }
+
+  spawnChestParticles(x, y, tier) {
+    const colors = { common: '#c9a227', rare: '#4a90ff', epic: '#c040ff' };
+    const col = colors[tier];
+    for (let i = 0; i < 12; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 30 + Math.random() * 80;
+      const p = this.particlePool.acquire();
+      p.spawn(x, y, Math.cos(a) * sp, Math.sin(a) * sp - 40, 0.5 + Math.random() * 0.4, col, 3, 80);
+    }
+  }
+
+  spawnHealParticles(x, y) {
+    for (let i = 0; i < 10; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 25 + Math.random() * 70;
+      const p = this.particlePool.acquire();
+      p.spawn(x, y, Math.cos(a) * sp, Math.sin(a) * sp - 30, 0.45 + Math.random() * 0.35,
+        Math.random() > 0.4 ? '#7dff9a' : '#e74c3c', 3, 70);
+    }
+  }
+
+  activateUltimate() {
+    const cx = this.player.x;
+    const cy = this.player.y;
+    this.ultWave = { x: cx, y: cy, r: 0, maxR: Math.max(this.camera.w, this.camera.h) * 0.75, life: 0.6 };
+
+    let kills = 0;
+    this.enemyPool.forEachActive((e) => {
+      const s = this.camera.worldToScreen(e.x, e.y);
+      if (s.x > -40 && s.x < this.camera.w + 40 && s.y > -40 && s.y < this.camera.h + 40) {
+        e.active = false;
+        kills++;
+        this.addCurrency(e.goldDrop);
+        this.killCount++;
+        this.spawnGoldCoins(e.x, e.y, e.goldDrop);
+        this._deathParticles(e.x, e.y);
+      }
+    });
+    // Clear enemy projectiles on screen
+    this.projPool.forEachActive((p) => {
+      if (!p.fromPlayer) {
+        const s = this.camera.worldToScreen(p.x, p.y);
+        if (s.x > -20 && s.x < this.camera.w + 20 && s.y > -20 && s.y < this.camera.h + 20) {
+          p.active = false;
+        }
+      }
+    });
+    this.ui.toast(I18n.t('ultimateToast', kills), 'legendary');
+  }
+
+  _deathParticles(x, y) {
+    for (let i = 0; i < 6; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 20 + Math.random() * 60;
+      const p = this.particlePool.acquire();
+      p.spawn(x, y, Math.cos(a) * sp, Math.sin(a) * sp, 0.3, '#7dff9a', 2 + Math.random() * 2);
+    }
+  }
+
+  loop(timestamp) {
+    const dt = Math.min(0.05, (timestamp - this.lastTime) / 1000) || 0.016;
+    this.lastTime = timestamp;
+
+    if (this.state === 'playing') {
+      if (!this.gacha.isOpen()) this.update(dt);
+      this.gacha.update(dt, this);
+    }
+    if (this.state === 'playing' || this.state === 'paused' || this.state === 'gameover') {
+      this.floatingTextPool.forEachActive((t) => t.update(dt));
+      this.goldCoinPool.forEachActive((c) => c.update(dt, this.ui));
+    }
+    this.ui.update(dt, this.state === 'playing' || this.state === 'paused' || this.state === 'gameover' ? this.player : null, this.gacha.cost, this.gacha.autoGacha);
+    this.draw();
+
+    requestAnimationFrame((t) => this.loop(t));
+  }
+
+  update(dt) {
+    this.survived += dt;
+    this.player.update(dt, this.input, this);
+    this.camera.follow(this.player);
+    this.waves.update(dt, this);
+
+    this.enemyPool.forEachActive((e) => {
+      e.update(dt, this.player, this);
+      // Despawn far enemies
+      const dx = e.x - this.player.x;
+      const dy = e.y - this.player.y;
+      if (dx * dx + dy * dy > 900000) e.active = false;
+    });
+
+    this.projPool.forEachActive((p) => {
+      p.update(dt);
+      if (!p.active) return;
+
+      if (p.fromPlayer) {
+        this.enemyPool.forEachActive((e) => {
+          if (!p.active) return;
+          const dx = e.x - p.x;
+          const dy = e.y - p.y;
+          if (dx * dx + dy * dy < (e.radius + p.radius) * (e.radius + p.radius)) {
+            const dead = e.takeDamage(p.damage);
+            p.active = false;
+            if (dead) {
+              this.addCurrency(e.goldDrop);
+              this.killCount++;
+              this.spawnGoldCoins(e.x, e.y, e.goldDrop);
+              this._deathParticles(e.x, e.y);
+            }
+          }
+        });
+      } else {
+        const dx = this.player.x - p.x;
+        const dy = this.player.y - p.y;
+        if (dx * dx + dy * dy < (this.player.radius + p.radius) * (this.player.radius + p.radius)) {
+          this.player.takeDamage(p.damage);
+          p.active = false;
+        }
+      }
+    });
+
+    this.chestPool.forEachActive((c) => c.update(dt, this.player, this));
+    this.chickenLegPool.forEachActive((item) => item.update(dt, this.player, this));
+    this.aoePool.forEachActive((a) => a.update(dt, this.player));
+    this.particlePool.forEachActive((p) => p.update(dt));
+
+    if (this.ultWave) {
+      this.ultWave.life -= dt;
+      this.ultWave.r += this.ultWave.maxR * dt * 2.5;
+      if (this.ultWave.life <= 0) this.ultWave = null;
+    }
+
+    if (!this.player.alive) this.gameOver();
+  }
+
+  /* ---- World ground ---- */
+  _hash(x, y) {
+    let n = x * 374761393 + y * 668265263;
+    n = (n ^ (n >> 13)) * 1274126177;
+    return ((n ^ (n >> 16)) >>> 0) / 4294967296;
+  }
+
+  drawWorld() {
+    const ctx = this.ctx;
+    const cam = this.camera;
+    const tile = 48;
+
+    const startTX = Math.floor(cam.x / tile) - 1;
+    const startTY = Math.floor(cam.y / tile) - 1;
+    const endTX = Math.ceil((cam.x + cam.w) / tile) + 1;
+    const endTY = Math.ceil((cam.y + cam.h) / tile) + 1;
+
+    for (let ty = startTY; ty <= endTY; ty++) {
+      for (let tx = startTX; tx <= endTX; tx++) {
+        const h = this._hash(tx, ty);
+        const h2 = this._hash(tx + 17, ty + 31);
+        // Grass color variation
+        const g = 90 + Math.floor(h * 40);
+        const r = 30 + Math.floor(h2 * 25);
+        const b = 30 + Math.floor(h * 20);
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        const sx = tx * tile - cam.x;
+        const sy = ty * tile - cam.y;
+        ctx.fillRect(sx, sy, tile + 1, tile + 1);
+
+        // Decorations
+        if (h > 0.82) {
+          const spr = this.sprites['flower' + Math.floor(h2 * 3)];
+          ctx.drawImage(spr, sx + h2 * 20, sy + h * 20);
+        } else if (h > 0.72) {
+          ctx.drawImage(this.sprites.plant, sx + h2 * 24, sy + h * 18);
+        } else if (h > 0.66) {
+          ctx.drawImage(this.sprites.stone, sx + h2 * 16, sy + h * 16);
+        }
+      }
+    }
+  }
+
+  draw() {
+    const ctx = this.ctx;
+    ctx.clearRect(0, 0, this.camera.w, this.camera.h);
+
+    if (this.state === 'menu') {
+      // Atmospheric background for menu
+      this.camera.x = Math.sin(performance.now() * 0.0001) * 200;
+      this.camera.y = Math.cos(performance.now() * 0.00008) * 150;
+      this.drawWorld();
+      return;
+    }
+
+    this.drawWorld();
+
+    // Sort-ish: chests, chicken legs, enemies, projectiles, player, particles
+    this.chestPool.forEachActive((c) => c.draw(ctx, this.camera));
+    this.chickenLegPool.forEachActive((item) => item.draw(ctx, this.camera));
+    this.aoePool.forEachActive((a) => a.draw(ctx, this.camera));
+    this.enemyPool.forEachActive((e) => e.draw(ctx, this.camera));
+    this.projPool.forEachActive((p) => p.draw(ctx, this.camera));
+    this.player.draw(ctx, this.camera);
+    this.floatingTextPool.forEachActive((t) => t.draw(ctx, this.camera));
+    this.particlePool.forEachActive((p) => p.draw(ctx, this.camera));
+
+    // Ultimate wave
+    if (this.ultWave) {
+      const s = this.camera.worldToScreen(this.ultWave.x, this.ultWave.y);
+      const a = Math.max(0, this.ultWave.life / 0.6);
+      ctx.strokeStyle = `rgba(255,220,80,${a})`;
+      ctx.lineWidth = 6;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.ultWave.r, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.fillStyle = `rgba(255,240,150,${a * 0.15})`;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, this.ultWave.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (this.state === 'playing' || this.state === 'paused' || this.state === 'gameover') {
+      this.ui.draw(ctx, this.player, this.camera, this.enemyPool.countActive(), this.gacha.cost);
+      this.goldCoinPool.forEachActive((c) => c.draw(ctx));
+    }
+  }
+}
+
+// Boot
+I18n.init();
+window.game = new Game();
+</script>
+</body>
+</html>
