@@ -10,18 +10,21 @@ const MetaProgression = {
   discovered: { enemies: [], items: [], weapons: [] },
 
   DEFS: [
-    { id: 'moveSpeed', max: 5, perLevel: 0.10, costs: [100, 200, 400, 800, 1600],
+    { id: 'moveSpeed', max: 10, perLevel: 0.10,
+      costs: [100, 200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200],
       icon: 'moveSpeed', labelKey: 'storeMove', valueKey: 'storeMoveVal' },
-    { id: 'maxHealth', max: 5, perLevel: 0.20, costs: [150, 300, 600, 1200, 2400],
+    { id: 'maxHealth', max: 10, perLevel: 0.20,
+      costs: [150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 76800],
       icon: 'maxHealth', labelKey: 'storeHealth', valueKey: 'storeHealthVal' },
-    { id: 'attack', max: 5, perLevel: 0.20, costs: [150, 300, 600, 1200, 2400],
+    { id: 'attack', max: 10, perLevel: 0.20,
+      costs: [150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 76800],
       icon: 'attack', labelKey: 'storeAttack', valueKey: 'storeAttackVal' },
     { id: 'attackSpeed', max: 5, perLevel: 0.20, costs: [150, 300, 600, 1200, 2400],
       icon: 'attackSpeed', labelKey: 'storeAspd', valueKey: 'storeAspdVal' },
     { id: 'bulletCount', max: 3, perLevel: 1, costs: [250, 750, 2000],
       icon: 'bulletCount', labelKey: 'storeBullets', valueKey: 'storeBulletsVal' },
-    { id: 'critical', max: 5, critChance: 0.05, critDamage: 0.10,
-      costs: [200, 400, 800, 1600, 3200],
+    { id: 'critical', max: 10, critChance: 0.05, critDamage: 0.10,
+      costs: [200, 400, 800, 1600, 3200, 6400, 12800, 25600, 51200, 102400],
       icon: 'critChance', labelKey: 'storeCrit', valueKey: 'storeCritVal' },
     { id: 'expMultiplier', max: 10, perLevel: 0.10,
       costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
@@ -29,6 +32,9 @@ const MetaProgression = {
     { id: 'luck', max: 10, perLevel: 0.10,
       costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
       icon: 'luck', labelKey: 'storeLuck', valueKey: 'storeLuckVal' },
+    { id: 'weaponRadius', max: 10, perLevel: 0.10,
+      costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
+      icon: 'weaponRadius', labelKey: 'storeWeaponRadius', valueKey: 'storeWeaponRadiusVal' },
     /* Extra carry slots — steep luxury curve ending at 1,000,000 */
     { id: 'weaponSlots', max: 5, perLevel: 1,
       costs: [50000, 150000, 350000, 700000, 1000000],
@@ -170,7 +176,7 @@ const MetaProgression = {
     const b = {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
       bulletCount: 0, critChance: 0, critDamageBonus: 0,
-      expMultiplier: 0, luck: 0,
+      expMultiplier: 0, luck: 0, weaponRadius: 0,
       weaponSlots: 0, statSlots: 0
     };
     for (const d of this.DEFS) {

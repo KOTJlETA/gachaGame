@@ -338,7 +338,7 @@ const WEAPON_LEVEL_TEXT = {
   },
   cursedTotem: {
     en: {
-      1: 'Plants a long-lived curse zone at your feet. Stay inside to empower it.',
+      1: 'Plants a long-lived curse zone at your feet. Stay inside to empower it. Blocks Priest heals in the field.',
       2: 'Curse amplifies damage taken.',
       '3A': 'Path A: curse spreads between foes.',
       '3B': 'Path B: next plant comes sooner.',
@@ -348,7 +348,7 @@ const WEAPON_LEVEL_TEXT = {
       '5B': 'Multiple totems at once.'
     },
     ru: {
-      1: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри, чтобы она работала.',
+      1: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри, чтобы она работала. Блокирует лечение Жреца в поле.',
       2: 'Проклятие усиливает получаемый урон.',
       '3A': 'Путь A: проклятие распространяется.',
       '3B': 'Путь B: следующая установка быстрее.',

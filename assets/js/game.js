@@ -58,7 +58,8 @@ class I18n {
       helpChoices: 'Each level-up pauses the run and deals 5 cards: new weapons, weapon upgrades, or stat boosts. Press 1-5 or click to pick. You may keep at most 5 different stats, so later rolls only re-offer stats you already own. Chests grant extra picks — 1 for common, 3 for rare, 5 for epic.',
       store: 'STORE',
       storeTitle: 'STORE',
-      storeBuy: 'BUY {0}g',
+      storeBuy: 'BUY {0} G',
+      storeGoldVal: '{0} G',
       storeMaxed: 'MAX',
       storeLevel: '{0}/{1}',
       storeToggleOn: 'BONUS: ON',
@@ -79,6 +80,8 @@ class I18n {
       storeExpVal: '+10%',
       storeLuck: 'Luck',
       storeLuckVal: '+10%',
+      storeWeaponRadius: 'Weapon Radius',
+      storeWeaponRadiusVal: '+10%',
       storeWeaponSlots: 'Weapon Slots',
       storeWeaponSlotsVal: '+1 slot',
       storeWeaponSlotsDesc: 'Permanently adds one weapon slot for every run. Buy up to 5 extras (10 weapons total). Extremely expensive.',
@@ -159,7 +162,8 @@ class I18n {
       chooseUpgrade: 'ВЫБЕРИТЕ УЛУЧШЕНИЕ',
       store: 'МАГАЗИН',
       storeTitle: 'МАГАЗИН',
-      storeBuy: 'КУПИТЬ {0} з.',
+      storeBuy: 'КУПИТЬ {0} G',
+      storeGoldVal: '{0} G',
       storeMaxed: 'МАКС',
       storeLevel: '{0}/{1}',
       storeToggleOn: 'БОНУС: ВКЛ',
@@ -180,6 +184,8 @@ class I18n {
       storeExpVal: '+10%',
       storeLuck: 'Удача',
       storeLuckVal: '+10%',
+      storeWeaponRadius: 'Радиус оружия',
+      storeWeaponRadiusVal: '+10%',
       storeWeaponSlots: 'Слоты оружия',
       storeWeaponSlotsVal: '+1 слот',
       storeWeaponSlotsDesc: 'Навсегда добавляет один слот оружия в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
@@ -361,7 +367,7 @@ class I18n {
       { id: 'bomber', name: 'Bomb Goblin', threat: 'extreme', gold: 8, speed: '140 (+scale)', hp: '1', dmg: 'Instant kill', ability: 'Suicide explosion', desc: 'Fastest enemy with only 1 HP. On contact: destroys all shield, or kills instantly if shield is empty.', sprite: 'bomber' },
       { id: 'robot', name: 'War Automaton', threat: 'high', gold: 14, speed: 'Always below yours', hp: '260 (+scale)', dmg: '26 (+scale)', ability: 'Melee only · Very tanky', desc: 'A walking wall from level 12. Its speed is hard-capped below your movement speed, so you can always outrun it.', sprite: 'robot' },
       { id: 'wolf', name: 'White Wolf', threat: 'high', gold: 7, speed: '155 (+scale)', hp: '55 (+scale)', dmg: '16 (+scale)', ability: 'Bite · Slows you 0.5s', desc: 'Sprints at you from level 8. When a bullet closes in, it blinks sideways with a ghost trail (1s cooldown). A bite cuts your movement speed for half a second.', sprite: 'wolf' },
-      { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Empowers up to 3 foes', desc: 'From level 15. Linked foes swell to 3× size with up to 3× HP and 3× damage. Kill the priest and they deflate back down.', sprite: 'priest' },
+      { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Holy heal aura', desc: 'From level 15. Keeps a golden aura that continuously heals nearby enemies. Does not heal himself, other priests, or Elder Dragons. A Cursed Totem blocks healing for foes inside its field (or already cursed).', sprite: 'priest' },
       { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'Abduction', ability: 'Lifts and drops you', desc: 'From level 18, max 3 at once. Catches you, carries you for ~2.4s and dumps you into the thickest pack of enemies.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Crimson Tyrant (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (one of four Elder Dragon forms). Walks the field; never flies. Immune to freeze, stun, slow, pull, knockback, and curse. Only one Elder Dragon at a time, max once per 5 minutes. Hurls 3 arcing fireballs that leave burning zones.', sprite: 'dragonCrimson' },
       { id: 'dragonVoid', name: 'Void Elder (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (void form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, control immune, one dragon at a time, 5-minute cooldown, triple fireball volleys with lingering flames.', sprite: 'dragonVoid' },
@@ -376,7 +382,7 @@ class I18n {
       { id: 'bomber', name: 'Гоблин-бомба', threat: 'extreme', gold: 8, speed: '140 (+масш.)', hp: '1', dmg: 'Мгнов. смерть', ability: 'Самоподрыв', desc: 'Самый быстрый, 1 HP. Контакт: снимает весь щит или убивает без щита.', sprite: 'bomber' },
       { id: 'robot', name: 'Боевой автоматон', threat: 'high', gold: 14, speed: 'Всегда медленнее вас', hp: '260 (+масш.)', dmg: '26 (+масш.)', ability: 'Ближний бой · Очень живучий', desc: 'Ходячая стена с 12 уровня. Его скорость жёстко ограничена ниже вашей — от него всегда можно убежать.', sprite: 'robot' },
       { id: 'wolf', name: 'Белый волк', threat: 'high', gold: 7, speed: '155 (+масш.)', hp: '55 (+масш.)', dmg: '16 (+масш.)', ability: 'Укус · Замедляет на 0.5с', desc: 'С 8 уровня мчится к вам. Когда пуля близко — мигает в сторону с призрачным шлейфом (кд 1с). Укус замедляет вас на полсекунды.', sprite: 'wolf' },
-      { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Усиливает до 3 врагов', desc: 'С 15 уровня. Связанные враги растут до 3× размера, до 3× HP и 3× урона. Убейте жреца — и они сдуются обратно.', sprite: 'priest' },
+      { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Аура исцеления', desc: 'С 15 уровня. Держит золотую ауру, которая постоянно лечит ближайших врагов. Не лечит себя, других жрецов и Драконов. Проклятый тотем блокирует лечение врагов в своём поле (или уже проклятых).', sprite: 'priest' },
       { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Похищение', ability: 'Поднимает и бросает вас', desc: 'С 18 уровня, максимум 3 сразу. Хватает вас, несёт ~2.4с и сбрасывает в самую гущу врагов.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Алый тиран (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (одна из четырёх форм Древнего дракона). Ходит по земле, не летает. Иммунен к заморозке, стану, замедлению, притягиванию, откидыванию и проклятию. Только один дракон за раз, не чаще чем раз в 5 минут. Бросает 3 фаербола с горящими зонами.', sprite: 'dragonCrimson' },
       { id: 'dragonVoid', name: 'Старейшина Бездны (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (бездная форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonVoid' },
@@ -410,7 +416,7 @@ class I18n {
       grenadeLauncher: 'Lobs arcing grenades that explode on landing.',
       bloodSpear: 'Piercing spears that can apply bleed.',
       phantomBlades: 'Orbiting phantom blades that slash nearby enemies.',
-      cursedTotem: 'Plants a long-lived curse zone at your feet. Stay inside the radius for it to curse foes.',
+      cursedTotem: 'Plants a long-lived curse zone at your feet. Stay inside the radius for it to curse foes. Also blocks Priest healing for enemies in the field.',
       iceCrystal: 'Fans homing ice shards in a 90° cone; each shard locks onto an enemy.'
     },
     ru: {
@@ -422,7 +428,7 @@ class I18n {
       grenadeLauncher: 'Кидает гранаты по дуге со взрывом при приземлении.',
       bloodSpear: 'Пронзающие копья, способные накладывать кровотечение.',
       phantomBlades: 'Орбитальные призрачные клинки, секущие ближайших врагов.',
-      cursedTotem: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри радиуса, чтобы тотем проклинал врагов.',
+      cursedTotem: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри радиуса, чтобы тотем проклинал врагов. Также блокирует лечение Жреца для врагов в поле.',
       iceCrystal: 'Веер самонаводящихся ледяных осколков в конусе 90°; каждый осколок ловит свою цель.'
     }
   };
@@ -2801,9 +2807,10 @@ class Enemy {
     dragon: 260
   };
 
-  static PRIEST_TARGETS = 3;
-  static BUFF_GROWTH = 1 / 10;   // seconds to reach 300% size
-  static BUFF_DECAY = 1 / 7;     // deflate rate once the priest dies
+  static PRIEST_HEAL_RADIUS = 150;
+  static PRIEST_HEAL_RATE = 0.08; // fraction of target max HP restored per second
+  static BUFF_GROWTH = 1 / 10;   // leftover size-buff decay (no longer applied by priests)
+  static BUFF_DECAY = 1 / 7;
   static _uid = 0;
 
   static _getLevelMult(level) {
@@ -3047,6 +3054,11 @@ class Enemy {
       this.type !== 'ufo' && this.type !== 'bomber';
   }
 
+  canBeHealedByPriest() {
+    return !this.dying && this.type !== 'priest' && this.type !== 'dragon' &&
+      this.hp < this.maxHp;
+  }
+
   beginDeath() {
     if (this.dying) return false;
     this.dying = true;
@@ -3057,12 +3069,6 @@ class Enemy {
     if (this.deathSprites && this.deathSprites[0]) this.sprite = this.deathSprites[0];
     if (this.type === 'dragon') SoundManager.dragonDeath();
     if (this.type === 'priest') {
-      for (const t of this.buffTargets) {
-        if (t.buffSource === this) {
-          t.buffSource = null;
-          t.buffSourceUid = -1;
-        }
-      }
       this.buffTargets.length = 0;
     }
     return true;
@@ -3103,8 +3109,15 @@ class Enemy {
     if (this.castAnim > 0) this.castAnim -= dt;
     this._updateBuff(dt);
 
+    // A solidly frozen enemy remains harmless for the entire frame, including
+    // the frame in which its freeze timer reaches zero.
+    const wasFullyFrozen = this.frozenT > 0;
     StatusEffects.tick(this, dt, game);
     if (!this.active || this.dying) return;
+    if (wasFullyFrozen) {
+      this.speed = 0;
+      return;
+    }
     // Freeze / stun / slow all funnel through one movement multiplier
     const moveFactor = StatusEffects.moveFactor(this);
     this.speed = this.baseSpeed * moveFactor;
@@ -3232,20 +3245,7 @@ class Enemy {
         break;
       }
       case 'priest': {
-        for (let i = this.buffTargets.length - 1; i >= 0; i--) {
-          const t = this.buffTargets[i];
-          if (!t.active || t.buffSource !== this) this.buffTargets.splice(i, 1);
-        }
-        this.retargetCD -= dt;
-        if (this.retargetCD <= 0 && this.buffTargets.length < Enemy.PRIEST_TARGETS) {
-          this.retargetCD = 1.4;
-          const target = game.findBuffCandidate(this, 320);
-          if (target) {
-            target.buffSource = this;
-            target.buffSourceUid = this.uid;
-            this.buffTargets.push(target);
-          }
-        }
+        this._tickPriestHeal(dt, game);
         break;
       }
       case 'ufo': {
@@ -3401,21 +3401,18 @@ class Enemy {
       this.x += -ny * this.speed * 0.4 * dt;
       this.y += nx * this.speed * 0.4 * dt;
     }
+    this._tickPriestHeal(dt, game);
+  }
 
-    for (let i = this.buffTargets.length - 1; i >= 0; i--) {
-      const t = this.buffTargets[i];
-      if (!t.active || t.buffSource !== this) this.buffTargets.splice(i, 1);
-    }
-
-    this.retargetCD -= dt;
-    if (this.retargetCD > 0 || this.buffTargets.length >= Enemy.PRIEST_TARGETS) return;
-    this.retargetCD = 1.4;
-    const target = game.findBuffCandidate(this, 320);
-    if (target) {
-      target.buffSource = this;
-      target.buffSourceUid = this.uid;
-      this.buffTargets.push(target);
-    }
+  _tickPriestHeal(dt, game) {
+    if (!game || !game.spatial) return;
+    const r = Enemy.PRIEST_HEAL_RADIUS;
+    const rate = Enemy.PRIEST_HEAL_RATE * dt;
+    game.spatial.queryCircle(this.x, this.y, r, (e) => {
+      if (e === this || !e.canBeHealedByPriest()) return;
+      if (game.isPriestHealBlocked(e)) return;
+      e.hp = Math.min(e.maxHp, e.hp + e.maxHp * rate);
+    }, 40);
   }
 
   _tickDragonWalk(dt, moving) {
@@ -3587,23 +3584,27 @@ class Enemy {
     this.sprite = this.castAnim > 0 ? this.sprites.mageCast : this.sprites.mage;
   }
 
-  _drawHolyLinks(ctx, cam, s) {
+  _drawHealAura(ctx, cam, s) {
+    const r = Enemy.PRIEST_HEAL_RADIUS;
+    const pulse = 0.12 + Math.sin(this.timer * 3.2) * 0.05;
     ctx.save();
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(255, 236, 160, ${pulse * 0.55})`;
+    ctx.fill();
+    ctx.strokeStyle = `rgba(255, 230, 140, ${0.28 + pulse})`;
     ctx.lineWidth = 2;
-    ctx.setLineDash([7, 5]);
-    ctx.lineDashOffset = -this.timer * 26;
-    for (const t of this.buffTargets) {
-      if (!t.active) continue;
-      const ts = cam.worldToScreen(t.x, t.y);
-      const pulse = 0.22 + Math.sin(this.timer * 5) * 0.08 + t.buff * 0.25;
-      ctx.strokeStyle = `rgba(255,240,190,${pulse})`;
-      ctx.shadowColor = 'rgba(255,230,150,0.7)';
-      ctx.shadowBlur = 6;
-      ctx.beginPath();
-      ctx.moveTo(s.x, s.y);
-      ctx.lineTo(ts.x, ts.y);
-      ctx.stroke();
-    }
+    ctx.setLineDash([8, 6]);
+    ctx.lineDashOffset = -this.timer * 18;
+    ctx.stroke();
+    ctx.setLineDash([]);
+    const glow = ctx.createRadialGradient(s.x, s.y, r * 0.15, s.x, s.y, r);
+    glow.addColorStop(0, `rgba(255, 250, 200, ${0.1 + pulse * 0.35})`);
+    glow.addColorStop(1, 'rgba(255, 220, 120, 0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+    ctx.fill();
     ctx.restore();
   }
 
@@ -3627,8 +3628,8 @@ class Enemy {
     if (!this.active) return;
     const s = cam.worldToScreen(this.x, this.y);
 
-    if (!this.dying && this.type === 'priest' && this.buffTargets.length) {
-      this._drawHolyLinks(ctx, cam, s);
+    if (!this.dying && this.type === 'priest') {
+      this._drawHealAura(ctx, cam, s);
     }
 
     if (!this.dying && this.type === 'wolf' && this.ghostTrail.length) {
@@ -3948,7 +3949,8 @@ class Player {
     const a = this.statAdd;
     const m = (typeof MetaProgression !== 'undefined') ? MetaProgression.bonuses() : {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
-      bulletCount: 0, critChance: 0, critDamageBonus: 0, expMultiplier: 0, luck: 0
+      bulletCount: 0, critChance: 0, critDamageBonus: 0, expMultiplier: 0, luck: 0,
+      weaponRadius: 0
     };
     const s = this.stats;
     s.moveSpeed = B.moveSpeed * (1 + a.moveSpeed + m.moveSpeed);
@@ -3956,7 +3958,7 @@ class Player {
     s.attack = B.attack * (1 + a.attack + m.attack);
     s.attackSpeed = B.attackSpeed * (1 + a.attackSpeed + m.attackSpeed);
     s.bulletSpeed = B.bulletSpeed * (1 + a.bulletSpeed);
-    s.weaponRadius = B.weaponRadius * (1 + a.weaponRadius);
+    s.weaponRadius = B.weaponRadius * (1 + a.weaponRadius + m.weaponRadius);
     s.critChance = Math.min(1, B.critChance + a.critChance + m.critChance);
     s.critDamage = B.critDamage + a.critDamageBonus + m.critDamageBonus;
     s.expMultiplier = B.expMultiplier * (1 + a.expMultiplier + m.expMultiplier);
@@ -5340,7 +5342,8 @@ class Game {
       bulletCount: ['BLT'],
       critical: ['CRT', 'CDM'],
       expMultiplier: ['EXP'],
-      luck: ['LCK']
+      luck: ['LCK'],
+      weaponRadius: ['RAD']
     };
     const abbrs = map[storeId];
     if (!abbrs) return '';
@@ -5355,7 +5358,7 @@ class Game {
     const list = document.getElementById('storeList');
     const goldEl = document.getElementById('storeGold');
     if (!list || typeof MetaProgression === 'undefined') return;
-    goldEl.textContent = I18n.t('menuGold', Math.floor(MetaProgression.gold));
+    goldEl.textContent = I18n.t('storeGoldVal', Math.floor(MetaProgression.gold).toLocaleString('en-US'));
     list.innerHTML = MetaProgression.DEFS.map((d) => {
       const lv = MetaProgression.levelOf(d.id);
       const maxed = lv >= d.max;
@@ -5644,6 +5647,22 @@ class Game {
       if (d < bestD) { bestD = d; best = e; }
     });
     return best;
+  }
+
+  /* Cursed Totem suppresses priest healing for foes in its aura or already cursed. */
+  isPriestHealBlocked(e) {
+    if (!e || e.dying) return true;
+    if (e.curse > 0) return true;
+    const w = this.weapons && this.weapons.get('cursedTotem');
+    const totems = w && w.state && w.state.totems;
+    if (!totems || !totems.length) return false;
+    for (const t of totems) {
+      const r = t.radius || 220;
+      const dx = e.x - t.x;
+      const dy = e.y - t.y;
+      if (dx * dx + dy * dy <= r * r) return true;
+    }
+    return false;
   }
 
   /* Densest nearby knot of enemies — where a UFO wants to dump the player. */
