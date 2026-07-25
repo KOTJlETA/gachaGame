@@ -50,6 +50,26 @@
     cursor: pointer;
     box-shadow: 0 4px 0 #0a2a12, 0 0 20px rgba(125,255,154,0.3);
     transition: transform 0.1s, box-shadow 0.1s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-icon {
+    width: 22px;
+    height: 22px;
+    image-rendering: pixelated;
+    image-rendering: crisp-edges;
+    flex-shrink: 0;
+  }
+  .btn-label { line-height: 1; }
+  /* Main + Pause primary buttons share one fixed width so rows look uniform */
+  #mainMenu > .btn,
+  #pauseMenu > .btn {
+    width: min(320px, calc(100vw - 48px));
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
   }
   .btn:hover {
     transform: translateY(-2px);
@@ -90,6 +110,13 @@
     opacity: 0.35;
     cursor: pointer;
     z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  #mainMenu .test-btn .btn-icon {
+    width: 14px;
+    height: 14px;
   }
   #mainMenu .test-btn:hover {
     opacity: 0.55;
@@ -692,6 +719,13 @@
     display: flex; flex-wrap: wrap; gap: 10px;
     justify-content: center; max-width: 920px;
   }
+  #choiceOverlay.start-weapon-pick .choice-cards {
+    max-width: min(980px, 96vw);
+  }
+  #choiceOverlay.start-weapon-pick .choice-card.weapon {
+    width: 150px;
+    min-height: 200px;
+  }
   .choice-card {
     width: 168px; min-height: 190px;
     padding: 12px 10px;
@@ -710,6 +744,8 @@
     outline: none;
   }
   .choice-card.weapon { border-color: #c040ff; width: 178px; min-height: 220px; }
+  .choice-card.heal { border-color: #f0a858; }
+  .choice-card.heal:hover, .choice-card.heal:focus { border-color: #ffd080; }
   .choice-card.auto {
     border-color: #ffd23d;
     width: 178px;
@@ -766,6 +802,105 @@
   #storeOverlay { z-index: 11; }
   #optionsOverlay { z-index: 11; }
   #testOverlay { z-index: 12; }
+  #charSelectOverlay { z-index: 11; }
+  .char-panel {
+    max-width: min(980px, 96vw);
+    width: min(980px, 96vw);
+    max-height: min(92vh, 900px);
+  }
+  .char-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+    max-height: min(62vh, 560px);
+    overflow-y: auto;
+    text-align: left;
+    padding: 4px 4px 12px;
+  }
+  .char-card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    background: rgba(0,0,0,0.35);
+    border: 2px solid rgba(125,255,154,0.25);
+    border-radius: 10px;
+    cursor: pointer;
+    color: #cfe8d4;
+    font-family: inherit;
+    text-align: left;
+    transition: border-color 0.12s, transform 0.12s;
+  }
+  .char-card:hover, .char-card:focus {
+    border-color: #7dff9a;
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .char-card.selected {
+    border-color: #7dff9a;
+    box-shadow: 0 0 16px rgba(125,255,154,0.35);
+    background: rgba(20, 60, 30, 0.45);
+  }
+  .char-card-head {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+  }
+  .char-card-art {
+    width: 48px;
+    height: 48px;
+    image-rendering: pixelated;
+    flex-shrink: 0;
+  }
+  .char-card-name {
+    color: #7dff9a;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .char-card-weapon {
+    color: #a8d4b0;
+    font-size: 11px;
+  }
+  .char-card-desc {
+    font-size: 11px;
+    line-height: 1.45;
+    color: #9ab89e;
+  }
+  .char-card-stats {
+    margin-top: 2px;
+    padding-top: 8px;
+    border-top: 1px solid rgba(125, 255, 154, 0.18);
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .char-card-stats-title {
+    font-size: 10px;
+    letter-spacing: 1px;
+    color: #7dff9a;
+    font-weight: bold;
+    margin-bottom: 2px;
+  }
+  .char-stat-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    font-size: 11px;
+    line-height: 1.35;
+    color: #cfe8d4;
+  }
+  .char-stat-note {
+    font-size: 11px;
+    line-height: 1.4;
+    color: #c9a0ff;
+  }
+  .char-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-top: 10px;
+  }
   .test-panel {
     max-width: min(960px, 96vw);
     width: min(960px, 96vw);

@@ -124,6 +124,8 @@ class UpgradeSystem {
     // Per pending roll: whether weapon cards are allowed
     this.pendingWeaponEligible = [];
     this._currentWeaponEligible = false;
+    // High Cultist one-shot second-weapon picker (mandatory, Esc-proof)
+    this.startWeaponPick = false;
   }
 
   bindGame(game) {
@@ -183,7 +185,34 @@ class UpgradeSystem {
     this.batchIndex = 0;
     this.pendingWeaponEligible = [];
     this._currentWeaponEligible = false;
+    this.startWeaponPick = false;
     this.close();
+  }
+
+  /* Mandatory second-weapon choice at run start (High Cultist). */
+  openStartWeaponPick(excludeId) {
+    if (!this.game || this.game.state !== 'playing') return;
+    this.startWeaponPick = true;
+    this.pendingRolls = 0;
+    this.pendingWeaponEligible = [];
+    this.batchTotal = 1;
+    this.batchIndex = 1;
+    this.options = WEAPON_IDS
+      .filter((id) => id !== excludeId)
+      .map((id) => ({ type: 'weapon', weaponId: id, level: 1, branch: null }));
+    this.open = true;
+    this.readyAt = performance.now() + 500;
+    this._render();
+    if (this.overlay) {
+      this.overlay.classList.remove('hidden');
+      this.overlay.classList.add('choice-locked');
+      this.overlay.classList.add('start-weapon-pick');
+    }
+    if (this._unlockTimer) clearTimeout(this._unlockTimer);
+    this._unlockTimer = setTimeout(() => {
+      this._unlockTimer = 0;
+      if (this.overlay && this.open) this.overlay.classList.remove('choice-locked');
+    }, 500);
   }
 
   toSaveData() {
@@ -218,10 +247,14 @@ class UpgradeSystem {
 
   handleKey(code) {
     if (!this.open) return false;
-    const map = { Digit1: 0, Digit2: 1, Digit3: 2, Digit4: 3, Digit5: 4,
-      Numpad1: 0, Numpad2: 1, Numpad3: 2, Numpad4: 3, Numpad5: 4 };
+    const map = {
+      Digit1: 0, Digit2: 1, Digit3: 2, Digit4: 3, Digit5: 4,
+      Digit6: 5, Digit7: 6, Digit8: 7, Digit9: 8,
+      Numpad1: 0, Numpad2: 1, Numpad3: 2, Numpad4: 3, Numpad5: 4,
+      Numpad6: 5, Numpad7: 6, Numpad8: 7, Numpad9: 8
+    };
     if (!(code in map)) return false;
-    // Still swallow 1-5 during the grace period so they don't leak into the game
+    // Still swallow number keys during the grace period so they don't leak into the game
     if (!this._canPick()) return true;
     this.pick(map[code]);
     return true;
@@ -266,6 +299,7 @@ class UpgradeSystem {
     this.open = false;
     this.options = [];
     this.readyAt = 0;
+    this.startWeaponPick = false;
     if (this._unlockTimer) {
       clearTimeout(this._unlockTimer);
       this._unlockTimer = 0;
@@ -273,6 +307,7 @@ class UpgradeSystem {
     if (this.overlay) {
       this.overlay.classList.add('hidden');
       this.overlay.classList.remove('choice-locked');
+      this.overlay.classList.remove('start-weapon-pick');
     }
   }
 
@@ -283,6 +318,9 @@ class UpgradeSystem {
     const weaponOpts = [];
     const offerAuto = this._weaponsFullyUpgraded() && !this.autoSelect;
     const allowWeapons = !!this._currentWeaponEligible;
+    const cardCount = (typeof MetaProgression !== 'undefined' && MetaProgression.maxChoiceOptions)
+      ? MetaProgression.maxChoiceOptions()
+      : 5;
 
     // Weapon options — only on milestone level-ups / chest rolls that allow them
     if (allowWeapons) {
@@ -306,7 +344,8 @@ class UpgradeSystem {
 
     const result = [];
     const used = new Set();
-    const maxCards = offerAuto ? 4 : 5;
+    // Reserve one slot for Autoselect when offered
+    const maxCards = offerAuto ? Math.max(1, cardCount - 1) : cardCount;
 
     // Guarantee at least one weapon option when any exist
     if (weaponOpts.length) {
@@ -315,15 +354,16 @@ class UpgradeSystem {
       used.add(this._key(first));
     }
 
-    // Eligible stats fill the remaining slots (unique when possible)
+    // Eligible stats + whole chicken fill remaining slots (unique when possible)
     const selected = p.selectedStatIds;
     const maxStats = typeof p.maxStatSlots === 'function' ? p.maxStatSlots() : 5;
     let eligibleStats = selected.length >= maxStats ? selected.slice() : STAT_IDS.slice();
-    this._shuffle(eligibleStats);
+    const filler = eligibleStats.map((id) => ({ type: 'stat', statId: id }));
+    filler.push({ type: 'heal', id: 'wholeChicken' });
+    this._shuffle(filler);
 
-    for (const id of eligibleStats) {
+    for (const o of filler) {
       if (result.length >= maxCards) break;
-      const o = { type: 'stat', statId: id };
       const k = this._key(o);
       if (used.has(k)) continue;
       used.add(k);
@@ -343,10 +383,10 @@ class UpgradeSystem {
       result.push(o);
     }
 
-    // Last resort: repeat eligible stats so there are always enough cards
+    // Last resort: repeat eligible stats / chicken so there are always enough cards
     let si = 0;
-    while (result.length < maxCards && eligibleStats.length) {
-      result.push({ type: 'stat', statId: eligibleStats[si % eligibleStats.length] });
+    while (result.length < maxCards && filler.length) {
+      result.push(filler[si % filler.length]);
       si++;
     }
 
@@ -362,11 +402,12 @@ class UpgradeSystem {
     // Autoselect is always the last card once every weapon is maxed
     if (offerAuto) result.push({ type: 'auto' });
 
-    return result.slice(0, 5);
+    return result.slice(0, cardCount);
   }
 
   _key(o) {
     if (o.type === 'auto') return 'auto';
+    if (o.type === 'heal') return `h:${o.id || 'heal'}`;
     if (o.type === 'weapon') return `w:${o.weaponId}:${o.level}:${o.branch || ''}`;
     return `s:${o.statId}`;
   }
@@ -395,6 +436,18 @@ class UpgradeSystem {
         p._recomputeStats();
         if (!silent) game.ui.toast(`${def.label()}: ${def.value(p)}`, 'rare');
       }
+    } else if (opt.type === 'heal') {
+      const healed = p.healPercent(0.15);
+      if (typeof MetaProgression !== 'undefined') {
+        MetaProgression.discover('items', 'wholeChicken');
+      }
+      if (typeof game.spawnHealParticles === 'function') {
+        game.spawnHealParticles(p.x, p.y);
+      }
+      if (!silent) {
+        if (healed > 0 && typeof SoundManager !== 'undefined' && SoundManager.heal) SoundManager.heal();
+        game.ui.toast(I18n.t('wholeChickenHeal', Math.ceil(healed || p.stats.maxHealth * 0.15)), 'epic');
+      }
     } else if (opt.type === 'weapon') {
       const existing = game.weapons.get(opt.weaponId);
       const def = WEAPON_DEFS[opt.weaponId];
@@ -418,6 +471,9 @@ class UpgradeSystem {
       const def = STAT_DEFS[opt.statId];
       return def ? `${def.label()} ${def.value(p)}` : '';
     }
+    if (opt.type === 'heal') {
+      return `${I18n.t('wholeChicken')} ${I18n.t('wholeChickenVal')}`;
+    }
     if (opt.type === 'weapon') {
       const def = WEAPON_DEFS[opt.weaponId];
       const name = def ? I18n.t(def.nameKey) : opt.weaponId;
@@ -436,7 +492,7 @@ class UpgradeSystem {
     const label = this._optionLabel(opt);
     if (!label) return;
     const p = game.player;
-    const color = opt.type === 'weapon' ? '#e8a0ff' : '#7dff9a';
+    const color = opt.type === 'weapon' ? '#e8a0ff' : opt.type === 'heal' ? '#ff9a4a' : '#7dff9a';
     const delay = stackIndex * 280;
     const rise = stackIndex * 14;
     const spawn = () => {
@@ -479,11 +535,16 @@ class UpgradeSystem {
       return;
     }
 
+    const wasStartPick = this.startWeaponPick;
     this._applyOption(opt, false);
     // Brief i-frames after a manual pick — not used for auto-select drains
     const p = this.game.player;
     if (p && !p.invulnerable) p.invulnTimer = Math.max(p.invulnTimer || 0, 0.5);
     this.close();
+    if (wasStartPick) {
+      this._endBatchIfDone();
+      return;
+    }
     if (this.pendingRolls > 0) {
       setTimeout(() => this._openNext(), 80);
     } else {
@@ -494,10 +555,14 @@ class UpgradeSystem {
   _render() {
     if (!this.cardsEl) return;
     if (this.titleEl) {
-      const title = I18n.t('chooseUpgrade');
-      const total = Math.max(this.batchTotal, this.batchIndex, 1);
-      const index = Math.max(this.batchIndex, 1);
-      this.titleEl.textContent = `${title}  ${index}/${total}`;
+      if (this.startWeaponPick) {
+        this.titleEl.textContent = I18n.t('charCultistPickTitle');
+      } else {
+        const title = I18n.t('chooseUpgrade');
+        const total = Math.max(this.batchTotal, this.batchIndex, 1);
+        const index = Math.max(this.batchIndex, 1);
+        this.titleEl.textContent = `${title}  ${index}/${total}`;
+      }
     }
     const p = this.game.player;
     this.cardsEl.innerHTML = this.options.map((o, i) => {
@@ -519,6 +584,18 @@ class UpgradeSystem {
           ${img}
           <div class="choice-name">${def.label()}</div>
           <div class="choice-value">${def.value(p)}</div>
+        </button>`;
+      }
+      if (o.type === 'heal') {
+        const spr = this.game.sprites.wholeChicken
+          || this.game.sprites[IconFactory.spriteKey('wholeChicken')]
+          || this.game.sprites.chickenLeg;
+        const img = spr ? `<img class="choice-icon" src="${spr.toDataURL()}">` : '';
+        return `<button type="button" class="choice-card heal" data-choice-idx="${i}">
+          <div class="choice-key">${i + 1}</div>
+          ${img}
+          <div class="choice-name">${I18n.t('wholeChicken')}</div>
+          <div class="choice-value">${I18n.t('wholeChickenVal')}</div>
         </button>`;
       }
       const def = WEAPON_DEFS[o.weaponId];

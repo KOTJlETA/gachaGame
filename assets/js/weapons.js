@@ -434,6 +434,10 @@ function _hitEnemy(game, e, dmg, isCrit, opts) {
     }
     if (opts.onHit) opts.onHit(e, dead);
   }
+  if (game && typeof game._passive === 'function') {
+    const wid = (opts && opts.weaponId) || null;
+    game._passive('onHit', e, wid, dead, opts || null);
+  }
   if (dead) {
     if (opts && opts.bleedExplode && e.bleedStacks > 0 && e.canChain !== false) {
       e.explodedBy = 'bleed';
@@ -458,7 +462,7 @@ function _spawnBullet(game, x, y, vx, vy, dmg, isCrit, opts) {
   p.color = opts.color || '#4af';
   p.kind = opts.kind || 'bullet';
   p.onHit = opts.onHit || null;
-  p.weaponOpts = opts.hitOpts || null;
+  p.weaponOpts = Object.assign({}, opts.hitOpts || {}, { weaponId: opts.weaponId || null });
   p.spin = !!opts.spin;
   p.returning = false;
   p.home = !!opts.home;
@@ -489,6 +493,10 @@ WEAPON_DEFS.shotgun = {
     const baseAng = Math.atan2(sy, sx);
     let spread = m.choke ? 0.28 : 0.55;
     spread *= m.spreadTight;
+    const adr = (game.character && game.character.id === 'hunter' && game.passive)
+      ? Math.min(5, game.passive.stacks | 0) : 0;
+    spread *= (1 - 0.05 * adr);
+    const pierceBonus = Math.min(adr, 2);
     const bursts = m.burst || 1;
     for (let b = 0; b < bursts; b++) {
       const delay = b * 0.08;
@@ -501,7 +509,7 @@ WEAPON_DEFS.shotgun = {
           const roll = rollCritDamage(p, base);
           if (roll.isCrit) anyCrit = true;
           _spawnBullet(game, p.x, p.y, Math.cos(ang) * spd, Math.sin(ang) * spd, roll.damage, roll.isCrit, {
-            pierce: m.pierce, radius: 4, color: '#f5d76e', kind: 'pellet', life: 0.9,
+            pierce: (m.pierce || 0) + pierceBonus, radius: 4, color: '#f5d76e', kind: 'pellet', life: 0.9,
             explosive: m.explosive, split: m.split && i === Math.floor(count / 2),
             hitOpts: m.burn ? { burn: true } : null, weaponId: 'shotgun'
           });
@@ -537,6 +545,7 @@ WEAPON_DEFS.chainLightning = {
         hit.add(cur);
         const roll = rollCritDamage(p, base * (0.7 + 0.3 * (jumps + 1) / m.jumps));
         const dead = _hitEnemy(game, cur, roll.damage, roll.isCrit, {
+          weaponId: 'chainLightning',
           slow: m.slowOnHit, slowFactor: 0.55, slowDur: 1.4,
           onHit: (e, wasDead) => {
             if (wasDead && m.killJump) jumps += 1;
@@ -545,7 +554,7 @@ WEAPON_DEFS.chainLightning = {
         segs.push({ x1: fromX, y1: fromY, x2: cur.x, y2: cur.y });
         if (m.skyStrike && jumps === 0) {
           const roll2 = rollCritDamage(p, base * 1.2);
-          _hitEnemy(game, cur, roll2.damage, roll2.isCrit, {});
+          _hitEnemy(game, cur, roll2.damage, roll2.isCrit, { weaponId: 'chainLightning' });
           segs.push({ x1: cur.x, y1: cur.y - 120, x2: cur.x, y2: cur.y, sky: true });
         }
         if (m.field && jumps === 0) {
@@ -613,6 +622,7 @@ WEAPON_DEFS.garlicAura = {
     game.spatial.queryCircle(p.x, p.y, radius, (e) => {
       const roll = rollCritDamage(p, base);
       const dead = _hitEnemy(game, e, roll.damage, roll.isCrit, {
+        weaponId: 'garlicAura',
         slow: m.auraSlow, slowFactor: 0.7, slowDur: 0.6
       });
       if (m.lifesteal) healed += roll.damage * 0.04;
@@ -675,12 +685,18 @@ WEAPON_DEFS.boomerang = {
       || game.spatial.nearest(p.x, p.y, 500)
       || aim;
     const ang = Math.atan2(target.y - p.y, target.x - p.x);
+    const pass = (typeof CHARACTER_PASSIVES !== 'undefined' && game.character)
+      ? CHARACTER_PASSIVES[game.character.id] : null;
+    const momentum = !!(pass && pass.consumeMomentum && pass.consumeMomentum(game, game.passive));
+    if (pass && pass.onBoomerangThrown) pass.onBoomerangThrown(game, game.passive);
     for (let i = 0; i < count; i++) {
       const a = ang + (i - (count - 1) * 0.5) * 0.2;
-      const spd = (m.spinHard ? 260 : 200) + p.stats.bulletSpeed * 0.2;
+      let spd = (m.spinHard ? 260 : 200) + p.stats.bulletSpeed * 0.2;
+      if (momentum) spd *= 1.45;
       const roll = rollCritDamage(p, base);
+      const life = momentum ? (m.hover ? 3.2 : 2.6) : (m.hover ? 2.4 : 1.8);
       const proj = _spawnBullet(game, p.x, p.y, Math.cos(a) * spd, Math.sin(a) * spd, roll.damage, roll.isCrit, {
-        radius: 8, color: '#d4a574', kind: 'boomerang', life: m.hover ? 2.4 : 1.8,
+        radius: 8, color: momentum ? '#ffe0a0' : '#d4a574', kind: 'boomerang', life,
         pierce: 99, spin: true, trail: m.trail, weaponId: 'boomerang',
         meta: { returning: false, originX: p.x, originY: p.y, pull: m.pull, collidePull: m.collidePull,
           extraOrbit: m.extraOrbit, hover: m.hover, hoverT: 0 }
@@ -812,7 +828,7 @@ WEAPON_DEFS.towerShield = {
 
 WEAPON_DEFS.grenadeLauncher = {
   id: 'grenadeLauncher', nameKey: 'weaponGrenadeLauncher', kind: 'thrown',
-  cooldown: 2.8, damageMult: 2.2, projectiles: 1, hasReload: true,
+  cooldown: 5.6, damageMult: 4.4, projectiles: 1, hasReload: true,
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
@@ -863,23 +879,35 @@ WEAPON_DEFS.bloodSpear = {
     const count = weaponProjectileCount(this, p);
     const dx = aim.x - p.x; const dy = aim.y - p.y;
     const ang = Math.atan2(dy, dx);
+    const pass = (typeof CHARACTER_PASSIVES !== 'undefined' && game.character)
+      ? CHARACTER_PASSIVES[game.character.id] : null;
+    let crimson = !!(pass && pass.consumeCrimson && pass.consumeCrimson(game, game.passive));
     for (let i = 0; i < count; i++) {
       const a = ang + (i - (count - 1) * 0.5) * 0.12;
       const spd = 320 + p.stats.bulletSpeed * 0.4;
       const roll = rollCritDamage(p, base);
+      const isCrimson = crimson && i === 0;
+      if (isCrimson) crimson = false;
+      const applyBleed = !!(m.bleed || (game.character && game.character.id === 'bloodKnight'));
       _spawnBullet(game, p.x, p.y, Math.cos(a) * spd, Math.sin(a) * spd, roll.damage, roll.isCrit, {
-        pierce: m.keepFlying ? 8 : 2, radius: 5, color: '#e33', kind: 'spear', life: 1.4,
-        keepFlying: m.keepFlying, home: m.home, spin: m.spinReturn,
+        pierce: isCrimson ? 99 : (m.keepFlying ? 8 : 2),
+        radius: isCrimson ? 7 : 5,
+        color: isCrimson ? '#ff2040' : '#e33',
+        kind: 'spear', life: 1.4,
+        keepFlying: m.keepFlying || isCrimson, home: m.home, spin: m.spinReturn,
+        trail: isCrimson || m.trail,
         hitOpts: {
-          bleed: m.bleed,
+          bleed: applyBleed,
           bleedExplode: m.bleedExplode,
           onHit: (e) => {
-            if (m.bloodPool) {
+            if (m.bloodPool || isCrimson) {
               game.effects.spawnField('blood', e.x, e.y, weaponScaleRadius(36, p), 2.2, base * 0.2, '#a22', null, EffectCaps.MAX_PUDDLES);
             }
           }
         },
-        meta: m.returns ? { returning: false, originX: p.x, originY: p.y, returns: true } : null,
+        meta: isCrimson
+          ? { crimson: true, returning: false, originX: p.x, originY: p.y, returns: !!m.returns }
+          : (m.returns ? { returning: false, originX: p.x, originY: p.y, returns: true } : null),
         weaponId: 'bloodSpear'
       });
     }
@@ -895,7 +923,10 @@ WEAPON_DEFS.phantomBlades = {
     const p = game.player;
     const m = w.mods;
     // Projectile Speed drives orbit spin (this weapon has no fire-rate CD)
-    const spinMult = Math.max(0.25, (p.stats.bulletSpeed || 280) / 280);
+    let spinMult = Math.max(0.25, (p.stats.bulletSpeed || 280) / 280);
+    const sync = !!(game.character && game.character.id === 'bladeDancer'
+      && game.passive && game.passive.syncT > 0);
+    if (sync) spinMult *= 2;
     w.state.angle = (w.state.angle || 0) + dt * (2.8 + (m.linger ? 0.4 : 0)) * spinMult;
     // Weapon Radius scales how far the blades orbit from the player
     let radius = weaponScaleRadius(50, p);
@@ -920,8 +951,22 @@ WEAPON_DEFS.phantomBlades = {
       weaponProjectileCount(this, p) + Math.min(EffectCaps.MAX_PHANTOMS, m.phantoms || 0));
     const base = p.stats.attack * this.damageMult;
     w.state.blades = [];
+    const half = Math.ceil(blades / 2);
     for (let i = 0; i < blades; i++) {
-      const a = (w.state.angle || 0) + (Math.PI * 2 * i) / blades;
+      let a;
+      if (sync) {
+        if (i < half) {
+          const t = half <= 1 ? 0 : (i / (half - 1) - 0.5);
+          a = (w.state.angle || 0) + t * 0.4;
+        } else {
+          const j = i - half;
+          const n = blades - half;
+          const t = n <= 1 ? 0 : (j / (n - 1) - 0.5);
+          a = (w.state.angle || 0) + Math.PI + t * 0.4;
+        }
+      } else {
+        a = (w.state.angle || 0) + (Math.PI * 2 * i) / blades;
+      }
       const bx = p.x + Math.cos(a) * radius;
       const by = p.y + Math.sin(a) * radius;
       w.state.blades.push({ x: bx, y: by, a });
@@ -929,7 +974,7 @@ WEAPON_DEFS.phantomBlades = {
         if (e._bladeHit === w.state.tick) return;
         e._bladeHit = w.state.tick;
         const roll = rollCritDamage(p, base);
-        _hitEnemy(game, e, roll.damage, roll.isCrit, {});
+        _hitEnemy(game, e, roll.damage, roll.isCrit, { weaponId: 'phantomBlades' });
       }, 6);
     }
     w.state.tick = (w.state.tick || 0) + 1;
@@ -939,7 +984,7 @@ WEAPON_DEFS.phantomBlades = {
         w.state.slashT = 0;
         game.spatial.queryCircle(p.x, p.y, radius + weaponScaleRadius(20, p), (e) => {
           const roll = rollCritDamage(p, base * 1.6);
-          _hitEnemy(game, e, roll.damage, roll.isCrit, {});
+          _hitEnemy(game, e, roll.damage, roll.isCrit, { weaponId: 'phantomBlades' });
         }, 32);
         SoundManager.weaponWhoosh();
       }
@@ -1100,16 +1145,21 @@ WEAPON_DEFS.iceCrystal = {
     const launchShard = (fromX, fromY, ang, target, bounces, mult) => {
       const roll = rollCritDamage(p, base * mult);
       const spd = 300 + p.stats.bulletSpeed * 0.35;
+      const isIceWitch = !!(game.character && game.character.id === 'iceWitch');
+      const doFreeze = !!(m.freeze || isIceWitch);
       _spawnBullet(game, fromX, fromY, Math.cos(ang) * spd, Math.sin(ang) * spd, roll.damage, roll.isCrit, {
         radius: mult < 1 ? 5 : 6, color: '#9ef', kind: 'shard', life: mult < 1 ? 1.6 : 2.2,
         lockTarget: target, home: true, weaponId: 'iceCrystal',
-        hitOpts: { slow: true, slowFactor: 0.65, slowDur: 1, freeze: m.freeze, freezeAmt: 0.02 },
+        hitOpts: { slow: true, slowFactor: 0.65, slowDur: 1, freeze: doFreeze, freezeAmt: 0.02 },
         onHit: (e, g) => {
           // Per-shard buildup is small because a volley lands several shards
-          const froze = m.freeze ? StatusEffects.applyFreeze(e, m.freezeSolid ? 0.22 : 0.12) : false;
+          const froze = doFreeze ? StatusEffects.applyFreeze(e, m.freezeSolid ? 0.22 : 0.12) : false;
+          if (froze && g && typeof g._passive === 'function') {
+            g._passive('onHit', e, 'iceCrystal', false, null);
+          }
           if (froze && m.shatter) {
             const r2 = rollCritDamage(p, base * mult * 0.8);
-            _hitEnemy(g, e, r2.damage, r2.isCrit, {});
+            _hitEnemy(g, e, r2.damage, r2.isCrit, { weaponId: 'iceCrystal' });
           }
           if (froze && m.statues) e.frozenT = Math.max(e.frozenT, 3);
           if (m.iceTrail) {
@@ -1119,7 +1169,7 @@ WEAPON_DEFS.iceCrystal = {
             g.spatial.queryCircle(e.x, e.y, weaponScaleRadius(70, p), (o) => {
               if (o === e) return;
               const r = rollCritDamage(p, base * mult * 0.4);
-              _hitEnemy(g, o, r.damage, r.isCrit, { freeze: true, freezeAmt: 0.12 });
+              _hitEnemy(g, o, r.damage, r.isCrit, { freeze: true, freezeAmt: 0.12, weaponId: 'iceCrystal' });
             }, 4);
           }
           // Path B bounces the shard onward to the next nearby enemy
@@ -1194,13 +1244,28 @@ class GrenadeProjectile {
     this.radius = 10;
     this.spin = Math.random() * Math.PI * 2;
     this._sparkCd = 0;
+    this.armed = false;
+    this._armLife = 0;
   }
   update(dt, game) {
     if (!this.active) return;
+    if (this.armed) {
+      this.spin += dt * 6;
+      return;
+    }
     this.t += dt / this.dur;
     this.spin += dt * 10;
     if (this.t >= 1) {
       this.t = 1;
+      this.x = this.tx;
+      this.y = this.ty;
+      if (game.character && game.character.id === 'demolition') {
+        this.armed = true;
+        this._armLife = 6;
+        const pass = typeof CHARACTER_PASSIVES !== 'undefined' ? CHARACTER_PASSIVES.demolition : null;
+        if (pass && pass.armGrenade) pass.armGrenade(game, game.passive, this);
+        return;
+      }
       this._land(game);
       this.active = false;
       return;
@@ -1220,6 +1285,12 @@ class GrenadeProjectile {
       p.spawn(this.x, this.y, (Math.random() - 0.5) * 40, -30 - Math.random() * 40,
         0.2 + Math.random() * 0.15, Math.random() > 0.5 ? '#ffb020' : '#ffe680', 2 + Math.random() * 2, 80);
     }
+  }
+  _detonateArmed(game) {
+    if (!this.active) return;
+    this.armed = false;
+    this._land(game);
+    this.active = false;
   }
   _land(game) {
     const p = game.player;
@@ -1260,23 +1331,24 @@ class GrenadeProjectile {
   }
   draw(ctx, cam) {
     if (!this.active) return;
-    const groundY = this.sy + (this.ty - this.sy) * this.t;
+    const groundY = this.armed ? this.ty : (this.sy + (this.ty - this.sy) * this.t);
     const ground = cam.worldToScreen(this.x, groundY);
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
     ctx.beginPath();
     ctx.ellipse(ground.x, ground.y + 2, 12, 4, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    const s = cam.worldToScreen(this.x, this.y);
+    const s = cam.worldToScreen(this.x, this.armed ? this.ty : this.y);
     ctx.save();
     ctx.translate(s.x, s.y);
     ctx.rotate(this.spin);
+    const blink = this.armed && (Math.floor(performance.now() / 120) % 2 === 0);
     // High-contrast shell — olive body was nearly invisible on the field
-    ctx.fillStyle = '#2a1a08';
+    ctx.fillStyle = blink ? '#ff4020' : '#2a1a08';
     ctx.beginPath();
     ctx.arc(0, 0, 11, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = '#c4a035';
+    ctx.fillStyle = blink ? '#ffe080' : '#c4a035';
     ctx.beginPath();
     ctx.arc(0, 0, 9, 0, Math.PI * 2);
     ctx.fill();
@@ -1486,8 +1558,10 @@ class WeaponSystem {
       SoundManager[key] = function (...args) {
         const now = performance.now();
         if (now - (this['_' + key] || 0) < ms) return;
+        if (now - (this.lastCombat || 0) < 50) return;
         this['_' + key] = now;
-        fn.apply(this, args);
+        this.lastCombat = now;
+        this._withPrio('combat', () => fn.apply(this, args));
       };
     };
     lim('weaponShotgun', 80, function (crit) {

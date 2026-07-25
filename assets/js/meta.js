@@ -8,6 +8,7 @@ const MetaProgression = {
   // Per-bonus on/off switch; a purchased bonus can be disabled without refunding
   enabled: {},
   discovered: { enemies: [], items: [], weapons: [] },
+  selectedCharacter: 'hunter',
 
   DEFS: [
     { id: 'moveSpeed', max: 10, perLevel: 0.10,
@@ -51,7 +52,12 @@ const MetaProgression = {
     { id: 'statSlots', max: 5, perLevel: 1,
       costs: [50000, 150000, 350000, 700000, 1000000],
       icon: 'statSlots', labelKey: 'storeStatSlots', valueKey: 'storeStatSlotsVal',
-      descKey: 'storeStatSlotsDesc' }
+      descKey: 'storeStatSlotsDesc' },
+    /* Extra level-up / chest choice cards — steep luxury (base 5 → up to 7) */
+    { id: 'choiceOptions', max: 2, perLevel: 1,
+      costs: [120000, 500000],
+      icon: 'choiceOptions', labelKey: 'storeChoiceOptions', valueKey: 'storeChoiceOptionsVal',
+      descKey: 'storeChoiceOptionsDesc' }
   ],
 
   _emptyLevels() {
@@ -75,6 +81,7 @@ const MetaProgression = {
     this.enabled = this._emptyEnabled();
     this.gold = 0;
     this.discovered = this._emptyDiscovered();
+    this.selectedCharacter = 'hunter';
     try {
       const raw = localStorage.getItem(this.KEY);
       if (!raw) return;
@@ -94,6 +101,9 @@ const MetaProgression = {
         items: Array.isArray(disc.items) ? disc.items.slice() : [],
         weapons: Array.isArray(disc.weapons) ? disc.weapons.slice() : []
       };
+      if (typeof data.selectedCharacter === 'string' && data.selectedCharacter) {
+        this.selectedCharacter = data.selectedCharacter;
+      }
     } catch (e) { /* ignore */ }
   },
 
@@ -103,6 +113,7 @@ const MetaProgression = {
         gold: Math.floor(this.gold),
         levels: { ...this.levels },
         enabled: { ...this.enabled },
+        selectedCharacter: this.selectedCharacter || 'hunter',
         discovered: {
           enemies: this.discovered.enemies.slice(),
           items: this.discovered.items.slice(),
@@ -117,7 +128,13 @@ const MetaProgression = {
     this.levels = this._emptyLevels();
     this.enabled = this._emptyEnabled();
     this.discovered = this._emptyDiscovered();
+    this.selectedCharacter = 'hunter';
     try { localStorage.removeItem(this.KEY); } catch (e) {}
+  },
+
+  setSelectedCharacter(id) {
+    this.selectedCharacter = id || 'hunter';
+    this.save();
   },
 
   levelOf(id) {
@@ -185,7 +202,7 @@ const MetaProgression = {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
       bulletCount: 0, critChance: 0, critDamageBonus: 0,
       expMultiplier: 0, luck: 0, weaponRadius: 0, bulletSpeed: 0, curse: 0,
-      weaponSlots: 0, statSlots: 0
+      weaponSlots: 0, statSlots: 0, choiceOptions: 0
     };
     for (const d of this.DEFS) {
       const n = this.levelOf(d.id);
@@ -193,7 +210,7 @@ const MetaProgression = {
       if (d.id === 'critical') {
         b.critChance += d.critChance * n;
         b.critDamageBonus += d.critDamage * n;
-      } else if (d.id === 'bulletCount' || d.id === 'weaponSlots' || d.id === 'statSlots') {
+      } else if (d.id === 'bulletCount' || d.id === 'weaponSlots' || d.id === 'statSlots' || d.id === 'choiceOptions') {
         b[d.id] += d.perLevel * n;
       } else {
         b[d.id] += d.perLevel * n;
@@ -208,6 +225,11 @@ const MetaProgression = {
 
   maxStatSlots() {
     return 5 + (this.isEnabled('statSlots') ? this.levelOf('statSlots') : 0);
+  },
+
+  /* Base 5 choice cards + store extras (max +2 → 7). */
+  maxChoiceOptions() {
+    return 5 + (this.isEnabled('choiceOptions') ? this.levelOf('choiceOptions') : 0);
   }
 };
 

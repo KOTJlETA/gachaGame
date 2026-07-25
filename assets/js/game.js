@@ -108,6 +108,12 @@ class I18n {
       storeStatSlots: 'Stat Slots',
       storeStatSlotsVal: '+1 slot',
       storeStatSlotsDesc: 'Permanently adds one committed-stat slot for every run. Buy up to 5 extras (10 stats total). Extremely expensive.',
+      storeChoiceOptions: 'Choice Options',
+      storeChoiceOptionsVal: '+1 choice card',
+      storeChoiceOptionsDesc: 'Permanently adds one extra card to every level-up and chest choice. Buy up to 2 extras (7 cards total). Extremely expensive.',
+      wholeChicken: 'Whole Chicken',
+      wholeChickenVal: 'Restore 15% max HP',
+      wholeChickenHeal: '+{0} HP (whole chicken)',
       resetData: 'RESET DATA',
       resetDataTitle: 'RESET ALL DATA?',
       resetDataText: 'Gold, store upgrades, and run saves will be permanently erased.',
@@ -162,7 +168,44 @@ class I18n {
       rarityLegendary: 'LEGENDARY',
       chestCommon: 'common',
       chestRare: 'rare',
-      chestEpic: 'epic'
+      chestEpic: 'epic',
+      charSelectTitle: 'CHOOSE CHARACTER',
+      charStart: 'START RUN',
+      tabCharacters: 'CHARS',
+      helpEmptyCharacters: 'All playable characters and their always-on passives.',
+      charHunter: 'Hunter',
+      charStormcaller: 'Stormcaller',
+      charPlagueDoctor: 'Plague Doctor',
+      charRanger: 'Ranger',
+      charGuardian: 'Guardian',
+      charDemolition: 'Demolition Expert',
+      charBloodKnight: 'Blood Knight',
+      charBladeDancer: 'Blade Dancer',
+      charHighCultist: 'High Cultist',
+      charIceWitch: 'Ice Witch',
+      passiveAdrenaline: 'Adrenaline',
+      passiveStaticCharge: 'Static Charge',
+      passiveInfection: 'Infection',
+      passivePerfectCatch: 'Perfect Catch',
+      passiveResolve: 'Resolve',
+      passiveDelayedDetonation: 'Delayed Detonation',
+      passiveBloodlust: 'Bloodlust',
+      passiveRhythm: 'Rhythm',
+      passiveSoulHarvest: 'Soul Harvest',
+      passiveSupercooling: 'Supercooling',
+      charHunterDesc: 'Near 6+ foes build Adrenaline (max 5): tighter Boomstick spread and up to +2 pierce.',
+      charStormcallerDesc: 'Chain Lightning marks foes with Static Charge. 3+ charged foes link with non-recursive arcs (max 10 marks, 3 arcs / 0.6s).',
+      charPlagueDoctorDesc: 'Garlic Aura infects after 3 pulses. Infected deaths spread poison once to a nearby foe (depth 1, max 24).',
+      charRangerDesc: 'Keep moving until the Boomerang returns to store Momentum for a faster, longer next throw.',
+      charGuardianDesc: '6s without damage grants Resolve. The next Tower Shield plate hit spends it for a wide slam (3s cooldown).',
+      charDemolitionDesc: 'Grenades arm on landing instead of exploding. A new land detonates the previous. Auto-blasts after 6s.',
+      charBloodKnightDesc: 'Bleed hits and bleeding kills fill Bloodlust (20). At full, the next Blood Spear is Crimson: full pierce + blood trail.',
+      charBladeDancerDesc: 'Phantom Blade hits build Rhythm (40). Full meter starts a fixed 4s Sync: faster spin and clustered orbits.',
+      charHighCultistDesc: 'Killing cursed foes sends souls to your Totem. At 5 souls the totem curses up to 6 enemies in range.',
+      charIceWitchDesc: 'Solidified Ice Crystal targets become Supercooling auras (max 3). Nearby foes freeze 1.6× faster.',
+      charBaseStats: 'BASE STATS',
+      charCultistKit: 'No base-stat bonuses. Choose a second starting weapon when the run begins.',
+      charCultistPickTitle: 'CHOOSE SECOND WEAPON'
     },
     ru: {
       title: 'BULLSHIT SURVIVORS',
@@ -232,6 +275,12 @@ class I18n {
       storeStatSlots: 'Слоты статов',
       storeStatSlotsVal: '+1 слот',
       storeStatSlotsDesc: 'Навсегда добавляет один слот выбранного стата в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
+      storeChoiceOptions: 'Варианты выбора',
+      storeChoiceOptionsVal: '+1 карта выбора',
+      storeChoiceOptionsDesc: 'Навсегда добавляет одну карту к каждому выбору при уровне и из сундука. Можно купить до 2 доп. (всего 7 карт). Очень дорого.',
+      wholeChicken: 'Целая курица',
+      wholeChickenVal: 'Восстановить 15% макс. ОЗ',
+      wholeChickenHeal: '+{0} ОЗ (целая курица)',
       resetData: 'СБРОС ДАННЫХ',
       resetDataTitle: 'СБРОСИТЬ ВСЕ ДАННЫЕ?',
       resetDataText: 'Золото, улучшения магазина и сохранения забегов будут удалены навсегда.',
@@ -317,7 +366,44 @@ class I18n {
       rarityLegendary: 'ЛЕГЕНДАРНЫЙ',
       chestCommon: 'обычный',
       chestRare: 'редкий',
-      chestEpic: 'эпический'
+      chestEpic: 'эпический',
+      charSelectTitle: 'ВЫБОР ПЕРСОНАЖА',
+      charStart: 'НАЧАТЬ ЗАБЕГ',
+      tabCharacters: 'ГЕРОИ',
+      helpEmptyCharacters: 'Все играбельные персонажи и их постоянные пассивки.',
+      charHunter: 'Охотник',
+      charStormcaller: 'Буревестник',
+      charPlagueDoctor: 'Чумной доктор',
+      charRanger: 'Следопыт',
+      charGuardian: 'Страж',
+      charDemolition: 'Подрывник',
+      charBloodKnight: 'Кровавый рыцарь',
+      charBladeDancer: 'Танцор клинков',
+      charHighCultist: 'Верховный культист',
+      charIceWitch: 'Ледяная ведьма',
+      passiveAdrenaline: 'Адреналин',
+      passiveStaticCharge: 'Статический заряд',
+      passiveInfection: 'Инфекция',
+      passivePerfectCatch: 'Идеальный лов',
+      passiveResolve: 'Стойкость',
+      passiveDelayedDetonation: 'Отложенный взрыв',
+      passiveBloodlust: 'Жажда крови',
+      passiveRhythm: 'Ритм',
+      passiveSoulHarvest: 'Жатва душ',
+      passiveSupercooling: 'Переохлаждение',
+      charHunterDesc: 'Рядом с 6+ врагами копится Адреналин (макс. 5): уже веер дробовика и до +2 пробивания.',
+      charStormcallerDesc: 'Цепная молния помечает врагов. 3+ заряженных связываются дугами без рекурсии (макс. 10 меток, 3 дуги / 0.6с).',
+      charPlagueDoctorDesc: 'Чесночная аура заражает после 3 импульсов. Смерть заражённого разносит яд один раз (глубина 1, макс. 24).',
+      charRangerDesc: 'Не останавливайтесь, пока бумеранг в полёте — получите Импульс для более быстрого и дальнего броска.',
+      charGuardianDesc: '6с без урона дают Стойкость. Следующий удар щита тратит её на широкий слэм (кд 3с).',
+      charDemolitionDesc: 'Гранаты встают на взведение при приземлении. Новая взорвёт предыдущую. Авто-взрыв через 6с.',
+      charBloodKnightDesc: 'Удары с кровотечением и убийства кровоточащих наполняют Жажду (20). Полная шкала — Багровое копьё: пробитие + кровавый след.',
+      charBladeDancerDesc: 'Удары клинков копят Ритм (40). Полная шкала — 4с Синхрон: быстрее вращение и сгруппированные орбиты.',
+      charHighCultistDesc: 'Убийства проклятых шлют души к тотему. На 5 душах тотем проклинает до 6 врагов в радиусе.',
+      charIceWitchDesc: 'Замороженные цели Ледяного кристалла становятся аурами Переохлаждения (макс. 3). Рядом лёд копится ×1.6.',
+      charBaseStats: 'БАЗОВЫЕ СТАТЫ',
+      charCultistKit: 'Без бонусов к базовым статам. В начале забега выберите второе стартовое оружие.',
+      charCultistPickTitle: 'ВЫБЕРИТЕ ВТОРОЕ ОРУЖИЕ'
     }
   };
 
@@ -383,6 +469,7 @@ class I18n {
       difficultyDesc: 'XP and level increase spawn rate, enemy count, HP, damage, speed, and dangerous enemy mix. Weak enemies retire as you level — slimes stop by 22, zombies by 40, skeletons by 48 — so the field fills with tougher types instead. Levels 20–50 stay gentler; from level 50 onward scaling ramps up sharply. The Boss Dragon always appears at level 75, then at most once every 5 minutes.',
       enemies: 'ENEMIES',
       items: 'ITEM DROPS',
+      characters: 'PLAYER CHARACTERS',
       goldSources: 'GOLD SOURCES',
       goldSourcesDesc: 'Defeating enemies drops gold coins (amount varies by type). Every chest and chicken leg now drops from a killed enemy too — nothing spawns on the field by itself. All gold gained adds experience.',
       speed: 'Speed',
@@ -397,6 +484,7 @@ class I18n {
       difficultyDesc: 'Опыт и уровень повышают частоту спавна, число врагов, HP, урон, скорость и долю опасных типов. Слабые враги перестают появляться с ростом уровня: слизни к 22, зомби к 40, скелеты к 48 — вместо них поле заполняют более опасные типы. Уровни 20–50 мягче; с 50 уровня рост резкий. Босс-дракон всегда появляется на 75 уровне, затем не чаще раза в 5 минут.',
       enemies: 'ВРАГИ',
       items: 'ВЫПАДАЮЩИЕ ПРЕДМЕТЫ',
+      characters: 'ПЕРСОНАЖИ',
       goldSources: 'ИСТОЧНИКИ ЗОЛОТА',
       goldSourcesDesc: 'Враги роняют монеты (зависит от типа). Сундуки и куриные ножки теперь тоже выпадают только из убитых врагов — на поле сами по себе они не появляются. Всё золото даёт опыт.',
       speed: 'Скорость',
@@ -414,7 +502,7 @@ class I18n {
       { id: 'robot', name: 'War Automaton', threat: 'high', gold: 14, speed: 'Always below yours', hp: '260 (+scale)', dmg: '26 (+scale)', ability: 'Melee only · Very tanky', desc: 'A walking wall from level 12. Its speed is hard-capped below your movement speed, so you can always outrun it.', sprite: 'robot' },
       { id: 'wolf', name: 'White Wolf', threat: 'high', gold: 7, speed: '80% of player', hp: '55 (+scale)', dmg: '16 (+scale)', ability: 'Bite · Slows you 0.5s', desc: 'Appears from level 8. Always runs at 80% of your speed so you can outrun it. When a bullet closes in, it blinks sideways with a ghost trail (1s cooldown). A bite cuts your movement speed for half a second.', sprite: 'wolf' },
       { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Holy heal aura', desc: 'From level 15. Keeps a golden aura that continuously heals nearby enemies. Does not heal himself, other priests, or Elder Dragons. A Cursed Totem blocks healing for foes inside its field (or already cursed).', sprite: 'priest' },
-      { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'Abduction', ability: 'Lifts and drops you', desc: 'From level 18, max 3 at once. Catches you, carries you for ~2.4s and dumps you into the thickest pack of enemies.', sprite: 'ufo' },
+      { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'None', ability: 'Lifts and drops you', desc: 'From level 18, max 3 at once. Catches you, carries you for ~2.4s and dumps you into the thickest pack of enemies. Deals no damage.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Crimson Tyrant (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (one of four Elder Dragon forms). Walks the field; never flies. Immune to freeze, stun, slow, pull, knockback, and curse. Only one Elder Dragon at a time, max once per 5 minutes. Hurls 3 arcing fireballs that leave burning zones.', sprite: 'dragonCrimson' },
       { id: 'dragonVoid', name: 'Void Elder (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (void form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, control immune, one dragon at a time, 5-minute cooldown, triple fireball volleys with lingering flames.', sprite: 'dragonVoid' },
       { id: 'dragonBone', name: 'Bone Sovereign (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (undead form of the Elder Dragon). Same rules as Crimson Tyrant: walks, control immune, one at a time, 5-minute cooldown, triple fireball barrages.', sprite: 'dragonBone' },
@@ -429,7 +517,7 @@ class I18n {
       { id: 'robot', name: 'Боевой автоматон', threat: 'high', gold: 14, speed: 'Всегда медленнее вас', hp: '260 (+масш.)', dmg: '26 (+масш.)', ability: 'Ближний бой · Очень живучий', desc: 'Ходячая стена с 12 уровня. Его скорость жёстко ограничена ниже вашей — от него всегда можно убежать.', sprite: 'robot' },
       { id: 'wolf', name: 'Белый волк', threat: 'high', gold: 7, speed: '80% от игрока', hp: '55 (+масш.)', dmg: '16 (+масш.)', ability: 'Укус · Замедляет на 0.5с', desc: 'С 8 уровня. Всегда бежит на 80% вашей скорости — от него можно убежать. Когда пуля близко — мигает в сторону с призрачным шлейфом (кд 1с). Укус замедляет вас на полсекунды.', sprite: 'wolf' },
       { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Аура исцеления', desc: 'С 15 уровня. Держит золотую ауру, которая постоянно лечит ближайших врагов. Не лечит себя, других жрецов и Драконов. Проклятый тотем блокирует лечение врагов в своём поле (или уже проклятых).', sprite: 'priest' },
-      { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Похищение', ability: 'Поднимает и бросает вас', desc: 'С 18 уровня, максимум 3 сразу. Хватает вас, несёт ~2.4с и сбрасывает в самую гущу врагов.', sprite: 'ufo' },
+      { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Нет', ability: 'Поднимает и бросает вас', desc: 'С 18 уровня, максимум 3 сразу. Хватает вас, несёт ~2.4с и сбрасывает в самую гущу врагов. Урона не наносит.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Алый тиран (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (одна из четырёх форм Древнего дракона). Ходит по земле, не летает. Иммунен к заморозке, стану, замедлению, притягиванию, откидыванию и проклятию. Только один дракон за раз, не чаще чем раз в 5 минут. Бросает 3 фаербола с горящими зонами.', sprite: 'dragonCrimson' },
       { id: 'dragonVoid', name: 'Старейшина Бездны (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (бездная форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonVoid' },
       { id: 'dragonBone', name: 'Костяной владыка (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (нежить-форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonBone' },
@@ -442,13 +530,15 @@ class I18n {
       { tier: 'common', name: 'Common Chest', gold: 5, threat: 'low', sprite: 'chestCommon', desc: 'Dropped by slain enemies and auto-opens when you walk nearby. Most frequent chest type.' },
       { tier: 'rare', name: 'Rare Chest', gold: 15, threat: 'mid', sprite: 'chestRare', desc: 'Blue-glowing drop. Luck raises both the drop rate and the quality roll.' },
       { tier: 'epic', name: 'Epic Chest', gold: 50, threat: 'high', sprite: 'chestEpic', desc: 'Purple-glowing drop with the largest gold reward. Bosses drop chests far more often.' },
-      { id: 'chickenLeg', name: 'Chicken Leg', threat: 'high', sprite: 'chickenLeg', tags: 'Epic rarity · Auto-pickup', statline: 'Restores 5% max HP', desc: 'Very rare heal drop from a killed enemy; Luck improves the odds. Walk nearby to collect.' }
+      { id: 'chickenLeg', name: 'Chicken Leg', threat: 'high', sprite: 'chickenLeg', tags: 'Epic rarity · Auto-pickup', statline: 'Restores 5% max HP', desc: 'Very rare heal drop from a killed enemy; Luck improves the odds. Walk nearby to collect.' },
+      { id: 'wholeChicken', name: 'Whole Chicken', threat: 'mid', sprite: 'wholeChicken', tags: 'Level-up / chest choice', statline: 'Restores 15% max HP', desc: 'Appears randomly among upgrade choices, like a bonus-stat card. Pick it to heal.' }
     ],
     ru: [
       { tier: 'common', name: 'Обычный сундук', gold: 5, threat: 'low', sprite: 'chestCommon', desc: 'Выпадает из убитых врагов, открывается при приближении. Самый частый тип.' },
       { tier: 'rare', name: 'Редкий сундук', gold: 15, threat: 'mid', sprite: 'chestRare', desc: 'Синее свечение. Удача повышает шанс выпадения и качество.' },
       { tier: 'epic', name: 'Эпический сундук', gold: 50, threat: 'high', sprite: 'chestEpic', desc: 'Фиолетовое свечение, максимум золота. Из боссов выпадает гораздо чаще.' },
-      { id: 'chickenLeg', name: 'Куриная ножка', threat: 'high', sprite: 'chickenLeg', tags: 'Эпич. редкость · Авто-подбор', statline: 'Восстанавливает 5% макс. OЗ', desc: 'Очень редкое лечение из убитого врага; Удача повышает шанс. Подойдите для подбора.' }
+      { id: 'chickenLeg', name: 'Куриная ножка', threat: 'high', sprite: 'chickenLeg', tags: 'Эпич. редкость · Авто-подбор', statline: 'Восстанавливает 5% макс. OЗ', desc: 'Очень редкое лечение из убитого врага; Удача повышает шанс. Подойдите для подбора.' },
+      { id: 'wholeChicken', name: 'Целая курица', threat: 'mid', sprite: 'wholeChicken', tags: 'Выбор при уровне / сундуке', statline: 'Восстанавливает 15% макс. ОЗ', desc: 'Случайно появляется среди карт выбора, как бонусный стат. Выберите, чтобы вылечиться.' }
     ]
   };
 
@@ -554,6 +644,13 @@ class SoundManager {
   static lastBite = 0;
   static lastFlap = 0;
   static lastUfoFly = 0;
+  static lastCombat = 0;
+  static lastRoar = 0;
+  static activeVoices = 0;
+  static MAX_VOICES = 12;
+  static MAX_CRITICAL = 16;
+  static _noiseBuf = null;
+  static _prio = 'combat';
 
   static init() {
     try {
@@ -580,8 +677,43 @@ class SoundManager {
     return this.ctx ? this.ctx.currentTime : 0;
   }
 
+  static _canPlay(priority) {
+    if (!this.enabled || !this.ctx || !this.master) return false;
+    if (priority === 'critical') return this.activeVoices < this.MAX_CRITICAL;
+    if (priority === 'ambient' && this.activeVoices > this.MAX_VOICES * 0.6) return false;
+    return this.activeVoices < this.MAX_VOICES;
+  }
+
+  static _track(node, dur) {
+    this.activeVoices++;
+    let released = false;
+    const done = () => {
+      if (released) return;
+      released = true;
+      this.activeVoices = Math.max(0, this.activeVoices - 1);
+    };
+    try {
+      node.onended = done;
+    } catch (e) {}
+    setTimeout(done, Math.ceil((dur + 0.05) * 1000));
+  }
+
+  static _getNoiseBuf(dur) {
+    if (!this.ctx) return null;
+    // Reuse one short shared buffer — avoids allocating every call
+    if (!this._noiseBuf || this._noiseBuf.duration < 0.2) {
+      const len = Math.floor(this.ctx.sampleRate * 0.25);
+      const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
+      const d = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+      this._noiseBuf = buf;
+    }
+    return this._noiseBuf;
+  }
+
   static _tone(freq, dur, type = 'square', vol = 0.14, delay = 0, slide = null) {
-    if (!this.enabled || !this.ctx || !this.master) return;
+    const prio = this._prio || 'combat';
+    if (!this._canPlay(prio)) return;
     const t0 = this._t() + delay;
     const osc = this.ctx.createOscillator();
     const gain = this.ctx.createGain();
@@ -592,6 +724,7 @@ class SoundManager {
     gain.gain.exponentialRampToValueAtTime(0.001, t0 + dur);
     osc.connect(gain);
     gain.connect(this.master);
+    this._track(osc, delay + dur);
     osc.start(t0);
     osc.stop(t0 + dur + 0.03);
   }
@@ -601,12 +734,11 @@ class SoundManager {
   }
 
   static _noise(dur, vol = 0.1, freq = 900, delay = 0, type = 'lowpass') {
-    if (!this.enabled || !this.ctx || !this.master) return;
+    const prio = this._prio || 'combat';
+    if (!this._canPlay(prio)) return;
     const t0 = this._t() + delay;
-    const len = Math.floor(this.ctx.sampleRate * dur);
-    const buf = this.ctx.createBuffer(1, len, this.ctx.sampleRate);
-    const d = buf.getChannelData(0);
-    for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+    const buf = this._getNoiseBuf(dur);
+    if (!buf) return;
     const src = this.ctx.createBufferSource();
     src.buffer = buf;
     const filt = this.ctx.createBiquadFilter();
@@ -618,191 +750,229 @@ class SoundManager {
     src.connect(filt);
     filt.connect(gain);
     gain.connect(this.master);
+    this._track(src, delay + dur);
     src.start(t0);
     src.stop(t0 + dur + 0.02);
   }
 
+  static _withPrio(priority, fn) {
+    const prev = this._prio;
+    this._prio = priority;
+    try { fn(); } finally { this._prio = prev; }
+  }
+
   static ui() {
-    this._tone(520, 0.05, 'square', 0.1);
-    this._tone(780, 0.04, 'square', 0.06, 0.03);
+    this._withPrio('critical', () => {
+      this._tone(520, 0.05, 'square', 0.1);
+      this._tone(780, 0.04, 'square', 0.06, 0.03);
+    });
   }
 
   static shoot(crit = false) {
     const now = performance.now();
-    if (now - this.lastShoot < 45) return;
+    if (now - this.lastShoot < 55) return;
+    if (now - this.lastCombat < 50) return;
     this.lastShoot = now;
-    if (crit) {
-      this._tone(990, 0.05, 'square', 0.11);
-      this._tone(1480, 0.06, 'square', 0.09, 0.04);
-    } else {
-      this._tone(740, 0.045, 'square', 0.08);
-      this._tone(1100, 0.035, 'triangle', 0.05, 0.025);
-    }
+    this.lastCombat = now;
+    this._withPrio('combat', () => {
+      if (crit) {
+        this._tone(990, 0.05, 'square', 0.11);
+        this._tone(1480, 0.06, 'square', 0.09, 0.04);
+      } else {
+        this._tone(740, 0.045, 'square', 0.08);
+        this._tone(1100, 0.035, 'triangle', 0.05, 0.025);
+      }
+    });
   }
 
   static kill() {
     const now = performance.now();
-    if (now - this.lastKill < 25) return;
+    if (now - this.lastKill < 90) return;
     this.lastKill = now;
-    this._tone(320, 0.07, 'square', 0.1);
-    this._tone(180, 0.09, 'square', 0.08, 0.04, 90);
+    this._withPrio('combat', () => {
+      this._tone(320, 0.07, 'square', 0.1);
+      this._tone(180, 0.09, 'square', 0.08, 0.04, 90);
+    });
   }
 
   static hurt() {
-    this._tone(220, 0.12, 'sawtooth', 0.12, 0, 110);
-    this._noise(0.06, 0.06, 600);
+    this._withPrio('critical', () => {
+      this._tone(220, 0.12, 'sawtooth', 0.12, 0, 110);
+      this._noise(0.06, 0.06, 600);
+    });
   }
 
   static chest(tier = 'common') {
-    if (tier === 'epic') {
-      // Big purple fanfare — intentionally ~2s so epic opens feel special
-      this._noise(0.12, 0.08, 900);
-      this._tone(196, 0.22, 'triangle', 0.1, 0);
-      this._tone(262, 0.2, 'square', 0.11, 0.12);
-      this._tone(330, 0.2, 'square', 0.12, 0.26);
-      this._tone(392, 0.22, 'square', 0.12, 0.4);
-      this._tone(523, 0.28, 'triangle', 0.13, 0.58);
-      this._tone(659, 0.32, 'square', 0.12, 0.78);
-      this._tone(784, 0.36, 'triangle', 0.11, 0.98);
-      this._tone(1047, 0.55, 'sine', 0.12, 1.18);
-      this._tone(1319, 0.5, 'triangle', 0.1, 1.35);
-      this._tone(1568, 0.45, 'sine', 0.08, 1.5);
-      // Sustained shimmer through the end of the 2s window
-      this._tone(880, 0.7, 'triangle', 0.05, 1.3);
-      this._tone(1175, 0.55, 'sine', 0.06, 1.45);
-      this._noise(0.35, 0.04, 2200, 1.55, 'highpass');
-      this._tone(1760, 0.35, 'sine', 0.05, 1.65);
-      return;
-    }
-    if (tier === 'rare') {
-      // Cool blue arpeggio — longer and brighter than common
-      this._noise(0.06, 0.05, 1200);
-      this._seq([392, 494, 587, 740, 880], 0.1, 'square', 0.11);
-      this._tone(988, 0.28, 'triangle', 0.09, 0.48);
-      this._tone(1175, 0.22, 'sine', 0.06, 0.62);
-      return;
-    }
-    // Common: short wooden clink + soft chime
-    this._noise(0.05, 0.06, 700);
-    this._tone(180, 0.08, 'square', 0.08, 0, 120);
-    this._tone(523, 0.1, 'triangle', 0.1, 0.06);
-    this._tone(659, 0.12, 'triangle', 0.08, 0.14);
+    this._withPrio('critical', () => {
+      if (tier === 'epic') {
+        this._noise(0.12, 0.08, 900);
+        this._tone(196, 0.22, 'triangle', 0.1, 0);
+        this._tone(262, 0.2, 'square', 0.11, 0.12);
+        this._tone(330, 0.2, 'square', 0.12, 0.26);
+        this._tone(392, 0.22, 'square', 0.12, 0.4);
+        this._tone(523, 0.28, 'triangle', 0.13, 0.58);
+        this._tone(659, 0.32, 'square', 0.12, 0.78);
+        this._tone(784, 0.36, 'triangle', 0.11, 0.98);
+        this._tone(1047, 0.55, 'sine', 0.12, 1.18);
+        this._tone(1319, 0.5, 'triangle', 0.1, 1.35);
+        this._tone(1568, 0.45, 'sine', 0.08, 1.5);
+        this._tone(880, 0.7, 'triangle', 0.05, 1.3);
+        this._tone(1175, 0.55, 'sine', 0.06, 1.45);
+        this._noise(0.35, 0.04, 2200, 1.55, 'highpass');
+        this._tone(1760, 0.35, 'sine', 0.05, 1.65);
+        return;
+      }
+      if (tier === 'rare') {
+        this._noise(0.06, 0.05, 1200);
+        this._seq([392, 494, 587, 740, 880], 0.1, 'square', 0.11);
+        this._tone(988, 0.28, 'triangle', 0.09, 0.48);
+        this._tone(1175, 0.22, 'sine', 0.06, 0.62);
+        return;
+      }
+      this._noise(0.05, 0.06, 700);
+      this._tone(180, 0.08, 'square', 0.08, 0, 120);
+      this._tone(523, 0.1, 'triangle', 0.1, 0.06);
+      this._tone(659, 0.12, 'triangle', 0.08, 0.14);
+    });
   }
 
   static heal() {
-    this._seq([440, 554, 659, 880], 0.09, 'triangle', 0.1);
+    this._withPrio('critical', () => this._seq([440, 554, 659, 880], 0.09, 'triangle', 0.1));
   }
 
   static levelUp() {
-    this._seq([523, 659, 784, 1047], 0.09, 'square', 0.13);
-    this._tone(1319, 0.18, 'triangle', 0.09, 0.34);
-    this._tone(1568, 0.14, 'sine', 0.06, 0.42);
+    this._withPrio('critical', () => {
+      this._seq([523, 659, 784, 1047], 0.09, 'square', 0.13);
+      this._tone(1319, 0.18, 'triangle', 0.09, 0.34);
+      this._tone(1568, 0.14, 'sine', 0.06, 0.42);
+    });
   }
 
   static gachaResult(rarity = 'common') {
-    const sets = {
-      common: [392, 494],
-      rare: [392, 494, 587],
-      epic: [392, 494, 587, 740],
-      legendary: [392, 494, 587, 740, 988, 1175]
-    };
-    this._seq(sets[rarity] || sets.common, 0.1, 'square', 0.12);
-    if (rarity === 'legendary') this._tone(1175, 0.2, 'triangle', 0.1, 0.55);
+    this._withPrio('critical', () => {
+      const sets = {
+        common: [392, 494],
+        rare: [392, 494, 587],
+        epic: [392, 494, 587, 740],
+        legendary: [392, 494, 587, 740, 988, 1175]
+      };
+      this._seq(sets[rarity] || sets.common, 0.1, 'square', 0.12);
+      if (rarity === 'legendary') this._tone(1175, 0.2, 'triangle', 0.1, 0.55);
+    });
   }
 
   static gachaTick() {
-    this._tone(300 + Math.random() * 80, 0.025, 'square', 0.04);
+    this._withPrio('ambient', () => {
+      this._tone(300 + Math.random() * 80, 0.025, 'square', 0.04);
+    });
   }
 
   static ultimate() {
-    this._noise(0.15, 0.14, 400);
-    this._seq([196, 262, 330, 392, 523], 0.09, 'square', 0.13);
-    this._tone(523, 0.25, 'sawtooth', 0.1, 0.4, 196);
+    this._withPrio('critical', () => {
+      this._noise(0.15, 0.14, 400);
+      this._seq([196, 262, 330, 392, 523], 0.09, 'square', 0.13);
+      this._tone(523, 0.25, 'sawtooth', 0.1, 0.4, 196);
+    });
   }
 
   static bomber() {
-    this._noise(0.2, 0.18, 500);
-    this._tone(120, 0.25, 'square', 0.14, 0, 40);
+    this._withPrio('critical', () => {
+      this._noise(0.2, 0.18, 500);
+      this._tone(120, 0.25, 'square', 0.14, 0, 40);
+    });
   }
 
   static death() {
-    this._seq([330, 262, 196, 147, 98], 0.14, 'square', 0.12);
-    this._noise(0.2, 0.08, 700);
+    this._withPrio('critical', () => {
+      this._seq([330, 262, 196, 147, 98], 0.14, 'square', 0.12);
+      this._noise(0.2, 0.08, 700);
+    });
   }
 
   static wolfBite() {
     const now = performance.now();
     if (now - this.lastBite < 120) return;
     this.lastBite = now;
-    this._noise(0.08, 0.1, 1400);
-    this._tone(420, 0.07, 'sawtooth', 0.09, 0, 180);
+    this._withPrio('combat', () => {
+      this._noise(0.08, 0.1, 1400);
+      this._tone(420, 0.07, 'sawtooth', 0.09, 0, 180);
+    });
   }
 
   static dragonRoar() {
     const now = performance.now();
     if (now - (this.lastRoar || 0) < 2000) return;
     this.lastRoar = now;
-    // Long evil growl: deep descending layers + grit (~2.4s)
-    this._tone(95, 2.2, 'sawtooth', 0.18, 0, 32);
-    this._tone(72, 2.35, 'square', 0.12, 0.05, 28);
-    this._tone(118, 1.9, 'sawtooth', 0.09, 0.12, 40);
-    this._tone(54, 2.4, 'triangle', 0.1, 0.08, 24);
-    this._tone(160, 0.7, 'square', 0.08, 0, 70);
-    this._tone(48, 1.4, 'sawtooth', 0.07, 1.0, 22);
-    this._noise(0.55, 0.14, 240);
-    this._noise(0.45, 0.09, 160, 0.35);
-    this._noise(0.5, 0.08, 120, 0.9);
-    this._noise(0.4, 0.06, 90, 1.5);
-    this._tone(85, 0.55, 'sawtooth', 0.06, 1.6, 30);
-    this._tone(40, 0.7, 'triangle', 0.05, 1.85, 22);
+    this._withPrio('critical', () => {
+      this._tone(95, 2.2, 'sawtooth', 0.18, 0, 32);
+      this._tone(72, 2.35, 'square', 0.12, 0.05, 28);
+      this._tone(118, 1.9, 'sawtooth', 0.09, 0.12, 40);
+      this._tone(54, 2.4, 'triangle', 0.1, 0.08, 24);
+      this._tone(160, 0.7, 'square', 0.08, 0, 70);
+      this._tone(48, 1.4, 'sawtooth', 0.07, 1.0, 22);
+      this._noise(0.55, 0.14, 240);
+      this._noise(0.45, 0.09, 160, 0.35);
+      this._noise(0.5, 0.08, 120, 0.9);
+      this._noise(0.4, 0.06, 90, 1.5);
+      this._tone(85, 0.55, 'sawtooth', 0.06, 1.6, 30);
+      this._tone(40, 0.7, 'triangle', 0.05, 1.85, 22);
+    });
   }
 
   static dragonFlap() {
     const now = performance.now();
-    if (now - this.lastFlap < 140) return;
+    if (now - this.lastFlap < 180) return;
     this.lastFlap = now;
-    this._noise(0.09, 0.11, 280);
-    this._noise(0.06, 0.06, 700, 0.02);
-    this._tone(70, 0.12, 'triangle', 0.07, 0, 40);
+    this._withPrio('ambient', () => {
+      this._noise(0.09, 0.11, 280);
+      this._noise(0.06, 0.06, 700, 0.02);
+      this._tone(70, 0.12, 'triangle', 0.07, 0, 40);
+    });
   }
 
   static dragonFireball() {
-    this._tone(260, 0.1, 'sawtooth', 0.12, 0, 110);
-    this._tone(480, 0.14, 'square', 0.08, 0.03, 160);
-    this._noise(0.12, 0.1, 1100);
-    this._tone(180, 0.18, 'triangle', 0.06, 0.08, 70);
+    this._withPrio('combat', () => {
+      this._tone(260, 0.1, 'sawtooth', 0.12, 0, 110);
+      this._tone(480, 0.14, 'square', 0.08, 0.03, 160);
+      this._noise(0.12, 0.1, 1100);
+      this._tone(180, 0.18, 'triangle', 0.06, 0.08, 70);
+    });
   }
 
-  /* ~5s descending death groan for the Elder Dragon */
   static dragonDeath() {
-    this._tone(110, 5.0, 'sawtooth', 0.15, 0, 32);
-    this._tone(78, 5.0, 'square', 0.09, 0.08, 26);
-    this._tone(55, 4.6, 'triangle', 0.07, 0.25, 22);
-    this._noise(0.8, 0.12, 220);
-    for (let i = 0; i < 9; i++) {
-      const d = 0.45 + i * 0.5;
-      this._noise(0.35, 0.06 - i * 0.004, 180 - i * 8, d);
-      this._tone(95 - i * 7, 0.45, 'sawtooth', 0.05, d, 30);
-    }
+    this._withPrio('critical', () => {
+      this._tone(110, 5.0, 'sawtooth', 0.15, 0, 32);
+      this._tone(78, 5.0, 'square', 0.09, 0.08, 26);
+      this._tone(55, 4.6, 'triangle', 0.07, 0.25, 22);
+      this._noise(0.8, 0.12, 220);
+      for (let i = 0; i < 9; i++) {
+        const d = 0.45 + i * 0.5;
+        this._noise(0.35, 0.06 - i * 0.004, 180 - i * 8, d);
+        this._tone(95 - i * 7, 0.45, 'sawtooth', 0.05, d, 30);
+      }
+    });
   }
 
   static ufoFly() {
     const now = performance.now();
-    if (now - this.lastUfoFly < 180) return;
+    if (now - this.lastUfoFly < 200) return;
     this.lastUfoFly = now;
-    const wobble = 160 + Math.random() * 40;
-    this._tone(wobble, 0.22, 'sine', 0.045);
-    this._tone(wobble * 2.1, 0.18, 'triangle', 0.03, 0.02);
-    this._tone(wobble * 3.3, 0.12, 'sine', 0.02, 0.04);
+    this._withPrio('ambient', () => {
+      const wobble = 160 + Math.random() * 40;
+      this._tone(wobble, 0.22, 'sine', 0.045);
+      this._tone(wobble * 2.1, 0.18, 'triangle', 0.03, 0.02);
+      this._tone(wobble * 3.3, 0.12, 'sine', 0.02, 0.04);
+    });
   }
 
-  /* ~0.3s electric-alien tractor beam */
   static ufoPull() {
-    this._tone(900, 0.3, 'sawtooth', 0.1, 0, 2200);
-    this._tone(1400, 0.28, 'square', 0.07, 0.02, 380);
-    this._tone(600, 0.3, 'sine', 0.08, 0, 1800);
-    this._noise(0.3, 0.09, 2800, 0, 'bandpass');
-    this._noise(0.18, 0.05, 4200, 0.08, 'highpass');
+    this._withPrio('critical', () => {
+      this._tone(900, 0.3, 'sawtooth', 0.1, 0, 2200);
+      this._tone(1400, 0.28, 'square', 0.07, 0.02, 380);
+      this._tone(600, 0.3, 'sine', 0.08, 0, 1800);
+      this._noise(0.3, 0.09, 2800, 0, 'bandpass');
+      this._noise(0.18, 0.05, 4200, 0.08, 'highpass');
+    });
   }
 
   static abduct() {
@@ -810,8 +980,10 @@ class SoundManager {
   }
 
   static fireLand() {
-    this._noise(0.12, 0.09, 700);
-    this._tone(160, 0.16, 'square', 0.08, 0, 70);
+    this._withPrio('combat', () => {
+      this._noise(0.12, 0.09, 700);
+      this._tone(160, 0.16, 'square', 0.08, 0, 70);
+    });
   }
 
   static bindUiClicks() {
@@ -1521,6 +1693,29 @@ class SpriteFactory {
     return this.create(px, p);
   }
 
+  static wholeChicken() {
+    const p = ['#0000', '#3a2010', '#6b3a18', '#a05828', '#d08040', '#f0a858', '#f5deb3', '#fff', '#2a1810'];
+    const px = [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+      0,0,0,0,1,2,3,4,4,3,2,1,0,0,0,0,
+      0,0,0,1,2,3,4,5,5,4,3,2,1,0,0,0,
+      0,0,1,2,3,4,5,5,5,5,4,3,2,1,0,0,
+      0,0,1,2,3,4,5,6,6,5,4,3,2,1,0,0,
+      0,0,1,2,3,4,5,5,5,5,4,3,2,1,0,0,
+      0,0,0,1,2,3,4,4,4,4,3,2,1,0,0,0,
+      0,0,0,0,1,2,3,3,3,3,2,1,0,0,0,0,
+      0,0,0,0,0,1,2,2,2,2,1,0,0,0,0,0,
+      0,0,0,0,0,0,1,7,7,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,7,7,7,7,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p);
+  }
+
   static chest(tier) {
     const pals = {
       common: ['#0000','#3a2a10','#8b6914','#c9a227','#e8d48b','#5a4010','#fff'],
@@ -2085,6 +2280,48 @@ class IconFactory {
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
       ]
+    },
+    choiceOptions: {
+      p: ['#0000','#1a3a5a','#4a90ff','#a0d0ff','#ffd700','#fff'],
+      px: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,1,2,2,1,0,0,0,1,2,2,1,0,0,0,
+        0,0,1,2,3,1,0,0,0,1,3,2,1,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,4,5,5,4,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,4,4,0,0,0,0,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,1,3,2,1,0,0,0,1,2,3,1,0,0,0,
+        0,0,1,2,2,1,0,0,0,1,2,2,1,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      ]
+    },
+    wholeChicken: {
+      p: ['#0000','#3a2010','#6b3a18','#a05828','#d08040','#f0a858','#f5deb3','#fff'],
+      px: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,1,2,2,1,0,0,0,0,0,0,
+        0,0,0,0,0,1,2,3,3,2,1,0,0,0,0,0,
+        0,0,0,0,1,2,3,4,4,3,2,1,0,0,0,0,
+        0,0,0,1,2,3,4,5,5,4,3,2,1,0,0,0,
+        0,0,1,2,3,4,5,5,5,5,4,3,2,1,0,0,
+        0,0,1,2,3,4,5,6,6,5,4,3,2,1,0,0,
+        0,0,1,2,3,4,5,5,5,5,4,3,2,1,0,0,
+        0,0,0,1,2,3,4,4,4,4,3,2,1,0,0,0,
+        0,0,0,0,1,2,3,3,3,3,2,1,0,0,0,0,
+        0,0,0,0,0,1,2,2,2,2,1,0,0,0,0,0,
+        0,0,0,0,0,0,1,7,7,1,0,0,0,0,0,0,
+        0,0,0,0,0,0,7,7,7,7,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,7,7,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      ]
     }
   };
 
@@ -2105,6 +2342,215 @@ class IconFactory {
     return 'icon' + statKey.charAt(0).toUpperCase() + statKey.slice(1);
   }
 }
+
+/* Pixel menu button icons (16×16 → scale 2) */
+const MenuIcons = {
+  /* 0 clear · 1 ink · 2 green · 3 gold · 4 deep red · 5 white · 6 cyan
+     7 light gray · 8 mid gray · 9 dark gray · 10 parchment · 11 brown
+     12 awning stripe · 13 lens · 14 bookmark · 15 wood */
+  _p: [
+    '#0000', '#1a1208', '#7dff9a', '#ffd700', '#8b1a12', '#fff8f0',
+    '#7ec8e8', '#c8c8c8', '#7a7a7a', '#3a3a3a', '#e8d4a8', '#6b4a28',
+    '#d94a3a', '#4a90b8', '#e74c3c', '#a07040'
+  ],
+  defs: {
+    /* Map parchment + looking glass */
+    newGame: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,0,
+      0,1,10,10,10,10,10,10,10,10,10,1,0,0,0,0,
+      0,1,10,11,11,10,10,2,2,10,10,1,0,0,0,0,
+      0,1,10,10,11,11,10,10,2,10,10,1,1,1,0,0,
+      0,1,10,10,10,11,10,10,10,10,10,1,8,8,1,0,
+      0,1,10,2,10,10,10,11,11,10,10,1,8,6,8,1,
+      0,1,10,2,2,10,10,10,11,10,10,1,8,6,8,1,
+      0,1,10,10,2,10,10,10,10,10,10,1,8,8,1,0,
+      0,1,10,10,10,10,11,11,10,10,10,1,1,9,1,0,
+      0,1,10,10,10,10,10,10,10,10,10,1,0,1,9,1,
+      0,0,1,1,1,1,1,1,1,1,1,0,0,0,1,9,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    /* Shop stall with striped fabric awning */
+    store: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,12,5,12,5,12,5,12,5,12,5,0,0,0,0,
+      0,1,12,5,12,5,12,5,12,5,12,5,1,0,0,0,
+      0,1,15,15,15,15,15,15,15,15,15,15,1,0,0,0,
+      0,0,1,11,11,11,11,11,11,11,11,1,0,0,0,0,
+      0,0,1,10,10,10,10,10,10,10,10,1,0,0,0,0,
+      0,0,1,10,9,9,10,10,9,9,10,1,0,0,0,0,
+      0,0,1,10,9,5,10,10,9,5,10,1,0,0,0,0,
+      0,0,1,10,9,9,10,10,9,9,10,1,0,0,0,0,
+      0,0,1,10,10,10,11,11,10,10,10,1,0,0,0,0,
+      0,0,1,10,10,10,11,3,10,10,10,1,0,0,0,0,
+      0,0,1,10,10,10,11,11,10,10,10,1,0,0,0,0,
+      0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    /* Gray mechanical gear */
+    options: [
+      0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,8,7,7,8,0,0,0,0,0,0,
+      0,0,0,0,8,8,7,7,7,7,8,8,0,0,0,0,
+      0,0,0,8,7,7,7,5,5,7,7,7,8,0,0,0,
+      0,0,8,7,7,5,5,9,9,5,5,7,7,8,0,0,
+      0,8,7,7,5,9,9,0,0,9,9,5,7,7,8,0,
+      0,8,7,7,5,9,0,0,0,0,9,5,7,7,8,0,
+      8,7,7,5,9,0,0,0,0,0,0,9,5,7,7,8,
+      8,7,7,5,9,0,0,0,0,0,0,9,5,7,7,8,
+      0,8,7,7,5,9,0,0,0,0,9,5,7,7,8,0,
+      0,8,7,7,5,9,9,0,0,9,9,5,7,7,8,0,
+      0,0,8,7,7,5,5,9,9,5,5,7,7,8,0,0,
+      0,0,0,8,7,7,7,5,5,7,7,7,8,0,0,0,
+      0,0,0,0,8,8,7,7,7,7,8,8,0,0,0,0,
+      0,0,0,0,0,0,8,7,7,8,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0
+    ],
+    /* Book with red bookmark ribbon */
+    help: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,
+      0,0,1,11,10,10,10,10,10,10,10,11,1,0,0,0,
+      0,0,1,11,10,10,10,10,10,10,10,11,1,14,0,0,
+      0,0,1,11,10,5,5,5,5,5,10,11,1,14,0,0,
+      0,0,1,11,10,10,10,10,10,10,10,11,1,14,0,0,
+      0,0,1,11,10,5,5,5,5,5,10,11,1,14,0,0,
+      0,0,1,11,10,10,10,10,10,10,10,11,1,14,0,0,
+      0,0,1,11,10,5,5,5,5,5,10,11,1,14,0,0,
+      0,0,1,11,10,10,10,10,10,10,10,11,1,14,14,0,
+      0,0,1,11,10,10,10,10,10,10,10,11,1,0,14,0,
+      0,0,1,11,11,11,11,11,11,11,11,11,1,0,14,0,
+      0,0,0,1,1,1,1,1,1,1,1,1,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    test: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,6,6,6,0,0,0,0,0,0,0,
+      0,0,0,0,0,6,5,5,5,6,0,0,0,0,0,0,
+      0,0,0,0,6,5,5,5,5,5,6,0,0,0,0,0,
+      0,0,0,0,1,6,5,5,5,6,1,0,0,0,0,0,
+      0,0,0,0,0,1,6,6,6,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,2,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,1,2,2,2,2,2,1,0,0,0,0,0,
+      0,0,0,1,2,2,2,2,2,2,2,1,0,0,0,0,
+      0,0,0,0,1,1,1,1,1,1,1,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    reset: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,1,1,4,4,4,4,4,1,1,0,0,0,0,
+      0,0,1,4,4,4,5,5,4,4,4,4,1,0,0,0,
+      0,1,4,4,4,5,5,5,5,4,4,4,4,1,0,0,
+      0,1,4,4,5,5,1,1,5,5,4,4,4,1,0,0,
+      0,1,4,4,5,5,1,1,5,5,4,4,4,1,0,0,
+      0,1,4,4,4,5,5,5,5,4,4,4,4,1,0,0,
+      0,0,1,4,4,4,5,5,4,4,4,4,1,0,0,0,
+      0,0,0,1,1,4,4,4,4,4,1,1,0,0,0,0,
+      0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    resume: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,
+      0,0,1,2,2,2,2,0,0,0,0,0,0,0,0,0,
+      0,1,2,2,2,2,2,2,0,0,0,0,0,0,0,0,
+      1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
+      1,2,2,2,2,2,2,2,2,2,0,0,0,0,0,0,
+      1,2,2,2,2,2,2,2,2,0,0,0,0,0,0,0,
+      0,1,2,2,2,2,2,2,0,0,0,0,0,0,0,0,
+      0,0,1,2,2,2,2,0,0,0,0,0,0,0,0,0,
+      0,0,0,1,2,2,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    stats: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,
+      0,0,1,2,0,0,0,0,0,0,1,2,0,0,0,0,
+      0,0,1,2,0,0,1,1,0,0,1,2,0,0,0,0,
+      0,0,1,2,0,0,1,3,0,0,1,2,0,0,0,0,
+      0,0,1,2,0,0,1,3,0,0,1,2,0,0,0,0,
+      0,0,1,2,1,1,1,3,1,1,1,2,0,0,0,0,
+      0,0,1,2,1,3,1,3,1,3,1,2,0,0,0,0,
+      0,0,1,2,1,3,1,3,1,3,1,2,0,0,0,0,
+      0,0,1,2,1,3,1,3,1,3,1,2,0,0,0,0,
+      0,0,1,1,1,1,1,1,1,1,1,1,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    restart: [
+      0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,
+      0,0,0,0,2,2,2,5,2,2,2,0,0,0,0,0,
+      0,0,0,2,2,5,5,5,5,5,2,2,0,0,0,0,
+      0,0,2,2,5,5,0,0,0,5,5,2,2,0,0,0,
+      0,0,2,5,5,0,0,0,0,0,5,5,2,0,0,0,
+      0,2,2,5,0,0,0,0,0,0,0,5,2,2,0,0,
+      0,2,5,5,0,0,0,0,0,0,0,5,5,2,2,2,
+      0,2,5,0,0,0,0,0,0,0,0,0,5,5,5,2,
+      0,2,5,5,0,0,0,0,0,0,0,0,0,0,2,0,
+      0,2,2,5,0,0,0,0,0,0,0,5,2,2,0,0,
+      0,0,2,5,5,0,0,0,0,0,5,5,2,0,0,0,
+      0,0,2,2,5,5,0,0,0,5,5,2,2,0,0,0,
+      0,0,0,2,2,5,5,5,5,5,2,2,0,0,0,0,
+      0,0,0,0,2,2,2,5,2,2,2,0,0,0,0,0,
+      0,0,0,0,0,0,2,2,2,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ],
+    menu: [
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,
+      0,0,0,0,0,1,2,2,2,1,0,0,0,0,0,0,
+      0,0,0,0,1,2,2,5,2,2,1,0,0,0,0,0,
+      0,0,0,1,2,2,5,5,5,2,2,1,0,0,0,0,
+      0,0,1,2,2,2,2,2,2,2,2,2,1,0,0,0,
+      0,1,2,2,2,2,2,2,2,2,2,2,2,1,0,0,
+      0,1,2,2,3,3,2,2,2,2,3,3,2,1,0,0,
+      0,1,2,2,3,3,2,2,2,2,3,3,2,1,0,0,
+      0,1,2,2,2,2,2,2,2,2,2,2,2,1,0,0,
+      0,1,2,2,2,2,2,2,2,2,2,2,2,1,0,0,
+      0,0,1,1,1,1,1,1,1,1,1,1,1,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ]
+  },
+  paintAll() {
+    document.querySelectorAll('canvas[data-menu-icon]').forEach((c) => {
+      const key = c.dataset.menuIcon;
+      const px = this.defs[key];
+      if (!px || typeof SpriteFactory === 'undefined') return;
+      const spr = SpriteFactory.create(px, this._p, 2);
+      c.width = spr.width;
+      c.height = spr.height;
+      c.getContext('2d').drawImage(spr, 0, 0);
+    });
+  }
+};
 
 /* ============================================================
    OBJECT POOL
@@ -2513,6 +2959,11 @@ class Projectile {
         const orbit = m.extraOrbit ? 1.2 : 0;
         const d = this._steerTowards(player.x, player.y, 5 + orbit, dt);
         if (d < 26) {
+          if (this.kind === 'boomerang' && game && typeof CHARACTER_PASSIVES !== 'undefined'
+              && game.character && CHARACTER_PASSIVES[game.character.id]
+              && CHARACTER_PASSIVES[game.character.id].onBoomerangCaught) {
+            CHARACTER_PASSIVES[game.character.id].onBoomerangCaught(game, game.passive);
+          }
           this.active = false;
           return;
         }
@@ -2563,10 +3014,18 @@ class Projectile {
     if (this.vx !== 0 || this.vy !== 0) this.angle = Math.atan2(this.vy, this.vx);
 
     if (this.trail && game && game.effects && Math.random() < 0.3) {
+      const crimson = !!(this.meta && this.meta.crimson);
       const trailR = typeof weaponScaleRadius === 'function'
-        ? weaponScaleRadius(16, game.player) : 16;
-      game.effects.spawnField('trail', this.x, this.y, trailR, 1.1, Math.max(3, this.damage * 0.15),
-        '#f84', null, EffectCaps.MAX_TRAILS);
+        ? weaponScaleRadius(crimson ? 18 : 16, game.player) : (crimson ? 18 : 16);
+      game.effects.spawnField(
+        crimson ? 'blood' : 'trail',
+        this.x, this.y, trailR,
+        crimson ? 1.2 : 1.1,
+        Math.max(3, this.damage * 0.15),
+        crimson ? '#a22' : '#f84',
+        null,
+        EffectCaps.MAX_TRAILS
+      );
     }
 
     this.life -= dt;
@@ -3161,7 +3620,7 @@ class Enemy {
       case 'ufo':
         this.hp = this.maxHp = Math.max(1, Math.floor(320 * d * lvMult * hpScale));
         this.speed = (125 + difficulty * 0.5) * speedMult;
-        this.damage = (12 + difficulty * 0.3) * lvMult;
+        this.damage = 0;
         this.radius = 60;
         this.sprite = sprites.ufo;
         break;
@@ -3171,7 +3630,8 @@ class Enemy {
         this.hp = this.maxHp = Math.max(1000, Math.floor(dealt * curseMult));
         this.speed = (58 + difficulty * 0.3) * speedMult;
         this.damage = (42 + difficulty * 0.9) * lvMult;
-        this.radius = 150;
+        // Boss Dragon is rendered at 1.5× scale; keep its collision body aligned.
+        this.radius = 225;
         this.dragonVariant = variant && SpriteFactory.DRAGON_VARIANTS.includes(variant)
           ? variant
           : SpriteFactory.DRAGON_VARIANTS[(Math.random() * SpriteFactory.DRAGON_VARIANTS.length) | 0];
@@ -3428,7 +3888,6 @@ class Enemy {
           if (this.grabCD <= 0) {
             this.grabCD = 2.2;
             SoundManager.ufoPull();
-            player.takeDamage(this.damage, game);
             player.applySlow(0.55, 0.6);
           }
         }
@@ -3722,7 +4181,6 @@ class Enemy {
     if (player.carriedBy === this) player.carriedBy = null;
     player.x = this.x;
     player.y = this.y + 78;
-    player.takeDamage(player.stats.maxHealth * 0.08);
     player.applySlow(0.55, 0.6);
     game.spawnExplosion(player.x, player.y);
   }
@@ -3821,7 +4279,10 @@ class Enemy {
     }
 
     if (this.sprite) {
-      const mult = this.dying ? Math.max(0.35, this.buffMult * (1 - this.deathTimer / this.deathDuration * 0.25)) : this.buffMult;
+      const bossScale = this.type === 'dragon' ? 1.5 : 1;
+      const mult = (this.dying
+        ? Math.max(0.35, this.buffMult * (1 - this.deathTimer / this.deathDuration * 0.25))
+        : this.buffMult) * bossScale;
       const w = this.sprite.width * mult;
       const h = this.sprite.height * mult;
       let bob = 0;
@@ -3935,7 +4396,8 @@ class Enemy {
       const boss = this.type === 'dragon';
       const bw = boss ? 140 : 28 * Math.min(2.5, this.buffMult);
       const bh = boss ? 7 : 3;
-      const top = s.y - (this.sprite ? this.sprite.height * this.buffMult * 0.5 + 10 : 28);
+      const sizeScale = this.type === 'dragon' ? 1.5 : this.buffMult;
+      const top = s.y - (this.sprite ? this.sprite.height * sizeScale * 0.5 + 10 : 28);
       ctx.fillStyle = '#222';
       ctx.fillRect(s.x - bw * 0.5, top, bw, bh);
       ctx.fillStyle = boss ? '#ff8c00' : '#e74c3c';
@@ -3956,6 +4418,7 @@ class ChickenLeg {
     this.radius = 28;
     this.bob = 0;
     this.collected = false;
+    this.age = 0;
   }
 
   spawn(x, y, sprite) {
@@ -3965,11 +4428,13 @@ class ChickenLeg {
     this.sprite = sprite;
     this.collected = false;
     this.bob = Math.random() * Math.PI * 2;
+    this.age = 0;
   }
 
   update(dt, player, game) {
     if (!this.active || this.collected) return;
     this.bob += dt * 3;
+    this.age += dt;
     const dx = player.x - this.x;
     const dy = player.y - this.y;
     if (dx * dx + dy * dy < this.radius * this.radius) {
@@ -4013,6 +4478,7 @@ class Chest {
     this.radius = 28;
     this.bob = 0;
     this.opened = false;
+    this.age = 0;
   }
   spawn(x, y, tier, sprites) {
     this.active = true;
@@ -4021,10 +4487,12 @@ class Chest {
     this.sprite = sprites[tier];
     this.opened = false;
     this.bob = Math.random() * Math.PI * 2;
+    this.age = 0;
   }
   update(dt, player, game) {
     if (!this.active || this.opened) return;
     this.bob += dt * 3;
+    this.age += dt;
     const dx = player.x - this.x;
     const dy = player.y - this.y;
     if (dx * dx + dy * dy < this.radius * this.radius) {
@@ -4110,6 +4578,7 @@ class Player {
     this.level = 1;
     this.xpToNext = Player.xpToNextFor(1);
 
+    this.charBase = null;
     this.statAdd = Player.emptyStatAdd();
     this.selectedStatIds = [];
     this.bulletCount = 1;
@@ -4131,7 +4600,7 @@ class Player {
   }
 
   _recomputeStats() {
-    const B = Player.BASE;
+    const B = this.charBase || Player.BASE;
     const a = this.statAdd;
     const m = (typeof MetaProgression !== 'undefined') ? MetaProgression.bonuses() : {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
@@ -4183,6 +4652,7 @@ class Player {
       experience: this.experience,
       level: this.level,
       xpToNext: this.xpToNext,
+      charBase: this.charBase ? { ...this.charBase } : null,
       statAdd: { ...this.statAdd },
       selectedStatIds: this.selectedStatIds.slice(),
       bulletCount: this.bulletCount,
@@ -4199,6 +4669,7 @@ class Player {
     this.experience = data.experience ?? 0;
     this.level = data.level ?? 1;
     this.xpToNext = data.xpToNext ?? Player.xpToNextFor(this.level);
+    this.charBase = data.charBase ? { ...data.charBase } : null;
     this.statAdd = { ...Player.emptyStatAdd(), ...(data.statAdd || {}) };
     this.selectedStatIds = Array.isArray(data.selectedStatIds) ? data.selectedStatIds.slice() : [];
     this.bulletCount = data.bulletCount ?? 1;
@@ -4292,9 +4763,15 @@ class Player {
       this.health -= dmg;
       this.hpFlash = 0.12;
       SoundManager.hurt();
+      if (game && typeof game._passive === 'function') game._passive('onPlayerDamaged');
       if (this.health <= 0) {
         this.health = 0;
         this.alive = false;
+        if (game && typeof CHARACTER_PASSIVES !== 'undefined' && game.character
+            && CHARACTER_PASSIVES[game.character.id]
+            && CHARACTER_PASSIVES[game.character.id].clearArmed) {
+          CHARACTER_PASSIVES[game.character.id].clearArmed(game, game.passive);
+        }
       }
     }
   }
@@ -4576,7 +5053,7 @@ class WaveManager {
       bomber: level >= 10
         ? (2.2 + diff * 0.28 + late * 0.1) * fade(55, 78)
         : 0,
-      mage: Math.max(0, -8 + diff * 1.5 + exp * 0.008 + late * 0.05) * fade(60, 85),
+      mage: 0, // TEMP: Dark Mage disabled
       wolf: level >= 8 ? Math.max(0, -4 + diff * 1.2 + late * 0.22) : 0,
       robot: level >= 12 ? Math.max(0, -3 + diff * 0.7 + late * 0.18) : 0,
       priest: level >= 15 ? Math.min(6, Math.max(0, -2 + diff * 0.35 + late * 0.08)) : 0,
@@ -4608,15 +5085,16 @@ class WaveManager {
     const luck = game.player.stats.luck;
     const luckMult = game.player.luckMult;
     const bossBonus = enemy.type === 'dragon' ? 40 : enemy.type === 'ufo' ? 8 : 1;
+    const pos = typeof game._clampDropPos === 'function' ? game._clampDropPos(x, y) : { x, y };
     // Chests now hand out upgrade picks, so they must stay genuinely rare
     const chestChance = Math.min(0.06, 0.008 * luckMult * bossBonus);
     if (Math.random() < chestChance && game.chestPool.countActive() < 14) {
-      this._dropChest(game, x, y, luck);
+      this._dropChest(game, pos.x, pos.y, luck);
     }
     const legChance = Math.min(0.12, (0.006 + luck * 0.06) * bossBonus);
     if (Math.random() < legChance && game.chickenLegPool.countActive() < 4) {
       const item = game.chickenLegPool.acquire();
-      item.spawn(x + (Math.random() - 0.5) * 24, y + (Math.random() - 0.5) * 24, game.sprites.chickenLeg);
+      item.spawn(pos.x + (Math.random() - 0.5) * 24, pos.y + (Math.random() - 0.5) * 24, game.sprites.chickenLeg);
     }
   }
 
@@ -4725,6 +5203,9 @@ class UI {
       this._statSlot(ctx, x, statsY, slot, statId, player, S);
     }
 
+    // Passive meter next to weapon/stat rows when the character exposes hud()
+    this._passiveHud(ctx, game, pad + weaponCap * (slot + gap) + gap * 2, weaponsY, slot, S);
+
     // Gold sits under both slot rows
     const goldIcon = Math.round(13 * S);
     const goldY = statsY + slot + gap + goldIcon * 0.5;
@@ -4794,6 +5275,35 @@ class UI {
       pad, by - (hasShield ? bh * 2.6 : bh * 1.3));
 
     ctx.restore();
+  }
+
+  _passiveHud(ctx, game, x, y, slot, S) {
+    if (!game || !game.character || typeof CHARACTER_PASSIVES === 'undefined') return;
+    const pass = CHARACTER_PASSIVES[game.character.id];
+    if (!pass || !pass.hud) return;
+    const info = pass.hud(game, game.passive);
+    if (!info) return;
+    const w = Math.round(slot * 2.2);
+    const h = Math.round(slot * 0.55);
+    ctx.fillStyle = 'rgba(10,20,14,0.72)';
+    ctx.fillRect(x, y, w, h);
+    ctx.strokeStyle = 'rgba(160,220,180,0.45)';
+    ctx.lineWidth = 1;
+    ctx.strokeRect(x + 0.5, y + 0.5, w - 1, h - 1);
+    ctx.font = `bold ${Math.max(9, Math.round(8 * S))}px "Courier New", monospace`;
+    ctx.fillStyle = '#7dff9a';
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(info.label || '', x + 4 * S, y + h * 0.5);
+    const barX = x + Math.round(28 * S);
+    const barW = w - (barX - x) - 4 * S;
+    const barH = Math.max(3, Math.round(4 * S));
+    const barY = y + (h - barH) * 0.5;
+    ctx.fillStyle = 'rgba(0,0,0,0.45)';
+    ctx.fillRect(barX, barY, barW, barH);
+    const ratio = Math.max(0, Math.min(1, info.ratio || 0));
+    ctx.fillStyle = '#ffd700';
+    ctx.fillRect(barX, barY, barW * ratio, barH);
   }
 
   _slotFrame(ctx, x, y, size, filled) {
@@ -5066,6 +5576,27 @@ class HelpPanel {
         ? `<div class="bestiary-grid">${weaponCards.join('')}</div>`
         : `<div class="help-empty">${I18n.t('helpEmptyWeapons')}</div>`);
 
+    const charsEl = document.createElement('div');
+    charsEl.id = 'helpCharacters';
+    charsEl.className = 'hidden';
+    const charDefs = (typeof CHARACTER_DEFS !== 'undefined') ? CHARACTER_DEFS : [];
+    const charCards = charDefs.map((c) => {
+      const weaponName = (typeof WEAPON_DEFS !== 'undefined' && WEAPON_DEFS[c.weapon])
+        ? I18n.t(WEAPON_DEFS[c.weapon].nameKey) : c.weapon;
+      const statsHtml = typeof formatCharacterBaseStatsHtml === 'function'
+        ? formatCharacterBaseStatsHtml(c) : '';
+      return `<div class="bestiary-card threat-mid">${this._artHtml(c.sprite)}<div class="bestiary-info">
+        <div class="bestiary-name">${I18n.t(c.nameKey)}</div>
+        <div class="bestiary-tags">${weaponName} · ${I18n.t(c.passiveKey)}</div>
+        <div class="bestiary-desc">${I18n.t(c.descKey)}</div>
+        ${statsHtml}
+      </div></div>`;
+    });
+    charsEl.innerHTML = `<div class="help-section-title">${sys.characters || I18n.t('tabCharacters')}</div>` +
+      (charCards.length
+        ? `<div class="bestiary-grid">${charCards.join('')}</div>`
+        : `<div class="help-empty">${I18n.t('helpEmptyCharacters')}</div>`);
+
     const knownEnemies = enemies.filter((e) => seenEnemy(e.id || e.sprite));
     const bestEl = document.createElement('div');
     bestEl.id = 'helpBestiary';
@@ -5108,6 +5639,7 @@ class HelpPanel {
     this.content.innerHTML = '';
     this.content.appendChild(statsEl);
     this.content.appendChild(weaponsEl);
+    this.content.appendChild(charsEl);
     this.content.appendChild(bestEl);
     this.content.appendChild(itemsEl);
     this._paintSprites();
@@ -5120,10 +5652,12 @@ class HelpPanel {
     });
     const stats = document.getElementById('helpStats');
     const weapons = document.getElementById('helpWeapons');
+    const characters = document.getElementById('helpCharacters');
     const bestiary = document.getElementById('helpBestiary');
     const items = document.getElementById('helpItems');
     if (stats) stats.classList.toggle('hidden', tab !== 'stats');
     if (weapons) weapons.classList.toggle('hidden', tab !== 'weapons');
+    if (characters) characters.classList.toggle('hidden', tab !== 'characters');
     if (bestiary) bestiary.classList.toggle('hidden', tab !== 'bestiary');
     if (items) items.classList.toggle('hidden', tab !== 'items');
     this.content.scrollTop = 0;
@@ -5179,13 +5713,15 @@ class Game {
       chestRare: SpriteFactory.chest('rare'),
       chestEpic: SpriteFactory.chest('epic'),
       chickenLeg: SpriteFactory.chickenLeg(),
+      wholeChicken: SpriteFactory.wholeChicken(),
       bullet: SpriteFactory.bullet(),
       arrow: SpriteFactory.arrow(),
       flower0: SpriteFactory.flower(0),
       flower1: SpriteFactory.flower(1),
       flower2: SpriteFactory.flower(2),
       stone: SpriteFactory.stone(),
-      plant: SpriteFactory.plant()
+      plant: SpriteFactory.plant(),
+      ...(typeof CharacterSprites !== 'undefined' ? CharacterSprites.build() : {})
     };
 
     // Bestiary stills for each dragon variant
@@ -5244,6 +5780,11 @@ class Game {
     this.pointerX = 0;
     this.pointerY = 0;
     this.hasPointerAim = false;
+    this.character = (typeof getCharacterDef === 'function')
+      ? getCharacterDef(typeof MetaProgression !== 'undefined' ? MetaProgression.selectedCharacter : 'hunter')
+      : null;
+    this.passive = {};
+    this._charSelectId = this.character ? this.character.id : 'hunter';
 
     this.input = {
       up: false, down: false, left: false, right: false
@@ -5252,6 +5793,7 @@ class Game {
     this._bindUI();
     this._bindInput();
     this._bindPointer();
+    if (typeof MenuIcons !== 'undefined') MenuIcons.paintAll();
     MobileControls.init(this);
     this.canvas.addEventListener('pointerdown', () => SoundManager.unlock());
     this._resize();
@@ -5264,6 +5806,7 @@ class Game {
       this.upgrades.refreshLocale();
       if (this.isStoreOpen()) this._renderStore();
       if (this.isTestBuilderOpen()) this._renderTestBuilder();
+      if (this.isCharSelectOpen()) this._renderCharSelect();
       if (this.state === 'gameover') this._updateGameOverStats();
     });
 
@@ -5282,7 +5825,14 @@ class Game {
   }
 
   _bindUI() {
-    document.getElementById('startBtn').onclick = () => this.startGame();
+    document.getElementById('startBtn').onclick = () => this.openCharSelect();
+    const charStart = document.getElementById('charStartBtn');
+    if (charStart) charStart.onclick = () => {
+      this.closeCharSelect();
+      this.startGame(this._charSelectId);
+    };
+    const charClose = document.getElementById('charCloseBtn');
+    if (charClose) charClose.onclick = () => this.closeCharSelect();
     document.getElementById('storeBtn').onclick = () => this.openStore();
     document.getElementById('storeCloseBtn').onclick = () => this.closeStore();
     document.getElementById('optionsBtn').onclick = () => this.openOptions();
@@ -5371,7 +5921,9 @@ class Game {
         case 'KeyA': case 'ArrowLeft': this.input.left = v; break;
         case 'KeyD': case 'ArrowRight': this.input.right = v; break;
         case 'Digit1': case 'Digit2': case 'Digit3': case 'Digit4': case 'Digit5':
+        case 'Digit6': case 'Digit7': case 'Digit8': case 'Digit9':
         case 'Numpad1': case 'Numpad2': case 'Numpad3': case 'Numpad4': case 'Numpad5':
+        case 'Numpad6': case 'Numpad7': case 'Numpad8': case 'Numpad9':
           if (!v || e.repeat) break;
           if (this.upgrades.handleKey(e.code)) e.preventDefault();
           break;
@@ -5384,6 +5936,7 @@ class Game {
             else if (this.isRestartConfirmOpen()) this.closeRestartConfirm();
             else if (this.isStoreOpen()) this.closeStore();
             else if (this.isOptionsOpen()) this.closeOptions();
+            else if (this.isCharSelectOpen()) this.closeCharSelect();
             else if (this.isTestBuilderOpen()) this.closeTestBuilder();
             else if (this.isStatsOpen()) this.closeStats();
             else if (this.help.isOpen()) this.help.close();
@@ -5405,7 +5958,7 @@ class Game {
     this.camera.resize(this.canvas.width, this.canvas.height);
   }
 
-  startGame() {
+  startGame(charId) {
     this.testMode = false;
     this.player.invulnerable = false;
     this._clearPools();
@@ -5420,17 +5973,108 @@ class Game {
     this.survived = 0;
     this.damageDealt = 0;
     this._bankedRunGold = 0;
-    // Every run opens with the boomstick
-    this.weapons.grant('shotgun', 1, null);
+    this._applyCharacter(charId);
 
     this.state = 'playing';
+    if (this.character && this.character.startWeaponPick) {
+      this.upgrades.openStartWeaponPick(this.character.weapon);
+    }
     document.getElementById('mainMenu').classList.add('hidden');
     document.getElementById('pauseMenu').classList.add('hidden');
     document.getElementById('gameOverMenu').classList.add('hidden');
     this.closeStore();
     this.closeOptions();
     this.closeTestBuilder();
+    this.closeCharSelect();
     this.ui.setControlsVisible(true);
+  }
+
+  _applyCharacter(charId) {
+    const id = charId
+      || (typeof MetaProgression !== 'undefined' ? MetaProgression.selectedCharacter : null)
+      || (this.character && this.character.id)
+      || 'hunter';
+    this.character = (typeof getCharacterDef === 'function')
+      ? getCharacterDef(id)
+      : { id: 'hunter', weapon: 'shotgun', sprite: 'player' };
+    if (typeof MetaProgression !== 'undefined' && MetaProgression.setSelectedCharacter) {
+      MetaProgression.setSelectedCharacter(this.character.id);
+    }
+    this._charSelectId = this.character.id;
+    this.player.sprite = this.sprites[this.character.sprite] || this.sprites.player;
+    if (typeof applyCharacterBaseStats === 'function') {
+      applyCharacterBaseStats(this.player, this.character);
+    }
+    this.player._recomputeStats();
+    this.player.health = this.player.stats.maxHealth;
+    this.passive = {};
+    this.weapons.grant(this.character.weapon, 1, null);
+    this._passive('init');
+  }
+
+  _passive(hook, ...args) {
+    if (!this.character || typeof CHARACTER_PASSIVES === 'undefined') return;
+    const p = CHARACTER_PASSIVES[this.character.id];
+    if (!p || !p[hook]) return;
+    p[hook](this, this.passive, ...args);
+  }
+
+  isCharSelectOpen() {
+    const el = document.getElementById('charSelectOverlay');
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  openCharSelect() {
+    if (this.state !== 'menu') return;
+    this.closeStore();
+    this.closeOptions();
+    this.closeTestBuilder();
+    this.closeResetDataConfirm();
+    this._charSelectId = (typeof MetaProgression !== 'undefined' && MetaProgression.selectedCharacter)
+      || (this.character && this.character.id)
+      || 'hunter';
+    this._renderCharSelect();
+    document.getElementById('charSelectOverlay').classList.remove('hidden');
+  }
+
+  closeCharSelect() {
+    const el = document.getElementById('charSelectOverlay');
+    if (el) el.classList.add('hidden');
+  }
+
+  _renderCharSelect() {
+    const root = document.getElementById('charList');
+    if (!root || typeof CHARACTER_DEFS === 'undefined') return;
+    const defs = CHARACTER_DEFS;
+    root.innerHTML = defs.map((c) => {
+      const weaponName = WEAPON_DEFS[c.weapon] ? I18n.t(WEAPON_DEFS[c.weapon].nameKey) : c.weapon;
+      const selected = c.id === this._charSelectId ? ' selected' : '';
+      const spr = this.sprites[c.sprite];
+      const art = spr
+        ? `<canvas class="char-card-art" width="${spr.width}" height="${spr.height}" data-sprite="${c.sprite}"></canvas>`
+        : '';
+      return `<button type="button" class="char-card${selected}" data-char-id="${c.id}">` +
+        `<div class="char-card-head">${art}<div>` +
+        `<div class="char-card-name">${I18n.t(c.nameKey)}</div>` +
+        `<div class="char-card-weapon">${weaponName} · ${I18n.t(c.passiveKey)}</div>` +
+        `</div></div>` +
+        `<div class="char-card-desc">${I18n.t(c.descKey)}</div>` +
+        `${typeof formatCharacterBaseStatsHtml === 'function' ? formatCharacterBaseStatsHtml(c) : ''}` +
+        `</button>`;
+    }).join('');
+    root.querySelectorAll('canvas[data-sprite]').forEach((c) => {
+      const spr = this.sprites[c.dataset.sprite];
+      if (!spr) return;
+      c.width = spr.width;
+      c.height = spr.height;
+      c.getContext('2d').drawImage(spr, 0, 0);
+    });
+    root.querySelectorAll('[data-char-id]').forEach((btn) => {
+      btn.onclick = () => {
+        this._charSelectId = btn.dataset.charId;
+        this._renderCharSelect();
+      };
+    });
   }
 
   _defaultTestConfig() {
@@ -5520,6 +6164,7 @@ class Game {
     if (this.state !== 'menu') return;
     this.closeStore();
     this.closeOptions();
+    this.closeCharSelect();
     this.closeResetDataConfirm();
     this._testConfig = this._loadTestConfig();
     this._renderTestBuilder();
@@ -5659,6 +6304,14 @@ class Game {
     this.weapons.reset();
     const enabled = (cfg.weapons || []).filter((w) => w.enabled);
     this.weapons.maxSlots = Math.max(this.weapons.maxSlots, enabled.length, WEAPON_IDS.length);
+    // Apply selected character passive + sprite; weapons still come from the test builder
+    const charId = (typeof MetaProgression !== 'undefined' && MetaProgression.selectedCharacter)
+      || (this._charSelectId)
+      || 'hunter';
+    this.character = (typeof getCharacterDef === 'function') ? getCharacterDef(charId) : this.character;
+    this.player.sprite = this.sprites[this.character.sprite] || this.sprites.player;
+    this.passive = {};
+    this._passive('init');
     for (const w of enabled) {
       const level = Math.max(1, Math.min(5, w.level | 0));
       const branch = level >= 3 ? (w.branch === 'B' ? 'B' : 'A') : null;
@@ -5756,8 +6409,11 @@ class Game {
     this.killCount = 0;
     this.survived = 0;
     this._bankedRunGold = 0;
-    this.weapons.grant('shotgun', 1, null);
+    this._applyCharacter(this.character && this.character.id);
     this.state = 'playing';
+    if (this.character && this.character.startWeaponPick) {
+      this.upgrades.openStartWeaponPick(this.character.weapon);
+    }
     document.getElementById('mainMenu').classList.add('hidden');
     document.getElementById('pauseMenu').classList.add('hidden');
     document.getElementById('gameOverMenu').classList.add('hidden');
@@ -5826,6 +6482,7 @@ class Game {
     this.closeResetDataConfirm();
     this.closeOptions();
     this.closeTestBuilder();
+    this.closeCharSelect();
     this._renderStore();
     document.getElementById('storeOverlay').classList.remove('hidden');
   }
@@ -5845,6 +6502,7 @@ class Game {
     this.closeResetDataConfirm();
     this.closeStore();
     this.closeTestBuilder();
+    this.closeCharSelect();
     document.getElementById('optionsOverlay').classList.remove('hidden');
   }
 
@@ -6086,6 +6744,12 @@ class Game {
       time: Math.floor(this.survived)
     };
 
+    if (typeof CHARACTER_PASSIVES !== 'undefined' && this.character
+        && CHARACTER_PASSIVES[this.character.id]
+        && CHARACTER_PASSIVES[this.character.id].clearArmed) {
+      CHARACTER_PASSIVES[this.character.id].clearArmed(this, this.passive);
+    }
+
     this._bankRunGold();
     SaveManager.clear();
     this.upgrades.reset();
@@ -6096,6 +6760,7 @@ class Game {
     this.waves.reset();
     this.killCount = 0;
     this.survived = 0;
+    this.passive = {};
 
     this.state = 'gameover';
     SoundManager.death();
@@ -6336,6 +7001,45 @@ class Game {
     }
   }
 
+  /* Keep kill drops visible: project off-camera corpse coords into the view. */
+  _clampDropPos(x, y) {
+    const cam = this.camera;
+    const margin = 48;
+    const left = cam.x + margin;
+    const right = cam.x + cam.w - margin;
+    const top = cam.y + margin;
+    const bottom = cam.y + cam.h - margin;
+    return {
+      x: Math.max(left, Math.min(right, x)),
+      y: Math.max(top, Math.min(bottom, y))
+    };
+  }
+
+  /* Free pool slots held by unreachable off-screen pickups. */
+  _recycleStaleDrops() {
+    const cam = this.camera;
+    const halfDiag = Math.hypot(cam.w * 0.5, cam.h * 0.5);
+    const cullR = halfDiag + 420;
+    const cullR2 = cullR * cullR;
+    const maxAge = 25;
+    const viewPadX = cam.w * 0.5 + 80;
+    const viewPadY = cam.h * 0.5 + 80;
+    const px = this.player.x;
+    const py = this.player.y;
+    const recycle = (item) => {
+      if (!item.active) return;
+      const dx = item.x - px;
+      const dy = item.y - py;
+      // Never despawn items the player can still see / is approaching
+      if (Math.abs(dx) < viewPadX && Math.abs(dy) < viewPadY) return;
+      if ((item.age || 0) < maxAge) return;
+      if (dx * dx + dy * dy < cullR2) return;
+      item.active = false;
+    };
+    this.chestPool.forEachActive(recycle);
+    this.chickenLegPool.forEachActive(recycle);
+  }
+
   _enemyDiscoveryId(e) {
     if (e.type === 'dragon') {
       const v = e.dragonVariant || 'crimson';
@@ -6347,6 +7051,7 @@ class Game {
   _onEnemyKilled(e, silent = false) {
     if (e._lootGiven) return;
     e._lootGiven = true;
+    this._passive('onKill', e);
     // Dragon plays its own long groan; skip the short kill blip for it
     if (!silent && e.type !== 'dragon') SoundManager.kill();
     if (e.carrying) e.releaseAbduction(this.player, this);
@@ -6434,9 +7139,11 @@ class Game {
     this.effects.update(dt, this);
     this.chestPool.forEachActive((c) => c.update(dt, this.player, this));
     this.chickenLegPool.forEachActive((item) => item.update(dt, this.player, this));
+    this._recycleStaleDrops();
     this.aoePool.forEachActive((a) => a.update(dt, this.player, this));
     this.fireballPool.forEachActive((f) => f.update(dt, this));
     this.particlePool.forEachActive((p) => p.update(dt));
+    this._passive('update', dt);
 
     if (!this.player.alive) this.gameOver();
   }
@@ -6557,6 +7264,7 @@ class Game {
     this.grenadePool.forEachActive((g) => g.draw(ctx, this.camera));
     this.player.draw(ctx, this.camera);
     this.weapons.draw(ctx, this.camera, this);
+    this._passive('draw', ctx, this.camera);
     this.floatingTextPool.forEachActive((t) => t.draw(ctx, this.camera));
     this.particlePool.forEachActive((p) => p.draw(ctx, this.camera));
 

@@ -68,7 +68,9 @@ class StatusEffects {
 
   static applyFreeze(e, amount, freezeAt = 1) {
     if (!e || e.dying || e.frozenT > 0 || StatusEffects.isControlImmune(e)) return false;
-    e.freezeAccum += amount;
+    let amt = amount;
+    if (e._superCool > 0) amt *= 1.6;
+    e.freezeAccum += amt;
     if (e.freezeAccum >= freezeAt) {
       e.freezeAccum = 0;
       e.frozenT = 2.2;
@@ -118,6 +120,7 @@ class StatusEffects {
     if (!e.active || e.dying) return;
     e._game = game;
 
+    if (e._superCool > 0) e._superCool -= dt;
     if (e.stunT > 0) e.stunT -= dt;
     if (e.frozenT > 0) e.frozenT -= dt;
     if (e.slowT > 0) {

@@ -31,10 +31,10 @@
     </select>
   </div>
   <div class="menu-gold" id="menuGold">Gold: 0</div>
-  <button class="btn" id="startBtn" data-i18n="newGame">NEW GAME</button>
-  <button class="btn" id="storeBtn" data-i18n="store">STORE</button>
-  <button class="btn" id="optionsBtn" data-i18n="options">OPTIONS</button>
-  <button class="btn help-btn" id="helpBtnMain" data-i18n="help">HELP</button>
+  <button class="btn" id="startBtn"><canvas class="btn-icon" data-menu-icon="newGame" width="24" height="24"></canvas><span class="btn-label" data-i18n="newGame">NEW GAME</span></button>
+  <button class="btn" id="storeBtn"><canvas class="btn-icon" data-menu-icon="store" width="24" height="24"></canvas><span class="btn-label" data-i18n="store">STORE</span></button>
+  <button class="btn" id="optionsBtn"><canvas class="btn-icon" data-menu-icon="options" width="24" height="24"></canvas><span class="btn-label" data-i18n="options">OPTIONS</span></button>
+  <button class="btn help-btn" id="helpBtnMain"><canvas class="btn-icon" data-menu-icon="help" width="24" height="24"></canvas><span class="btn-label" data-i18n="help">HELP</span></button>
   <div class="controls-panel">
     <div class="controls-title" data-i18n="controls">CONTROLS</div>
     <div class="controls-grid">
@@ -45,16 +45,26 @@
       <div class="control-row wide"><span data-i18n="chestHint">Walk near chests to auto-open</span></div>
     </div>
   </div>
-  <button type="button" class="test-btn" id="testBtn" data-i18n="test">TEST</button>
-  <button type="button" class="test-btn reset-data-btn" id="resetDataBtn" data-i18n="resetData">RESET DATA</button>
+  <button type="button" class="test-btn" id="testBtn"><canvas class="btn-icon" data-menu-icon="test" width="24" height="24"></canvas><span class="btn-label" data-i18n="test">TEST</span></button>
+  <button type="button" class="test-btn reset-data-btn" id="resetDataBtn"><canvas class="btn-icon" data-menu-icon="reset" width="24" height="24"></canvas><span class="btn-label" data-i18n="resetData">RESET DATA</span></button>
+</div>
+<div id="charSelectOverlay" class="overlay hidden">
+  <div class="help-panel char-panel">
+    <div class="help-title" data-i18n="charSelectTitle">CHOOSE CHARACTER</div>
+    <div class="help-content char-grid" id="charList"></div>
+    <div class="char-actions">
+      <button class="btn" id="charStartBtn" data-i18n="charStart">START RUN</button>
+      <button class="btn help-close" id="charCloseBtn" data-i18n="back">BACK</button>
+    </div>
+  </div>
 </div>
 <div id="pauseMenu" class="overlay hidden">
   <div class="title" data-i18n="paused">PAUSED</div>
-  <button class="btn" id="resumeBtn" data-i18n="resume">RESUME</button>
-  <button class="btn" id="statsBtn" data-i18n="stats">STATS</button>
-  <button class="btn" id="restartBtn" data-i18n="restart">RESTART</button>
-  <button class="btn" id="menuBtn" data-i18n="mainMenu">MAIN MENU</button>
-  <button class="btn help-btn" id="helpBtnPause" data-i18n="help">HELP</button>
+  <button class="btn" id="resumeBtn"><canvas class="btn-icon" data-menu-icon="resume" width="24" height="24"></canvas><span class="btn-label" data-i18n="resume">RESUME</span></button>
+  <button class="btn" id="statsBtn"><canvas class="btn-icon" data-menu-icon="stats" width="24" height="24"></canvas><span class="btn-label" data-i18n="stats">STATS</span></button>
+  <button class="btn" id="restartBtn"><canvas class="btn-icon" data-menu-icon="restart" width="24" height="24"></canvas><span class="btn-label" data-i18n="restart">RESTART</span></button>
+  <button class="btn" id="menuBtn"><canvas class="btn-icon" data-menu-icon="menu" width="24" height="24"></canvas><span class="btn-label" data-i18n="mainMenu">MAIN MENU</span></button>
+  <button class="btn help-btn" id="helpBtnPause"><canvas class="btn-icon" data-menu-icon="help" width="24" height="24"></canvas><span class="btn-label" data-i18n="help">HELP</span></button>
   <div class="controls-panel">
     <div class="controls-title" data-i18n="controls">CONTROLS</div>
     <div class="controls-grid">
@@ -154,6 +164,7 @@
     <div class="help-tabs">
       <button class="help-tab active" data-tab="stats" data-i18n="tabStats">STATS</button>
       <button class="help-tab" data-tab="weapons" data-i18n="tabWeapons">WEAPONS</button>
+      <button class="help-tab" data-tab="characters" data-i18n="tabCharacters">CHARS</button>
       <button class="help-tab" data-tab="bestiary" data-i18n="tabBestiary">BESTIARY</button>
       <button class="help-tab" data-tab="items" data-i18n="tabItems">ITEMS</button>
     </div>
@@ -166,6 +177,7 @@
 <script src="assets/js/spatial.js"></script>
 <script src="assets/js/effects.js"></script>
 <script src="assets/js/weapons.js"></script>
+<script src="assets/js/characters.js"></script>
 <script src="assets/js/upgrades.js"></script>
 <script src="assets/js/meta.js"></script>
 <script src="assets/js/preloader.js"></script>
