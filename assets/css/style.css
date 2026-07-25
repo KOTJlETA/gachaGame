@@ -765,6 +765,84 @@
   #confirmResetData { z-index: 13; }
   #storeOverlay { z-index: 11; }
   #optionsOverlay { z-index: 11; }
+  #testOverlay { z-index: 12; }
+  .test-panel {
+    max-width: min(960px, 96vw);
+    width: min(960px, 96vw);
+    max-height: min(92vh, 900px);
+  }
+  .test-builder {
+    max-height: min(62vh, 560px);
+    overflow-y: auto;
+    text-align: left;
+    padding: 4px 8px 12px;
+  }
+  .test-section-title {
+    color: #7dff9a;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    margin: 14px 0 8px;
+    border-bottom: 1px solid rgba(125, 255, 154, 0.25);
+    padding-bottom: 4px;
+  }
+  .test-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 8px 12px;
+  }
+  .test-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    font-size: 11px;
+    color: #a8d4b0;
+  }
+  .test-field label { color: #c8e8d0; }
+  .test-field input[type="number"],
+  .test-field select {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid #3a6a4a;
+    color: #e8ffe8;
+    border-radius: 4px;
+    padding: 6px 8px;
+    font: inherit;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  .test-field.checkbox-row {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+  }
+  .test-weapon-row {
+    display: grid;
+    grid-template-columns: 28px minmax(0, 1.4fr) 72px 72px;
+    gap: 8px;
+    align-items: center;
+    padding: 6px 4px;
+    border-bottom: 1px solid rgba(58, 106, 74, 0.35);
+    font-size: 12px;
+    color: #c8e8d0;
+  }
+  .test-weapon-row select {
+    background: rgba(0,0,0,0.45);
+    border: 1px solid #3a6a4a;
+    color: #e8ffe8;
+    border-radius: 4px;
+    padding: 4px 6px;
+    font: inherit;
+    width: 100%;
+  }
+  .test-weapon-row.disabled { opacity: 0.45; }
+  .test-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 12px;
+  }
+  .test-actions .btn { margin: 0; }
   .options-panel {
     max-width: 420px;
     width: min(92vw, 420px);

@@ -83,6 +83,13 @@ const STAT_DEFS = {
     value() { return '+15%'; },
     bonusText(p) { return `+${Math.round(p.statAdd.luck * 100)}%`; }
   },
+  curse: {
+    id: 'curse', icon: 'curse',
+    apply(p) { p.statAdd.curse += 0.10; },
+    label() { return I18n.t('statCurse'); },
+    value() { return '+10% Enemy HP / DMG / EXP / Mobs'; },
+    bonusText(p) { return `+${Math.round(p.statAdd.curse * 100)}%`; }
+  },
   bulletCount: {
     id: 'bulletCount', icon: 'bulletCount',
     apply(p) { p.bulletCount += 1; },
@@ -473,6 +480,9 @@ class UpgradeSystem {
     }
 
     this._applyOption(opt, false);
+    // Brief i-frames after a manual pick — not used for auto-select drains
+    const p = this.game.player;
+    if (p && !p.invulnerable) p.invulnTimer = Math.max(p.invulnTimer || 0, 0.5);
     this.close();
     if (this.pendingRolls > 0) {
       setTimeout(() => this._openNext(), 80);

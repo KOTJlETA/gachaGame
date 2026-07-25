@@ -55,9 +55,26 @@ const WeaponIcons = {
         ctx.beginPath(); ctx.arc(24, 24, 14, -0.8, 2.4); ctx.stroke();
       },
       towerShield: () => {
-        ctx.fillStyle = '#6a7a8a';
-        ctx.beginPath(); ctx.moveTo(12, 10); ctx.lineTo(36, 10); ctx.lineTo(34, 34); ctx.lineTo(24, 42); ctx.lineTo(14, 34); ctx.closePath(); ctx.fill();
-        ctx.fillStyle = '#cde'; ctx.fillRect(20, 16, 8, 12);
+        // Flat blue energy semicircle (icon)
+        const g = ctx.createRadialGradient(22, 24, 2, 28, 24, 18);
+        g.addColorStop(0, 'rgba(180,230,255,0.95)');
+        g.addColorStop(0.55, 'rgba(60,160,255,0.75)');
+        g.addColorStop(1, 'rgba(30,100,220,0.15)');
+        ctx.fillStyle = g;
+        ctx.beginPath();
+        ctx.moveTo(18, 8);
+        ctx.arc(18, 24, 16, -Math.PI * 0.5, Math.PI * 0.5);
+        ctx.closePath();
+        ctx.fill();
+        ctx.strokeStyle = '#d6f4ff';
+        ctx.lineWidth = 2;
+        ctx.beginPath();
+        ctx.arc(18, 24, 16, -Math.PI * 0.5, Math.PI * 0.5);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.moveTo(18, 8);
+        ctx.lineTo(18, 40);
+        ctx.stroke();
       },
       grenadeLauncher: () => {
         ctx.fillStyle = '#3d5a3d'; ctx.fillRect(6, 22, 26, 10);
@@ -316,7 +333,7 @@ const WEAPON_LEVEL_TEXT = {
   },
   phantomBlades: {
     en: {
-      1: 'Ghost blades orbit around you.',
+      1: 'Ghost blades orbit you. Projectile Speed spins them, Count adds blades, Radius sets orbit distance.',
       2: 'Blades linger longer on contact.',
       '3A': 'Path A: orbit radius oscillates.',
       '3B': 'Path B: extra phantom blades.',
@@ -326,7 +343,7 @@ const WEAPON_LEVEL_TEXT = {
       '5B': 'Finishing slash on a timer.'
     },
     ru: {
-      1: 'Призрачные клинки на орбите.',
+      1: 'Призрачные клинки на орбите. Скорость снарядов крутит их, число добавляет клинки, радиус — дистанцию.',
       2: 'Дольше «держатся» при контакте.',
       '3A': 'Путь A: радиус орбиты пульсирует.',
       '3B': 'Путь B: больше призрачных клинков.',
@@ -733,13 +750,62 @@ WEAPON_DEFS.towerShield = {
   draw(w, ctx, cam) {
     if (w.state.x == null) return;
     const s = cam.worldToScreen(w.state.x, w.state.y);
+    // Local +X points outward from the player; flat edge faces inward
     ctx.save();
     ctx.translate(s.x, s.y);
     ctx.rotate(w.state.angle || 0);
-    ctx.fillStyle = '#8a9aaa';
-    ctx.fillRect(-10, -16, 20, 32);
-    ctx.fillStyle = '#cde';
-    ctx.fillRect(-4, -8, 8, 12);
+
+    const R = 22;
+    // Soft outer glow
+    const glow = ctx.createRadialGradient(4, 0, 2, 4, 0, R + 10);
+    glow.addColorStop(0, 'rgba(120, 210, 255, 0.55)');
+    glow.addColorStop(0.55, 'rgba(40, 140, 255, 0.22)');
+    glow.addColorStop(1, 'rgba(20, 80, 200, 0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(0, 0, R + 10, -Math.PI * 0.5, Math.PI * 0.5);
+    ctx.lineTo(0, -R - 10);
+    ctx.closePath();
+    ctx.fill();
+
+    // Energy fill (flat semicircle)
+    const fill = ctx.createLinearGradient(0, 0, R, 0);
+    fill.addColorStop(0, 'rgba(180, 230, 255, 0.55)');
+    fill.addColorStop(0.45, 'rgba(70, 170, 255, 0.42)');
+    fill.addColorStop(1, 'rgba(30, 110, 230, 0.15)');
+    ctx.fillStyle = fill;
+    ctx.beginPath();
+    ctx.moveTo(0, -R);
+    ctx.arc(0, 0, R, -Math.PI * 0.5, Math.PI * 0.5);
+    ctx.closePath();
+    ctx.fill();
+
+    // Bright rim
+    ctx.strokeStyle = 'rgba(210, 245, 255, 0.95)';
+    ctx.lineWidth = 2.5;
+    ctx.lineCap = 'round';
+    ctx.beginPath();
+    ctx.arc(0, 0, R, -Math.PI * 0.5, Math.PI * 0.5);
+    ctx.stroke();
+
+    // Flat chord facing the player
+    ctx.strokeStyle = 'rgba(160, 220, 255, 0.85)';
+    ctx.lineWidth = 2;
+    ctx.beginPath();
+    ctx.moveTo(0, -R);
+    ctx.lineTo(0, R);
+    ctx.stroke();
+
+    // Inner energy arcs
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.35)';
+    ctx.lineWidth = 1.2;
+    ctx.beginPath();
+    ctx.arc(0, 0, R * 0.62, -Math.PI * 0.42, Math.PI * 0.42);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(0, 0, R * 0.32, -Math.PI * 0.3, Math.PI * 0.3);
+    ctx.stroke();
+
     ctx.restore();
   }
 };
@@ -823,14 +889,20 @@ WEAPON_DEFS.bloodSpear = {
 
 WEAPON_DEFS.phantomBlades = {
   id: 'phantomBlades', nameKey: 'weaponPhantomBlades', kind: 'orbit',
-  cooldown: 0.5, damageMult: 0.35, projectiles: 1, hasReload: false,
+  cooldown: 0.5, damageMult: 0.35, projectiles: 2, hasReload: false,
   fire() {},
   update(w, dt, game) {
     const p = game.player;
     const m = w.mods;
-    w.state.angle = (w.state.angle || 0) + dt * (2.8 + (m.linger ? 0.4 : 0));
-    let radius = 50;
-    if (m.oscillate) radius = 40 + Math.sin((w.state.angle || 0) * 2) * 18;
+    // Projectile Speed drives orbit spin (this weapon has no fire-rate CD)
+    const spinMult = Math.max(0.25, (p.stats.bulletSpeed || 280) / 280);
+    w.state.angle = (w.state.angle || 0) + dt * (2.8 + (m.linger ? 0.4 : 0)) * spinMult;
+    // Weapon Radius scales how far the blades orbit from the player
+    let radius = weaponScaleRadius(50, p);
+    if (m.oscillate) {
+      radius = weaponScaleRadius(40, p)
+        + Math.sin((w.state.angle || 0) * 2) * weaponScaleRadius(18, p);
+    }
     if (m.expandBurst) {
       w.state.burstT = (w.state.burstT || 0) + dt;
       if (w.state.burstT > 2.5) {
@@ -839,11 +911,13 @@ WEAPON_DEFS.phantomBlades = {
       }
     }
     if (w.state.expand > 0) {
-      radius += 40 * w.state.expand;
+      radius += weaponScaleRadius(40, p) * w.state.expand;
       w.state.expand -= dt;
-      if (w.state.expand <= 0 && m.dashIn) radius = 30;
+      if (w.state.expand <= 0 && m.dashIn) radius = weaponScaleRadius(30, p);
     }
-    const blades = 2 + Math.min(EffectCaps.MAX_PHANTOMS, m.phantoms || 0);
+    // Base 2 blades + Projectile Count extras + Path B phantoms
+    const blades = Math.max(1,
+      weaponProjectileCount(this, p) + Math.min(EffectCaps.MAX_PHANTOMS, m.phantoms || 0));
     const base = p.stats.attack * this.damageMult;
     w.state.blades = [];
     for (let i = 0; i < blades; i++) {
@@ -863,7 +937,7 @@ WEAPON_DEFS.phantomBlades = {
       w.state.slashT = (w.state.slashT || 0) + dt;
       if (w.state.slashT >= 4) {
         w.state.slashT = 0;
-        game.spatial.queryCircle(p.x, p.y, weaponScaleRadius(radius + 20, p), (e) => {
+        game.spatial.queryCircle(p.x, p.y, radius + weaponScaleRadius(20, p), (e) => {
           const roll = rollCritDamage(p, base * 1.6);
           _hitEnemy(game, e, roll.damage, roll.isCrit, {});
         }, 32);

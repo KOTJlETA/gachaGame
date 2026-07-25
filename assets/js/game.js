@@ -18,7 +18,21 @@ class I18n {
       touchLayoutJoyLeft: 'Joystick left',
       newGame: 'NEW GAME',
       test: 'TEST',
-      testModeToast: 'TEST MODE — invulnerable · all mobs spawned',
+      testModeToast: 'TEST MODE — custom build · all mobs spawned',
+      testTitle: 'TEST CHARACTER',
+      testStart: 'START TEST',
+      testMaxAll: 'MAX ALL',
+      testDefaults: 'DEFAULTS',
+      testStats: 'STATS',
+      testWeapons: 'WEAPONS',
+      testLevel: 'Player Level',
+      testInvuln: 'Invulnerable',
+      testStatPct: '{0} %',
+      testBulletCount: 'Projectile Count',
+      testCritChance: 'Crit Chance %',
+      testCritDamage: 'Crit Damage Bonus %',
+      testBranch: 'Path',
+      testWeaponLv: 'Lv',
       help: 'HELP',
       controls: 'CONTROLS',
       move: 'Move',
@@ -41,6 +55,7 @@ class I18n {
       statCritical: 'Critical',
       statExpGain: 'Exp Gain',
       statLuck: 'Luck',
+      statCurse: 'Cursed',
       statBulletCount: 'Projectile Count',
       weaponShotgun: 'Boomstick',
       weaponChainLightning: 'Chain Lightning',
@@ -85,8 +100,8 @@ class I18n {
       storeBulletSpeed: 'Projectile Speed',
       storeBulletSpeedVal: '+10%',
       storeCurse: 'Curse',
-      storeCurseVal: '+10% Enemy HP / DMG / EXP',
-      storeCurseDesc: 'Enemies gain more HP and deal more damage, but kills grant extra EXP. Stacks as a separate multiplier on top of Experience Multiplier.',
+      storeCurseVal: '+10% Enemy HP / DMG / EXP / Mobs',
+      storeCurseDesc: 'Enemies gain more HP and deal more damage, more of them spawn, and kills grant extra EXP. Stacks as a separate multiplier on top of Experience Multiplier.',
       storeWeaponSlots: 'Weapon Slots',
       storeWeaponSlotsVal: '+1 slot',
       storeWeaponSlotsDesc: 'Permanently adds one weapon slot for every run. Buy up to 5 extras (10 weapons total). Extremely expensive.',
@@ -140,6 +155,7 @@ class I18n {
       chestGold: '+{0}g ({1})',
       chickenLegHeal: '+{0} HP (chicken leg)',
       bossSlain: 'ELDER DRAGON SLAIN!',
+      bossIncoming: 'ELDER DRAGON APPROACHES!',
       rarityCommon: 'COMMON',
       rarityRare: 'RARE',
       rarityEpic: 'EPIC',
@@ -157,7 +173,21 @@ class I18n {
       touchLayoutJoyLeft: 'Джойстик слева',
       newGame: 'НОВАЯ ИГРА',
       test: 'ТЕСТ',
-      testModeToast: 'ТЕСТ — бессмертие · все мобы заспавнены',
+      testModeToast: 'ТЕСТ — кастомная сборка · все мобы заспавнены',
+      testTitle: 'ТЕСТОВЫЙ ПЕРСОНАЖ',
+      testStart: 'НАЧАТЬ ТЕСТ',
+      testMaxAll: 'МАКС ВСЁ',
+      testDefaults: 'СБРОС',
+      testStats: 'СТАТЫ',
+      testWeapons: 'ОРУЖИЕ',
+      testLevel: 'Уровень',
+      testInvuln: 'Бессмертие',
+      testStatPct: '{0} %',
+      testBulletCount: 'Число снарядов',
+      testCritChance: 'Шанс крита %',
+      testCritDamage: 'Бонус урона крита %',
+      testBranch: 'Путь',
+      testWeaponLv: 'Ур.',
       help: 'СПРАВКА',
       controls: 'УПРАВЛЕНИЕ',
       move: 'Движение',
@@ -194,8 +224,8 @@ class I18n {
       storeBulletSpeed: 'Скорость снарядов',
       storeBulletSpeedVal: '+10%',
       storeCurse: 'Проклятие',
-      storeCurseVal: '+10% HP / урон / опыт врагов',
-      storeCurseDesc: 'Враги получают больше HP и наносят больше урона, но убийства дают больше опыта. Отдельный множитель поверх множителя опыта.',
+      storeCurseVal: '+10% HP / урон / опыт / мобы',
+      storeCurseDesc: 'Враги получают больше HP и наносят больше урона, их становится больше, и убийства дают больше опыта. Отдельный множитель поверх множителя опыта.',
       storeWeaponSlots: 'Слоты оружия',
       storeWeaponSlotsVal: '+1 слот',
       storeWeaponSlotsDesc: 'Навсегда добавляет один слот оружия в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
@@ -223,6 +253,7 @@ class I18n {
       statCritical: 'Критический удар',
       statExpGain: 'Прирост опыта',
       statLuck: 'Удача',
+      statCurse: 'Проклятие',
       statBulletCount: 'Число снарядов',
       weaponShotgun: 'Дробовик',
       weaponChainLightning: 'Цепная молния',
@@ -279,6 +310,7 @@ class I18n {
       chestGold: '+{0} з. ({1})',
       chickenLegHeal: '+{0} OЗ (куриная ножка)',
       bossSlain: 'ДРЕВНИЙ ДРАКОН ПОВЕРЖЕН!',
+      bossIncoming: 'ПРИБЛИЖАЕТСЯ ДРЕВНИЙ ДРАКОН!',
       rarityCommon: 'ОБЫЧНЫЙ',
       rarityRare: 'РЕДКИЙ',
       rarityEpic: 'ЭПИЧЕСКИЙ',
@@ -295,14 +327,16 @@ class I18n {
       attack: 'Attack', attackSpeed: 'Attack Speed', bulletSpeed: 'Projectile Speed',
       weaponRadius: 'Weapon Radius',
       critChance: 'Crit Chance', critDamage: 'Crit Damage',
-      bulletCount: 'Projectile Count', expMultiplier: 'Exp Multiplier', luck: 'Luck'
+      bulletCount: 'Projectile Count', expMultiplier: 'Exp Multiplier', luck: 'Luck',
+      curse: 'Cursed'
     },
     ru: {
       moveSpeed: 'Скорость', maxHealth: 'Макс. здоровье', maxShield: 'Щит',
       attack: 'Атака', attackSpeed: 'Скорость атаки', bulletSpeed: 'Скорость снарядов',
       weaponRadius: 'Радиус оружия',
       critChance: 'Шанс крита', critDamage: 'Урон крита',
-      bulletCount: 'Число снарядов', expMultiplier: 'Множ. опыта', luck: 'Удача'
+      bulletCount: 'Число снарядов', expMultiplier: 'Множ. опыта', luck: 'Удача',
+      curse: 'Проклятие'
     }
   };
 
@@ -319,7 +353,8 @@ class I18n {
       { abbr: 'CRT', name: 'Critical Chance', desc: 'Probability each hit critically strikes. Crits roll independently per projectile.' },
       { abbr: 'CDM', name: 'Critical Damage', desc: 'Damage multiplier applied on critical hits (e.g. 1.5× = +50% damage). Once Crit Chance hits 100%, the Critical card gives only Crit Damage.' },
       { abbr: 'EXP', name: 'Experience Multiplier', desc: 'Multiplies XP gained from all gold pickups. XP raises level and scales difficulty.' },
-      { abbr: 'LCK', name: 'Luck', desc: 'Multiplies all gold gained, raises the chest drop rate, and improves the rare/epic quality roll.' }
+      { abbr: 'LCK', name: 'Luck', desc: 'Multiplies all gold gained, raises the chest drop rate, and improves the rare/epic quality roll.' },
+      { abbr: 'CRS', name: 'Cursed', desc: 'Multiplies enemy HP, damage, spawn count, and EXP from gold. Stacks with the store Curse bonus. Boss Dragon HP scales with total damage you dealt this run × Cursed.' }
     ],
     ru: [
       { abbr: 'SPD', name: 'Скорость', desc: 'Скорость передвижения по полю. Помогает уклоняться от толпы и добираться до сундуков.' },
@@ -333,7 +368,8 @@ class I18n {
       { abbr: 'CRT', name: 'Шанс крита', desc: 'Вероятность критического попадания для каждого снаряда.' },
       { abbr: 'CDM', name: 'Урон крита', desc: 'Множитель урона при крите (напр. 1.5× = +50% урона). При 100% шансе крита карта «Критический удар» даёт только урон крита.' },
       { abbr: 'EXP', name: 'Множ. опыта', desc: 'Умножает опыт от всего золота. Опыт повышает уровень и сложность.' },
-      { abbr: 'LCK', name: 'Удача', desc: 'Умножает всё получаемое золото, повышает шанс выпадения сундуков и качество редких/эпических.' }
+      { abbr: 'LCK', name: 'Удача', desc: 'Умножает всё получаемое золото, повышает шанс выпадения сундуков и качество редких/эпических.' },
+      { abbr: 'CRS', name: 'Проклятие', desc: 'Множит HP, урон, число мобов и опыт от золота. Складывается с проклятием из магазина. HP босса-дракона = суммарный урон забега × Проклятие.' }
     ]
   };
 
@@ -344,7 +380,7 @@ class I18n {
       weaponsTitle: 'Weapon Slots',
       choicesTitle: 'Level-Up Choices [1-5]',
       difficultyTitle: 'Difficulty Scaling',
-      difficultyDesc: 'XP and level increase spawn rate, enemy count, HP, damage, speed, and dangerous enemy mix. From level 50 onward scaling ramps up sharply.',
+      difficultyDesc: 'XP and level increase spawn rate, enemy count, HP, damage, speed, and dangerous enemy mix. Weak enemies retire as you level — slimes stop by 22, zombies by 40, skeletons by 48 — so the field fills with tougher types instead. Levels 20–50 stay gentler; from level 50 onward scaling ramps up sharply. The Boss Dragon always appears at level 75, then at most once every 5 minutes.',
       enemies: 'ENEMIES',
       items: 'ITEM DROPS',
       goldSources: 'GOLD SOURCES',
@@ -358,7 +394,7 @@ class I18n {
       weaponsTitle: 'Слоты оружия',
       choicesTitle: 'Выбор при уровне [1-5]',
       difficultyTitle: 'Масштаб сложности',
-      difficultyDesc: 'Опыт и уровень повышают частоту спавна, число врагов, HP, урон, скорость и долю опасных типов. С 50 уровня рост резкий.',
+      difficultyDesc: 'Опыт и уровень повышают частоту спавна, число врагов, HP, урон, скорость и долю опасных типов. Слабые враги перестают появляться с ростом уровня: слизни к 22, зомби к 40, скелеты к 48 — вместо них поле заполняют более опасные типы. Уровни 20–50 мягче; с 50 уровня рост резкий. Босс-дракон всегда появляется на 75 уровне, затем не чаще раза в 5 минут.',
       enemies: 'ВРАГИ',
       items: 'ВЫПАДАЮЩИЕ ПРЕДМЕТЫ',
       goldSources: 'ИСТОЧНИКИ ЗОЛОТА',
@@ -374,9 +410,9 @@ class I18n {
       { id: 'skeleton', name: 'Bone Archer', threat: 'mid', gold: 4, speed: '50 (+scale)', hp: '25 (+scale)', dmg: '10 (+scale)', ability: 'Longbow · Keeps distance', desc: 'Holds ~220px range, strafes sideways and looses dodgeable arrows every 1.8s (120 speed, 400 range).', sprite: 'skeleton' },
       { id: 'zombie', name: 'Rotting Zombie', threat: 'mid', gold: 3, speed: '62 (+scale)', hp: '45 (+scale)', dmg: '14 (+scale)', ability: 'Melee only', desc: 'Shambles straight at you with a slight weave. No ranged attack, but tougher than it looks.', sprite: 'zombie' },
       { id: 'mage', name: 'Dark Mage', threat: 'high', gold: 6, speed: '45 (+scale)', hp: '40 (+scale)', dmg: '18 (+scale)', ability: 'Delayed AoE circles', desc: 'Stays at long range (~280px) and raises both hands to cast. Warning circles explode after 1–1.4s.', sprite: 'mage' },
-      { id: 'bomber', name: 'Bomb Goblin', threat: 'extreme', gold: 8, speed: '140 (+scale)', hp: '1', dmg: 'Instant kill', ability: 'Suicide explosion', desc: 'Fastest enemy with only 1 HP. On contact: destroys all shield, or kills instantly if shield is empty.', sprite: 'bomber' },
+      { id: 'bomber', name: 'Bomb Goblin', threat: 'extreme', gold: 8, speed: '140 (+scale)', hp: '1', dmg: 'Instant kill', ability: 'Suicide explosion', desc: 'Appears from level 10. Fastest enemy with only 1 HP. On contact: destroys all shield, or kills instantly if shield is empty.', sprite: 'bomber' },
       { id: 'robot', name: 'War Automaton', threat: 'high', gold: 14, speed: 'Always below yours', hp: '260 (+scale)', dmg: '26 (+scale)', ability: 'Melee only · Very tanky', desc: 'A walking wall from level 12. Its speed is hard-capped below your movement speed, so you can always outrun it.', sprite: 'robot' },
-      { id: 'wolf', name: 'White Wolf', threat: 'high', gold: 7, speed: '155 (+scale)', hp: '55 (+scale)', dmg: '16 (+scale)', ability: 'Bite · Slows you 0.5s', desc: 'Sprints at you from level 8. When a bullet closes in, it blinks sideways with a ghost trail (1s cooldown). A bite cuts your movement speed for half a second.', sprite: 'wolf' },
+      { id: 'wolf', name: 'White Wolf', threat: 'high', gold: 7, speed: '80% of player', hp: '55 (+scale)', dmg: '16 (+scale)', ability: 'Bite · Slows you 0.5s', desc: 'Appears from level 8. Always runs at 80% of your speed so you can outrun it. When a bullet closes in, it blinks sideways with a ghost trail (1s cooldown). A bite cuts your movement speed for half a second.', sprite: 'wolf' },
       { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Holy heal aura', desc: 'From level 15. Keeps a golden aura that continuously heals nearby enemies. Does not heal himself, other priests, or Elder Dragons. A Cursed Totem blocks healing for foes inside its field (or already cursed).', sprite: 'priest' },
       { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'Abduction', ability: 'Lifts and drops you', desc: 'From level 18, max 3 at once. Catches you, carries you for ~2.4s and dumps you into the thickest pack of enemies.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Crimson Tyrant (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (one of four Elder Dragon forms). Walks the field; never flies. Immune to freeze, stun, slow, pull, knockback, and curse. Only one Elder Dragon at a time, max once per 5 minutes. Hurls 3 arcing fireballs that leave burning zones.', sprite: 'dragonCrimson' },
@@ -389,9 +425,9 @@ class I18n {
       { id: 'skeleton', name: 'Скелет-лучник', threat: 'mid', gold: 4, speed: '50 (+масш.)', hp: '25 (+масш.)', dmg: '10 (+масш.)', ability: 'Лук · Дистанция', desc: 'Держит ~220px, стрейфит и стреляет каждые 1.8с (скор. 120, дальн. 400).', sprite: 'skeleton' },
       { id: 'zombie', name: 'Гниющий зомби', threat: 'mid', gold: 3, speed: '62 (+масш.)', hp: '45 (+масш.)', dmg: '14 (+масш.)', ability: 'Только ближний бой', desc: 'Бредёт прямо на вас, слегка виляя. Без дальних атак, но крепче, чем кажется.', sprite: 'zombie' },
       { id: 'mage', name: 'Тёмный маг', threat: 'high', gold: 6, speed: '45 (+масш.)', hp: '40 (+масш.)', dmg: '18 (+масш.)', ability: 'AoE с задержкой', desc: 'Дальний бой (~280px), поднимает руки при касте. Круги взрываются через 1–1.4с.', sprite: 'mage' },
-      { id: 'bomber', name: 'Гоблин-бомба', threat: 'extreme', gold: 8, speed: '140 (+масш.)', hp: '1', dmg: 'Мгнов. смерть', ability: 'Самоподрыв', desc: 'Самый быстрый, 1 HP. Контакт: снимает весь щит или убивает без щита.', sprite: 'bomber' },
+      { id: 'bomber', name: 'Гоблин-бомба', threat: 'extreme', gold: 8, speed: '140 (+масш.)', hp: '1', dmg: 'Мгнов. смерть', ability: 'Самоподрыв', desc: 'С 10 уровня. Самый быстрый, 1 HP. Контакт: снимает весь щит или убивает без щита.', sprite: 'bomber' },
       { id: 'robot', name: 'Боевой автоматон', threat: 'high', gold: 14, speed: 'Всегда медленнее вас', hp: '260 (+масш.)', dmg: '26 (+масш.)', ability: 'Ближний бой · Очень живучий', desc: 'Ходячая стена с 12 уровня. Его скорость жёстко ограничена ниже вашей — от него всегда можно убежать.', sprite: 'robot' },
-      { id: 'wolf', name: 'Белый волк', threat: 'high', gold: 7, speed: '155 (+масш.)', hp: '55 (+масш.)', dmg: '16 (+масш.)', ability: 'Укус · Замедляет на 0.5с', desc: 'С 8 уровня мчится к вам. Когда пуля близко — мигает в сторону с призрачным шлейфом (кд 1с). Укус замедляет вас на полсекунды.', sprite: 'wolf' },
+      { id: 'wolf', name: 'Белый волк', threat: 'high', gold: 7, speed: '80% от игрока', hp: '55 (+масш.)', dmg: '16 (+масш.)', ability: 'Укус · Замедляет на 0.5с', desc: 'С 8 уровня. Всегда бежит на 80% вашей скорости — от него можно убежать. Когда пуля близко — мигает в сторону с призрачным шлейфом (кд 1с). Укус замедляет вас на полсекунды.', sprite: 'wolf' },
       { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Аура исцеления', desc: 'С 15 уровня. Держит золотую ауру, которая постоянно лечит ближайших врагов. Не лечит себя, других жрецов и Драконов. Проклятый тотем блокирует лечение врагов в своём поле (или уже проклятых).', sprite: 'priest' },
       { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Похищение', ability: 'Поднимает и бросает вас', desc: 'С 18 уровня, максимум 3 сразу. Хватает вас, несёт ~2.4с и сбрасывает в самую гущу врагов.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Алый тиран (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (одна из четырёх форм Древнего дракона). Ходит по земле, не летает. Иммунен к заморозке, стану, замедлению, притягиванию, откидыванию и проклятию. Только один дракон за раз, не чаще чем раз в 5 минут. Бросает 3 фаербола с горящими зонами.', sprite: 'dragonCrimson' },
@@ -425,7 +461,7 @@ class I18n {
       towerShield: 'Orbiting shield that bashes foes and can block projectiles. Regen scales with Attack Speed.',
       grenadeLauncher: 'Lobs arcing grenades that explode on landing.',
       bloodSpear: 'Piercing spears that can apply bleed.',
-      phantomBlades: 'Orbiting phantom blades that slash nearby enemies.',
+      phantomBlades: 'Orbiting phantom blades. Projectile Speed spins them, Projectile Count adds blades, Weapon Radius sets orbit distance.',
       cursedTotem: 'Plants a long-lived curse zone at your feet. Stay inside the radius for it to curse foes. Also blocks Priest healing for enemies in the field.',
       iceCrystal: 'Fans homing ice shards in a 90° cone; each shard locks onto an enemy.'
     },
@@ -437,7 +473,7 @@ class I18n {
       towerShield: 'Орбитальный щит: бьёт врагов и может блокировать снаряды. Регенерация зависит от скорости атаки.',
       grenadeLauncher: 'Кидает гранаты по дуге со взрывом при приземлении.',
       bloodSpear: 'Пронзающие копья, способные накладывать кровотечение.',
-      phantomBlades: 'Орбитальные призрачные клинки, секущие ближайших врагов.',
+      phantomBlades: 'Орбитальные призрачные клинки. Скорость снарядов крутит их, число снарядов добавляет клинки, радиус оружия — дистанцию орбиты.',
       cursedTotem: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри радиуса, чтобы тотем проклинал врагов. Также блокирует лечение Жреца для врагов в поле.',
       iceCrystal: 'Веер самонаводящихся ледяных осколков в конусе 90°; каждый осколок ловит свою цель.'
     }
@@ -1350,6 +1386,31 @@ class SpriteFactory {
     return this.create(px, p, 2);
   }
 
+  /* Large molten boulder — dragon projectile */
+  static lavaRock() {
+    // 0 empty, 1 dark rock, 2 mid rock, 3 light rock, 4 lava, 5 bright lava, 6 core
+    const p = ['#0000', '#2a1c16', '#4a3428', '#6a5040', '#c03000', '#ff6a00', '#ffe080'];
+    const px = [
+      0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,1,1,2,2,2,2,1,1,0,0,0,0,
+      0,0,0,1,2,2,3,4,4,3,2,2,1,0,0,0,
+      0,0,1,2,3,3,4,5,5,4,3,3,2,1,0,0,
+      0,1,2,3,3,4,5,6,6,5,4,3,3,2,1,0,
+      0,1,2,3,4,5,6,6,6,6,5,4,3,2,1,0,
+      1,2,3,4,5,5,6,6,6,6,5,5,4,3,2,1,
+      1,2,3,4,4,5,5,6,6,5,5,4,4,3,2,1,
+      1,2,2,3,4,4,5,5,5,5,4,4,3,2,2,1,
+      0,1,2,3,3,4,4,5,5,4,4,3,3,2,1,0,
+      0,1,2,2,3,3,4,4,4,4,3,3,2,2,1,0,
+      0,0,1,2,2,3,3,4,4,3,3,2,2,1,0,0,
+      0,0,0,1,2,2,2,3,3,2,2,2,1,0,0,0,
+      0,0,0,0,1,1,2,2,2,2,1,1,0,0,0,0,
+      0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,
+      0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+    ];
+    return this.create(px, p, 4);
+  }
+
   /* Renders `draw` at 1:1 pixel units, then nearest-neighbour upscales. */
   static _pixelate(w, h, scale, draw) {
     const src = document.createElement('canvas');
@@ -1512,19 +1573,58 @@ class SpriteFactory {
   }
 
   static arrow() {
-    const p = ['#0000','#3a2a10','#8b6914','#c9a227','#5a4010','#aaa'];
+    // Large, high-contrast bone arrow — easy to spot in chaos
     const c = document.createElement('canvas');
-    c.width = 16; c.height = 8;
+    c.width = 48;
+    c.height = 18;
     const ctx = c.getContext('2d');
-    ctx.fillStyle = p[2];
-    ctx.fillRect(2, 3, 10, 2);
-    ctx.fillStyle = p[5];
+    ctx.imageSmoothingEnabled = false;
+
+    // Soft glow so it reads against any ground tile
+    ctx.fillStyle = 'rgba(255, 220, 160, 0.35)';
     ctx.beginPath();
-    ctx.moveTo(12, 0); ctx.lineTo(16, 4); ctx.lineTo(12, 8);
+    ctx.ellipse(24, 9, 22, 8, 0, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = p[1];
-    ctx.fillRect(0, 2, 2, 1);
-    ctx.fillRect(0, 5, 2, 1);
+
+    // Shaft
+    ctx.fillStyle = '#e8dcc0';
+    ctx.fillRect(6, 7, 30, 4);
+    ctx.fillStyle = '#c4b090';
+    ctx.fillRect(6, 10, 30, 1);
+
+    // Tip (bright metal / bone point)
+    ctx.fillStyle = '#fff6e0';
+    ctx.beginPath();
+    ctx.moveTo(34, 3);
+    ctx.lineTo(48, 9);
+    ctx.lineTo(34, 15);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#ff6a3a';
+    ctx.beginPath();
+    ctx.moveTo(36, 6);
+    ctx.lineTo(45, 9);
+    ctx.lineTo(36, 12);
+    ctx.closePath();
+    ctx.fill();
+
+    // Fletching
+    ctx.fillStyle = '#ff4040';
+    ctx.beginPath();
+    ctx.moveTo(2, 2);
+    ctx.lineTo(10, 7);
+    ctx.lineTo(2, 7);
+    ctx.closePath();
+    ctx.fill();
+    ctx.beginPath();
+    ctx.moveTo(2, 16);
+    ctx.lineTo(10, 11);
+    ctx.lineTo(2, 11);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = '#a01818';
+    ctx.fillRect(0, 7, 4, 4);
+
     return c;
   }
 
@@ -2333,6 +2433,7 @@ class Projectile {
     this.sprite = null;
     this.angle = 0;
     this.spinAngle = 0;
+    this.drawScale = 1;
     this.piercing = 0;
     this.pierceLeft = 0;
     this.hitSet = null;
@@ -2367,7 +2468,8 @@ class Projectile {
     this.life = life;
     this.maxLife = life;
     this.angle = Math.atan2(vy, vx);
-    this.radius = fromPlayer ? 6 : 5;
+    this.radius = fromPlayer ? 6 : 6;
+    this.drawScale = fromPlayer ? 1 : 0.675;
   }
 
   speed() {
@@ -2482,9 +2584,17 @@ class Projectile {
       ctx.save();
       ctx.translate(s.x, s.y);
       ctx.rotate(this.angle);
-      const sw = this.sprite.width;
-      const sh = this.sprite.height;
-      ctx.drawImage(this.sprite, -sw * 0.5, -sh * 0.5);
+      const scale = this.drawScale || 1;
+      const sw = this.sprite.width * scale;
+      const sh = this.sprite.height * scale;
+      if (!this.fromPlayer) {
+        // Extra glow ring behind enemy arrows
+        ctx.fillStyle = 'rgba(255, 90, 40, 0.45)';
+        ctx.beginPath();
+        ctx.ellipse(0, 0, sw * 0.55, sh * 0.7, 0, 0, Math.PI * 2);
+        ctx.fill();
+      }
+      ctx.drawImage(this.sprite, -sw * 0.5, -sh * 0.5, sw, sh);
       ctx.restore();
       if (this.isCrit) {
         ctx.fillStyle = 'rgba(255,200,50,0.4)';
@@ -2720,21 +2830,21 @@ class Fireball {
     this.tx = tx; this.ty = ty;
     this.damage = damage;
     this.radius = radius;
-    this.spin = 0;
+    this.spin = Math.random() * Math.PI * 2;
     this.t = 0;
     const dx = tx - x;
     const dy = ty - y;
     const d = Math.sqrt(dx * dx + dy * dy) || 1;
-    this.flightTime = Math.max(0.6, Math.min(1.5, 0.55 + d * 0.0016));
-    this.arcHeight = Math.min(260, 90 + d * 0.32);
+    this.flightTime = Math.max(0.7, Math.min(1.8, 0.55 + d * 0.0018));
+    this.arcHeight = Math.min(320, 110 + d * 0.35);
     this.height = 0;
-    this.size = 30;
+    this.size = 52 + Math.random() * 18;
     this.trailCD = 0;
   }
 
   update(dt, game) {
     if (!this.active) return;
-    this.spin += dt * 9;
+    this.spin += dt * 6;
     this.t += dt;
     const p = Math.min(1, this.t / this.flightTime);
     this.x = this.sx + (this.tx - this.sx) * p;
@@ -2742,11 +2852,11 @@ class Fireball {
     // Parabolic visual height (peaks mid-flight)
     this.height = this.arcHeight * 4 * p * (1 - p);
 
-    // Fiery trail while airborne
+    // Embers drip off the molten rock while airborne
     this.trailCD -= dt;
     if (this.trailCD <= 0) {
-      this.trailCD = 0.025;
-      game.spawnEmber(this.x, this.y - this.height, this.size * 0.4);
+      this.trailCD = 0.03;
+      game.spawnEmber(this.x, this.y - this.height, this.size * 0.35);
     }
 
     if (p >= 1) {
@@ -2757,36 +2867,14 @@ class Fireball {
     }
   }
 
-  _flame(ctx, x, y, r, spin) {
-    const g = ctx.createRadialGradient(x, y, r * 0.12, x, y, r);
-    g.addColorStop(0, 'rgba(255,255,220,0.95)');
-    g.addColorStop(0.35, 'rgba(255,190,40,0.9)');
-    g.addColorStop(0.7, 'rgba(255,90,10,0.75)');
-    g.addColorStop(1, 'rgba(150,20,0,0)');
-    ctx.fillStyle = g;
-    ctx.beginPath();
-    ctx.arc(x, y, r, 0, Math.PI * 2);
-    ctx.fill();
-    // Licking flame tongues
-    ctx.fillStyle = 'rgba(255,150,30,0.6)';
-    for (let i = 0; i < 6; i++) {
-      const a = spin + i * (Math.PI / 3);
-      const fr = r * (0.85 + Math.sin(spin * 3 + i) * 0.18);
-      ctx.beginPath();
-      ctx.arc(x + Math.cos(a) * fr * 0.7, y + Math.sin(a) * fr * 0.7, r * 0.34, 0, Math.PI * 2);
-      ctx.fill();
-    }
-  }
-
-  draw(ctx, cam) {
+  draw(ctx, cam, sprites) {
     if (!this.active) return;
     const ground = cam.worldToScreen(this.x, this.y);
     const sx = ground.x;
     const sy = ground.y - this.height;
-    const flick = 1 + Math.sin(this.spin * 5) * 0.08;
-    const r = this.size * flick;
+    const r = this.size;
 
-    // Target danger zone (shown from launch, fire-colored to match the projectile)
+    // Target danger zone
     const t = cam.worldToScreen(this.tx, this.ty);
     ctx.save();
     ctx.strokeStyle = 'rgba(255,140,40,0.85)';
@@ -2805,18 +2893,43 @@ class Fireball {
     ctx.fill();
     ctx.restore();
 
-    // Ground shadow beneath the airborne fireball
+    // Ground shadow
     ctx.save();
-    ctx.fillStyle = 'rgba(0,0,0,0.28)';
+    ctx.fillStyle = 'rgba(0,0,0,0.35)';
     ctx.beginPath();
-    ctx.ellipse(ground.x, ground.y, r * 0.7, r * 0.32, 0, 0, Math.PI * 2);
+    ctx.ellipse(ground.x, ground.y, r * 0.85, r * 0.38, 0, 0, Math.PI * 2);
     ctx.fill();
     ctx.restore();
 
-    // Big flamy projectile
+    // Big molten lava rock
     ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    this._flame(ctx, sx, sy, r * 1.15, this.spin);
+    ctx.translate(sx, sy);
+    ctx.rotate(this.spin);
+    const glow = ctx.createRadialGradient(0, 0, r * 0.2, 0, 0, r * 1.45);
+    glow.addColorStop(0, 'rgba(255, 200, 60, 0.6)');
+    glow.addColorStop(0.5, 'rgba(255, 90, 20, 0.32)');
+    glow.addColorStop(1, 'rgba(120, 20, 0, 0)');
+    ctx.fillStyle = glow;
+    ctx.beginPath();
+    ctx.arc(0, 0, r * 1.45, 0, Math.PI * 2);
+    ctx.fill();
+
+    const spr = (sprites && (sprites.lavaRock || sprites.fireball)) || null;
+    if (spr) {
+      const scale = (r * 2.2) / Math.max(spr.width, spr.height);
+      ctx.drawImage(spr, -spr.width * scale * 0.5, -spr.height * scale * 0.5,
+        spr.width * scale, spr.height * scale);
+    } else {
+      // Fallback rock if sprites missing
+      ctx.fillStyle = '#3a2a22';
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillStyle = '#ff6a00';
+      ctx.beginPath();
+      ctx.arc(0, 0, r * 0.35, 0, Math.PI * 2);
+      ctx.fill();
+    }
     ctx.restore();
   }
 }
@@ -2845,20 +2958,19 @@ class Enemy {
   static _uid = 0;
 
   static _getLevelMult(level) {
-    if (level < 50) {
-      if (level < 30) return 1;
-      return 1 + (level - 29) * 0.02; // lv30→1.02 … lv49→1.4
-    }
+    // Flat through mid-game; sharp ramp starts at 50
+    if (level < 50) return 1;
     if (level < 70) return 2;
     // 70+: +1× every 10 levels (lv70→3×, lv80→4×, lv90→5× …)
     return 2 + Math.ceil((level - 69) / 10);
   }
 
-  /* Early runs should feel squishy so the shotgun clears packs quickly. */
+  /* Keep packs squishy through mid-game; full HP only from 50+. */
   static earlyHpScale(level) {
     if (level <= 1) return 0.28;
-    if (level <= 5) return 0.28 + (level - 1) * 0.06;
-    if (level <= 15) return 0.52 + (level - 5) * 0.04;
+    if (level <= 5) return 0.28 + (level - 1) * 0.055; // → ~0.50
+    if (level <= 20) return 0.50 + (level - 5) * 0.018; // → ~0.77
+    if (level < 50) return 0.77 + (level - 20) * (0.23 / 30); // → 1.0 at 50
     return 1;
   }
 
@@ -2933,11 +3045,12 @@ class Enemy {
     StatusEffects.initEnemy(this);
   }
 
-  spawn(type, x, y, sprites, difficulty, level = 1, variant = null) {
+  spawn(type, x, y, sprites, difficulty, level = 1, variant = null, game = null) {
     this.active = true;
     this.type = type;
     this.uid = ++Enemy._uid;
     this.sprites = sprites;
+    this._game = game || null;
     this.goldDrop = Enemy.goldDrops[type] || 1;
     this.x = x; this.y = y;
     this.vx = 0; this.vy = 0;
@@ -2981,9 +3094,11 @@ class Enemy {
     const hpScale = Enemy.earlyHpScale(level);
     const speedMult = 1 + (lvMult - 1) * 0.45;
     this.levelMult = lvMult;
-    const curseMult = (typeof MetaProgression !== 'undefined')
-      ? (1 + (MetaProgression.bonuses().curse || 0))
-      : 1;
+    const curseMult = (game && game.player)
+      ? game.player.curseMult
+      : ((typeof MetaProgression !== 'undefined')
+        ? (1 + (MetaProgression.bonuses().curse || 0))
+        : 1);
 
     switch (type) {
       case 'slime':
@@ -3030,7 +3145,8 @@ class Enemy {
         break;
       case 'wolf':
         this.hp = this.maxHp = Math.max(1, Math.floor(55 * d * lvMult * hpScale));
-        this.speed = (155 + difficulty * 1.1) * speedMult;
+        // Chase speed is forced to 80% of player speed in _updateWolf
+        this.speed = 1;
         this.damage = (16 + difficulty * 0.45) * lvMult;
         this.radius = 15;
         this.sprite = sprites.wolf;
@@ -3049,8 +3165,10 @@ class Enemy {
         this.radius = 60;
         this.sprite = sprites.ufo;
         break;
-      case 'dragon':
-        this.hp = this.maxHp = Math.max(1, Math.floor(4200 * d * lvMult * hpScale));
+      case 'dragon': {
+        // HP = total player damage dealt this run × Cursed (meta + in-run)
+        const dealt = (game && game.damageDealt) ? game.damageDealt : 0;
+        this.hp = this.maxHp = Math.max(1000, Math.floor(dealt * curseMult));
         this.speed = (58 + difficulty * 0.3) * speedMult;
         this.damage = (42 + difficulty * 0.9) * lvMult;
         this.radius = 150;
@@ -3060,10 +3178,14 @@ class Enemy {
         this.sprite = sprites.dragons[this.dragonVariant].walk[0];
         this.shootCD = 2;
         break;
+      }
     }
     if (curseMult !== 1 && this.type !== 'bomber') {
-      this.maxHp = Math.max(1, Math.floor(this.maxHp * curseMult));
-      this.hp = this.maxHp;
+      // Dragon HP already includes curse; only scale its damage
+      if (this.type !== 'dragon') {
+        this.maxHp = Math.max(1, Math.floor(this.maxHp * curseMult));
+        this.hp = this.maxHp;
+      }
       this.damage *= curseMult;
     }
     this.baseSprite = this.sprite;
@@ -3115,7 +3237,12 @@ class Enemy {
 
   takeDamage(amount) {
     if (!this.active || this.dying) return false;
-    this.hp -= amount * StatusEffects.damageMult(this);
+    const raw = amount * StatusEffects.damageMult(this);
+    const dealt = Math.min(Math.max(0, this.hp), raw);
+    this.hp -= raw;
+    if (this._game && dealt > 0) {
+      this._game.damageDealt = (this._game.damageDealt || 0) + dealt;
+    }
     this.flash = 0.12;
     if (this.hp <= 0) {
       this.beginDeath();
@@ -3126,6 +3253,7 @@ class Enemy {
 
   update(dt, player, game) {
     if (!this.active) return;
+    this._game = game;
 
     if (this.dying) {
       this.deathTimer += dt;
@@ -3275,7 +3403,7 @@ class Enemy {
         this._tickDragonWalk(dt, true);
         this._tickDragonGrowl(dt);
         this.shootCD -= dt;
-        if (this.shootCD <= 0 && this.volleyLeft <= 0 && dist < 520) {
+        if (this.shootCD <= 0 && this.volleyLeft <= 0 && this._dragonOnScreen(game)) {
           this.shootCD = 3.4 / Math.sqrt(this.levelMult || 1);
           this.volleyLeft = 3;
           this.volleyCD = 0;
@@ -3424,8 +3552,12 @@ class Enemy {
       }
     }
 
-    this.x += nx * this.speed * dt;
-    this.y += ny * this.speed * dt;
+    // Always 80% of the player's current move speed — never catches a running player
+    const player = game.player;
+    const statusMult = this.baseSpeed > 0 ? this.speed / this.baseSpeed : 1;
+    const sp = player.stats.moveSpeed * (player.slowFactor || 1) * 0.8 * statusMult;
+    this.x += nx * sp * dt;
+    this.y += ny * sp * dt;
   }
 
   _updatePriest(dt, nx, ny, dist, game) {
@@ -3488,13 +3620,25 @@ class Enemy {
     );
   }
 
+  _dragonOnScreen(game) {
+    const cam = game.camera;
+    const margin = 100;
+    const r = Math.max(this.radius || 120, 140);
+    const sx = this.x - cam.x;
+    const sy = this.y - cam.y;
+    return sx + r > -margin && sx - r < cam.w + margin &&
+           sy + r > -margin && sy - r < cam.h + margin;
+  }
+
   _updateDragon(dt, nx, ny, dist, player, game) {
+    // Hang back at long range so fireballs lob from across the screen
+    const preferred = Math.max(480, Math.min(game.camera.w, game.camera.h) * 0.48);
     let moving = false;
-    if (dist > 300) {
+    if (dist > preferred + 90) {
       this.x += nx * this.speed * dt;
       this.y += ny * this.speed * dt;
       moving = true;
-    } else if (dist < 190) {
+    } else if (dist < preferred - 120) {
       this.x -= nx * this.speed * 0.7 * dt;
       this.y -= ny * this.speed * 0.7 * dt;
       moving = true;
@@ -3507,7 +3651,8 @@ class Enemy {
     this._tickDragonGrowl(dt);
 
     this.shootCD -= dt;
-    if (this.shootCD <= 0 && this.volleyLeft <= 0) {
+    // Shoot whenever the dragon is visible on screen (even from far edge)
+    if (this.shootCD <= 0 && this.volleyLeft <= 0 && this._dragonOnScreen(game)) {
       this.shootCD = 3.4 / Math.sqrt(this.levelMult || 1);
       this.volleyLeft = 3;
       this.volleyCD = 0;
@@ -3951,7 +4096,8 @@ class Player {
       critChance: 0,
       critDamageBonus: 0,
       expMultiplier: 0,
-      luck: 0
+      luck: 0,
+      curse: 0
     };
   }
 
@@ -3981,6 +4127,7 @@ class Player {
     this.shieldFlash = 0;
     this.hpFlash = 0;
     this.invulnerable = false;
+    this.invulnTimer = 0;
   }
 
   _recomputeStats() {
@@ -4002,6 +4149,7 @@ class Player {
     s.critDamage = B.critDamage + a.critDamageBonus + m.critDamageBonus;
     s.expMultiplier = B.expMultiplier * (1 + a.expMultiplier + m.expMultiplier);
     s.luck = a.luck + m.luck;
+    s.curse = (a.curse || 0) + (m.curse || 0);
     s.bulletCount = this.bulletCount + m.bulletCount;
     if (this.health > s.maxHealth) this.health = s.maxHealth;
   }
@@ -4011,11 +4159,14 @@ class Player {
     return 1 + this.stats.luck;
   }
 
-  /* Store Curse stacks on top of Exp Multiplier for XP from gold. */
+  /* Meta + in-run Cursed: raises enemy HP/DMG, spawn count, and XP from gold. */
+  get curseMult() {
+    return 1 + (this.stats.curse || 0);
+  }
+
+  /* Store / run Curse stacks on top of Exp Multiplier for XP from gold. */
   get curseExpMult() {
-    if (typeof MetaProgression === 'undefined') return 1;
-    const b = MetaProgression.bonuses();
-    return 1 + (b.curse || 0);
+    return this.curseMult;
   }
 
   maxStatSlots() {
@@ -4063,6 +4214,7 @@ class Player {
     this.carriedBy = null;
     this.shieldFlash = 0;
     this.hpFlash = 0;
+    this.invulnTimer = 0;
   }
 
   reviveRun() {
@@ -4077,6 +4229,7 @@ class Player {
     this.shieldFlash = 0;
     this.hpFlash = 0;
     this.invulnerable = false;
+    this.invulnTimer = 0;
   }
 
   getDifficulty() {
@@ -4117,7 +4270,7 @@ class Player {
   }
 
   takeDamage(amount, game) {
-    if (!this.alive || this.invulnerable) return;
+    if (!this.alive || this.invulnerable || this.invulnTimer > 0) return;
     this.hurtFlash = 0.15;
     let dmg = amount;
 
@@ -4161,7 +4314,7 @@ class Player {
   /* A bomber eats the whole shield pool, or kills outright when unshielded.
      The drain amount stays finite so absorbShield can subtract it safely. */
   bomberHit(game) {
-    if (!this.alive || this.invulnerable) return;
+    if (!this.alive || this.invulnerable || this.invulnTimer > 0) return;
     this.hurtFlash = 0.2;
     const weapons = game ? game.weapons : null;
     const absorbed = weapons ? weapons.absorbShield(1e9) : 0;
@@ -4177,6 +4330,7 @@ class Player {
     if (!this.alive) return;
     this.anim += dt;
 
+    if (this.invulnTimer > 0) this.invulnTimer -= dt;
     if (this.shieldFlash > 0) this.shieldFlash -= dt;
     if (this.hpFlash > 0) this.hpFlash -= dt;
     if (this.slowTimer > 0) {
@@ -4318,70 +4472,135 @@ class WaveManager {
     const level = game.player.level;
     const density = this._getLevelDensityMult(level);
 
-    // Spawn rate scales with experience and level density
-    const baseInterval = Math.max(0.08, (1.2 - exp * 0.002 - diff * 0.03) / density);
+    // Boss Dragon: guaranteed at level 75, then at most once every 5 minutes
+    if (this._canSpawnDragon(game, level)) {
+      this._spawnDragon(game, diff);
+    }
+
+    // Early game (1–10): denser packs; mid keeps normal flow; late ramps via density
+    let spawnEase = 1;
+    let capMult = 1;
+    let burstMult = 1;
+    if (level <= 10) {
+      spawnEase = 0.5;
+      capMult = 1.65;
+      burstMult = 1.75;
+    } else if (level < 50) {
+      // Mild ease only — still a crowded field, just not late-game density
+      spawnEase = 1.05;
+      capMult = 0.95;
+      burstMult = 1.0;
+    }
+    // Cursed multiplies mob count: more spawns, higher cap, bigger bursts
+    const curseMult = game.player.curseMult || 1;
+    const baseInterval = Math.max(0.06, (1.2 - exp * 0.002 - diff * 0.03) * spawnEase / density / curseMult);
     this.spawnTimer -= dt;
 
     const rawCap = 36 + Math.floor(exp * 0.08) + Math.floor(diff * 5) + Math.floor(level * 1.15);
-    const maxEnemies = Math.min(200, Math.floor(rawCap * density));
+    const earlyFloor = level <= 10 ? Math.floor((28 + level * 3) * curseMult) : 0;
+    // Soft floor after early game so the field never goes empty
+    const midFloor = level < 50 ? Math.floor(22 * curseMult) : 0;
+    const maxEnemies = Math.min(Math.floor(220 * curseMult), Math.max(earlyFloor, midFloor, Math.floor(rawCap * density * capMult * curseMult)));
     const active = game.enemyPool.countActive();
 
     if (this.spawnTimer <= 0 && active < maxEnemies) {
       this.spawnTimer = baseInterval;
       const baseBurst = 1 + Math.floor(diff / 3) + Math.floor(exp / 80);
-      const burst = Math.min(14, Math.max(1, Math.floor(baseBurst * Math.min(density, 1.4))));
+      const earlyBurst = level <= 10 ? 2 : 0;
+      const burst = Math.min(Math.floor(14 * curseMult), Math.max(1, Math.floor(baseBurst * Math.min(density, 1.4) * burstMult * curseMult) + earlyBurst));
       for (let i = 0; i < burst && game.enemyPool.countActive() < maxEnemies; i++) {
         this._spawnEnemy(game, diff, exp);
       }
     }
   }
 
-  pickSpawnPos(player) {
+  pickSpawnPos(player, game) {
+    // Spawn just beyond the visible screen edge (camera keeps player centered),
+    // so enemies always appear off-screen regardless of resolution.
+    const cam = game && game.camera;
+    const halfW = (cam ? cam.w : 800) * 0.5;
+    const halfH = (cam ? cam.h : 600) * 0.5;
+    const buffer = 80 + Math.random() * 140;
     const angle = Math.random() * Math.PI * 2;
-    const dist = 420 + Math.random() * 200;
+    const dx = Math.cos(angle);
+    const dy = Math.sin(angle);
+    // Distance from center to the rectangle edge along this direction, plus buffer
+    const tx = Math.abs(dx) > 1e-4 ? (halfW + buffer) / Math.abs(dx) : Infinity;
+    const ty = Math.abs(dy) > 1e-4 ? (halfH + buffer) / Math.abs(dy) : Infinity;
+    const dist = Math.min(tx, ty);
     return {
-      x: player.x + Math.cos(angle) * dist,
-      y: player.y + Math.sin(angle) * dist
+      x: player.x + dx * dist,
+      y: player.y + dy * dist
     };
   }
 
   _spawnEnemy(game, diff, exp) {
-    const pos = this.pickSpawnPos(game.player);
+    const pos = this.pickSpawnPos(game.player, game);
     const type = this._pickType(game, diff, exp, game.player.level);
-    if (type === 'dragon') this.lastDragonAt = this.elapsed;
+    if (type === 'dragon') return; // dragons only via _spawnDragon
     const e = game.enemyPool.acquire();
-    e.spawn(type, pos.x, pos.y, game.sprites, diff, game.player.level);
+    e.spawn(type, pos.x, pos.y, game.sprites, diff, game.player.level, null, game);
+  }
+
+  _spawnDragon(game, diff) {
+    const pos = this.pickSpawnPos(game.player, game);
+    this.lastDragonAt = this.elapsed;
+    const e = game.enemyPool.acquire();
+    e.spawn('dragon', pos.x, pos.y, game.sprites, diff, game.player.level, null, game);
+    if (game.ui) game.ui.toast(I18n.t('bossIncoming'), 'legendary');
   }
 
   _canSpawnDragon(game, level) {
-    return level >= 25
+    return level >= 75
       && !game.hasEnemy('dragon')
       && (this.elapsed - this.lastDragonAt) >= WaveManager.DRAGON_COOLDOWN;
   }
 
+  /* Weak types retire as the player levels: full weight up to `from`, then
+     fading linearly to zero at `to`, after which they never spawn again. */
+  static _retireFade(level, from, to) {
+    if (level <= from) return 1;
+    if (level >= to) return 0;
+    return 1 - (level - from) / (to - from);
+  }
+
   _pickType(game, diff, exp, level) {
-    const late = Math.max(0, level - 25);
+    // Soften elite mix before 50; late-game keeps the old curve from 25
+    const late = Math.max(0, level - (level < 50 ? 38 : 25));
+    const fade = (from, to) => WaveManager._retireFade(level, from, to);
     const weights = {
-      slime: Math.max(6, 40 - late * 0.45),
-      zombie: 15 + diff * 2 + late * 0.35,
-      skeleton: 8 + diff * 1.5 + late * 0.3,
-      bomber: Math.max(0, -10 + diff * 0.55 + exp * 0.004 + late * 0.04),
-      mage: Math.max(0, -8 + diff * 1.5 + exp * 0.008 + late * 0.05),
+      slime: Math.max(0, 40 - late * 0.45) * fade(8, 22),
+      zombie: Math.max(0, 15 + diff * 2 + late * 0.35) * fade(18, 40),
+      skeleton: Math.max(0, 8 + diff * 1.5 + late * 0.3) * fade(24, 48),
+      // Unlock at 10 with a real weight — old formula stayed ≤0 until mid/late runs
+      bomber: level >= 10
+        ? (2.2 + diff * 0.28 + late * 0.1) * fade(55, 78)
+        : 0,
+      mage: Math.max(0, -8 + diff * 1.5 + exp * 0.008 + late * 0.05) * fade(60, 85),
       wolf: level >= 8 ? Math.max(0, -4 + diff * 1.2 + late * 0.22) : 0,
       robot: level >= 12 ? Math.max(0, -3 + diff * 0.7 + late * 0.18) : 0,
       priest: level >= 15 ? Math.min(6, Math.max(0, -2 + diff * 0.35 + late * 0.08)) : 0,
       ufo: level >= 18 && game.countEnemies('ufo') < 3 ? 0.9 + late * 0.02 : 0,
-      // Very rare boss; also gated by a hard 5-minute cooldown
-      dragon: this._canSpawnDragon(game, level) ? 0.028 + late * 0.0008 : 0
+      dragon: 0
     };
     let total = 0;
-    for (const k in weights) total += weights[k];
+    let fallback = null;
+    let fallbackWeight = -1;
+    for (const k in weights) {
+      total += weights[k];
+      if (weights[k] > fallbackWeight) {
+        fallbackWeight = weights[k];
+        fallback = k;
+      }
+    }
+    // Every weak type may be retired at high levels — never fall back to slime
+    if (total <= 0) return level >= 40 ? 'robot' : 'zombie';
     let r = Math.random() * total;
     for (const k in weights) {
       r -= weights[k];
       if (r <= 0) return k;
     }
-    return 'slime';
+    return fallback || 'zombie';
   }
 
   /* Every field item now comes off a corpse. */
@@ -4643,7 +4862,8 @@ class UI {
       ['critChance', `${Math.round(player.stats.critChance * 100)}%`],
       ['critDamage', `x${player.stats.critDamage.toFixed(2)}`],
       ['expMultiplier', `x${player.stats.expMultiplier.toFixed(2)}`],
-      ['luck', `x${player.luckMult.toFixed(2)}`]
+      ['luck', `x${player.luckMult.toFixed(2)}`],
+      ['curse', `x${player.curseMult.toFixed(2)}`]
     ];
     const iconSize = Math.round(10 * S);
     const pad = 12 * S;
@@ -4770,7 +4990,7 @@ class HelpPanel {
     ASP: 'attackSpeed', BLT: 'bulletCount', BSP: 'bulletSpeed',
     RAD: 'weaponRadius',
     CRT: 'critChance', CDM: 'critDamage',
-    EXP: 'expMultiplier', LCK: 'luck'
+    EXP: 'expMultiplier', LCK: 'luck', CRS: 'curse'
   };
 
   _iconHtml(statKey) {
@@ -4953,6 +5173,7 @@ class Game {
       ufo: SpriteFactory.ufo(),
       dragons: dragonSprites,
       fireball: SpriteFactory.fireball(),
+      lavaRock: SpriteFactory.lavaRock(),
       ...IconFactory.build(),
       chestCommon: SpriteFactory.chest('common'),
       chestRare: SpriteFactory.chest('rare'),
@@ -5013,6 +5234,7 @@ class Game {
     this.lastTime = 0;
     this.killCount = 0;
     this.survived = 0;
+    this.damageDealt = 0;
     this.lastGameOverStats = null;
     this.showEnemyDamageNumbers = true;
     try {
@@ -5041,6 +5263,7 @@ class Game {
       this.help.rebuild();
       this.upgrades.refreshLocale();
       if (this.isStoreOpen()) this._renderStore();
+      if (this.isTestBuilderOpen()) this._renderTestBuilder();
       if (this.state === 'gameover') this._updateGameOverStats();
     });
 
@@ -5064,7 +5287,22 @@ class Game {
     document.getElementById('storeCloseBtn').onclick = () => this.closeStore();
     document.getElementById('optionsBtn').onclick = () => this.openOptions();
     document.getElementById('optionsCloseBtn').onclick = () => this.closeOptions();
-    document.getElementById('testBtn').onclick = () => this.startTestMode();
+    document.getElementById('testBtn').onclick = () => this.openTestBuilder();
+    document.getElementById('testCloseBtn').onclick = () => this.closeTestBuilder();
+    document.getElementById('testStartBtn').onclick = () => {
+      const cfg = this._readTestBuilder();
+      this._saveTestConfig(cfg);
+      this.closeTestBuilder();
+      this.startTestMode(cfg);
+    };
+    document.getElementById('testMaxBtn').onclick = () => {
+      this._testConfig = this._maxTestConfig();
+      this._renderTestBuilder();
+    };
+    document.getElementById('testDefaultsBtn').onclick = () => {
+      this._testConfig = this._defaultTestConfig();
+      this._renderTestBuilder();
+    };
     document.getElementById('resetDataBtn').onclick = () => this.askResetData();
     document.getElementById('confirmResetDataYes').onclick = () => {
       this.closeResetDataConfirm();
@@ -5146,6 +5384,7 @@ class Game {
             else if (this.isRestartConfirmOpen()) this.closeRestartConfirm();
             else if (this.isStoreOpen()) this.closeStore();
             else if (this.isOptionsOpen()) this.closeOptions();
+            else if (this.isTestBuilderOpen()) this.closeTestBuilder();
             else if (this.isStatsOpen()) this.closeStats();
             else if (this.help.isOpen()) this.help.close();
             else this.togglePause();
@@ -5179,6 +5418,7 @@ class Game {
     this.waves.reset();
     this.killCount = 0;
     this.survived = 0;
+    this.damageDealt = 0;
     this._bankedRunGold = 0;
     // Every run opens with the boomstick
     this.weapons.grant('shotgun', 1, null);
@@ -5189,23 +5429,256 @@ class Game {
     document.getElementById('gameOverMenu').classList.add('hidden');
     this.closeStore();
     this.closeOptions();
+    this.closeTestBuilder();
     this.ui.setControlsVisible(true);
   }
 
-  startTestMode() {
+  _defaultTestConfig() {
+    return {
+      level: 30,
+      invulnerable: true,
+      stats: {
+        attack: 1.5,
+        attackSpeed: 1.0,
+        moveSpeed: 0.5,
+        maxHealth: 1.0,
+        bulletSpeed: 0.5,
+        weaponRadius: 0.5,
+        expMultiplier: 0,
+        luck: 0,
+        critChance: 0.25,
+        critDamageBonus: 0.5,
+        bulletCount: 2
+      },
+      weapons: WEAPON_IDS.map((id) => ({ id, enabled: true, level: 1, branch: 'A' }))
+    };
+  }
+
+  _maxTestConfig() {
+    return {
+      level: 99,
+      invulnerable: true,
+      stats: {
+        attack: 5,
+        attackSpeed: 4,
+        moveSpeed: 2,
+        maxHealth: 5,
+        bulletSpeed: 3,
+        weaponRadius: 3,
+        expMultiplier: 2,
+        luck: 2,
+        critChance: 1,
+        critDamageBonus: 3,
+        bulletCount: 8
+      },
+      weapons: WEAPON_IDS.map((id) => ({ id, enabled: true, level: 5, branch: 'A' }))
+    };
+  }
+
+  _loadTestConfig() {
+    try {
+      const raw = localStorage.getItem('gachaSurvivorsTestBuild');
+      if (raw) {
+        const data = JSON.parse(raw);
+        if (data && data.stats && Array.isArray(data.weapons)) {
+          const base = this._defaultTestConfig();
+          return {
+            level: Math.max(1, Math.min(99, data.level | 0) || 30),
+            invulnerable: data.invulnerable !== false,
+            stats: { ...base.stats, ...(data.stats || {}) },
+            weapons: WEAPON_IDS.map((id) => {
+              const found = data.weapons.find((w) => w.id === id);
+              return found
+                ? {
+                    id,
+                    enabled: !!found.enabled,
+                    level: Math.max(1, Math.min(5, found.level | 0) || 1),
+                    branch: found.branch === 'B' ? 'B' : 'A'
+                  }
+                : { id, enabled: false, level: 1, branch: 'A' };
+            })
+          };
+        }
+      }
+    } catch (e) { /* ignore */ }
+    return this._defaultTestConfig();
+  }
+
+  _saveTestConfig(cfg) {
+    try {
+      localStorage.setItem('gachaSurvivorsTestBuild', JSON.stringify(cfg));
+    } catch (e) { /* ignore */ }
+    this._testConfig = cfg;
+  }
+
+  isTestBuilderOpen() {
+    const el = document.getElementById('testOverlay');
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  openTestBuilder() {
+    if (this.state !== 'menu') return;
+    this.closeStore();
+    this.closeOptions();
+    this.closeResetDataConfirm();
+    this._testConfig = this._loadTestConfig();
+    this._renderTestBuilder();
+    document.getElementById('testOverlay').classList.remove('hidden');
+  }
+
+  closeTestBuilder() {
+    const el = document.getElementById('testOverlay');
+    if (el) el.classList.add('hidden');
+  }
+
+  _renderTestBuilder() {
+    const root = document.getElementById('testBuilder');
+    if (!root) return;
+    const cfg = this._testConfig || this._defaultTestConfig();
+    const s = cfg.stats;
+    const pct = (v) => Math.round((v || 0) * 100);
+    const statRow = (key, label, value, step = 5) =>
+      `<div class="test-field"><label>${label}</label>` +
+      `<input type="number" data-stat="${key}" value="${value}" step="${step}" min="0" max="2000"></div>`;
+
+    let html = `<div class="test-section-title">${I18n.t('testStats')}</div><div class="test-grid">`;
+    html += statRow('attack', I18n.t('statDamage') + ' %', pct(s.attack));
+    html += statRow('attackSpeed', I18n.t('statAttackSpeed') + ' %', pct(s.attackSpeed));
+    html += statRow('moveSpeed', I18n.t('statMoveSpeed') + ' %', pct(s.moveSpeed));
+    html += statRow('maxHealth', I18n.t('statMaxHealth') + ' %', pct(s.maxHealth));
+    html += statRow('bulletSpeed', I18n.t('statBulletSpeed') + ' %', pct(s.bulletSpeed));
+    html += statRow('weaponRadius', I18n.t('statWeaponRadius') + ' %', pct(s.weaponRadius));
+    html += statRow('expMultiplier', I18n.t('statExpGain') + ' %', pct(s.expMultiplier));
+    html += statRow('luck', I18n.t('statLuck') + ' %', pct(s.luck));
+    html += statRow('curse', I18n.t('statCurse') + ' %', pct(s.curse || 0));
+    html += statRow('critChance', I18n.t('testCritChance'), pct(s.critChance), 1);
+    html += statRow('critDamageBonus', I18n.t('testCritDamage'), pct(s.critDamageBonus), 5);
+    html += `<div class="test-field"><label>${I18n.t('testBulletCount')}</label>` +
+      `<input type="number" data-stat="bulletCount" value="${s.bulletCount | 0}" step="1" min="1" max="20"></div>`;
+    html += `<div class="test-field"><label>${I18n.t('testLevel')}</label>` +
+      `<input type="number" id="testLevelInput" value="${cfg.level}" step="1" min="1" max="99"></div>`;
+    html += `<div class="test-field checkbox-row"><input type="checkbox" id="testInvulnInput"${cfg.invulnerable ? ' checked' : ''}>` +
+      `<label for="testInvulnInput">${I18n.t('testInvuln')}</label></div>`;
+    html += `</div><div class="test-section-title">${I18n.t('testWeapons')}</div>`;
+
+    for (const w of cfg.weapons) {
+      const def = WEAPON_DEFS[w.id];
+      const name = def ? I18n.t(def.nameKey) : w.id;
+      const dis = w.enabled ? '' : ' disabled';
+      html += `<div class="test-weapon-row${dis}" data-weapon-row="${w.id}">` +
+        `<input type="checkbox" data-w-on="${w.id}"${w.enabled ? ' checked' : ''}>` +
+        `<span>${name}</span>` +
+        `<select data-w-lv="${w.id}">` +
+        [1, 2, 3, 4, 5].map((lv) =>
+          `<option value="${lv}"${w.level === lv ? ' selected' : ''}>${I18n.t('testWeaponLv')}${lv}</option>`
+        ).join('') +
+        `</select>` +
+        `<select data-w-br="${w.id}"${w.level < 3 ? ' disabled' : ''}>` +
+        `<option value="A"${w.branch !== 'B' ? ' selected' : ''}>${I18n.t('testBranch')} A</option>` +
+        `<option value="B"${w.branch === 'B' ? ' selected' : ''}>${I18n.t('testBranch')} B</option>` +
+        `</select></div>`;
+    }
+    root.innerHTML = html;
+
+    root.querySelectorAll('[data-w-on]').forEach((el) => {
+      el.onchange = () => {
+        const row = root.querySelector(`[data-weapon-row="${el.dataset.wOn}"]`);
+        if (row) row.classList.toggle('disabled', !el.checked);
+      };
+    });
+    root.querySelectorAll('[data-w-lv]').forEach((el) => {
+      el.onchange = () => {
+        const br = root.querySelector(`[data-w-br="${el.dataset.wLv}"]`);
+        if (br) br.disabled = (+el.value) < 3;
+      };
+    });
+  }
+
+  _readTestBuilder() {
+    const root = document.getElementById('testBuilder');
+    const base = this._defaultTestConfig();
+    if (!root) return base;
+    const stats = { ...base.stats };
+    root.querySelectorAll('[data-stat]').forEach((el) => {
+      const key = el.dataset.stat;
+      let v = parseFloat(el.value);
+      if (!Number.isFinite(v)) return;
+      if (key === 'bulletCount') stats.bulletCount = Math.max(1, Math.min(20, Math.round(v)));
+      else stats[key] = Math.max(0, v) / 100;
+    });
+    const levelEl = document.getElementById('testLevelInput');
+    const invEl = document.getElementById('testInvulnInput');
+    const weapons = WEAPON_IDS.map((id) => {
+      const on = root.querySelector(`[data-w-on="${id}"]`);
+      const lv = root.querySelector(`[data-w-lv="${id}"]`);
+      const br = root.querySelector(`[data-w-br="${id}"]`);
+      const level = Math.max(1, Math.min(5, (lv && +lv.value) || 1));
+      return {
+        id,
+        enabled: !!(on && on.checked),
+        level,
+        branch: level >= 3 ? ((br && br.value === 'B') ? 'B' : 'A') : 'A'
+      };
+    });
+    return {
+      level: Math.max(1, Math.min(99, (levelEl && +levelEl.value) || 30)),
+      invulnerable: !!(invEl && invEl.checked),
+      stats,
+      weapons
+    };
+  }
+
+  _applyTestConfig(cfg) {
+    const p = this.player;
+    p.reset();
+    const st = cfg.stats || {};
+    p.statAdd.attack = st.attack || 0;
+    p.statAdd.attackSpeed = st.attackSpeed || 0;
+    p.statAdd.moveSpeed = st.moveSpeed || 0;
+    p.statAdd.maxHealth = st.maxHealth || 0;
+    p.statAdd.bulletSpeed = st.bulletSpeed || 0;
+    p.statAdd.weaponRadius = st.weaponRadius || 0;
+    p.statAdd.expMultiplier = st.expMultiplier || 0;
+    p.statAdd.luck = st.luck || 0;
+    p.statAdd.curse = st.curse || 0;
+    p.statAdd.critChance = st.critChance || 0;
+    p.statAdd.critDamageBonus = st.critDamageBonus || 0;
+    p.bulletCount = Math.max(1, st.bulletCount | 0 || 1);
+    p.selectedStatIds = STAT_IDS.filter((id) => {
+      if (id === 'critical') return (st.critChance || 0) > 0 || (st.critDamageBonus || 0) > 0;
+      if (id === 'bulletCount') return p.bulletCount > 1;
+      return (st[id] || 0) > 0;
+    });
+    p._recomputeStats();
+    p.health = p.stats.maxHealth;
+    p.level = Math.max(1, cfg.level | 0 || 1);
+    p.xpToNext = Player.xpToNextFor(p.level);
+    p.currency = 9999;
+    p.invulnerable = !!cfg.invulnerable;
+
+    this.weapons.reset();
+    const enabled = (cfg.weapons || []).filter((w) => w.enabled);
+    this.weapons.maxSlots = Math.max(this.weapons.maxSlots, enabled.length, WEAPON_IDS.length);
+    for (const w of enabled) {
+      const level = Math.max(1, Math.min(5, w.level | 0));
+      const branch = level >= 3 ? (w.branch === 'B' ? 'B' : 'A') : null;
+      this.weapons.grant(w.id, level, branch);
+    }
+  }
+
+  startTestMode(cfg) {
+    cfg = cfg || this._testConfig || this._loadTestConfig();
+    this._testConfig = cfg;
     this._clearPools();
     this.upgrades.reset();
     this.effects.reset();
     this.weapons.reset();
-    this.player.reset();
     this.waves.reset();
     this.killCount = 0;
     this.survived = 0;
+    this.damageDealt = 0;
     this.testMode = true;
-    this.player.invulnerable = true;
-    this.player.level = 30;
-    this.player.currency = 9999;
-    for (const id of WEAPON_IDS) this.weapons.grant(id, 1, null);
+    this._applyTestConfig(cfg);
 
     this.state = 'playing';
     document.getElementById('mainMenu').classList.add('hidden');
@@ -5213,6 +5686,7 @@ class Game {
     document.getElementById('gameOverMenu').classList.add('hidden');
     this.closeStore();
     this.closeOptions();
+    this.closeTestBuilder();
     this.ui.setControlsVisible(true);
 
     const types = [
@@ -5231,19 +5705,16 @@ class Game {
       { type: 'dragon', variant: 'ember' }
     ];
 
-    // Chessboard grid around the player (origin), skip center
     const cellX = 720;
     const cellY = 520;
     const coords = [];
     for (let row = -2; row <= 2; row++) {
       for (let col = -3; col <= 3; col++) {
         if (row === 0 && col === 0) continue;
-        // Chessboard squares only (alternating)
         if (((row + col) & 1) !== 0) continue;
         coords.push({ x: col * cellX, y: row * cellY });
       }
     }
-    // Prefer nearer cells first so the 13 mobs hug the player
     coords.sort((a, b) => (a.x * a.x + a.y * a.y) - (b.x * b.x + b.y * b.y));
 
     this.player.x = 0;
@@ -5264,14 +5735,14 @@ class Game {
     for (const slot of this.testSpawns) {
       if (slot.enemy && slot.enemy.active) continue;
       const e = this.enemyPool.acquire();
-      e.spawn(slot.type, slot.x, slot.y, this.sprites, 5, 30, slot.variant);
+      e.spawn(slot.type, slot.x, slot.y, this.sprites, 5, 30, slot.variant, this);
       slot.enemy = e;
     }
   }
 
   restartGame() {
     if (this.testMode) {
-      this.startTestMode();
+      this.startTestMode(this._testConfig || this._loadTestConfig());
       return;
     }
     this._bankRunGold();
@@ -5354,6 +5825,7 @@ class Game {
     if (this.state !== 'menu') return;
     this.closeResetDataConfirm();
     this.closeOptions();
+    this.closeTestBuilder();
     this._renderStore();
     document.getElementById('storeOverlay').classList.remove('hidden');
   }
@@ -5372,6 +5844,7 @@ class Game {
     if (this.state !== 'menu') return;
     this.closeResetDataConfirm();
     this.closeStore();
+    this.closeTestBuilder();
     document.getElementById('optionsOverlay').classList.remove('hidden');
   }
 
@@ -5465,6 +5938,7 @@ class Game {
     if (this.state !== 'menu') return;
     this.closeStore();
     this.closeOptions();
+    this.closeTestBuilder();
     document.getElementById('confirmResetData').classList.remove('hidden');
   }
 
@@ -5535,6 +6009,7 @@ class Game {
       case 'CDM': return `${s.critDamage.toFixed(2)}×`;
       case 'EXP': return `${s.expMultiplier.toFixed(2)}×`;
       case 'LCK': return `${p.luckMult.toFixed(2)}×`;
+      case 'CRS': return `${p.curseMult.toFixed(2)}×`;
       default: return '';
     }
   }
@@ -5924,10 +6399,12 @@ class Game {
       if (this.testMode || e.dying || e.carrying) return;
       const dx = e.x - this.player.x;
       const dy = e.y - this.player.y;
-      if (dx * dx + dy * dy <= 900000) return;
+      // Must exceed off-screen spawn distance or fresh spawns get culled instantly
+      const cullR = Math.hypot(this.camera.w * 0.5, this.camera.h * 0.5) + 420;
+      if (dx * dx + dy * dy <= cullR * cullR) return;
       // Wounded enemies are never lost — they get relocated to a fresh spawn ring
       if (e.hp < e.maxHp) {
-        const pos = this.waves.pickSpawnPos(this.player);
+        const pos = this.waves.pickSpawnPos(this.player, this);
         e.x = pos.x;
         e.y = pos.y;
         e.contactCD = 0.5;
@@ -6075,6 +6552,7 @@ class Game {
     this.aoePool.forEachActive((a) => a.draw(ctx, this.camera));
     this.effects.draw(ctx, this.camera);
     this.enemyPool.forEachActive((e) => e.draw(ctx, this.camera));
+    this.fireballPool.forEachActive((f) => f.draw(ctx, this.camera, this.sprites));
     this.projPool.forEachActive((p) => p.draw(ctx, this.camera));
     this.grenadePool.forEachActive((g) => g.draw(ctx, this.camera));
     this.player.draw(ctx, this.camera);
