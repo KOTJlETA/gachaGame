@@ -114,6 +114,9 @@ class UpgradeSystem {
     // Progress through the current multi-pick batch (e.g. epic chest = 5)
     this.batchTotal = 0;
     this.batchIndex = 0;
+    // Per pending roll: whether weapon cards are allowed
+    this.pendingWeaponEligible = [];
+    this._currentWeaponEligible = false;
   }
 
   bindGame(game) {
@@ -143,9 +146,18 @@ class UpgradeSystem {
     return weapons.slots.every((w) => w.level >= 5);
   }
 
-  enqueue(n) {
+  enqueue(n, opts) {
     n = Math.max(0, n | 0);
     if (n <= 0) return;
+    opts = opts || {};
+    // weaponEligible: true | false | boolean[] (one flag per roll)
+    for (let i = 0; i < n; i++) {
+      let ok = true;
+      if (Array.isArray(opts.weaponEligible)) ok = !!opts.weaponEligible[i];
+      else if (opts.weaponEligible === false) ok = false;
+      else if (opts.weaponEligible === true) ok = true;
+      this.pendingWeaponEligible.push(ok);
+    }
     this.pendingRolls += n;
     // Extend the active batch, or start a new one
     if (this.open || this.batchTotal > 0) this.batchTotal += n;
@@ -162,6 +174,8 @@ class UpgradeSystem {
     this.autoSelect = false;
     this.batchTotal = 0;
     this.batchIndex = 0;
+    this.pendingWeaponEligible = [];
+    this._currentWeaponEligible = false;
     this.close();
   }
 
@@ -170,7 +184,9 @@ class UpgradeSystem {
       pendingRolls: this.pendingRolls,
       autoSelect: this.autoSelect,
       batchTotal: this.batchTotal,
-      batchIndex: this.batchIndex
+      batchIndex: this.batchIndex,
+      pendingWeaponEligible: this.pendingWeaponEligible.slice(),
+      currentWeaponEligible: this._currentWeaponEligible
     };
   }
 
@@ -179,6 +195,14 @@ class UpgradeSystem {
     this.autoSelect = !!(data && data.autoSelect);
     this.batchTotal = (data && data.batchTotal) || 0;
     this.batchIndex = (data && data.batchIndex) || 0;
+    this.pendingWeaponEligible = Array.isArray(data && data.pendingWeaponEligible)
+      ? data.pendingWeaponEligible.map(Boolean)
+      : [];
+    this._currentWeaponEligible = !!(data && data.currentWeaponEligible);
+    // Older saves: pad missing flags as weapon-eligible so picks aren't empty
+    while (this.pendingWeaponEligible.length < this.pendingRolls) {
+      this.pendingWeaponEligible.push(true);
+    }
   }
 
   refreshLocale() {
@@ -205,6 +229,9 @@ class UpgradeSystem {
     this.pendingRolls--;
     this.batchIndex++;
     if (this.batchTotal < this.batchIndex) this.batchTotal = this.batchIndex;
+    this._currentWeaponEligible = this.pendingWeaponEligible.length
+      ? !!this.pendingWeaponEligible.shift()
+      : true;
     this.options = this.generateOptions();
     this.open = true;
     // 0.5s grace after the panel appears so a leftover click/keystroke can't pick
@@ -248,20 +275,23 @@ class UpgradeSystem {
     const weapons = game.weapons;
     const weaponOpts = [];
     const offerAuto = this._weaponsFullyUpgraded() && !this.autoSelect;
+    const allowWeapons = !!this._currentWeaponEligible;
 
-    // Weapon options
-    for (const w of weapons.slots) {
-      if (w.level >= 5) continue;
-      if (w.level === 2) {
-        weaponOpts.push({ type: 'weapon', weaponId: w.id, level: 3, branch: 'A' });
-        weaponOpts.push({ type: 'weapon', weaponId: w.id, level: 3, branch: 'B' });
-      } else {
-        weaponOpts.push({ type: 'weapon', weaponId: w.id, level: w.level + 1, branch: w.branch });
+    // Weapon options — only on milestone level-ups / chest rolls that allow them
+    if (allowWeapons) {
+      for (const w of weapons.slots) {
+        if (w.level >= 5) continue;
+        if (w.level === 2) {
+          weaponOpts.push({ type: 'weapon', weaponId: w.id, level: 3, branch: 'A' });
+          weaponOpts.push({ type: 'weapon', weaponId: w.id, level: 3, branch: 'B' });
+        } else {
+          weaponOpts.push({ type: 'weapon', weaponId: w.id, level: w.level + 1, branch: w.branch });
+        }
       }
-    }
-    if (weapons.slots.length < weapons.maxSlots) {
-      for (const id of WEAPON_IDS) {
-        if (!weapons.get(id)) weaponOpts.push({ type: 'weapon', weaponId: id, level: 1, branch: null });
+      if (weapons.slots.length < weapons.maxSlots) {
+        for (const id of WEAPON_IDS) {
+          if (!weapons.get(id)) weaponOpts.push({ type: 'weapon', weaponId: id, level: 1, branch: null });
+        }
       }
     }
 
@@ -416,6 +446,9 @@ class UpgradeSystem {
     while (this.pendingRolls > 0) {
       this.pendingRolls--;
       this.batchIndex++;
+      this._currentWeaponEligible = this.pendingWeaponEligible.length
+        ? !!this.pendingWeaponEligible.shift()
+        : true;
       const opts = this.generateOptions().filter((o) => o.type !== 'auto');
       if (!opts.length) continue;
       const pick = opts[Math.floor(Math.random() * opts.length)];

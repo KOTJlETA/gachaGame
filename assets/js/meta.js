@@ -29,12 +29,20 @@ const MetaProgression = {
     { id: 'expMultiplier', max: 10, perLevel: 0.10,
       costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
       icon: 'expMultiplier', labelKey: 'storeExp', valueKey: 'storeExpVal' },
-    { id: 'luck', max: 10, perLevel: 0.10,
-      costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
+    { id: 'luck', max: 20, perLevel: 0.10,
+      costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800,
+        4000, 5800, 8400, 12000, 17000, 24000, 34000, 48000, 68000, 96000],
       icon: 'luck', labelKey: 'storeLuck', valueKey: 'storeLuckVal' },
     { id: 'weaponRadius', max: 10, perLevel: 0.10,
       costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
       icon: 'weaponRadius', labelKey: 'storeWeaponRadius', valueKey: 'storeWeaponRadiusVal' },
+    { id: 'bulletSpeed', max: 10, perLevel: 0.10,
+      costs: [80, 120, 180, 270, 400, 600, 900, 1300, 1900, 2800],
+      icon: 'bulletSpeed', labelKey: 'storeBulletSpeed', valueKey: 'storeBulletSpeedVal' },
+    { id: 'curse', max: 10, perLevel: 0.10,
+      costs: [100, 160, 250, 400, 650, 1000, 1600, 2500, 4000, 6500],
+      icon: 'curse', labelKey: 'storeCurse', valueKey: 'storeCurseVal',
+      descKey: 'storeCurseDesc' },
     /* Extra carry slots — steep luxury curve ending at 1,000,000 */
     { id: 'weaponSlots', max: 5, perLevel: 1,
       costs: [50000, 150000, 350000, 700000, 1000000],
@@ -176,7 +184,7 @@ const MetaProgression = {
     const b = {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
       bulletCount: 0, critChance: 0, critDamageBonus: 0,
-      expMultiplier: 0, luck: 0, weaponRadius: 0,
+      expMultiplier: 0, luck: 0, weaponRadius: 0, bulletSpeed: 0, curse: 0,
       weaponSlots: 0, statSlots: 0
     };
     for (const d of this.DEFS) {

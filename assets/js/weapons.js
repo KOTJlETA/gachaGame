@@ -250,7 +250,7 @@ const WEAPON_LEVEL_TEXT = {
   },
   towerShield: {
     en: {
-      1: 'Orbiting shield that bashes foes.',
+      1: 'Orbiting shield that bashes foes. Regen scales with Attack Speed.',
       2: 'Blocks enemy projectiles.',
       '3A': 'Path A: knocks enemies back.',
       '3B': 'Path B: wider front guard.',
@@ -260,7 +260,7 @@ const WEAPON_LEVEL_TEXT = {
       '5B': 'Block triggers a defense aura.'
     },
     ru: {
-      1: 'Орбитальный щит, бьющий врагов.',
+      1: 'Орбитальный щит, бьющий врагов. Регенерация зависит от скорости атаки.',
       2: 'Блокирует вражеские снаряды.',
       '3A': 'Путь A: отбрасывает врагов.',
       '3B': 'Путь B: шире фронтальная защита.',
@@ -634,10 +634,12 @@ WEAPON_DEFS.garlicAura = {
     const s = cam.worldToScreen(player.x, player.y);
     const a = 0.15 + (w.state.pulse || 0);
     ctx.save();
-    ctx.strokeStyle = `rgba(120,220,100,${a})`;
-    ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(226, 215, 193, ${0.22 + a * 0.35})`;
+    ctx.fill();
+    ctx.strokeStyle = `rgba(226, 215, 193, ${0.45 + a})`;
+    ctx.lineWidth = 2;
     ctx.stroke();
     ctx.restore();
   }
@@ -684,7 +686,10 @@ WEAPON_DEFS.towerShield = {
     if (w.state.shield == null) w.state.shield = maxShield;
     w.state.maxShield = maxShield;
     if (w.state.regenDelay > 0) w.state.regenDelay -= dt;
-    else w.state.shield = Math.min(maxShield, w.state.shield + (4 + w.level) * dt);
+    else {
+      const aspd = Math.max(0.15, p.stats.attackSpeed || 1);
+      w.state.shield = Math.min(maxShield, w.state.shield + (4 + w.level) * aspd * dt);
+    }
 
     const radius = 42;
     const sx = p.x + Math.cos(w.state.angle) * radius;

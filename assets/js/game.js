@@ -55,7 +55,7 @@ class I18n {
       weaponsLabel: 'WEAPONS',
       statsLabel: 'STATS',
       helpWeapons: 'You carry up to 5 weapons, each firing on its own reload timer — no manual shooting. Every weapon reaches level 5; at level 3 you commit to path A or path B, which decides how it mutates. The HUD shows one slot per weapon with a reload sweep.',
-      helpChoices: 'Each level-up pauses the run and deals 5 cards: new weapons, weapon upgrades, or stat boosts. Press 1-5 or click to pick. You may keep at most 5 different stats, so later rolls only re-offer stats you already own. Chests grant extra picks — 1 for common, 3 for rare, 5 for epic.',
+      helpChoices: 'Each level-up pauses the run and deals 5 cards. Weapon cards (new or upgrades) appear on your first level-up and then every 5 levels (5, 10, 15…). Other levels offer stats only. Press 1-5 or click to pick. You may keep at most 5 different stats, so later rolls only re-offer stats you already own. Chests grant extra picks that can include weapons — 1 for common, 3 for rare, 5 for epic.',
       store: 'STORE',
       storeTitle: 'STORE',
       storeBuy: 'BUY {0} G',
@@ -82,6 +82,11 @@ class I18n {
       storeLuckVal: '+10%',
       storeWeaponRadius: 'Weapon Radius',
       storeWeaponRadiusVal: '+10%',
+      storeBulletSpeed: 'Projectile Speed',
+      storeBulletSpeedVal: '+10%',
+      storeCurse: 'Curse',
+      storeCurseVal: '+10% Enemy HP / DMG / EXP',
+      storeCurseDesc: 'Enemies gain more HP and deal more damage, but kills grant extra EXP. Stacks as a separate multiplier on top of Experience Multiplier.',
       storeWeaponSlots: 'Weapon Slots',
       storeWeaponSlotsVal: '+1 slot',
       storeWeaponSlotsDesc: 'Permanently adds one weapon slot for every run. Buy up to 5 extras (10 weapons total). Extremely expensive.',
@@ -186,6 +191,11 @@ class I18n {
       storeLuckVal: '+10%',
       storeWeaponRadius: 'Радиус оружия',
       storeWeaponRadiusVal: '+10%',
+      storeBulletSpeed: 'Скорость снарядов',
+      storeBulletSpeedVal: '+10%',
+      storeCurse: 'Проклятие',
+      storeCurseVal: '+10% HP / урон / опыт врагов',
+      storeCurseDesc: 'Враги получают больше HP и наносят больше урона, но убийства дают больше опыта. Отдельный множитель поверх множителя опыта.',
       storeWeaponSlots: 'Слоты оружия',
       storeWeaponSlotsVal: '+1 слот',
       storeWeaponSlotsDesc: 'Навсегда добавляет один слот оружия в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
@@ -227,7 +237,7 @@ class I18n {
       weaponsLabel: 'ОРУЖИЕ',
       statsLabel: 'СТАТЫ',
       helpWeapons: 'Вы носите до 5 оружий, каждое стреляет само по своему таймеру перезарядки — вручную стрелять не нужно. Любое оружие растёт до 5 уровня; на 3 уровне вы выбираете путь A или B, который определяет его развитие. В HUD у каждого оружия свой слот с полосой перезарядки.',
-      helpChoices: 'Каждый новый уровень ставит забег на паузу и выдаёт 5 карт: новое оружие, улучшение оружия или прирост стата. Нажмите 1-5 или щёлкните по карте. Можно держать не более 5 разных статов, поэтому позже предлагаются только уже выбранные. Сундуки дают дополнительные выборы — 1 за обычный, 3 за редкий, 5 за эпический.',
+      helpChoices: 'Каждый новый уровень ставит забег на паузу и выдаёт 5 карт. Оружие (новое или улучшение) появляется на первом повышении уровня и далее каждые 5 уровней (5, 10, 15…). На остальных уровнях только статы. Нажмите 1-5 или щёлкните по карте. Можно держать не более 5 разных статов, поэтому позже предлагаются только уже выбранные. Сундуки дают дополнительные выборы с оружием — 1 за обычный, 3 за редкий, 5 за эпический.',
       options: 'НАСТРОЙКИ',
       optionsTitle: 'НАСТРОЙКИ',
       damageNumbers: 'Показывать урон врагов',
@@ -300,9 +310,9 @@ class I18n {
     en: [
       { abbr: 'SPD', name: 'Movement Speed', desc: 'How fast you move across the field. Higher speed helps dodge enemy swarms and reach chests.' },
       { abbr: 'HP', name: 'Health', desc: 'Your life total. When HP reaches zero, the run ends. Max Health is raised by level-up cards, and each boost heals you for the same amount it adds.' },
-      { abbr: 'SHD', name: 'Shield', desc: 'Only exists while you carry the Tower Shield weapon. It absorbs damage before HP and refills on its own; a full break delays regeneration by 3 seconds. The Garlic Aura can also stack a small temporary shield.' },
+      { abbr: 'SHD', name: 'Shield', desc: 'Only exists while you carry the Tower Shield weapon. It absorbs damage before HP and regenerates based on Attack Speed; a full break delays regeneration by 3 seconds. The Garlic Aura can also stack a small temporary shield.' },
       { abbr: 'ATK', name: 'Attack', desc: 'Base damage every weapon scales from. Each weapon applies its own multiplier on top, and critical hits multiply the result by Crit Damage.' },
-      { abbr: 'ASP', name: 'Attack Speed', desc: 'Divides the reload time of every weapon, so all slots fire more often.' },
+      { abbr: 'ASP', name: 'Attack Speed', desc: 'Divides the reload time of every weapon, so all slots fire more often. Also speeds up Tower Shield regeneration.' },
       { abbr: 'BLT', name: 'Projectile Count', desc: 'Adds one extra projectile, pellet, or strike to every weapon that fires them.' },
       { abbr: 'BSP', name: 'Projectile Speed', desc: 'Projectile travel speed. Faster shots reach distant enemies sooner.' },
       { abbr: 'RAD', name: 'Weapon Radius', desc: 'Scales projectile hitboxes and splash / aura radii for weapons that use them (shotgun blasts, grenades, garlic, totem, ice shatter, and similar).' },
@@ -314,9 +324,9 @@ class I18n {
     ru: [
       { abbr: 'SPD', name: 'Скорость', desc: 'Скорость передвижения по полю. Помогает уклоняться от толпы и добираться до сундуков.' },
       { abbr: 'HP', name: 'Здоровье', desc: 'Запас жизни. При нуле OЗ забег заканчивается. Макс. здоровье растёт от карт улучшений, и каждая прибавка сразу лечит на ту же величину.' },
-      { abbr: 'SHD', name: 'Щит', desc: 'Существует только с оружием «Башенный щит». Поглощает урон до OЗ и восстанавливается сам; после полного слома регенерация ждёт 3 секунды. «Чесночная аура» тоже может дать небольшой временный щит.' },
+      { abbr: 'SHD', name: 'Щит', desc: 'Существует только с оружием «Башенный щит». Поглощает урон до OЗ и восстанавливается со скоростью атаки; после полного слома регенерация ждёт 3 секунды. «Чесночная аура» тоже может дать небольшой временный щит.' },
       { abbr: 'ATK', name: 'Атака', desc: 'Базовый урон, от которого считается всё оружие. У каждого оружия свой множитель сверху, а криты умножают результат на урон крита.' },
-      { abbr: 'ASP', name: 'Скорость атаки', desc: 'Делит время перезарядки всего оружия — все слоты стреляют чаще.' },
+      { abbr: 'ASP', name: 'Скорость атаки', desc: 'Делит время перезарядки всего оружия — все слоты стреляют чаще. Также ускоряет регенерацию Башенного щита.' },
       { abbr: 'BLT', name: 'Число снарядов', desc: 'Добавляет по одному снаряду, дробине или удару каждому оружию, которое их выпускает.' },
       { abbr: 'BSP', name: 'Скорость снарядов', desc: 'Скорость полёта снарядов. Быстрее достают дальние цели.' },
       { abbr: 'RAD', name: 'Радиус оружия', desc: 'Увеличивает размер снарядов и радиус взрывов / аур у оружия, где это применимо (дробовик, гранаты, чеснок, тотем, лёд и т.п.).' },
@@ -412,7 +422,7 @@ class I18n {
       chainLightning: 'Arc bolt that jumps between nearby foes.',
       garlicAura: 'Damaging aura around you that ticks continuously.',
       boomerang: 'Throws toward the furthest enemy in range, pierces on the way out, then returns through the pack.',
-      towerShield: 'Orbiting shield that bashes foes and can block projectiles.',
+      towerShield: 'Orbiting shield that bashes foes and can block projectiles. Regen scales with Attack Speed.',
       grenadeLauncher: 'Lobs arcing grenades that explode on landing.',
       bloodSpear: 'Piercing spears that can apply bleed.',
       phantomBlades: 'Orbiting phantom blades that slash nearby enemies.',
@@ -424,7 +434,7 @@ class I18n {
       chainLightning: 'Дуга, прыгающая между ближайшими врагами.',
       garlicAura: 'Постоянная аура урона вокруг вас.',
       boomerang: 'Бросается в самого дальнего врага в радиусе, пробивает на пути и возвращается сквозь толпу.',
-      towerShield: 'Орбитальный щит: бьёт врагов и может блокировать снаряды.',
+      towerShield: 'Орбитальный щит: бьёт врагов и может блокировать снаряды. Регенерация зависит от скорости атаки.',
       grenadeLauncher: 'Кидает гранаты по дуге со взрывом при приземлении.',
       bloodSpear: 'Пронзающие копья, способные накладывать кровотечение.',
       phantomBlades: 'Орбитальные призрачные клинки, секущие ближайших врагов.',
@@ -1787,6 +1797,27 @@ class IconFactory {
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
       ]
     },
+    curse: {
+      p: ['#0000','#1a0a12','#4a2030','#e8e0d8','#c8b8a8','#8a2030'],
+      px: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,
+        0,0,0,0,1,3,3,3,3,3,3,1,0,0,0,0,
+        0,0,0,1,3,3,3,3,3,3,3,3,1,0,0,0,
+        0,0,0,1,3,2,2,3,3,2,2,3,1,0,0,0,
+        0,0,0,1,3,2,1,3,3,1,2,3,1,0,0,0,
+        0,0,0,1,3,3,3,3,3,3,3,3,1,0,0,0,
+        0,0,0,0,1,3,3,5,5,3,3,1,0,0,0,0,
+        0,0,0,0,0,1,3,3,3,3,1,0,0,0,0,0,
+        0,0,0,0,0,1,4,3,3,4,1,0,0,0,0,0,
+        0,0,0,0,0,1,3,1,1,3,1,0,0,0,0,0,
+        0,0,0,0,0,0,1,3,3,1,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      ]
+    },
     critChance: {
       p: ['#0000','#7a3a00','#ff8c00','#ffd23d','#fff3a0'],
       px: [
@@ -2950,6 +2981,9 @@ class Enemy {
     const hpScale = Enemy.earlyHpScale(level);
     const speedMult = 1 + (lvMult - 1) * 0.45;
     this.levelMult = lvMult;
+    const curseMult = (typeof MetaProgression !== 'undefined')
+      ? (1 + (MetaProgression.bonuses().curse || 0))
+      : 1;
 
     switch (type) {
       case 'slime':
@@ -3026,6 +3060,11 @@ class Enemy {
         this.sprite = sprites.dragons[this.dragonVariant].walk[0];
         this.shootCD = 2;
         break;
+    }
+    if (curseMult !== 1 && this.type !== 'bomber') {
+      this.maxHp = Math.max(1, Math.floor(this.maxHp * curseMult));
+      this.hp = this.maxHp;
+      this.damage *= curseMult;
     }
     this.baseSprite = this.sprite;
     this.baseMaxHp = this.maxHp;
@@ -3857,7 +3896,7 @@ class Chest {
       game.ui.toast(I18n.t('chestGold', Math.floor(amount), I18n.chestTierLabel(this.tier)), this.tier === 'epic' ? 'epic' : this.tier === 'rare' ? 'rare' : '');
       // Better chests are worth several extra upgrade picks
       const rolls = { common: 1, rare: 3, epic: 5 };
-      if (game.upgrades) game.upgrades.enqueue(rolls[this.tier] || 1);
+      if (game.upgrades) game.upgrades.enqueue(rolls[this.tier] || 1, { weaponEligible: true });
     }
   }
   draw(ctx, cam) {
@@ -3950,14 +3989,14 @@ class Player {
     const m = (typeof MetaProgression !== 'undefined') ? MetaProgression.bonuses() : {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
       bulletCount: 0, critChance: 0, critDamageBonus: 0, expMultiplier: 0, luck: 0,
-      weaponRadius: 0
+      weaponRadius: 0, bulletSpeed: 0, curse: 0
     };
     const s = this.stats;
     s.moveSpeed = B.moveSpeed * (1 + a.moveSpeed + m.moveSpeed);
     s.maxHealth = B.maxHealth * (1 + a.maxHealth + m.maxHealth);
     s.attack = B.attack * (1 + a.attack + m.attack);
     s.attackSpeed = B.attackSpeed * (1 + a.attackSpeed + m.attackSpeed);
-    s.bulletSpeed = B.bulletSpeed * (1 + a.bulletSpeed);
+    s.bulletSpeed = B.bulletSpeed * (1 + a.bulletSpeed + m.bulletSpeed);
     s.weaponRadius = B.weaponRadius * (1 + a.weaponRadius + m.weaponRadius);
     s.critChance = Math.min(1, B.critChance + a.critChance + m.critChance);
     s.critDamage = B.critDamage + a.critDamageBonus + m.critDamageBonus;
@@ -3970,6 +4009,13 @@ class Player {
   /* Luck is a plain fraction: 0.15 means +15% gold and drop weighting. */
   get luckMult() {
     return 1 + this.stats.luck;
+  }
+
+  /* Store Curse stacks on top of Exp Multiplier for XP from gold. */
+  get curseExpMult() {
+    if (typeof MetaProgression === 'undefined') return 1;
+    const b = MetaProgression.bonuses();
+    return 1 + (b.curse || 0);
   }
 
   maxStatSlots() {
@@ -4051,18 +4097,21 @@ class Player {
     this.currency += gained;
     // Extra XP weight while still early so gold from trash mobs levels you faster
     const earlyBoost = this.level <= 8 ? (1.6 - (this.level - 1) * 0.07) : 1;
-    const xpGain = gained * this.stats.expMultiplier * earlyBoost;
+    const xpGain = gained * this.stats.expMultiplier * this.curseExpMult * earlyBoost;
     this.experience += xpGain;
     let levels = 0;
+    const weaponFlags = [];
     while (this.experience >= this.xpToNext) {
       this.experience -= this.xpToNext;
       this.level++;
       this.xpToNext = Player.xpToNextFor(this.level);
       levels++;
+      // First level-up (→2) always offers weapons; then every 5th level (5, 10, 15…)
+      weaponFlags.push(this.level === 2 || this.level % 5 === 0);
     }
     if (levels > 0 && game && game.upgrades) {
       if (typeof SoundManager !== 'undefined') SoundManager.levelUp();
-      game.upgrades.enqueue(levels);
+      game.upgrades.enqueue(levels, { weaponEligible: weaponFlags });
     }
     return gained;
   }
@@ -5343,7 +5392,8 @@ class Game {
       critical: ['CRT', 'CDM'],
       expMultiplier: ['EXP'],
       luck: ['LCK'],
-      weaponRadius: ['RAD']
+      weaponRadius: ['RAD'],
+      bulletSpeed: ['BSP']
     };
     const abbrs = map[storeId];
     if (!abbrs) return '';
