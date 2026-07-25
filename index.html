@@ -3,19 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gacha Survivors</title>
+<title>Bullshit Survivors</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <div id="preloader" aria-live="polite">
-  <div class="preloader-title">GACHA SURVIVORS</div>
+  <div class="preloader-title">BULLSHIT SURVIVORS</div>
   <div class="preloader-bar"><div class="preloader-fill" id="preloaderFill"></div></div>
   <div class="preloader-status" id="preloaderStatus">Loading…</div>
 </div>
 <canvas id="gameCanvas"></canvas>
 <div id="mainMenu" class="overlay">
-  <div class="title" data-i18n="title">GACHA SURVIVORS</div>
-  <div class="subtitle" data-i18n-html="subtitle">Survive the endless field.<br>Roll gacha. Grow stronger.</div>
+  <div class="title" data-i18n="title">BULLSHIT SURVIVORS</div>
+  <div class="subtitle" data-i18n-html="subtitle">Survive the endless field.<br>Pick weapons. Grow stronger.</div>
   <div class="lang-selector">
     <label for="langSelect" data-i18n="language">Language</label>
     <select id="langSelect" aria-label="Language">
@@ -38,20 +38,22 @@
     <input type="checkbox" id="autoaimToggle" checked>
     <span data-i18n="autoaim">Autoaim</span>
   </label>
-  <button class="btn" id="startBtn" data-i18n="start">START</button>
+  <div class="menu-gold" id="menuGold">Gold: 0</div>
+  <button class="btn" id="startBtn" data-i18n="newGame">NEW GAME</button>
+  <button class="btn" id="storeBtn" data-i18n="store">STORE</button>
   <button class="btn help-btn" id="helpBtnMain" data-i18n="help">HELP</button>
   <div class="controls-panel">
     <div class="controls-title" data-i18n="controls">CONTROLS</div>
     <div class="controls-grid">
       <div class="control-row"><kbd class="wide">WASD</kbd><span data-i18n="move">Move</span></div>
       <div class="control-row"><kbd class="wide">Arrows</kbd><span data-i18n="move">Move</span></div>
-      <div class="control-row"><kbd class="gold wide">Space</kbd><span data-i18n="gachaWheel">Gacha wheel (160g)</span></div>
-      <div class="control-row"><kbd class="purple">Q</kbd><span data-i18n="ultimate">Ultimate</span></div>
+      <div class="control-row"><kbd>1-5</kbd><span data-i18n="chooseHint">Choose upgrade</span></div>
       <div class="control-row"><kbd class="yellow">Esc</kbd><span data-i18n="pause">Pause</span></div>
       <div class="control-row wide"><span data-i18n="chestHint">Walk near chests to auto-open</span></div>
     </div>
   </div>
   <button type="button" class="test-btn" id="testBtn" data-i18n="test">TEST</button>
+  <button type="button" class="test-btn reset-data-btn" id="resetDataBtn" data-i18n="resetData">RESET DATA</button>
 </div>
 <div id="pauseMenu" class="overlay hidden">
   <div class="title" data-i18n="paused">PAUSED</div>
@@ -65,8 +67,7 @@
     <div class="controls-grid">
       <div class="control-row"><kbd class="wide">WASD</kbd><span data-i18n="move">Move</span></div>
       <div class="control-row"><kbd class="wide">Arrows</kbd><span data-i18n="move">Move</span></div>
-      <div class="control-row"><kbd class="gold wide">Space</kbd><span data-i18n="gachaWheel">Gacha wheel (160g)</span></div>
-      <div class="control-row"><kbd class="purple">Q</kbd><span data-i18n="ultimate">Ultimate</span></div>
+      <div class="control-row"><kbd>1-5</kbd><span data-i18n="chooseHint">Choose upgrade</span></div>
       <div class="control-row"><kbd class="yellow">Esc</kbd><span data-i18n="resume">Resume</span></div>
     </div>
   </div>
@@ -76,6 +77,26 @@
   <div class="subtitle" data-i18n="restartConfirmText">Your current progress will be lost.</div>
   <button class="btn danger" id="confirmRestartYes" data-i18n="restartConfirmYes">YES, RESTART</button>
   <button class="btn" id="confirmRestartNo" data-i18n="restartConfirmNo">CANCEL</button>
+</div>
+<div id="confirmMenu" class="overlay hidden">
+  <div class="title" data-i18n="menuConfirmTitle">EXIT TO MAIN MENU?</div>
+  <div class="subtitle" data-i18n="menuConfirmText">The run will end here. Gold earned this run is banked.</div>
+  <button class="btn danger" id="confirmMenuYes" data-i18n="menuConfirmYes">YES, EXIT</button>
+  <button class="btn" id="confirmMenuNo" data-i18n="menuConfirmNo">CANCEL</button>
+</div>
+<div id="confirmResetData" class="overlay hidden">
+  <div class="title" data-i18n="resetDataTitle">RESET ALL DATA?</div>
+  <div class="subtitle" data-i18n="resetDataText">Gold, store upgrades, and run saves will be permanently erased.</div>
+  <button class="btn danger" id="confirmResetDataYes" data-i18n="resetDataYes">YES, ERASE EVERYTHING</button>
+  <button class="btn" id="confirmResetDataNo" data-i18n="resetDataNo">CANCEL</button>
+</div>
+<div id="storeOverlay" class="overlay hidden">
+  <div class="help-panel store-panel">
+    <div class="help-title" data-i18n="storeTitle">STORE</div>
+    <div class="store-gold" id="storeGold">Gold: 0</div>
+    <div class="help-content store-list" id="storeList"></div>
+    <button class="btn help-close" id="storeCloseBtn" data-i18n="back">BACK</button>
+  </div>
 </div>
 <div id="gameOverMenu" class="overlay hidden">
   <div class="title" data-i18n="defeated">DEFEATED</div>
@@ -90,40 +111,16 @@
     </div>
   </div>
   <div class="touch-actions">
-    <button type="button" class="touch-btn touch-action gold" id="touchGacha" data-i18n="touchGacha">Gacha</button>
-    <button type="button" class="touch-btn touch-action purple" id="touchUlt" data-i18n="touchUlt">Ult</button>
     <button type="button" class="touch-btn touch-action yellow" id="touchPause" data-i18n="touchPause">Pause</button>
   </div>
 </div>
 <div id="toast"></div>
 
-<div id="gachaOverlay" class="hidden">
-  <div class="gacha-panel">
-    <div class="gacha-title" data-i18n="gachaWheelTitle">GACHA WHEEL</div>
-    <div class="gacha-gold" id="gachaGold">Gold: 0</div>
-    <label class="gacha-autogacha" id="autoGachaLabel">
-      <input type="checkbox" id="autoGachaToggle">
-      <span id="autoGachaText" data-i18n="autoGacha">Auto-Gacha — spend 160g in background (close wheel first)</span>
-    </label>
-    <div class="gacha-wheel-wrap">
-      <div class="gacha-pointer"></div>
-      <canvas id="gachaWheel" width="340" height="340"></canvas>
-    </div>
-    <div class="gacha-status" id="gachaStatus">Spinning...</div>
-    <div id="gachaResult" class="gacha-result hidden">
-      <div class="gacha-result-rarity" id="gachaResultRarity">COMMON</div>
-      <div class="gacha-result-name" id="gachaResultName">Attack</div>
-      <div class="gacha-result-bonus" id="gachaResultBonus">+2</div>
-    </div>
-    <div class="gacha-actions">
-      <button class="btn gacha-btn spin hidden" id="gachaSpinBtn" data-i18n="spin">SPIN (160g)</button>
-      <button class="btn gacha-btn confirm hidden" id="gachaConfirmBtn" data-i18n="confirm">CONFIRM</button>
-      <button class="btn gacha-btn spin hidden" id="gachaSpinAgainBtn" data-i18n="spinAgain">SPIN AGAIN (160g)</button>
-      <button class="btn gacha-btn exit hidden" id="gachaExitBtn" data-i18n="exit">EXIT</button>
-    </div>
-    <div class="gacha-hints" id="gachaHints">
-      <kbd class="gold wide">Space</kbd> Skip spin &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit
-    </div>
+<div id="choiceOverlay" class="hidden">
+  <div class="choice-panel">
+    <div class="choice-title" id="choiceTitle">CHOOSE UPGRADE</div>
+    <div class="choice-cards" id="choiceCards"></div>
+    <div class="choice-hints"><kbd>1</kbd>–<kbd>5</kbd> Select</div>
   </div>
 </div>
 
@@ -139,6 +136,7 @@
     <div class="help-title" data-i18n="helpTitle">HELP &amp; BESTIARY</div>
     <div class="help-tabs">
       <button class="help-tab active" data-tab="stats" data-i18n="tabStats">STATS</button>
+      <button class="help-tab" data-tab="weapons" data-i18n="tabWeapons">WEAPONS</button>
       <button class="help-tab" data-tab="bestiary" data-i18n="tabBestiary">BESTIARY</button>
       <button class="help-tab" data-tab="items" data-i18n="tabItems">ITEMS</button>
     </div>
@@ -148,6 +146,11 @@
 </div>
 
 <script src="assets/js/game.js"></script>
+<script src="assets/js/spatial.js"></script>
+<script src="assets/js/effects.js"></script>
+<script src="assets/js/weapons.js"></script>
+<script src="assets/js/upgrades.js"></script>
+<script src="assets/js/meta.js"></script>
 <script src="assets/js/preloader.js"></script>
 </body>
 </html>

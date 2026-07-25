@@ -10,26 +10,78 @@ class I18n {
 
   static strings = {
     en: {
-      title: 'GACHA SURVIVORS',
-      subtitle: 'Survive the endless field.<br>Roll gacha. Grow stronger.',
+      title: 'BULLSHIT SURVIVORS',
+      subtitle: 'Survive the endless field.<br>Collect absurd weapons. Grow stronger.',
       language: 'Language',
       touchLayout: 'Touch layout',
       touchLayoutJoyRight: 'Joystick right',
       touchLayoutJoyLeft: 'Joystick left',
-      start: 'START',
-      continue: 'CONTINUE',
+      newGame: 'NEW GAME',
       test: 'TEST',
       testModeToast: 'TEST MODE — invulnerable · all mobs spawned',
       help: 'HELP',
       controls: 'CONTROLS',
       move: 'Move',
-      gachaWheel: 'Gacha wheel (160g)',
-      ultimate: 'Ultimate',
-      ultimateReady: 'Ultimate — READY!',
       pause: 'Pause',
-      touchGacha: 'Gacha',
-      touchUlt: 'Ult',
       touchPause: 'Pause',
+      chooseHint: 'Choose upgrade',
+      chooseUpgrade: 'CHOOSE UPGRADE',
+      newWeapon: 'NEW WEAPON',
+      weaponLevel: 'Lv {0}',
+      weaponBranch: 'Path {0}',
+      autoSelectUpgrades: 'AUTOSELECT',
+      autoSelectDesc: 'Auto-pick upgrades for the rest of this run. The choice menu will no longer appear.',
+      autoSelectOn: 'Autoselect enabled',
+      statDamage: 'Damage',
+      statAttackSpeed: 'Attack Speed',
+      statMoveSpeed: 'Move Speed',
+      statMaxHealth: 'Max Health',
+      statBulletSpeed: 'Projectile Speed',
+      statCritical: 'Critical',
+      statExpGain: 'Exp Gain',
+      statLuck: 'Luck',
+      statBulletCount: 'Projectile Count',
+      weaponShotgun: 'Boomstick',
+      weaponChainLightning: 'Chain Lightning',
+      weaponGarlicAura: 'Garlic Aura',
+      weaponBoomerang: 'Boomerang',
+      weaponTowerShield: 'Tower Shield',
+      weaponGrenadeLauncher: 'Grenade Launcher',
+      weaponBloodSpear: 'Blood Spear',
+      weaponPhantomBlades: 'Phantom Blades',
+      weaponCursedTotem: 'Cursed Totem',
+      weaponIceCrystal: 'Ice Crystal',
+      weaponsLabel: 'WEAPONS',
+      statsLabel: 'STATS',
+      helpWeapons: 'You carry up to 5 weapons, each firing on its own reload timer — no manual shooting. Every weapon reaches level 5; at level 3 you commit to path A or path B, which decides how it mutates. The HUD shows one slot per weapon with a reload sweep.',
+      helpChoices: 'Each level-up pauses the run and deals 5 cards: new weapons, weapon upgrades, or stat boosts. Press 1-5 or click to pick. You may keep at most 5 different stats, so later rolls only re-offer stats you already own. Chests grant extra picks — 1 for common, 3 for rare, 5 for epic.',
+      store: 'STORE',
+      storeTitle: 'STORE',
+      storeBuy: 'BUY {0}g',
+      storeMaxed: 'MAX',
+      storeLevel: '{0}/{1}',
+      storeMove: 'Movement Speed',
+      storeMoveVal: '+10%',
+      storeHealth: 'Max Health',
+      storeHealthVal: '+20%',
+      storeAttack: 'Attack',
+      storeAttackVal: '+20%',
+      storeAspd: 'Attack Speed',
+      storeAspdVal: '+20%',
+      storeBullets: 'Bullet Count',
+      storeBulletsVal: '+1',
+      storeCrit: 'Critical',
+      storeCritVal: '+5% Chance / +10% Damage',
+      storeExp: 'Experience Multiplier',
+      storeExpVal: '+10%',
+      storeLuck: 'Luck',
+      storeLuckVal: '+10%',
+      resetData: 'RESET DATA',
+      resetDataTitle: 'RESET ALL DATA?',
+      resetDataText: 'Gold, store upgrades, and run saves will be permanently erased.',
+      resetDataYes: 'YES, ERASE EVERYTHING',
+      resetDataNo: 'CANCEL',
+      menuGold: 'Gold: {0}',
       damageNumbers: 'Show enemy damage numbers',
       autoaim: 'Autoaim',
       chestHint: 'Walk near chests to auto-open',
@@ -42,52 +94,27 @@ class I18n {
       restartConfirmText: 'Your current progress will be lost.',
       restartConfirmYes: 'YES, RESTART',
       restartConfirmNo: 'CANCEL',
+      menuConfirmTitle: 'EXIT TO MAIN MENU?',
+      menuConfirmText: 'The run will end here. Gold earned this run is banked.',
+      menuConfirmYes: 'YES, EXIT',
+      menuConfirmNo: 'CANCEL',
       mainMenu: 'MAIN MENU',
       defeated: 'DEFEATED',
       tryAgain: 'TRY AGAIN',
       gameOverHint: 'Press buttons above or return to menu',
-      gachaWheelTitle: 'GACHA WHEEL',
-      autoGacha: 'Auto-Gacha — spend 160g in background (close wheel first)',
-      spin: 'SPIN (160g)',
-      confirm: 'CONFIRM',
-      spinAgain: 'SPIN AGAIN (160g)',
-      exit: 'EXIT',
       back: 'BACK',
       helpTitle: 'HELP & BESTIARY',
       tabStats: 'STATS',
+      tabWeapons: 'WEAPONS',
       tabBestiary: 'BESTIARY',
       tabItems: 'ITEMS',
-      gold: 'Gold: {0}',
-      spinning: 'Spinning... (5 sec) — Press Space to skip',
-      needGoldSpin: 'Need {0}g to spin (you have {1}g)',
-      needGoldMore: 'Need {0} more gold to spin again.',
-      bonusSpinAgain: 'Bonus applied! Spin again or confirm.',
-      bonusConfirm: 'Bonus applied! Confirm to continue.',
-      hintDefeatGold: 'Defeat enemies & open chests for gold · Esc Exit',
-      hintSkipSpin: 'Space Skip spin · Esc Skip to result',
-      hintSpinAgain: 'Space Spin again · Confirm or Exit below · Esc Exit',
-      hintConfirmExit: 'Confirm or Exit · Esc Exit',
-      hintDefeatGoldHtml: 'Defeat enemies & open chests for gold &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit',
-      hintSkipSpinHtml: '<kbd class="gold wide">Space</kbd> Skip spin &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Skip to result',
-      hintSpinAgainHtml: '<kbd class="gold wide">Space</kbd> Spin again &nbsp;·&nbsp; Confirm or Exit below &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit',
-      hintConfirmExitHtml: 'Confirm or Exit &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Exit',
-      escExit: 'Exit',
-      escSkipResult: 'Skip to result',
-      autoGachaOn: 'Auto-Gacha ON ({0}g/roll)',
-      autoGachaNeed: 'Auto-Gacha ON — need {0}g',
-      gachaWheelHud: 'Gacha wheel ({0}g)',
-      gachaWheelNeed: 'Gacha wheel ({0}g — need {1}g)',
-      hudGachaReady: '[Space] Gacha wheel',
-      hudGachaNeed: '[Space] Gacha ({0}g)',
-      hudUltReady: '[Q] ULT READY',
-      hudUlt: '[Q] Ultimate',
-      hudPause: '[Esc] Pause',
+      helpEmptyWeapons: 'No weapons discovered yet. Unlock them during a run.',
+      helpEmptyEnemies: 'No enemies discovered yet. Defeat foes to fill the bestiary.',
+      helpEmptyItems: 'No items discovered yet. Open chests and pick up drops.',
       goldLabel: 'GOLD',
       enemiesLabel: 'ENEMIES',
       shieldLabel: 'SHIELD',
       hpLabel: 'HP',
-      ultLabel: 'ULT',
-      ultKeyLabel: 'ULT [Q]',
       levelStat: 'Level {0}',
       goldStat: 'Gold {0}',
       killsStat: 'Kills {0}',
@@ -95,8 +122,6 @@ class I18n {
       chestGold: '+{0}g ({1})',
       chickenLegHeal: '+{0} HP (chicken leg)',
       bossSlain: 'ELDER DRAGON SLAIN!',
-      ultimateToast: 'ULTIMATE! {0} foes vanquished',
-      gachaHub: 'GACHA',
       rarityCommon: 'COMMON',
       rarityRare: 'RARE',
       rarityEpic: 'EPIC',
@@ -106,26 +131,78 @@ class I18n {
       chestEpic: 'epic'
     },
     ru: {
-      title: 'GACHA SURVIVORS',
-      subtitle: 'Выживите на бесконечном поле.<br>Крутите gacha. Становитесь сильнее.',
+      title: 'BULLSHIT SURVIVORS',
+      subtitle: 'Выживите на бесконечном поле.<br>Собирайте абсурдное оружие. Становитесь сильнее.',
       language: 'Язык',
       touchLayout: 'Расположение',
       touchLayoutJoyRight: 'Джойстик справа',
       touchLayoutJoyLeft: 'Джойстик слева',
-      start: 'НАЧАТЬ',
-      continue: 'ПРОДОЛЖИТЬ',
+      newGame: 'НОВАЯ ИГРА',
       test: 'ТЕСТ',
       testModeToast: 'ТЕСТ — бессмертие · все мобы заспавнены',
       help: 'СПРАВКА',
       controls: 'УПРАВЛЕНИЕ',
       move: 'Движение',
-      gachaWheel: 'Колесо gacha (160 з.)',
-      ultimate: 'Ультимейт',
-      ultimateReady: 'Ультимейт — ГОТОВ!',
       pause: 'Пауза',
-      touchGacha: 'Gacha',
-      touchUlt: 'Ульт',
       touchPause: 'Пауза',
+      chooseHint: 'Выбрать улучшение',
+      chooseUpgrade: 'ВЫБЕРИТЕ УЛУЧШЕНИЕ',
+      store: 'МАГАЗИН',
+      storeTitle: 'МАГАЗИН',
+      storeBuy: 'КУПИТЬ {0} з.',
+      storeMaxed: 'МАКС',
+      storeLevel: '{0}/{1}',
+      storeMove: 'Скорость',
+      storeMoveVal: '+10%',
+      storeHealth: 'Макс. здоровье',
+      storeHealthVal: '+20%',
+      storeAttack: 'Атака',
+      storeAttackVal: '+20%',
+      storeAspd: 'Скорость атаки',
+      storeAspdVal: '+20%',
+      storeBullets: 'Кол-во снарядов',
+      storeBulletsVal: '+1',
+      storeCrit: 'Крит',
+      storeCritVal: '+5% шанс / +10% урон',
+      storeExp: 'Множитель опыта',
+      storeExpVal: '+10%',
+      storeLuck: 'Удача',
+      storeLuckVal: '+10%',
+      resetData: 'СБРОС ДАННЫХ',
+      resetDataTitle: 'СБРОСИТЬ ВСЕ ДАННЫЕ?',
+      resetDataText: 'Золото, улучшения магазина и сохранения забегов будут удалены навсегда.',
+      resetDataYes: 'ДА, УДАЛИТЬ ВСЁ',
+      resetDataNo: 'ОТМЕНА',
+      menuGold: 'Золото: {0}',
+      newWeapon: 'НОВОЕ ОРУЖИЕ',
+      weaponLevel: 'Ур. {0}',
+      weaponBranch: 'Путь {0}',
+      autoSelectUpgrades: 'АВТОВЫБОР',
+      autoSelectDesc: 'Автовыбор улучшений до конца забега. Меню выбора больше не появится.',
+      autoSelectOn: 'Автовыбор включён',
+      statDamage: 'Урон',
+      statAttackSpeed: 'Скорость атаки',
+      statMoveSpeed: 'Скорость',
+      statMaxHealth: 'Макс. здоровье',
+      statBulletSpeed: 'Скорость снарядов',
+      statCritical: 'Критический удар',
+      statExpGain: 'Прирост опыта',
+      statLuck: 'Удача',
+      statBulletCount: 'Число снарядов',
+      weaponShotgun: 'Дробовик',
+      weaponChainLightning: 'Цепная молния',
+      weaponGarlicAura: 'Чесночная аура',
+      weaponBoomerang: 'Бумеранг',
+      weaponTowerShield: 'Башенный щит',
+      weaponGrenadeLauncher: 'Гранатомёт',
+      weaponBloodSpear: 'Кровавое копьё',
+      weaponPhantomBlades: 'Призрачные клинки',
+      weaponCursedTotem: 'Проклятый тотем',
+      weaponIceCrystal: 'Ледяной кристалл',
+      weaponsLabel: 'ОРУЖИЕ',
+      statsLabel: 'СТАТЫ',
+      helpWeapons: 'Вы носите до 5 оружий, каждое стреляет само по своему таймеру перезарядки — вручную стрелять не нужно. Любое оружие растёт до 5 уровня; на 3 уровне вы выбираете путь A или B, который определяет его развитие. В HUD у каждого оружия свой слот с полосой перезарядки.',
+      helpChoices: 'Каждый новый уровень ставит забег на паузу и выдаёт 5 карт: новое оружие, улучшение оружия или прирост стата. Нажмите 1-5 или щёлкните по карте. Можно держать не более 5 разных статов, поэтому позже предлагаются только уже выбранные. Сундуки дают дополнительные выборы — 1 за обычный, 3 за редкий, 5 за эпический.',
       damageNumbers: 'Показывать урон врагов',
       autoaim: 'Автоприцел',
       chestHint: 'Подойдите к сундукам для авто-открытия',
@@ -138,52 +215,27 @@ class I18n {
       restartConfirmText: 'Текущий прогресс будет потерян.',
       restartConfirmYes: 'ДА, ЗАНОВО',
       restartConfirmNo: 'ОТМЕНА',
+      menuConfirmTitle: 'ВЫЙТИ В ГЛАВНОЕ МЕНЮ?',
+      menuConfirmText: 'Забег закончится. Золото за забег будет зачислено.',
+      menuConfirmYes: 'ДА, ВЫЙТИ',
+      menuConfirmNo: 'ОТМЕНА',
       mainMenu: 'ГЛАВНОЕ МЕНЮ',
       defeated: 'ПОРАЖЕНИЕ',
       tryAgain: 'ЕЩЁ РАЗ',
       gameOverHint: 'Нажмите кнопки выше или вернитесь в меню',
-      gachaWheelTitle: 'КОЛЕСО GACHA',
-      autoGacha: 'Авто-Gacha — тратит 160 з. в фоне (сначала закройте колесо)',
-      spin: 'КРУТИТЬ (160 з.)',
-      confirm: 'ПОДТВЕРДИТЬ',
-      spinAgain: 'КРУТИТЬ СНОВА (160 з.)',
-      exit: 'ВЫХОД',
       back: 'НАЗАД',
       helpTitle: 'СПРАВКА И БЕСТИАРИЙ',
       tabStats: 'СТАТЫ',
+      tabWeapons: 'ОРУЖИЕ',
       tabBestiary: 'ВРАГИ',
       tabItems: 'ПРЕДМЕТЫ',
-      gold: 'Золото: {0}',
-      spinning: 'Крутится... (5 сек) — Space чтобы пропустить',
-      needGoldSpin: 'Нужно {0} з. для вращения (у вас {1} з.)',
-      needGoldMore: 'Нужно ещё {0} з. для повторного вращения.',
-      bonusSpinAgain: 'Бонус применён! Крутите снова или подтвердите.',
-      bonusConfirm: 'Бонус применён! Подтвердите для продолжения.',
-      hintDefeatGold: 'Убивайте врагов и открывайте сундуки · Esc Выход',
-      hintSkipSpin: 'Space Пропустить · Esc К результату',
-      hintSpinAgain: 'Space Крутить снова · Подтвердите или выйдите · Esc Выход',
-      hintConfirmExit: 'Подтвердите или выйдите · Esc Выход',
-      hintDefeatGoldHtml: 'Убивайте врагов и открывайте сундуки &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Выход',
-      hintSkipSpinHtml: '<kbd class="gold wide">Space</kbd> Пропустить &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> К результату',
-      hintSpinAgainHtml: '<kbd class="gold wide">Space</kbd> Крутить снова &nbsp;·&nbsp; Подтвердите или выйдите ниже &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Выход',
-      hintConfirmExitHtml: 'Подтвердите или выйдите &nbsp;·&nbsp; <kbd class="yellow">Esc</kbd> Выход',
-      escExit: 'Выход',
-      escSkipResult: 'К результату',
-      autoGachaOn: 'Авто-Gacha ВКЛ ({0} з./крут)',
-      autoGachaNeed: 'Авто-Gacha ВКЛ — нужно {0} з.',
-      gachaWheelHud: 'Колесо gacha ({0} з.)',
-      gachaWheelNeed: 'Колесо gacha ({0} з. — нужно {1} з.)',
-      hudGachaReady: '[Space] Колесо gacha',
-      hudGachaNeed: '[Space] Gacha ({0} з.)',
-      hudUltReady: '[Q] УЛЬТ ГОТОВ',
-      hudUlt: '[Q] Ультимейт',
-      hudPause: '[Esc] Пауза',
+      helpEmptyWeapons: 'Оружие ещё не открыто. Получайте его во время забега.',
+      helpEmptyEnemies: 'Враги ещё не открыты. Побеждайте врагов, чтобы заполнить бестиарий.',
+      helpEmptyItems: 'Предметы ещё не открыты. Открывайте сундуки и подбирайте дроп.',
       goldLabel: 'ЗОЛОТО',
       enemiesLabel: 'ВРАГИ',
       shieldLabel: 'ЩИТ',
       hpLabel: 'ОЗ',
-      ultLabel: 'УЛЬТ',
-      ultKeyLabel: 'УЛЬТ [Q]',
       levelStat: 'Уровень {0}',
       goldStat: 'Золото {0}',
       killsStat: 'Убийств {0}',
@@ -191,8 +243,6 @@ class I18n {
       chestGold: '+{0} з. ({1})',
       chickenLegHeal: '+{0} OЗ (куриная ножка)',
       bossSlain: 'ДРЕВНИЙ ДРАКОН ПОВЕРЖЕН!',
-      ultimateToast: 'УЛЬТИМЕЙТ! {0} врагов уничтожено',
-      gachaHub: 'GACHA',
       rarityCommon: 'ОБЫЧНЫЙ',
       rarityRare: 'РЕДКИЙ',
       rarityEpic: 'ЭПИЧЕСКИЙ',
@@ -205,51 +255,45 @@ class I18n {
 
   static statNames = {
     en: {
-      moveSpeed: 'Movement Speed', maxHealth: 'Max Health', maxShield: 'Max Shield',
-      attack: 'Attack', attackSpeed: 'Attack Speed', bulletSpeed: 'Bullet Speed',
-      shieldRegen: 'Shield Regen', critChance: 'Crit Chance', critDamage: 'Crit Damage',
-      bulletCount: 'Bullet Count', expMultiplier: 'Exp Multiplier', luck: 'Luck',
-      energyRegen: 'Energy Regeneration'
+      moveSpeed: 'Movement Speed', maxHealth: 'Max Health', maxShield: 'Shield',
+      attack: 'Attack', attackSpeed: 'Attack Speed', bulletSpeed: 'Projectile Speed',
+      critChance: 'Crit Chance', critDamage: 'Crit Damage',
+      bulletCount: 'Projectile Count', expMultiplier: 'Exp Multiplier', luck: 'Luck'
     },
     ru: {
-      moveSpeed: 'Скорость', maxHealth: 'Макс. здоровье', maxShield: 'Макс. щит',
-      attack: 'Атака', attackSpeed: 'Скорость атаки', bulletSpeed: 'Скорость пуль',
-      shieldRegen: 'Реген. щита', critChance: 'Шанс крита', critDamage: 'Урон крита',
-      bulletCount: 'Число пуль', expMultiplier: 'Множ. опыта', luck: 'Удача',
-      energyRegen: 'Реген. энергии'
+      moveSpeed: 'Скорость', maxHealth: 'Макс. здоровье', maxShield: 'Щит',
+      attack: 'Атака', attackSpeed: 'Скорость атаки', bulletSpeed: 'Скорость снарядов',
+      critChance: 'Шанс крита', critDamage: 'Урон крита',
+      bulletCount: 'Число снарядов', expMultiplier: 'Множ. опыта', luck: 'Удача'
     }
   };
 
   static helpStats = {
     en: [
       { abbr: 'SPD', name: 'Movement Speed', desc: 'How fast you move across the field. Higher speed helps dodge enemy swarms and reach chests.' },
-      { abbr: 'HP', name: 'Health', desc: 'Your life total. When HP reaches zero, the run ends. Max Health can be upgraded via gacha.' },
-      { abbr: 'SHD', name: 'Shield', desc: 'Extra protection layer absorbed before HP damage. Regenerates at your Shield Regen rate. If fully broken, regeneration starts only after 3 seconds without taking damage.' },
-      { abbr: 'ATK', name: 'Attack', desc: 'Base damage of each projectile. Critical hits multiply this value by Crit Damage.' },
-      { abbr: 'ASP', name: 'Attack Speed', desc: 'How many shots you fire per second. With Autoaim on, targets the nearest enemy within range; with Autoaim off, shoots toward the cursor.' },
-      { abbr: 'BLT', name: 'Bullet Count', desc: 'Number of projectiles per volley. Extra bullets spread in a small arc toward the target.' },
-      { abbr: 'BSP', name: 'Bullet Speed', desc: 'Projectile travel speed. Faster bullets hit distant enemies sooner.' },
-      { abbr: 'CRT', name: 'Critical Chance', desc: 'Probability each shot critically hits. Crits roll independently per bullet.' },
-      { abbr: 'CDM', name: 'Critical Damage', desc: 'Damage multiplier applied on critical hits (e.g. 1.5× = +50% damage).' },
-      { abbr: 'ERG', name: 'Energy Regeneration', desc: 'Ultimate energy recovered per second. Ultimate requires 1000 energy; press Q when full.' },
-      { abbr: 'SRG', name: 'Shield Regeneration', desc: 'Shield restored per second when below maximum. Continues while shield remains above zero; after a full break, waits 3 seconds without damage before regenerating.' },
+      { abbr: 'HP', name: 'Health', desc: 'Your life total. When HP reaches zero, the run ends. Max Health is raised by level-up cards, and each boost heals you for the same amount it adds.' },
+      { abbr: 'SHD', name: 'Shield', desc: 'Only exists while you carry the Tower Shield weapon. It absorbs damage before HP and refills on its own; a full break delays regeneration by 3 seconds. The Garlic Aura can also stack a small temporary shield.' },
+      { abbr: 'ATK', name: 'Attack', desc: 'Base damage every weapon scales from. Each weapon applies its own multiplier on top, and critical hits multiply the result by Crit Damage.' },
+      { abbr: 'ASP', name: 'Attack Speed', desc: 'Divides the reload time of every weapon, so all slots fire more often.' },
+      { abbr: 'BLT', name: 'Projectile Count', desc: 'Adds one extra projectile, pellet, or strike to every weapon that fires them.' },
+      { abbr: 'BSP', name: 'Projectile Speed', desc: 'Projectile travel speed. Faster shots reach distant enemies sooner.' },
+      { abbr: 'CRT', name: 'Critical Chance', desc: 'Probability each hit critically strikes. Crits roll independently per projectile.' },
+      { abbr: 'CDM', name: 'Critical Damage', desc: 'Damage multiplier applied on critical hits (e.g. 1.5× = +50% damage). Once Crit Chance hits 100%, the Critical card gives only Crit Damage.' },
       { abbr: 'EXP', name: 'Experience Multiplier', desc: 'Multiplies XP gained from all gold pickups. XP raises level and scales difficulty.' },
-      { abbr: 'LCK', name: 'Luck', desc: 'Increases chest spawn rate, rare/epic chest quality, and multiplies all gold gained (+2% gold per Luck).' }
+      { abbr: 'LCK', name: 'Luck', desc: 'Multiplies all gold gained, raises the chest drop rate, and improves the rare/epic quality roll.' }
     ],
     ru: [
       { abbr: 'SPD', name: 'Скорость', desc: 'Скорость передвижения по полю. Помогает уклоняться от толпы и добираться до сундуков.' },
-      { abbr: 'HP', name: 'Здоровье', desc: 'Запас жизни. При нуле OЗ забег заканчивается. Макс. здоровье можно улучшить через gacha.' },
-      { abbr: 'SHD', name: 'Щит', desc: 'Дополнительная защита до урона по OЗ. Восстанавливается с вашей скоростью реген. щита. Если щит полностью сломан, регенерация начинается только через 3 секунды без получения урона.' },
-      { abbr: 'ATK', name: 'Атака', desc: 'Базовый урон снаряда. Криты умножают это значение на урон крита.' },
-      { abbr: 'ASP', name: 'Скорость атаки', desc: 'Выстрелов в секунду. С Автоприцелом — наведение на ближайшего врага в радиусе; без него — стрельба в сторону курсора.' },
-      { abbr: 'BLT', name: 'Число пуль', desc: 'Снарядов за залп. Лишние пули расходятся дугой к цели.' },
-      { abbr: 'BSP', name: 'Скорость пуль', desc: 'Скорость полёта снарядов. Быстрее попадают по дальним целям.' },
-      { abbr: 'CRT', name: 'Шанс крита', desc: 'Вероятность критического попадания для каждого выстрела.' },
-      { abbr: 'CDM', name: 'Урон крита', desc: 'Множитель урона при крите (напр. 1.5× = +50% урона).' },
-      { abbr: 'ERG', name: 'Реген. энергии', desc: 'Энергии ультимейта в секунду. Нужно 1000 энергии; нажмите Q когда полная.' },
-      { abbr: 'SRG', name: 'Реген. щита', desc: 'Щита в секунду ниже максимума. Пока щит выше нуля — без задержки; после полного слома ждёт 3 секунды без урона.' },
+      { abbr: 'HP', name: 'Здоровье', desc: 'Запас жизни. При нуле OЗ забег заканчивается. Макс. здоровье растёт от карт улучшений, и каждая прибавка сразу лечит на ту же величину.' },
+      { abbr: 'SHD', name: 'Щит', desc: 'Существует только с оружием «Башенный щит». Поглощает урон до OЗ и восстанавливается сам; после полного слома регенерация ждёт 3 секунды. «Чесночная аура» тоже может дать небольшой временный щит.' },
+      { abbr: 'ATK', name: 'Атака', desc: 'Базовый урон, от которого считается всё оружие. У каждого оружия свой множитель сверху, а криты умножают результат на урон крита.' },
+      { abbr: 'ASP', name: 'Скорость атаки', desc: 'Делит время перезарядки всего оружия — все слоты стреляют чаще.' },
+      { abbr: 'BLT', name: 'Число снарядов', desc: 'Добавляет по одному снаряду, дробине или удару каждому оружию, которое их выпускает.' },
+      { abbr: 'BSP', name: 'Скорость снарядов', desc: 'Скорость полёта снарядов. Быстрее достают дальние цели.' },
+      { abbr: 'CRT', name: 'Шанс крита', desc: 'Вероятность критического попадания для каждого снаряда.' },
+      { abbr: 'CDM', name: 'Урон крита', desc: 'Множитель урона при крите (напр. 1.5× = +50% урона). При 100% шансе крита карта «Критический удар» даёт только урон крита.' },
       { abbr: 'EXP', name: 'Множ. опыта', desc: 'Умножает опыт от всего золота. Опыт повышает уровень и сложность.' },
-      { abbr: 'LCK', name: 'Удача', desc: 'Чаще сундуки, выше шанс редких/эпических, и множитель всего золота (+2% золота за единицу Удачи).' }
+      { abbr: 'LCK', name: 'Удача', desc: 'Умножает всё получаемое золото, повышает шанс выпадения сундуков и качество редких/эпических.' }
     ]
   };
 
@@ -257,10 +301,8 @@ class I18n {
     en: {
       playerStats: 'PLAYER STATS',
       combatSystems: 'COMBAT & SYSTEMS',
-      ultimateTitle: 'Ultimate [Q]',
-      ultimateDesc: 'Costs 1000 energy. Releases a wave that instantly kills all on-screen enemies. 3 second cooldown after use. Starts fully charged.',
-      gachaTitle: 'Gacha Wheel [Space]',
-      gachaDesc: 'Spend 160 gold to spin for a random stat upgrade. Rarity varies — Energy Regen is legendary.',
+      weaponsTitle: 'Weapon Slots',
+      choicesTitle: 'Level-Up Choices [1-5]',
       difficultyTitle: 'Difficulty Scaling',
       difficultyDesc: 'XP and level increase spawn rate, enemy count, HP, damage, speed, and dangerous enemy mix. From level 50 onward scaling ramps up sharply.',
       enemies: 'ENEMIES',
@@ -273,10 +315,8 @@ class I18n {
     ru: {
       playerStats: 'СТАТЫ ИГРОКА',
       combatSystems: 'БОЙ И СИСТЕМЫ',
-      ultimateTitle: 'Ультимейт [Q]',
-      ultimateDesc: 'Стоит 1000 энергии. Волна мгновенно убивает всех врагов на экране. Перезарядка 3 сек. Начинается с полной энергией.',
-      gachaTitle: 'Колесо Gacha [Space]',
-      gachaDesc: 'Потратьте 160 золота на случайное улучшение стата. Редкость различается — реген. энергии легендарный.',
+      weaponsTitle: 'Слоты оружия',
+      choicesTitle: 'Выбор при уровне [1-5]',
       difficultyTitle: 'Масштаб сложности',
       difficultyDesc: 'Опыт и уровень повышают частоту спавна, число врагов, HP, урон, скорость и долю опасных типов. С 50 уровня рост резкий.',
       enemies: 'ВРАГИ',
@@ -299,10 +339,10 @@ class I18n {
       { id: 'wolf', name: 'White Wolf', threat: 'high', gold: 7, speed: '155 (+scale)', hp: '55 (+scale)', dmg: '16 (+scale)', ability: 'Bite · Slows you 0.5s', desc: 'Sprints at you from level 8. When a bullet closes in, it blinks sideways with a ghost trail (1s cooldown). A bite cuts your movement speed for half a second.', sprite: 'wolf' },
       { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Empowers up to 3 foes', desc: 'From level 15. Linked foes swell to 3× size with up to 3× HP and 3× damage. Kill the priest and they deflate back down.', sprite: 'priest' },
       { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'Abduction', ability: 'Lifts and drops you', desc: 'From level 18, max 3 at once. Catches you, carries you for ~2.4s and dumps you into the thickest pack of enemies.', sprite: 'ufo' },
-      { id: 'dragonCrimson', name: 'Crimson Tyrant (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball barrage', desc: 'Rare boss from level 25 (one of four Elder Dragon forms). Walks the field; never flies. Only one Elder Dragon at a time, max once per 5 minutes. Hurls 3 arcing fireballs that leave burning zones.', sprite: 'dragonCrimson' },
-      { id: 'dragonVoid', name: 'Void Elder (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball barrage', desc: 'Rare boss from level 25 (void form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, one dragon at a time, 5-minute cooldown, triple fireball volleys with lingering flames.', sprite: 'dragonVoid' },
-      { id: 'dragonBone', name: 'Bone Sovereign (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball barrage', desc: 'Rare boss from level 25 (undead form of the Elder Dragon). Same rules as Crimson Tyrant: walks, one at a time, 5-minute cooldown, triple fireball barrages.', sprite: 'dragonBone' },
-      { id: 'dragonEmber', name: 'Ember Wyrm (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball barrage', desc: 'Rare boss from level 25 (magma form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, one at a time, 5-minute cooldown, triple fireball barrages.', sprite: 'dragonEmber' }
+      { id: 'dragonCrimson', name: 'Crimson Tyrant (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (one of four Elder Dragon forms). Walks the field; never flies. Immune to freeze, stun, slow, pull, knockback, and curse. Only one Elder Dragon at a time, max once per 5 minutes. Hurls 3 arcing fireballs that leave burning zones.', sprite: 'dragonCrimson' },
+      { id: 'dragonVoid', name: 'Void Elder (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (void form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, control immune, one dragon at a time, 5-minute cooldown, triple fireball volleys with lingering flames.', sprite: 'dragonVoid' },
+      { id: 'dragonBone', name: 'Bone Sovereign (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (undead form of the Elder Dragon). Same rules as Crimson Tyrant: walks, control immune, one at a time, 5-minute cooldown, triple fireball barrages.', sprite: 'dragonBone' },
+      { id: 'dragonEmber', name: 'Ember Wyrm (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (magma form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, control immune, one at a time, 5-minute cooldown, triple fireball barrages.', sprite: 'dragonEmber' }
     ],
     ru: [
       { id: 'slime', name: 'Лесной слайм', threat: 'low', gold: 1, speed: '35 (+масш.)', hp: '20 (+масш.)', dmg: '8 (+масш.)', ability: 'Контактный урон', desc: 'Медленная капля: пауза, затем прыжок к вам. Обычный ранний враг.', sprite: 'slime' },
@@ -314,10 +354,10 @@ class I18n {
       { id: 'wolf', name: 'Белый волк', threat: 'high', gold: 7, speed: '155 (+масш.)', hp: '55 (+масш.)', dmg: '16 (+масш.)', ability: 'Укус · Замедляет на 0.5с', desc: 'С 8 уровня мчится к вам. Когда пуля близко — мигает в сторону с призрачным шлейфом (кд 1с). Укус замедляет вас на полсекунды.', sprite: 'wolf' },
       { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Усиливает до 3 врагов', desc: 'С 15 уровня. Связанные враги растут до 3× размера, до 3× HP и 3× урона. Убейте жреца — и они сдуются обратно.', sprite: 'priest' },
       { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Похищение', ability: 'Поднимает и бросает вас', desc: 'С 18 уровня, максимум 3 сразу. Хватает вас, несёт ~2.4с и сбрасывает в самую гущу врагов.', sprite: 'ufo' },
-      { id: 'dragonCrimson', name: 'Алый тиран (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов', desc: 'Редкий босс с 25 уровня (одна из четырёх форм Древнего дракона). Ходит по земле, не летает. Только один дракон за раз, не чаще чем раз в 5 минут. Бросает 3 фаербола с горящими зонами.', sprite: 'dragonCrimson' },
-      { id: 'dragonVoid', name: 'Старейшина Бездны (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов', desc: 'Редкий босс с 25 уровня (бездная форма). Те же правила: ходит, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonVoid' },
-      { id: 'dragonBone', name: 'Костяной владыка (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов', desc: 'Редкий босс с 25 уровня (нежить-форма). Те же правила: ходит, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonBone' },
-      { id: 'dragonEmber', name: 'Тлеющий змей (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов', desc: 'Редкий босс с 25 уровня (магма-форма). Те же правила: ходит, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonEmber' }
+      { id: 'dragonCrimson', name: 'Алый тиран (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (одна из четырёх форм Древнего дракона). Ходит по земле, не летает. Иммунен к заморозке, стану, замедлению, притягиванию, откидыванию и проклятию. Только один дракон за раз, не чаще чем раз в 5 минут. Бросает 3 фаербола с горящими зонами.', sprite: 'dragonCrimson' },
+      { id: 'dragonVoid', name: 'Старейшина Бездны (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (бездная форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonVoid' },
+      { id: 'dragonBone', name: 'Костяной владыка (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (нежить-форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonBone' },
+      { id: 'dragonEmber', name: 'Тлеющий змей (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (магма-форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonEmber' }
     ]
   };
 
@@ -334,6 +374,33 @@ class I18n {
       { tier: 'epic', name: 'Эпический сундук', gold: 50, threat: 'high', sprite: 'chestEpic', desc: 'Фиолетовое свечение, максимум золота. Из боссов выпадает гораздо чаще.' },
       { id: 'chickenLeg', name: 'Куриная ножка', threat: 'high', sprite: 'chickenLeg', tags: 'Эпич. редкость · Авто-подбор', statline: 'Восстанавливает 5% макс. OЗ', desc: 'Очень редкое лечение из убитого врага; Удача повышает шанс. Подойдите для подбора.' }
     ]
+  };
+
+  static helpWeaponDescs = {
+    en: {
+      shotgun: 'Fan of pellets at close range. Best when enemies pack in front of you.',
+      chainLightning: 'Arc bolt that jumps between nearby foes.',
+      garlicAura: 'Damaging aura around you that ticks continuously.',
+      boomerang: 'Throws toward the furthest enemy in range, pierces on the way out, then returns through the pack.',
+      towerShield: 'Orbiting shield that bashes foes and can block projectiles.',
+      grenadeLauncher: 'Lobs arcing grenades that explode on landing.',
+      bloodSpear: 'Piercing spears that can apply bleed.',
+      phantomBlades: 'Orbiting phantom blades that slash nearby enemies.',
+      cursedTotem: 'Plants a long-lived curse zone at your feet. Stay inside the radius for it to curse foes.',
+      iceCrystal: 'Fans homing ice shards in a 90° cone; each shard locks onto an enemy.'
+    },
+    ru: {
+      shotgun: 'Веер дроби на близкой дистанции. Лучше всего против скученных врагов.',
+      chainLightning: 'Дуга, прыгающая между ближайшими врагами.',
+      garlicAura: 'Постоянная аура урона вокруг вас.',
+      boomerang: 'Бросается в самого дальнего врага в радиусе, пробивает на пути и возвращается сквозь толпу.',
+      towerShield: 'Орбитальный щит: бьёт врагов и может блокировать снаряды.',
+      grenadeLauncher: 'Кидает гранаты по дуге со взрывом при приземлении.',
+      bloodSpear: 'Пронзающие копья, способные накладывать кровотечение.',
+      phantomBlades: 'Орбитальные призрачные клинки, секущие ближайших врагов.',
+      cursedTotem: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри радиуса, чтобы тотем проклинал врагов.',
+      iceCrystal: 'Веер самонаводящихся ледяных осколков в конусе 90°; каждый осколок ловит свою цель.'
+    }
   };
 
   static t(key, ...args) {
@@ -376,21 +443,11 @@ class I18n {
 
   static applyDom() {
     document.querySelectorAll('[data-i18n]').forEach((el) => {
-      const key = el.dataset.i18n;
-      if (key === 'start') return;
-      el.textContent = this.t(key);
+      el.textContent = this.t(el.dataset.i18n);
     });
     document.querySelectorAll('[data-i18n-html]').forEach((el) => {
       el.innerHTML = this.t(el.dataset.i18nHtml);
     });
-    const startBtn = document.getElementById('startBtn');
-    if (startBtn) {
-      startBtn.textContent = SaveManager.hasSave() ? this.t('continue') : this.t('start');
-    }
-    const spinBtn = document.getElementById('gachaSpinBtn');
-    const spinAgainBtn = document.getElementById('gachaSpinAgainBtn');
-    if (spinBtn) spinBtn.textContent = this.t('spin');
-    if (spinAgainBtn) spinAgainBtn.textContent = this.t('spinAgain');
     MobileControls.updateLayoutLabels();
   }
 
@@ -521,17 +578,49 @@ class SoundManager {
   }
 
   static chest(tier = 'common') {
-    const sets = {
-      common: [523, 659],
-      rare: [523, 659, 784],
-      epic: [523, 659, 784, 1047]
-    };
-    this._seq(sets[tier] || sets.common, 0.08, 'square', 0.11);
-    this._tone(1047, 0.1, 'triangle', 0.07, 0.24);
+    if (tier === 'epic') {
+      // Big purple fanfare — intentionally ~2s so epic opens feel special
+      this._noise(0.12, 0.08, 900);
+      this._tone(196, 0.22, 'triangle', 0.1, 0);
+      this._tone(262, 0.2, 'square', 0.11, 0.12);
+      this._tone(330, 0.2, 'square', 0.12, 0.26);
+      this._tone(392, 0.22, 'square', 0.12, 0.4);
+      this._tone(523, 0.28, 'triangle', 0.13, 0.58);
+      this._tone(659, 0.32, 'square', 0.12, 0.78);
+      this._tone(784, 0.36, 'triangle', 0.11, 0.98);
+      this._tone(1047, 0.55, 'sine', 0.12, 1.18);
+      this._tone(1319, 0.5, 'triangle', 0.1, 1.35);
+      this._tone(1568, 0.45, 'sine', 0.08, 1.5);
+      // Sustained shimmer through the end of the 2s window
+      this._tone(880, 0.7, 'triangle', 0.05, 1.3);
+      this._tone(1175, 0.55, 'sine', 0.06, 1.45);
+      this._noise(0.35, 0.04, 2200, 1.55, 'highpass');
+      this._tone(1760, 0.35, 'sine', 0.05, 1.65);
+      return;
+    }
+    if (tier === 'rare') {
+      // Cool blue arpeggio — longer and brighter than common
+      this._noise(0.06, 0.05, 1200);
+      this._seq([392, 494, 587, 740, 880], 0.1, 'square', 0.11);
+      this._tone(988, 0.28, 'triangle', 0.09, 0.48);
+      this._tone(1175, 0.22, 'sine', 0.06, 0.62);
+      return;
+    }
+    // Common: short wooden clink + soft chime
+    this._noise(0.05, 0.06, 700);
+    this._tone(180, 0.08, 'square', 0.08, 0, 120);
+    this._tone(523, 0.1, 'triangle', 0.1, 0.06);
+    this._tone(659, 0.12, 'triangle', 0.08, 0.14);
   }
 
   static heal() {
     this._seq([440, 554, 659, 880], 0.09, 'triangle', 0.1);
+  }
+
+  static levelUp() {
+    this._seq([523, 659, 784, 1047], 0.09, 'square', 0.13);
+    this._tone(1319, 0.18, 'triangle', 0.09, 0.34);
+    this._tone(1568, 0.14, 'sine', 0.06, 0.42);
   }
 
   static gachaResult(rarity = 'common') {
@@ -667,8 +756,6 @@ class MobileControls {
   static isMobile = false;
   static game = null;
   static el = null;
-  static touchGacha = null;
-  static touchUlt = null;
   static joystickZone = null;
   static joystickKnob = null;
   static joystickActive = false;
@@ -738,8 +825,6 @@ class MobileControls {
     this.game = game;
     this.loadLayout();
     this.el = document.getElementById('mobileControls');
-    this.touchGacha = document.getElementById('touchGacha');
-    this.touchUlt = document.getElementById('touchUlt');
     this.joystickZone = document.getElementById('touchJoystick');
     this.joystickKnob = document.getElementById('touchJoystickKnob');
     this.applyLayout();
@@ -832,31 +917,15 @@ class MobileControls {
   }
 
   static _bindActions() {
-    this.touchGacha.addEventListener('pointerdown', (e) => {
+    const pauseBtn = document.getElementById('touchPause');
+    if (!pauseBtn) return;
+    pauseBtn.addEventListener('pointerdown', (e) => {
       e.preventDefault();
       SoundManager.unlock();
       SoundManager.ui();
       const g = this.game;
-      if (g.state !== 'playing') return;
-      if (g.gacha.isOpen()) g.gacha.handleSpace(g);
-      else g.gacha.tryOpen(g);
-    });
-
-    this.touchUlt.addEventListener('pointerdown', (e) => {
-      e.preventDefault();
-      SoundManager.unlock();
-      const g = this.game;
-      if (g.state !== 'playing' || g.gacha.isOpen()) return;
-      g.input.ult = true;
-    });
-
-    document.getElementById('touchPause').addEventListener('pointerdown', (e) => {
-      e.preventDefault();
-      SoundManager.unlock();
-      SoundManager.ui();
-      const g = this.game;
+      if (g.upgrades && g.upgrades.isOpen()) return;
       if (g.help.isOpen()) g.help.close();
-      else if (g.gacha.isOpen()) g.gacha.exit(g);
       else g.togglePause();
     });
   }
@@ -886,13 +955,9 @@ class MobileControls {
     if (!visible) this.resetInput();
   }
 
-  static updateHud(player, gachaCost, autoGacha) {
+  /* Nothing left to mirror on the touch HUD — weapons fire on their own. */
+  static updateHud(player) {
     if (!this.isMobile || !player) return;
-    const canGacha = player.currency >= gachaCost;
-    const ultReady = player.energy >= player.maxEnergy && player.ultCD <= 0;
-    this.touchGacha.classList.toggle('dimmed', !canGacha && !autoGacha);
-    this.touchUlt.classList.toggle('ready', ultReady);
-    this.touchUlt.classList.toggle('dimmed', !ultReady);
   }
 }
 
@@ -2144,18 +2209,47 @@ class GoldCoin {
 class Projectile {
   constructor() {
     this.active = false;
+    this._resetFields();
+  }
+
+  /* Weapon-driven projectiles carry a lot of optional behaviour, so every
+     field is cleared on spawn — pooled objects must never leak old flags. */
+  _resetFields() {
     this.x = 0; this.y = 0;
     this.vx = 0; this.vy = 0;
     this.damage = 0;
     this.isCrit = false;
     this.radius = 6;
     this.life = 0;
+    this.maxLife = 1;
     this.fromPlayer = true;
     this.sprite = null;
     this.angle = 0;
-    this.piercing = false;
+    this.spinAngle = 0;
+    this.piercing = 0;
+    this.pierceLeft = 0;
+    this.hitSet = null;
+    this.color = null;
+    this.kind = 'bullet';
+    this.onHit = null;
+    this.weaponOpts = null;
+    this.spin = false;
+    this.returning = false;
+    this.home = false;
+    this.lockTarget = null;
+    this.keepFlying = false;
+    this.canChain = true;
+    this.trail = false;
+    this.split = false;
+    this.explosive = false;
+    this.ownerWeapon = null;
+    this.arc = null;
+    this.meta = null;
+    this._reflected = false;
   }
+
   spawn(x, y, vx, vy, damage, isCrit, fromPlayer, sprite, life = 2) {
+    this._resetFields();
     this.active = true;
     this.x = x; this.y = y;
     this.vx = vx; this.vy = vy;
@@ -2164,19 +2258,115 @@ class Projectile {
     this.fromPlayer = fromPlayer;
     this.sprite = sprite;
     this.life = life;
+    this.maxLife = life;
     this.angle = Math.atan2(vy, vx);
     this.radius = fromPlayer ? 6 : 5;
   }
-  update(dt) {
+
+  speed() {
+    return Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+  }
+
+  _steerTowards(tx, ty, accel, dt) {
+    const dx = tx - this.x;
+    const dy = ty - this.y;
+    const d = Math.sqrt(dx * dx + dy * dy) || 1;
+    const spd = this.speed() || 1;
+    this.vx += (dx / d) * spd * accel * dt;
+    this.vy += (dy / d) * spd * accel * dt;
+    const cur = this.speed() || 1;
+    this.vx = (this.vx / cur) * spd;
+    this.vy = (this.vy / cur) * spd;
+    return d;
+  }
+
+  update(dt, game) {
     if (!this.active) return;
+    if (this.spin) this.spinAngle += dt * 16;
+    const m = this.meta;
+    const player = game ? game.player : null;
+
+    if (m && player && (this.kind === 'boomerang' || m.returns)) {
+      if (!this.returning && this.life <= this.maxLife * 0.5) {
+        this.returning = true;
+        // A returning throw is allowed to hit everything a second time
+        if (this.hitSet) this.hitSet.clear();
+      }
+      if (m.hover && !this.returning) {
+        m.hoverT = (m.hoverT || 0) + dt;
+        if (m.hoverT > 0.3) {
+          const drag = Math.pow(0.12, dt);
+          this.vx *= drag;
+          this.vy *= drag;
+        }
+      }
+      if (this.returning) {
+        const orbit = m.extraOrbit ? 1.2 : 0;
+        const d = this._steerTowards(player.x, player.y, 5 + orbit, dt);
+        if (d < 26) {
+          this.active = false;
+          return;
+        }
+      }
+      if (m.pull && game.spatial) {
+        const pullR = m.collidePull ? 120 : 90;
+        game.spatial.queryCircle(this.x, this.y, pullR, (e) => {
+          if (StatusEffects.isControlImmune(e)) return;
+          const dx = this.x - e.x;
+          const dy = this.y - e.y;
+          const d = Math.sqrt(dx * dx + dy * dy) || 1;
+          const force = m.collidePull ? 90 : 55;
+          e.x += (dx / d) * force * dt;
+          e.y += (dy / d) * force * dt;
+        }, 12);
+      }
+    }
+
+    // A locked shot chases one specific enemy until it dies or the shot expires
+    if (this.lockTarget) {
+      const t = this.lockTarget;
+      if (!t.active || t.dying) {
+        this.lockTarget = null;
+      } else {
+        const dx = t.x - this.x;
+        const dy = t.y - this.y;
+        const d = Math.sqrt(dx * dx + dy * dy) || 1;
+        if (d < 80) {
+          // Close range: aim straight in, otherwise a fast shot can orbit its mark
+          const spd = this.speed() || 1;
+          this.vx = (dx / d) * spd;
+          this.vy = (dy / d) * spd;
+        } else {
+          this._steerTowards(t.x, t.y, 8, dt);
+        }
+      }
+    }
+
+    if (!this.lockTarget && this.home && game && game.spatial) {
+      const t = game.spatial.nearest(this.x, this.y, 280);
+      if (t) this._steerTowards(t.x, t.y, 3, dt);
+    }
+
     this.x += this.vx * dt;
     this.y += this.vy * dt;
+    if (this.vx !== 0 || this.vy !== 0) this.angle = Math.atan2(this.vy, this.vx);
+
+    if (this.trail && game && game.effects && Math.random() < 0.3) {
+      game.effects.spawnField('trail', this.x, this.y, 16, 1.1, Math.max(3, this.damage * 0.15),
+        '#f84', null, EffectCaps.MAX_TRAILS);
+    }
+
     this.life -= dt;
     if (this.life <= 0) this.active = false;
   }
+
   draw(ctx, cam) {
     if (!this.active) return;
     const s = cam.worldToScreen(this.x, this.y);
+    if (this.color) {
+      this._drawColored(ctx, s);
+      return;
+    }
     if (this.sprite) {
       ctx.save();
       ctx.translate(s.x, s.y);
@@ -2197,6 +2387,72 @@ class Projectile {
       ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
     }
+  }
+
+  /* Weapon projectiles have no sprites — each kind gets its own vector look. */
+  _drawColored(ctx, s) {
+    const r = this.radius;
+    ctx.save();
+    ctx.translate(s.x, s.y);
+    if (this.kind === 'boomerang') {
+      ctx.rotate(this.spinAngle);
+      ctx.strokeStyle = this.color;
+      ctx.lineWidth = Math.max(3, r * 0.5);
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.arc(0, 0, r, -0.7, 2.3);
+      ctx.stroke();
+    } else if (this.kind === 'spear') {
+      ctx.rotate(this.angle);
+      ctx.fillStyle = this.color;
+      ctx.fillRect(-r * 2.2, -r * 0.32, r * 3.2, r * 0.64);
+      ctx.beginPath();
+      ctx.moveTo(r * 1.0, -r * 0.8);
+      ctx.lineTo(r * 2.2, 0);
+      ctx.lineTo(r * 1.0, r * 0.8);
+      ctx.closePath();
+      ctx.fill();
+    } else if (this.kind === 'shard') {
+      ctx.rotate(this.angle);
+      // Frosty comet tail
+      ctx.fillStyle = 'rgba(150,225,255,0.28)';
+      ctx.beginPath();
+      ctx.moveTo(-r * 3.4, 0);
+      ctx.lineTo(-r * 0.4, -r * 0.6);
+      ctx.lineTo(-r * 0.4, r * 0.6);
+      ctx.closePath();
+      ctx.fill();
+      // Ice shard body
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.moveTo(r * 1.7, 0);
+      ctx.lineTo(0, -r * 0.85);
+      ctx.lineTo(-r * 1.1, 0);
+      ctx.lineTo(0, r * 0.85);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = 'rgba(255,255,255,0.9)';
+      ctx.beginPath();
+      ctx.moveTo(r * 0.8, 0);
+      ctx.lineTo(0, -r * 0.34);
+      ctx.lineTo(-r * 0.35, 0);
+      ctx.lineTo(0, r * 0.34);
+      ctx.closePath();
+      ctx.fill();
+    } else {
+      ctx.fillStyle = this.color;
+      ctx.beginPath();
+      ctx.arc(0, 0, r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    if (this.isCrit) {
+      ctx.globalAlpha = 0.35;
+      ctx.fillStyle = '#ffd23d';
+      ctx.beginPath();
+      ctx.arc(0, 0, r + 4, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
   }
 }
 
@@ -2234,7 +2490,7 @@ class AoEZone {
     this.dps = opts.dps || 0;
     this.tickAccum = 0;
   }
-  update(dt, player) {
+  update(dt, player, game) {
     if (!this.active) return;
     this.timer += dt;
     if (this.phase === 'warn') {
@@ -2252,7 +2508,7 @@ class AoEZone {
       if (dx * dx + dy * dy < this.radius * this.radius) {
         this.tickAccum += dt;
         if (this.tickAccum >= 0.4) {
-          player.takeDamage(this.dps * this.tickAccum);
+          player.takeDamage(this.dps * this.tickAccum, game);
           this.tickAccum = 0;
         }
       } else {
@@ -2261,10 +2517,12 @@ class AoEZone {
       if (this.timer >= this.damageTime) this.active = false;
     } else {
       if (!this.damaged) {
-        const dx = player.x - this.x;
-        const dy = player.y - this.y;
-        if (dx * dx + dy * dy < this.radius * this.radius) {
-          player.takeDamage(this.damage);
+        if (this.damage > 0) {
+          const dx = player.x - this.x;
+          const dy = player.y - this.y;
+          if (dx * dx + dy * dy < this.radius * this.radius) {
+            player.takeDamage(this.damage, game);
+          }
         }
         this.damaged = true;
       }
@@ -2484,6 +2742,14 @@ class Enemy {
     return 2 + Math.ceil((level - 69) / 10);
   }
 
+  /* Early runs should feel squishy so the shotgun clears packs quickly. */
+  static earlyHpScale(level) {
+    if (level <= 1) return 0.28;
+    if (level <= 5) return 0.28 + (level - 1) * 0.06;
+    if (level <= 15) return 0.52 + (level - 5) * 0.04;
+    return 1;
+  }
+
   constructor() {
     this.active = false;
     this.type = 'slime';
@@ -2551,6 +2817,8 @@ class Enemy {
     this.dragonVariant = 'crimson';
     this.dodgeCD = 0;
     this.ghostTrail = [];
+    this.baseSpeed = 40;
+    StatusEffects.initEnemy(this);
   }
 
   spawn(type, x, y, sprites, difficulty, level = 1, variant = null) {
@@ -2598,26 +2866,27 @@ class Enemy {
     this.ghostTrail.length = 0;
     const d = 1 + difficulty * 0.08;
     const lvMult = Enemy._getLevelMult(level);
+    const hpScale = Enemy.earlyHpScale(level);
     const speedMult = 1 + (lvMult - 1) * 0.45;
     this.levelMult = lvMult;
 
     switch (type) {
       case 'slime':
-        this.hp = this.maxHp = Math.floor(20 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(20 * d * lvMult * hpScale));
         this.speed = (35 + difficulty * 0.5) * speedMult;
         this.damage = (8 + difficulty * 0.3) * lvMult;
         this.radius = 16;
         this.sprite = sprites.slime;
         break;
       case 'zombie':
-        this.hp = this.maxHp = Math.floor(45 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(45 * d * lvMult * hpScale));
         this.speed = (62 + difficulty * 0.7) * speedMult;
         this.damage = (14 + difficulty * 0.4) * lvMult;
         this.radius = 15;
         this.sprite = sprites.zombie;
         break;
       case 'skeleton':
-        this.hp = this.maxHp = Math.floor(25 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(25 * d * lvMult * hpScale));
         this.speed = (50 + difficulty * 0.5) * speedMult;
         this.damage = (10 + difficulty * 0.3) * lvMult;
         this.radius = 14;
@@ -2631,42 +2900,42 @@ class Enemy {
         this.sprite = sprites.bomber;
         break;
       case 'mage':
-        this.hp = this.maxHp = Math.floor(40 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(40 * d * lvMult * hpScale));
         this.speed = (45 + difficulty * 0.4) * speedMult;
         this.damage = (18 + difficulty * 0.5) * lvMult;
         this.radius = 14;
         this.sprite = sprites.mage;
         break;
       case 'robot':
-        this.hp = this.maxHp = Math.floor(260 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(260 * d * lvMult * hpScale));
         this.speed = (46 + difficulty * 0.2) * speedMult;
         this.damage = (26 + difficulty * 0.6) * lvMult;
         this.radius = 40;
         this.sprite = sprites.robot;
         break;
       case 'wolf':
-        this.hp = this.maxHp = Math.floor(55 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(55 * d * lvMult * hpScale));
         this.speed = (155 + difficulty * 1.1) * speedMult;
         this.damage = (16 + difficulty * 0.45) * lvMult;
         this.radius = 15;
         this.sprite = sprites.wolf;
         break;
       case 'priest':
-        this.hp = this.maxHp = Math.floor(95 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(95 * d * lvMult * hpScale));
         this.speed = (58 + difficulty * 0.4) * speedMult;
         this.damage = (10 + difficulty * 0.3) * lvMult;
         this.radius = 23;
         this.sprite = sprites.priest;
         break;
       case 'ufo':
-        this.hp = this.maxHp = Math.floor(320 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(320 * d * lvMult * hpScale));
         this.speed = (125 + difficulty * 0.5) * speedMult;
         this.damage = (12 + difficulty * 0.3) * lvMult;
         this.radius = 60;
         this.sprite = sprites.ufo;
         break;
       case 'dragon':
-        this.hp = this.maxHp = Math.floor(4200 * d * lvMult);
+        this.hp = this.maxHp = Math.max(1, Math.floor(4200 * d * lvMult * hpScale));
         this.speed = (58 + difficulty * 0.3) * speedMult;
         this.damage = (42 + difficulty * 0.9) * lvMult;
         this.radius = 150;
@@ -2681,6 +2950,8 @@ class Enemy {
     this.baseMaxHp = this.maxHp;
     this.baseDamage = this.damage;
     this.baseRadius = this.radius;
+    this.baseSpeed = this.speed;
+    StatusEffects.initEnemy(this);
     if (type === 'dragon') {
       this.deathSprites = sprites.dragonDeaths[this.dragonVariant] || null;
       this.deathFrameCount = 10;
@@ -2725,7 +2996,7 @@ class Enemy {
 
   takeDamage(amount) {
     if (!this.active || this.dying) return false;
-    this.hp -= amount;
+    this.hp -= amount * StatusEffects.damageMult(this);
     this.flash = 0.12;
     if (this.hp <= 0) {
       this.beginDeath();
@@ -2758,6 +3029,13 @@ class Enemy {
     if (this.castAnim > 0) this.castAnim -= dt;
     this._updateBuff(dt);
 
+    StatusEffects.tick(this, dt, game);
+    if (!this.active || this.dying) return;
+    // Freeze / stun / slow all funnel through one movement multiplier
+    const moveFactor = StatusEffects.moveFactor(this);
+    this.speed = this.baseSpeed * moveFactor;
+    if (moveFactor <= 0) return;
+
     const dx = player.x - this.x;
     const dy = player.y - this.y;
     const dist = Math.sqrt(dx * dx + dy * dy) || 1;
@@ -2774,12 +3052,12 @@ class Enemy {
         if (this.type === 'bomber') {
           this.beginDeath();
           SoundManager.bomber();
-          player.bomberHit();
+          player.bomberHit(game);
           game.spawnExplosion(this.x, this.y);
           game._onEnemyKilled(this);
           return;
         }
-        player.takeDamage(this.damage);
+        player.takeDamage(this.damage, game);
         this.contactCD = 0.6;
         if (this.type === 'wolf') {
           player.applySlow(0.45, 0.5);
@@ -2828,13 +3106,13 @@ class Enemy {
       if (this.type === 'bomber') {
         this.beginDeath();
         SoundManager.bomber();
-        player.bomberHit();
+        player.bomberHit(game);
         game.spawnExplosion(this.x, this.y);
         game._onEnemyKilled(this);
         return;
       }
       if (this.type === 'priest') return;
-      player.takeDamage(this.damage);
+      player.takeDamage(this.damage, game);
       this.contactCD = 0.6;
       if (this.type === 'wolf') {
         player.applySlow(0.45, 0.5);
@@ -2909,7 +3187,7 @@ class Enemy {
           if (this.grabCD <= 0) {
             this.grabCD = 2.2;
             SoundManager.ufoPull();
-            player.takeDamage(this.damage);
+            player.takeDamage(this.damage, game);
             player.applySlow(0.55, 0.6);
           }
         }
@@ -3327,6 +3605,45 @@ class Enemy {
         ctx.fill();
         ctx.restore();
       }
+
+      // Solid freeze: light-blue ice sheet over the enemy
+      if (!this.dying && this.frozenT > 0) {
+        ctx.save();
+        ctx.translate(s.x, s.y + bob);
+        if (this.type !== 'ufo' && this.type !== 'slime') ctx.scale(this.facing, 1);
+        const hw = w * 0.5;
+        const hh = h * 0.5;
+        const frost = ctx.createRadialGradient(0, 0, 2, 0, 0, Math.max(hw, hh) * 1.05);
+        frost.addColorStop(0, 'rgba(220, 245, 255, 0.72)');
+        frost.addColorStop(0.55, 'rgba(150, 215, 255, 0.45)');
+        frost.addColorStop(1, 'rgba(120, 200, 255, 0)');
+        ctx.fillStyle = frost;
+        ctx.beginPath();
+        ctx.ellipse(0, 0, hw * 0.95, hh * 0.98, 0, 0, Math.PI * 2);
+        ctx.fill();
+        // Foreground ice crystals
+        ctx.fillStyle = 'rgba(190, 235, 255, 0.7)';
+        ctx.strokeStyle = 'rgba(230, 250, 255, 0.95)';
+        ctx.lineWidth = 1.4;
+        const shards = [
+          [-hw * 0.35, -hh * 0.45, 7],
+          [hw * 0.28, -hh * 0.32, 6],
+          [-hw * 0.1, hh * 0.05, 8],
+          [hw * 0.32, hh * 0.22, 5],
+          [-hw * 0.4, hh * 0.15, 5]
+        ];
+        for (const [sx, sy, sz] of shards) {
+          ctx.beginPath();
+          ctx.moveTo(sx, sy - sz);
+          ctx.lineTo(sx + sz * 0.55, sy);
+          ctx.lineTo(sx, sy + sz * 0.75);
+          ctx.lineTo(sx - sz * 0.55, sy);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
     }
 
     if (!this.dying && this.type === 'ufo' && this.beamOn) {
@@ -3399,6 +3716,9 @@ class ChickenLeg {
     if (dx * dx + dy * dy < this.radius * this.radius) {
       this.collected = true;
       this.active = false;
+      if (typeof MetaProgression !== 'undefined') {
+        MetaProgression.discover('items', 'chickenLeg');
+      }
       const healed = player.healPercent(0.05);
       game.spawnHealParticles(this.x, this.y);
       if (healed > 0) {
@@ -3451,12 +3771,18 @@ class Chest {
     if (dx * dx + dy * dy < this.radius * this.radius) {
       this.opened = true;
       this.active = false;
+      if (typeof MetaProgression !== 'undefined') {
+        MetaProgression.discover('items', this.tier);
+      }
       const rewards = { common: 5, rare: 15, epic: 50 };
       const amount = game.addCurrency(rewards[this.tier]);
       game.spawnGoldCoins(this.x, this.y, amount);
       game.spawnChestParticles(this.x, this.y, this.tier);
       SoundManager.chest(this.tier);
       game.ui.toast(I18n.t('chestGold', Math.floor(amount), I18n.chestTierLabel(this.tier)), this.tier === 'epic' ? 'epic' : this.tier === 'rare' ? 'rare' : '');
+      // Better chests are worth several extra upgrade picks
+      const rolls = { common: 1, rare: 3, epic: 5 };
+      if (game.upgrades) game.upgrades.enqueue(rolls[this.tier] || 1);
     }
   }
   draw(ctx, cam) {
@@ -3479,44 +3805,55 @@ class Chest {
    PLAYER
    ============================================================ */
 class Player {
+  /* Every stat derives from these bases plus additive upgrade fractions. */
+  static BASE = {
+    moveSpeed: 140,
+    maxHealth: 100,
+    attack: 8,
+    attackSpeed: 1.0,
+    bulletSpeed: 280,
+    critChance: 0.05,
+    critDamage: 1.5,
+    expMultiplier: 1
+  };
+
   constructor(sprites) {
     this.sprite = sprites.player;
     this.x = 0; this.y = 0;
     this.radius = 14;
+    this.stats = {};
     this.reset();
+  }
+
+  static emptyStatAdd() {
+    return {
+      moveSpeed: 0,
+      maxHealth: 0,
+      attack: 0,
+      attackSpeed: 0,
+      bulletSpeed: 0,
+      critChance: 0,
+      critDamageBonus: 0,
+      expMultiplier: 0,
+      luck: 0
+    };
   }
 
   reset() {
     this.x = 0; this.y = 0;
     this.alive = true;
-    this.currency = 8000;
+    // Gold earned this run only; it is banked to MetaProgression when the run ends
+    this.currency = 0;
     this.experience = 0;
     this.level = 1;
-    this.xpToNext = 20;
+    this.xpToNext = Player.xpToNextFor(1);
 
-    this.stats = {
-      moveSpeed: 140,
-      maxHealth: 100,
-      maxShield: 30,
-      attack: 8,
-      attackSpeed: 1.0,
-      bulletCount: 1,
-      bulletSpeed: 280,
-      critChance: 0.05,
-      critDamage: 1.5,
-      energyRegen: 10,
-      shieldRegen: 2,
-      expMultiplier: 1,
-      luck: 0
-    };
+    this.statAdd = Player.emptyStatAdd();
+    this.selectedStatIds = [];
+    this.bulletCount = 1;
+    this._recomputeStats();
 
     this.health = this.stats.maxHealth;
-    this.shield = this.stats.maxShield;
-    this.energy = 1000;
-    this.maxEnergy = 1000;
-    this.fireCD = 0;
-    this.shieldRegenDelay = 0;
-    this.ultCD = 0;
     this.hurtFlash = 0;
     this.facing = 1;
     this.anim = 0;
@@ -3528,20 +3865,44 @@ class Player {
     this.invulnerable = false;
   }
 
+  _recomputeStats() {
+    const B = Player.BASE;
+    const a = this.statAdd;
+    const m = (typeof MetaProgression !== 'undefined') ? MetaProgression.bonuses() : {
+      moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
+      bulletCount: 0, critChance: 0, critDamageBonus: 0, expMultiplier: 0, luck: 0
+    };
+    const s = this.stats;
+    s.moveSpeed = B.moveSpeed * (1 + a.moveSpeed + m.moveSpeed);
+    s.maxHealth = B.maxHealth * (1 + a.maxHealth + m.maxHealth);
+    s.attack = B.attack * (1 + a.attack + m.attack);
+    s.attackSpeed = B.attackSpeed * (1 + a.attackSpeed + m.attackSpeed);
+    s.bulletSpeed = B.bulletSpeed * (1 + a.bulletSpeed);
+    s.critChance = Math.min(1, B.critChance + a.critChance + m.critChance);
+    s.critDamage = B.critDamage + a.critDamageBonus + m.critDamageBonus;
+    s.expMultiplier = B.expMultiplier * (1 + a.expMultiplier + m.expMultiplier);
+    s.luck = a.luck + m.luck;
+    s.bulletCount = this.bulletCount + m.bulletCount;
+    if (this.health > s.maxHealth) this.health = s.maxHealth;
+  }
+
+  /* Luck is a plain fraction: 0.15 means +15% gold and drop weighting. */
+  get luckMult() {
+    return 1 + this.stats.luck;
+  }
+
   toSaveData() {
     return {
       x: this.x,
       y: this.y,
       alive: this.alive,
-      currency: this.currency,
       experience: this.experience,
       level: this.level,
       xpToNext: this.xpToNext,
-      stats: { ...this.stats },
+      statAdd: { ...this.statAdd },
+      selectedStatIds: this.selectedStatIds.slice(),
+      bulletCount: this.bulletCount,
       health: this.health,
-      shield: this.shield,
-      energy: this.energy,
-      maxEnergy: this.maxEnergy,
       facing: this.facing
     };
   }
@@ -3550,19 +3911,16 @@ class Player {
     this.x = data.x ?? 0;
     this.y = data.y ?? 0;
     this.alive = data.alive ?? true;
-    this.currency = data.currency ?? 16000;
+    this.currency = data.currency ?? 0;
     this.experience = data.experience ?? 0;
     this.level = data.level ?? 1;
-    this.xpToNext = data.xpToNext ?? 20;
-    this.stats = { ...this.stats, ...data.stats };
-    this.maxEnergy = data.maxEnergy ?? 1000;
+    this.xpToNext = data.xpToNext ?? Player.xpToNextFor(this.level);
+    this.statAdd = { ...Player.emptyStatAdd(), ...(data.statAdd || {}) };
+    this.selectedStatIds = Array.isArray(data.selectedStatIds) ? data.selectedStatIds.slice() : [];
+    this.bulletCount = data.bulletCount ?? 1;
+    this._recomputeStats();
     this.health = data.health ?? this.stats.maxHealth;
-    this.shield = data.shield ?? this.stats.maxShield;
-    this.energy = data.energy ?? this.maxEnergy;
     this.facing = data.facing ?? 1;
-    this.fireCD = 0;
-    this.shieldRegenDelay = 0;
-    this.ultCD = 0;
     this.hurtFlash = 0;
     this.anim = 0;
     this.slowTimer = 0;
@@ -3577,10 +3935,6 @@ class Player {
     this.x = 0;
     this.y = 0;
     this.health = this.stats.maxHealth;
-    this.shield = this.stats.maxShield;
-    this.fireCD = 0;
-    this.shieldRegenDelay = 0;
-    this.ultCD = 0;
     this.hurtFlash = 0;
     this.slowTimer = 0;
     this.slowFactor = 1;
@@ -3594,31 +3948,57 @@ class Player {
     return Math.sqrt(this.experience) * 0.4 + this.level * 0.3;
   }
 
-  addCurrency(amount) {
+  /* Early levels need far less XP so the first weapon/stat picks arrive quickly;
+     mid/late curve stays close to the original quadratic ramp. */
+  static xpToNextFor(level) {
+    if (level <= 5) return Math.floor(6 + level * 4);       // ~10–26
+    if (level <= 12) return Math.floor(12 + level * 8);     // ~60–108
+    return Math.floor(20 + level * 15 + level * level * 0.5);
+  }
+
+  addCurrency(amount, game) {
     // Luck multiplies gold from kills, chests, and other pickups
-    const gained = amount * (1 + this.stats.luck * 0.02);
+    const gained = amount * this.luckMult;
     this.currency += gained;
-    const xpGain = gained * this.stats.expMultiplier;
+    // Extra XP weight while still early so gold from trash mobs levels you faster
+    const earlyBoost = this.level <= 8 ? (1.6 - (this.level - 1) * 0.07) : 1;
+    const xpGain = gained * this.stats.expMultiplier * earlyBoost;
     this.experience += xpGain;
+    let levels = 0;
     while (this.experience >= this.xpToNext) {
       this.experience -= this.xpToNext;
       this.level++;
-      this.xpToNext = Math.floor(20 + this.level * 15 + this.level * this.level * 0.5);
+      this.xpToNext = Player.xpToNextFor(this.level);
+      levels++;
+    }
+    if (levels > 0 && game && game.upgrades) {
+      if (typeof SoundManager !== 'undefined') SoundManager.levelUp();
+      game.upgrades.enqueue(levels);
     }
     return gained;
   }
 
-  takeDamage(amount) {
+  takeDamage(amount, game) {
     if (!this.alive || this.invulnerable) return;
     this.hurtFlash = 0.15;
-    if (this.shield > 0) {
-      const absorbed = Math.min(this.shield, amount);
-      this.shield -= absorbed;
-      amount -= absorbed;
-      if (absorbed > 0) this.shieldFlash = 0.1;
+    let dmg = amount;
+
+    const weapons = game ? game.weapons : null;
+    if (weapons) {
+      // Garlic Aura path B soaks a slice of every hit before shields
+      const garlic = weapons.get('garlicAura');
+      if (garlic && garlic.mods.auraDr && garlic.state.dr > 0) {
+        dmg *= 1 - Math.min(0.35, garlic.state.dr);
+      }
+      const absorbed = weapons.absorbShield(dmg);
+      if (absorbed > 0) {
+        dmg -= absorbed;
+        this.shieldFlash = 0.1;
+      }
     }
-    if (amount > 0) {
-      this.health -= amount;
+
+    if (dmg > 0) {
+      this.health -= dmg;
       this.hpFlash = 0.12;
       SoundManager.hurt();
       if (this.health <= 0) {
@@ -3626,9 +4006,6 @@ class Player {
         this.alive = false;
       }
     }
-    // Fully broken shield only starts regenerating after 3s without damage
-    if (this.shield <= 0) this.shieldRegenDelay = 3;
-    else this.shieldRegenDelay = 0;
   }
 
   applySlow(factor, duration) {
@@ -3643,16 +4020,19 @@ class Player {
     return this.health - before;
   }
 
-  bomberHit() {
+  /* A bomber eats the whole shield pool, or kills outright when unshielded.
+     The drain amount stays finite so absorbShield can subtract it safely. */
+  bomberHit(game) {
     if (!this.alive || this.invulnerable) return;
     this.hurtFlash = 0.2;
-    if (this.shield > 0) {
-      this.shield = 0;
-      this.shieldRegenDelay = 3;
-    } else {
-      this.health = 0;
-      this.alive = false;
+    const weapons = game ? game.weapons : null;
+    const absorbed = weapons ? weapons.absorbShield(1e9) : 0;
+    if (absorbed > 0) {
+      this.shieldFlash = 0.15;
+      return;
     }
+    this.health = 0;
+    this.alive = false;
   }
 
   update(dt, input, game) {
@@ -3682,67 +4062,10 @@ class Player {
       if (mx !== 0) this.facing = mx > 0 ? 1 : -1;
     }
 
-    // Shield regen
-    if (this.shieldRegenDelay > 0) {
-      this.shieldRegenDelay -= dt;
-    } else if (this.shield < this.stats.maxShield) {
-      this.shield = Math.min(this.stats.maxShield, this.shield + this.stats.shieldRegen * dt);
-    }
-
-    // Energy regen
-    if (this.stats.energyRegen > 0 && this.energy < this.maxEnergy) {
-      this.energy = Math.min(this.maxEnergy, this.energy + this.stats.energyRegen * dt);
-    }
-
-    if (this.ultCD > 0) this.ultCD -= dt;
     if (this.hurtFlash > 0) this.hurtFlash -= dt;
-    if (this.fireCD > 0) this.fireCD -= dt;
 
-    // Auto shoot
-    if (this.fireCD <= 0) {
-      if (game.autoaim || MobileControls.isMobile) {
-        const target = game.findNearestEnemy(this.x, this.y, 500);
-        if (target) {
-          this.fireCD = 1 / this.stats.attackSpeed;
-          this._shoot(target, game);
-        }
-      } else {
-        this.fireCD = 1 / this.stats.attackSpeed;
-        this._shoot(game.getAimPoint(), game);
-      }
-    }
-
-    // Ultimate
-    if (input.ult && this.energy >= this.maxEnergy && this.ultCD <= 0) {
-      input.ult = false;
-      this.energy = 0;
-      this.ultCD = 3;
-      game.activateUltimate();
-    }
-  }
-
-  _shoot(target, game) {
-    const dx = target.x - this.x;
-    const dy = target.y - this.y;
-    const dist = Math.sqrt(dx * dx + dy * dy) || 1;
-    const baseAngle = Math.atan2(dy, dx);
-    const count = Math.floor(this.stats.bulletCount);
-    const spread = count > 1 ? 0.15 * (count - 1) : 0;
-    let anyCrit = false;
-
-    for (let i = 0; i < count; i++) {
-      const angle = baseAngle - spread * 0.5 + (count > 1 ? (spread / (count - 1)) * i : 0);
-      const spd = 140 + this.stats.bulletSpeed * 0.5;
-      const isCrit = Math.random() < this.stats.critChance;
-      if (isCrit) anyCrit = true;
-      const dmg = this.stats.attack * (isCrit ? this.stats.critDamage : 1);
-      game.spawnPlayerProjectile(
-        this.x, this.y,
-        Math.cos(angle) * spd, Math.sin(angle) * spd,
-        dmg, isCrit
-      );
-    }
-    SoundManager.shoot(anyCrit);
+    // Weapons fire themselves on their own reload timers
+    if (game.weapons) game.weapons.update(dt, game);
   }
 
   draw(ctx, cam) {
@@ -3813,465 +4136,6 @@ class FloatingText {
     ctx.fillStyle = this.color;
     ctx.fillText(this.text, s.x, s.y);
     ctx.restore();
-  }
-}
-
-/* ============================================================
-   GACHA SYSTEM
-   ============================================================ */
-class GachaSystem {
-  constructor() {
-    this.cost = 160;
-    this.pool = [
-      { key: 'moveSpeed',     short: 'SPD', weight: 18, amount: 8,    rarity: 'common' },
-      { key: 'maxHealth',     short: 'HP',  weight: 16, amount: 15,   rarity: 'common' },
-      { key: 'maxShield',     short: 'SHD', weight: 14, amount: 10,   rarity: 'common' },
-      { key: 'attack',        short: 'ATK', weight: 16, amount: 2,    rarity: 'common' },
-      { key: 'attackSpeed',   short: 'ASP', weight: 12, amount: 0.08, rarity: 'common' },
-      { key: 'bulletSpeed',   short: 'BSP', weight: 12, amount: 10,   rarity: 'common' },
-      { key: 'shieldRegen',   short: 'SRG', weight: 10, amount: 0.5,  rarity: 'rare' },
-      { key: 'critChance',    short: 'CRT', weight: 8,  amount: 0.03, rarity: 'rare' },
-      { key: 'critDamage',    short: 'CDM', weight: 7,  amount: 0.15, rarity: 'rare' },
-      { key: 'bulletCount',   short: 'BLT', weight: 5,  amount: 1,    rarity: 'epic' },
-      { key: 'expMultiplier', short: 'EXP', weight: 6,  amount: 0.1,  rarity: 'rare' },
-      { key: 'luck',          short: 'LCK', weight: 8,  amount: 1,    rarity: 'rare' },
-      { key: 'energyRegen',   short: 'ERG', weight: 2,  amount: 8,    rarity: 'legendary' }
-    ];
-
-    this.rarityColors = {
-      common:    { fill: '#2a6a3a', stroke: '#7dff9a', text: '#e8ffe8' },
-      rare:      { fill: '#1a4a7a', stroke: '#66aaff', text: '#d0e8ff' },
-      epic:      { fill: '#4a1a7a', stroke: '#cc66ff', text: '#f0d0ff' },
-      legendary: { fill: '#5a4a0a', stroke: '#ffd700', text: '#fff8c0' }
-    };
-
-    this.active = false;
-    this.phase = 'closed'; // closed | ready | spinning | result
-    this.rotation = 0;
-    this.spinStart = 0;
-    this.spinTarget = 0;
-    this.spinTime = 0;
-    this.spinDuration = 5;
-    this.result = null;
-    this.resultIndex = 0;
-    this.pendingPlayer = null;
-    this.autoGacha = false;
-    this.autoCooldown = 0;
-    this.autoInterval = 0.12;
-    this.spinTick = 0;
-
-    this.overlay = document.getElementById('gachaOverlay');
-    this.wheelCanvas = document.getElementById('gachaWheel');
-    this.wheelCtx = this.wheelCanvas.getContext('2d');
-    this.statusEl = document.getElementById('gachaStatus');
-    this.goldEl = document.getElementById('gachaGold');
-    this.resultEl = document.getElementById('gachaResult');
-    this.resultRarityEl = document.getElementById('gachaResultRarity');
-    this.resultNameEl = document.getElementById('gachaResultName');
-    this.resultBonusEl = document.getElementById('gachaResultBonus');
-    this.hintsEl = document.getElementById('gachaHints');
-    this.spinBtn = document.getElementById('gachaSpinBtn');
-    this.confirmBtn = document.getElementById('gachaConfirmBtn');
-    this.spinAgainBtn = document.getElementById('gachaSpinAgainBtn');
-    this.exitBtn = document.getElementById('gachaExitBtn');
-    this.autoGachaToggle = document.getElementById('autoGachaToggle');
-    this.autoGachaLabel = document.getElementById('autoGachaLabel');
-
-    this.spinBtn.onclick = () => this.spinAgain(this._game);
-    this.confirmBtn.onclick = () => this.confirm(this._game);
-    this.spinAgainBtn.onclick = () => this.spinAgain(this._game);
-    this.exitBtn.onclick = () => this.exit(this._game);
-    this.autoGachaToggle.onchange = () => this.setAutoGacha(this.autoGachaToggle.checked);
-
-    this._drawWheel();
-  }
-
-  setAutoGacha(enabled) {
-    this.autoGacha = enabled;
-    this.autoGachaToggle.checked = enabled;
-    this.autoGachaLabel.classList.toggle('active', enabled);
-    if (enabled) this.autoCooldown = 0;
-  }
-
-  _syncAutoToggle() {
-    this.autoGachaToggle.checked = this.autoGacha;
-    this.autoGachaLabel.classList.toggle('active', this.autoGacha);
-  }
-
-  bindGame(game) {
-    this._game = game;
-  }
-
-  isOpen() {
-    return this.active;
-  }
-
-  tryOpen(game) {
-    if (this.active) return;
-    this.active = true;
-    this.phase = 'ready';
-    game.ui.setControlsVisible(false);
-    this.overlay.classList.remove('hidden');
-    this.resultEl.classList.add('hidden');
-    this.confirmBtn.classList.add('hidden');
-    this.spinAgainBtn.classList.add('hidden');
-    this.exitBtn.classList.remove('hidden');
-    this._syncAutoToggle();
-    this._updateGold(game.player);
-    this._drawWheel();
-
-    if (game.player.currency >= this.cost) {
-      this.startSpin(game);
-    } else {
-      this._setStatus(I18n.t('needGoldSpin', this.cost, Math.floor(game.player.currency)));
-      this.spinBtn.classList.add('hidden');
-      this.hintsEl.innerHTML = I18n.hintHtml('hintDefeatGold');
-    }
-  }
-
-  handleSpace(game) {
-    if (!this.active) return;
-    if (this.phase === 'spinning') {
-      this.completeSpin(game);
-    } else if (this.phase === 'result') {
-      this.spinAgain(game);
-    } else if (this.phase === 'ready') {
-      if (game.player.currency >= this.cost) this.startSpin(game);
-    }
-  }
-
-  startSpin(game) {
-    if (game.player.currency < this.cost) {
-      this.phase = 'ready';
-      this._updateGold(game.player);
-      this._setStatus(I18n.t('needGoldSpin', this.cost, Math.floor(game.player.currency)));
-      this.spinBtn.classList.add('hidden');
-      return;
-    }
-
-    game.player.currency -= this.cost;
-    this.pendingPlayer = game.player;
-    this.result = this._pickReward();
-    this.resultIndex = this.pool.indexOf(this.result);
-    this.phase = 'spinning';
-    this.spinTime = 0;
-    this.spinTick = 0;
-    this.spinStart = this.rotation;
-    this.spinTarget = this._rotationForIndex(this.resultIndex, this.rotation);
-
-    this.resultEl.classList.add('hidden');
-    this.confirmBtn.classList.add('hidden');
-    this.spinBtn.classList.add('hidden');
-    this.spinAgainBtn.classList.add('hidden');
-    this.exitBtn.classList.remove('hidden');
-    this._setStatus(I18n.t('spinning'));
-    this.hintsEl.innerHTML = I18n.hintHtml('hintSkipSpin');
-    this._updateGold(game.player);
-    this._drawWheel();
-  }
-
-  spinAgain(game) {
-    if (this.phase === 'spinning') return;
-    if (game.player.currency < this.cost) {
-      this._setStatus(I18n.t('needGoldMore', this.cost - Math.floor(game.player.currency)));
-      return;
-    }
-    this.startSpin(game);
-  }
-
-  completeSpin(game) {
-    if (this.phase !== 'spinning') return;
-    this.rotation = this.spinTarget;
-    this.spinTime = this.spinDuration;
-    this._finishSpin(game);
-  }
-
-  confirm(game) {
-    if (this.phase !== 'result') return;
-    this.close(game);
-  }
-
-  exit(game) {
-    if (this.phase === 'spinning') {
-      this.completeSpin(game);
-      return;
-    }
-    this.close(game);
-  }
-
-  close(game) {
-    this.active = false;
-    this.phase = 'closed';
-    this.result = null;
-    this.pendingPlayer = null;
-    this.overlay.classList.add('hidden');
-    this.resultEl.classList.add('hidden');
-    this.confirmBtn.classList.add('hidden');
-    this.spinBtn.classList.add('hidden');
-    this.spinAgainBtn.classList.add('hidden');
-    this.exitBtn.classList.add('hidden');
-    if (game && game.state === 'playing') game.ui.setControlsVisible(true);
-    if (this.autoGacha) this.autoCooldown = 0;
-  }
-
-  update(dt, game) {
-    this._updateAuto(dt, game);
-    if (!this.active || this.phase !== 'spinning') return;
-
-    this.spinTime += dt;
-    this.spinTick += dt;
-    if (this.spinTick >= 0.18) {
-      this.spinTick = 0;
-      SoundManager.gachaTick();
-    }
-    const t = Math.min(1, this.spinTime / this.spinDuration);
-    const ease = 1 - Math.pow(1 - t, 4);
-    this.rotation = this.spinStart + (this.spinTarget - this.spinStart) * ease;
-    this._drawWheel();
-
-    if (t >= 1) this._finishSpin(game);
-  }
-
-  _finishSpin(game) {
-    if (this.phase !== 'spinning') return;
-    this.rotation = this.spinTarget;
-    this.phase = 'result';
-    this._applyResult(this.pendingPlayer);
-    if (this.result) SoundManager.gachaResult(this.result.rarity);
-    this._showResult(game);
-    this._drawWheel();
-  }
-
-  _pickReward() {
-    let total = 0;
-    for (const e of this.pool) total += e.weight;
-    let r = Math.random() * total;
-    for (const e of this.pool) {
-      r -= e.weight;
-      if (r <= 0) return e;
-    }
-    return this.pool[0];
-  }
-
-  _rotationForIndex(index, fromRotation) {
-    const n = this.pool.length;
-    const seg = (Math.PI * 2) / n;
-    const desired = -index * seg - seg / 2;
-    const mod = ((fromRotation % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
-    let delta = desired - mod;
-    const minSpins = 5 + Math.floor(Math.random() * 3);
-    while (delta < minSpins * Math.PI * 2) delta += Math.PI * 2;
-    return fromRotation + delta;
-  }
-
-  _formatAmount(entry) {
-    if (entry.key === 'critChance') return `+${(entry.amount * 100).toFixed(0)}%`;
-    if (entry.key === 'attackSpeed' || entry.key === 'expMultiplier' || entry.key === 'critDamage') {
-      return `+${entry.amount.toFixed(2)}`;
-    }
-    if (entry.key === 'shieldRegen') return `+${entry.amount.toFixed(1)}`;
-    return `+${entry.amount}`;
-  }
-
-  _applyResult(player) {
-    if (!player || !this.result) return;
-    this._applyPick(player, this.result);
-  }
-
-  _applyPick(player, pick) {
-    const s = player.stats;
-    s[pick.key] += pick.amount;
-    if (pick.key === 'maxHealth') {
-      player.health = Math.min(s.maxHealth, player.health + pick.amount);
-    }
-    if (pick.key === 'maxShield') {
-      player.shield = Math.min(s.maxShield, player.shield + pick.amount);
-    }
-  }
-
-  _formatLabel(pick) {
-    return `${this._formatAmount(pick)} ${I18n.statName(pick.key)}`;
-  }
-
-  _rollAuto(game) {
-    const player = game.player;
-    if (player.currency < this.cost) return false;
-    player.currency -= this.cost;
-    const pick = this._pickReward();
-    this._applyPick(player, pick);
-    game.spawnFloatingText(player.x, player.y, this._formatLabel(pick));
-    return true;
-  }
-
-  _updateAuto(dt, game) {
-    if (!this.autoGacha || this.active) return;
-    if (!game || game.state !== 'playing' || !game.player.alive) return;
-
-    this.autoCooldown -= dt;
-    if (this.autoCooldown > 0) return;
-    if (game.player.currency < this.cost) return;
-
-    const excess = game.player.currency / this.cost;
-    const rollsMax = Math.min(8, 1 + Math.floor(excess / 10));
-    let rolls = 0;
-    while (game.player.currency >= this.cost && rolls < rollsMax) {
-      if (!this._rollAuto(game)) break;
-      rolls++;
-    }
-
-    const speedMult = Math.min(6, Math.sqrt(excess));
-    this.autoCooldown = Math.max(0.05, this.autoInterval / speedMult);
-  }
-
-  _showResult(game) {
-    const pick = this.result;
-    const display = this._formatAmount(pick);
-    const rarityLabel = I18n.rarityLabel(pick.rarity);
-
-    this.resultEl.className = 'gacha-result rarity-' + pick.rarity;
-    this.resultRarityEl.className = 'gacha-result-rarity ' + pick.rarity;
-    this.resultRarityEl.textContent = rarityLabel;
-    this.resultNameEl.textContent = I18n.statName(pick.key);
-    this.resultBonusEl.textContent = display;
-    this.resultEl.classList.remove('hidden');
-
-    this.confirmBtn.classList.remove('hidden');
-    this.exitBtn.classList.remove('hidden');
-    this.spinBtn.classList.add('hidden');
-    if (game.player.currency >= this.cost) {
-      this.spinAgainBtn.classList.remove('hidden');
-      this.spinAgainBtn.textContent = I18n.t('spinAgain');
-      this._setStatus(I18n.t('bonusSpinAgain'));
-      this.hintsEl.innerHTML = I18n.hintHtml('hintSpinAgain');
-    } else {
-      this.spinAgainBtn.classList.add('hidden');
-      this._setStatus(I18n.t('bonusConfirm'));
-      this.hintsEl.innerHTML = I18n.hintHtml('hintConfirmExit');
-    }
-    this._updateGold(game.player);
-  }
-
-  _updateGold(player) {
-    this.goldEl.textContent = I18n.t('gold', Math.floor(player.currency));
-  }
-
-  refreshLocale() {
-    if (!this._game) return;
-    I18n.applyDom();
-    if (this.active && this._game.player) {
-      this._updateGold(this._game.player);
-      if (this.phase === 'ready') {
-        this._setStatus(I18n.t('needGoldSpin', this.cost, Math.floor(this._game.player.currency)));
-        this.hintsEl.innerHTML = I18n.hintHtml('hintDefeatGold');
-      } else if (this.phase === 'spinning') {
-        this._setStatus(I18n.t('spinning'));
-        this.hintsEl.innerHTML = I18n.hintHtml('hintSkipSpin');
-      } else if (this.phase === 'result' && this.result) {
-        this._showResult(this._game);
-      }
-    }
-    this._drawWheel();
-  }
-
-  _setStatus(text) {
-    this.statusEl.textContent = text;
-  }
-
-  _drawWheel() {
-    const ctx = this.wheelCtx;
-    const size = this.wheelCanvas.width;
-    const cx = size / 2;
-    const cy = size / 2;
-    const radius = size / 2 - 8;
-    const n = this.pool.length;
-    const seg = (Math.PI * 2) / n;
-
-    ctx.clearRect(0, 0, size, size);
-
-    // Background disc
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
-    ctx.fillStyle = '#0d2014';
-    ctx.fill();
-
-    // Outer ring glow while spinning
-    if (this.phase === 'spinning') {
-      ctx.save();
-      ctx.beginPath();
-      ctx.arc(cx, cy, radius + 6, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255,215,0,${0.3 + Math.sin(this.spinTime * 12) * 0.15})`;
-      ctx.lineWidth = 4;
-      ctx.stroke();
-      ctx.restore();
-    }
-
-    ctx.save();
-    ctx.translate(cx, cy);
-    ctx.rotate(this.rotation);
-
-    for (let i = 0; i < n; i++) {
-      const start = i * seg - Math.PI / 2;
-      const end = start + seg;
-      const item = this.pool[i];
-      const colors = this.rarityColors[item.rarity];
-
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.arc(0, 0, radius, start, end);
-      ctx.closePath();
-      ctx.fillStyle = colors.fill;
-      ctx.fill();
-      ctx.strokeStyle = colors.stroke;
-      ctx.lineWidth = 2;
-      ctx.stroke();
-
-      ctx.save();
-      ctx.rotate(start + seg / 2);
-      ctx.textAlign = 'right';
-      ctx.fillStyle = colors.text;
-      ctx.font = 'bold 13px "Courier New", monospace';
-      ctx.fillText(item.short, radius - 14, 5);
-      ctx.font = '9px "Courier New", monospace';
-      ctx.fillStyle = 'rgba(255,255,255,0.65)';
-      ctx.fillText(this._formatAmount(item), radius - 14, 18);
-      ctx.restore();
-    }
-
-    // Center hub
-    const hubGrad = ctx.createRadialGradient(0, 0, 0, 0, 0, 36);
-    hubGrad.addColorStop(0, '#ffd700');
-    hubGrad.addColorStop(1, '#8b6914');
-    ctx.beginPath();
-    ctx.arc(0, 0, 36, 0, Math.PI * 2);
-    ctx.fillStyle = hubGrad;
-    ctx.fill();
-    ctx.strokeStyle = '#fff';
-    ctx.lineWidth = 3;
-    ctx.stroke();
-    ctx.fillStyle = '#1a2a1a';
-    ctx.font = 'bold 11px "Courier New", monospace';
-    ctx.textAlign = 'center';
-    ctx.fillText(I18n.t('gachaHub'), 0, 4);
-
-    ctx.restore();
-
-    // Highlight winning segment on result
-    if (this.phase === 'result') {
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(this.rotation);
-      const winStart = this.resultIndex * seg - Math.PI / 2;
-      ctx.beginPath();
-      ctx.moveTo(0, 0);
-      ctx.arc(0, 0, radius + 4, winStart, winStart + seg);
-      ctx.closePath();
-      ctx.strokeStyle = '#ffd700';
-      ctx.lineWidth = 4;
-      ctx.shadowColor = '#ffd700';
-      ctx.shadowBlur = 12;
-      ctx.stroke();
-      ctx.restore();
-    }
   }
 }
 
@@ -4383,12 +4247,14 @@ class WaveManager {
   /* Every field item now comes off a corpse. */
   rollKillDrops(game, x, y, enemy) {
     const luck = game.player.stats.luck;
+    const luckMult = game.player.luckMult;
     const bossBonus = enemy.type === 'dragon' ? 40 : enemy.type === 'ufo' ? 8 : 1;
-    const chestChance = Math.min(0.35, (0.045 + luck * 0.0018) * bossBonus);
+    // Chests now hand out upgrade picks, so they must stay genuinely rare
+    const chestChance = Math.min(0.06, 0.008 * luckMult * bossBonus);
     if (Math.random() < chestChance && game.chestPool.countActive() < 14) {
       this._dropChest(game, x, y, luck);
     }
-    const legChance = Math.min(0.12, (0.006 + luck * 0.0006) * bossBonus);
+    const legChance = Math.min(0.12, (0.006 + luck * 0.06) * bossBonus);
     if (Math.random() < legChance && game.chickenLegPool.countActive() < 4) {
       const item = game.chickenLegPool.acquire();
       item.spawn(x + (Math.random() - 0.5) * 24, y + (Math.random() - 0.5) * 24, game.sprites.chickenLeg);
@@ -4396,10 +4262,11 @@ class WaveManager {
   }
 
   _dropChest(game, x, y, luck) {
-    const roll = Math.random() + luck * 0.02;
+    // Roughly 80 / 16 / 4 split, nudged toward the good tiers by Luck
+    const roll = Math.random() + luck * 0.2;
     let tier = 'common';
-    if (roll > 0.92) tier = 'epic';
-    else if (roll > 0.7) tier = 'rare';
+    if (roll > 0.96) tier = 'epic';
+    else if (roll > 0.8) tier = 'rare';
 
     const c = game.chestPool.acquire();
     c.spawn(x + (Math.random() - 0.5) * 20, y + (Math.random() - 0.5) * 20, tier, {
@@ -4444,15 +4311,13 @@ class UI {
     }
   }
 
-  update(dt, player, gachaCost, autoGacha) {
+  update(dt, player) {
     if (this.toastTimer > 0) {
       this.toastTimer -= dt;
       if (this.toastTimer <= 0) this.toastEl.className = '';
     }
     if (this.goldPulse > 0) this.goldPulse -= dt;
-    if (player) {
-      MobileControls.updateHud(player, gachaCost, autoGacha);
-    }
+    if (player) MobileControls.updateHud(player);
   }
 
   /* HUD is drawn ~3x the old size, shrinking only on short viewports. */
@@ -4466,21 +4331,37 @@ class UI {
     ctx.drawImage(spr, x, y, size, size);
   }
 
-  draw(ctx, player, cam, enemyCount, gachaCost) {
+  draw(ctx, player, cam, enemyCount, game) {
     const S = this.hudScale(cam);
     const pad = 12 * S;
     const s = player.stats;
-    const font = `${Math.round(11 * S)}px "Courier New", monospace`;
-    const iconSize = Math.round(10 * S);
-    const textX = pad + iconSize + 5 * S;
+    const weapons = game ? game.weapons : null;
 
     ctx.save();
     ctx.textBaseline = 'middle';
     ctx.textAlign = 'left';
 
-    // Top-left: gold
-    const goldY = pad + 8 * S;
+    // Top-left: one slot per weapon, each with its own reload sweep
+    const slot = Math.round(19 * S);
+    const gap = Math.round(4 * S);
+    const weaponsY = pad;
+    for (let i = 0; i < 5; i++) {
+      const x = pad + i * (slot + gap);
+      const w = weapons && weapons.slots[i] ? weapons.slots[i] : null;
+      this._weaponSlot(ctx, x, weaponsY, slot, w, weapons, S);
+    }
+
+    // Below them: the (max 5) stats this run has committed to
+    const statsY = weaponsY + slot + gap;
+    for (let i = 0; i < 5; i++) {
+      const x = pad + i * (slot + gap);
+      const statId = player.selectedStatIds[i];
+      this._statSlot(ctx, x, statsY, slot, statId, player, S);
+    }
+
+    // Gold sits under both slot rows
     const goldIcon = Math.round(13 * S);
+    const goldY = statsY + slot + gap + goldIcon * 0.5;
     this.goldTarget.x = pad + goldIcon * 0.5;
     this.goldTarget.y = goldY;
 
@@ -4496,34 +4377,17 @@ class UI {
       ctx.shadowBlur = 8 + this.goldPulse * 40;
     }
     ctx.fillStyle = '#ffd700';
-    ctx.fillText(`${Math.floor(player.currency)}`, pad + goldIcon + 5 * S, goldY);
+    // Same total as the main menu: banked account gold + any not-yet-banked run earnings
+    const banked = game ? (game._bankedRunGold || 0) : 0;
+    const meta = (typeof MetaProgression !== 'undefined') ? MetaProgression.gold : 0;
+    const unbanked = Math.max(0, Math.floor(player.currency) - banked);
+    const accountGold = Math.floor(meta) + unbanked;
+    ctx.fillText(`${accountGold}`, pad + goldIcon + 5 * S, goldY);
     ctx.shadowBlur = 0;
     ctx.restore();
 
-    // Top-left: stat readout with icons
-    const rows = [
-      ['moveSpeed', s.moveSpeed.toFixed(0)],
-      ['maxHealth', `${Math.ceil(player.health)}/${Math.round(s.maxHealth)}`],
-      ['maxShield', `${Math.ceil(player.shield)}/${Math.round(s.maxShield)}`],
-      ['attack', s.attack.toFixed(1)],
-      ['attackSpeed', s.attackSpeed.toFixed(2)],
-      ['bulletCount', String(Math.floor(s.bulletCount))],
-      ['bulletSpeed', s.bulletSpeed.toFixed(0)],
-      ['critChance', `${(s.critChance * 100).toFixed(0)}%`],
-      ['critDamage', `x${s.critDamage.toFixed(2)}`],
-      ['energyRegen', s.energyRegen.toFixed(1)],
-      ['shieldRegen', s.shieldRegen.toFixed(1)],
-      ['expMultiplier', `x${s.expMultiplier.toFixed(2)}`],
-      ['luck', s.luck.toFixed(0)]
-    ];
-    ctx.font = font;
-    ctx.fillStyle = 'rgba(200,230,210,0.92)';
-    let y = goldY + 18 * S;
-    for (const [key, value] of rows) {
-      this._icon(ctx, key, pad, y - iconSize * 0.5, iconSize);
-      ctx.fillText(value, textX, y);
-      y += 13 * S;
-    }
+    // Top-right: accumulated stat bonuses
+    this._bonusRows(ctx, player, cam, S);
 
     // Top center: XP bar + level
     const barW = Math.min(320 * S * 0.7, cam.w * 0.5);
@@ -4545,24 +4409,107 @@ class UI {
     ctx.textAlign = 'center';
     ctx.fillText(`LV ${player.level}`, cam.w * 0.5, barY + barH + 10 * S);
 
-    const ultReady = player.energy >= player.maxEnergy && player.ultCD <= 0;
-
-    // Bottom center: shield / health / energy
+    // Bottom center: HP, plus a shield bar only while Tower Shield is carried
     const bw = Math.min(300 * S * 0.62, cam.w * 0.8);
     const bx = cam.w * 0.5 - bw * 0.5;
     const bh = 7 * S;
-    const by = cam.h - 34 * S;
-
-    this._bar(ctx, bx, by, bw, bh * 0.85, player.shield / s.maxShield, '#3498db', '#1a4a6a', I18n.t('shieldLabel'), S);
-    this._bar(ctx, bx, by + bh * 1.35, bw, bh, player.health / s.maxHealth, '#e74c3c', '#5a1a1a', I18n.t('hpLabel'), S);
-    this._bar(ctx, bx, by + bh * 2.75, bw, bh * 0.85, player.energy / player.maxEnergy, '#f1c40f', '#5a4a0a', ultReady ? I18n.t('ultKeyLabel') : I18n.t('ultLabel'), S);
+    let by = cam.h - 26 * S;
+    const hasShield = !!(weapons && weapons.hasShield());
+    if (hasShield) {
+      this._bar(ctx, bx, by - bh * 1.35, bw, bh * 0.85, weapons.shieldRatio(),
+        '#3498db', '#1a4a6a', I18n.t('shieldLabel'), S);
+    }
+    this._bar(ctx, bx, by, bw, bh, player.health / s.maxHealth, '#e74c3c', '#5a1a1a', I18n.t('hpLabel'), S);
 
     ctx.font = `${Math.round(10 * S)}px "Courier New", monospace`;
     ctx.fillStyle = 'rgba(180,220,190,0.6)';
     ctx.textAlign = 'left';
-    ctx.fillText(`${I18n.t('enemiesLabel')} ${enemyCount}`, pad, by - 8 * S);
+    ctx.fillText(`${I18n.t('enemiesLabel')} ${enemyCount}`,
+      pad, by - (hasShield ? bh * 2.6 : bh * 1.3));
 
     ctx.restore();
+  }
+
+  _slotFrame(ctx, x, y, size, filled) {
+    ctx.fillStyle = filled ? 'rgba(10,20,14,0.72)' : 'rgba(10,20,14,0.35)';
+    ctx.fillRect(x, y, size, size);
+    ctx.strokeStyle = filled ? 'rgba(160,220,180,0.55)' : 'rgba(160,220,180,0.18)';
+    ctx.lineWidth = Math.max(1, size * 0.04);
+    ctx.strokeRect(x + 0.5, y + 0.5, size - 1, size - 1);
+  }
+
+  _weaponSlot(ctx, x, y, size, w, weapons, S) {
+    this._slotFrame(ctx, x, y, size, !!w);
+    if (!w) return;
+
+    const icon = typeof WeaponIcons !== 'undefined' ? WeaponIcons.get(w.id) : null;
+    const inset = size * 0.1;
+    if (icon) ctx.drawImage(icon, x + inset, y + inset, size - inset * 2, size - inset * 2);
+
+    // Reload sweep: the dark wedge is what is still missing
+    const progress = weapons ? weapons.reloadProgress(w) : 1;
+    if (progress < 1) {
+      const cx = x + size * 0.5;
+      const cy = y + size * 0.5;
+      const r = size * 0.62;
+      const start = -Math.PI * 0.5 + Math.PI * 2 * progress;
+      ctx.save();
+      ctx.beginPath();
+      ctx.moveTo(cx, cy);
+      ctx.arc(cx, cy, r, start, -Math.PI * 0.5 + Math.PI * 2);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(0,0,0,0.62)';
+      ctx.fill();
+      ctx.restore();
+    }
+
+    ctx.font = `bold ${Math.round(6 * S)}px "Courier New", monospace`;
+    ctx.textAlign = 'right';
+    ctx.fillStyle = '#ffd23d';
+    const tag = w.level + (w.branch || '');
+    ctx.fillText(tag, x + size - 2 * S, y + size - 4 * S);
+    ctx.textAlign = 'left';
+  }
+
+  _statSlot(ctx, x, y, size, statId, player, S) {
+    this._slotFrame(ctx, x, y, size, !!statId);
+    if (!statId) return;
+    const def = typeof STAT_DEFS !== 'undefined' ? STAT_DEFS[statId] : null;
+    if (!def) return;
+    const inset = size * 0.14;
+    this._icon(ctx, def.icon, x + inset, y + inset, size - inset * 2);
+    ctx.font = `bold ${Math.round(6 * S)}px "Courier New", monospace`;
+    ctx.textAlign = 'right';
+    ctx.fillStyle = 'rgba(220,245,225,0.95)';
+    ctx.fillText(def.bonusText(player), x + size - 2 * S, y + size - 4 * S);
+    ctx.textAlign = 'left';
+  }
+
+  _bonusRows(ctx, player, cam, S) {
+    const rows = [
+      ['attack', player.stats.attack.toFixed(1)],
+      ['attackSpeed', `${player.stats.attackSpeed.toFixed(2)}/s`],
+      ['moveSpeed', player.stats.moveSpeed.toFixed(0)],
+      ['bulletCount', String(Math.floor(player.stats.bulletCount))],
+      ['bulletSpeed', player.stats.bulletSpeed.toFixed(0)],
+      ['critChance', `${Math.round(player.stats.critChance * 100)}%`],
+      ['critDamage', `x${player.stats.critDamage.toFixed(2)}`],
+      ['expMultiplier', `x${player.stats.expMultiplier.toFixed(2)}`],
+      ['luck', `x${player.luckMult.toFixed(2)}`]
+    ];
+    const iconSize = Math.round(10 * S);
+    const pad = 12 * S;
+    const right = cam.w - pad;
+    ctx.font = `${Math.round(11 * S)}px "Courier New", monospace`;
+    ctx.fillStyle = 'rgba(200,230,210,0.92)';
+    ctx.textAlign = 'right';
+    let y = pad + 8 * S;
+    for (const [key, value] of rows) {
+      ctx.fillText(value, right, y);
+      this._icon(ctx, key, right - ctx.measureText(value).width - 5 * S - iconSize, y - iconSize * 0.5, iconSize);
+      y += 13 * S;
+    }
+    ctx.textAlign = 'left';
   }
 
   _bar(ctx, x, y, w, h, pct, color, bg, label, S = 1) {
@@ -4581,10 +4528,12 @@ class UI {
 
 /* ============================================================
    SAVE MANAGER
+   Runs are no longer resumable: every session starts a new game, so the game
+   only ever clears this slot to purge saves written by older versions.
    ============================================================ */
 class SaveManager {
   static KEY = 'gachaSurvivorsSave';
-  static VERSION = 1;
+  static VERSION = 2;
 
   static save(game) {
     if (game.testMode) return;
@@ -4595,7 +4544,8 @@ class SaveManager {
         killCount: game.killCount,
         survived: game.survived,
         waves: { elapsed: game.waves.elapsed, lastDragonAt: game.waves.lastDragonAt },
-        autoGacha: game.gacha.autoGacha
+        weapons: game.weapons.toSaveData(),
+        upgrades: game.upgrades.toSaveData()
       };
       localStorage.setItem(SaveManager.KEY, JSON.stringify(data));
     } catch (e) { /* storage full or unavailable */ }
@@ -4607,11 +4557,17 @@ class SaveManager {
       if (!raw) return false;
       const data = JSON.parse(raw);
       if (!data || !data.player) return false;
+      // Pre-rework saves describe a game that no longer exists
+      if (data.version !== SaveManager.VERSION) {
+        SaveManager.clear();
+        return false;
+      }
       game.player.loadSaveData(data.player);
       game.killCount = data.killCount ?? 0;
       game.survived = data.survived ?? 0;
       game.waves.loadSaveData(data.waves ?? {});
-      if (game.gacha) game.gacha.setAutoGacha(!!data.autoGacha);
+      game.weapons.loadSaveData(data.weapons);
+      game.upgrades.loadSaveData(data.upgrades);
       return true;
     } catch (e) {
       return false;
@@ -4664,8 +4620,8 @@ class HelpPanel {
   static abbrToStat = {
     SPD: 'moveSpeed', HP: 'maxHealth', SHD: 'maxShield', ATK: 'attack',
     ASP: 'attackSpeed', BLT: 'bulletCount', BSP: 'bulletSpeed',
-    CRT: 'critChance', CDM: 'critDamage', ERG: 'energyRegen',
-    SRG: 'shieldRegen', EXP: 'expMultiplier', LCK: 'luck'
+    CRT: 'critChance', CDM: 'critDamage',
+    EXP: 'expMultiplier', LCK: 'luck'
   };
 
   _iconHtml(statKey) {
@@ -4697,6 +4653,10 @@ class HelpPanel {
     const stats = I18n.helpStats[I18n.lang] || I18n.helpStats.en;
     const enemies = I18n.helpEnemies[I18n.lang] || I18n.helpEnemies.en;
     const items = I18n.helpItems[I18n.lang] || I18n.helpItems.en;
+    const meta = typeof MetaProgression !== 'undefined' ? MetaProgression : null;
+    const seenEnemy = (id) => meta && meta.hasDiscovered('enemies', id);
+    const seenItem = (id) => meta && meta.hasDiscovered('items', id);
+    const seenWeapon = (id) => meta && meta.hasDiscovered('weapons', id);
 
     const statsEl = document.createElement('div');
     statsEl.id = 'helpStats';
@@ -4706,45 +4666,79 @@ class HelpPanel {
         return `<div class="stat-entry"><div class="stat-name">${icon}${s.name}<span class="stat-abbr">[${s.abbr}]</span></div><div class="stat-desc">${s.desc}</div></div>`;
       }).join('') +
       `<div class="help-section-title">${sys.combatSystems}</div>` +
-      `<div class="stat-entry"><div class="stat-name">${sys.ultimateTitle}</div><div class="stat-desc">${sys.ultimateDesc}</div></div>` +
-      `<div class="stat-entry"><div class="stat-name">${sys.gachaTitle}</div><div class="stat-desc">${sys.gachaDesc}</div></div>` +
+      `<div class="stat-entry"><div class="stat-name">${sys.weaponsTitle}</div><div class="stat-desc">${I18n.t('helpWeapons')}</div></div>` +
+      `<div class="stat-entry"><div class="stat-name">${sys.choicesTitle}</div><div class="stat-desc">${I18n.t('helpChoices')}</div></div>` +
       `<div class="stat-entry"><div class="stat-name">${sys.difficultyTitle}</div><div class="stat-desc">${sys.difficultyDesc}</div></div>`;
 
+    const weaponsEl = document.createElement('div');
+    weaponsEl.id = 'helpWeapons';
+    weaponsEl.className = 'hidden';
+    const weaponDescs = I18n.helpWeaponDescs[I18n.lang] || I18n.helpWeaponDescs.en;
+    const weaponCards = (typeof WEAPON_IDS !== 'undefined' ? WEAPON_IDS : [])
+      .filter((id) => seenWeapon(id))
+      .map((id) => {
+        const def = WEAPON_DEFS[id];
+        const icon = typeof WeaponIcons !== 'undefined' ? WeaponIcons.get(id) : null;
+        const img = icon
+          ? `<div class="bestiary-art"><img src="${icon.toDataURL()}" width="48" height="48" style="image-rendering:pixelated"></div>`
+          : '';
+        const name = def ? I18n.t(def.nameKey) : id;
+        const desc = weaponDescs[id]
+          || (typeof weaponLevelDesc === 'function' ? weaponLevelDesc(id, 1, null) : '')
+          || '';
+        return `<div class="bestiary-card threat-mid">${img}<div class="bestiary-info">
+          <div class="bestiary-name">${name}</div>
+          <div class="bestiary-tags">${def ? def.kind : ''}</div>
+          <div class="bestiary-desc">${desc}</div>
+        </div></div>`;
+      });
+    weaponsEl.innerHTML = `<div class="help-section-title">${I18n.t('weaponsLabel')}</div>` +
+      (weaponCards.length
+        ? `<div class="bestiary-grid">${weaponCards.join('')}</div>`
+        : `<div class="help-empty">${I18n.t('helpEmptyWeapons')}</div>`);
+
+    const knownEnemies = enemies.filter((e) => seenEnemy(e.id || e.sprite));
     const bestEl = document.createElement('div');
     bestEl.id = 'helpBestiary';
     bestEl.className = 'hidden';
-    bestEl.innerHTML = `<div class="help-section-title">${sys.enemies}</div><div class="bestiary-grid">` +
-      enemies.map((e) =>
-        `<div class="bestiary-card threat-${e.threat}">${this._artHtml(e.sprite)}<div class="bestiary-info">
-          <div class="bestiary-name">${e.name}</div>
-          <div class="bestiary-tags">${e.gold}g · ${e.ability}</div>
-          <div class="bestiary-statline">${sys.speed} ${e.speed}<br>HP ${e.hp} · DMG ${e.dmg}</div>
-          <div class="bestiary-desc">${e.desc}</div>
-        </div></div>`
-      ).join('') + '</div>';
+    bestEl.innerHTML = `<div class="help-section-title">${sys.enemies}</div>` +
+      (knownEnemies.length
+        ? `<div class="bestiary-grid">` + knownEnemies.map((e) =>
+          `<div class="bestiary-card threat-${e.threat}">${this._artHtml(e.sprite)}<div class="bestiary-info">
+            <div class="bestiary-name">${e.name}</div>
+            <div class="bestiary-tags">${e.gold}g · ${e.ability}</div>
+            <div class="bestiary-statline">${sys.speed} ${e.speed}<br>HP ${e.hp} · DMG ${e.dmg}</div>
+            <div class="bestiary-desc">${e.desc}</div>
+          </div></div>`
+        ).join('') + '</div>'
+        : `<div class="help-empty">${I18n.t('helpEmptyEnemies')}</div>`);
 
+    const knownItems = items.filter((item) => seenItem(item.id || item.tier));
     const itemsEl = document.createElement('div');
     itemsEl.id = 'helpItems';
     itemsEl.className = 'hidden';
-    itemsEl.innerHTML = `<div class="help-section-title">${sys.items}</div><div class="bestiary-grid">` +
-      items.map((item) => {
-        const tags = item.tags ?? `${item.gold} ${I18n.lang === 'ru' ? 'зол.' : 'gold'} · ${sys.autoOpen}`;
-        const statline = item.statline
-          ? `<div class="bestiary-statline">${item.statline}</div>`
-          : '';
-        return `<div class="bestiary-card threat-${item.threat}">${this._artHtml(item.sprite)}<div class="bestiary-info">
-          <div class="bestiary-name">${item.name}</div>
-          <div class="bestiary-tags">${tags}</div>
-          ${statline}
-          <div class="bestiary-desc">${item.desc}</div>
-        </div></div>`;
-      }).join('') + '</div>' +
+    itemsEl.innerHTML = `<div class="help-section-title">${sys.items}</div>` +
+      (knownItems.length
+        ? `<div class="bestiary-grid">` + knownItems.map((item) => {
+          const tags = item.tags ?? `${item.gold} ${I18n.lang === 'ru' ? 'зол.' : 'gold'} · ${sys.autoOpen}`;
+          const statline = item.statline
+            ? `<div class="bestiary-statline">${item.statline}</div>`
+            : '';
+          return `<div class="bestiary-card threat-${item.threat}">${this._artHtml(item.sprite)}<div class="bestiary-info">
+            <div class="bestiary-name">${item.name}</div>
+            <div class="bestiary-tags">${tags}</div>
+            ${statline}
+            <div class="bestiary-desc">${item.desc}</div>
+          </div></div>`;
+        }).join('') + '</div>'
+        : `<div class="help-empty">${I18n.t('helpEmptyItems')}</div>`) +
       `<div class="help-section-title">${sys.goldSources}</div>` +
       `<div class="stat-entry"><div class="stat-name">${this._iconHtml('gold')}${I18n.t('goldLabel')}</div>` +
       `<div class="stat-desc">${sys.goldSourcesDesc}</div></div>`;
 
     this.content.innerHTML = '';
     this.content.appendChild(statsEl);
+    this.content.appendChild(weaponsEl);
     this.content.appendChild(bestEl);
     this.content.appendChild(itemsEl);
     this._paintSprites();
@@ -4755,9 +4749,14 @@ class HelpPanel {
     this.overlay.querySelectorAll('.help-tab').forEach((b) => {
       b.classList.toggle('active', b.dataset.tab === tab);
     });
-    document.getElementById('helpStats').classList.toggle('hidden', tab !== 'stats');
-    document.getElementById('helpBestiary').classList.toggle('hidden', tab !== 'bestiary');
-    document.getElementById('helpItems').classList.toggle('hidden', tab !== 'items');
+    const stats = document.getElementById('helpStats');
+    const weapons = document.getElementById('helpWeapons');
+    const bestiary = document.getElementById('helpBestiary');
+    const items = document.getElementById('helpItems');
+    if (stats) stats.classList.toggle('hidden', tab !== 'stats');
+    if (weapons) weapons.classList.toggle('hidden', tab !== 'weapons');
+    if (bestiary) bestiary.classList.toggle('hidden', tab !== 'bestiary');
+    if (items) items.classList.toggle('hidden', tab !== 'items');
     this.content.scrollTop = 0;
   }
 
@@ -4765,6 +4764,7 @@ class HelpPanel {
     this.returnTo = from;
     if (from === 'menu') document.getElementById('mainMenu').classList.add('hidden');
     if (from === 'pause') document.getElementById('pauseMenu').classList.add('hidden');
+    this.rebuild();
     this.overlay.classList.remove('hidden');
     this.showTab(this.currentTab);
     this._paintSprites();
@@ -4838,14 +4838,19 @@ class Game {
     this.player = new Player(this.sprites);
     this.ui = new UI();
     this.ui.sprites = this.sprites;
-    this.gacha = new GachaSystem();
-    this.gacha.bindGame(this);
     this.waves = new WaveManager();
     this.help = new HelpPanel();
     this.help.init(this.sprites);
 
+    this.spatial = new SpatialGrid();
+    this.effects = new EffectSystem();
+    this.weapons = new WeaponSystem();
+    this.upgrades = new UpgradeSystem();
+    this.upgrades.bindGame(this);
+
     this.enemyPool = new Pool(() => new Enemy(), 200);
-    this.projPool = new Pool(() => new Projectile(), 150);
+    this.projPool = new Pool(() => new Projectile(), 300);
+    this.grenadePool = new Pool(() => new GrenadeProjectile(), 24);
     this.chestPool = new Pool(() => new Chest(), 20);
     this.chickenLegPool = new Pool(() => new ChickenLeg(), 8);
     this.particlePool = new Pool(() => new Particle(), 200);
@@ -4857,7 +4862,6 @@ class Game {
     this.state = 'menu'; // menu | playing | paused | gameover
     this.testMode = false;
     this.lastTime = 0;
-    this.ultWave = null;
     this.killCount = 0;
     this.survived = 0;
     this.lastGameOverStats = null;
@@ -4876,8 +4880,7 @@ class Game {
     this.hasPointerAim = false;
 
     this.input = {
-      up: false, down: false, left: false, right: false,
-      gacha: false, ult: false
+      up: false, down: false, left: false, right: false
     };
 
     this._bindUI();
@@ -4887,12 +4890,13 @@ class Game {
     this.canvas.addEventListener('pointerdown', () => SoundManager.unlock());
     this._resize();
     window.addEventListener('resize', () => this._resize());
-    this._updateStartButton();
+    this._refreshMenuGold();
 
     I18n.onChange(() => {
-      this._updateStartButton();
+      this._refreshMenuGold();
       this.help.rebuild();
-      this.gacha.refreshLocale();
+      this.upgrades.refreshLocale();
+      if (this.isStoreOpen()) this._renderStore();
       if (this.state === 'gameover') this._updateGameOverStats();
     });
 
@@ -4910,14 +4914,17 @@ class Game {
       `${I18n.t('timeStat', s.time)}`;
   }
 
-  _updateStartButton() {
-    const btn = document.getElementById('startBtn');
-    btn.textContent = SaveManager.hasSave() ? I18n.t('continue') : I18n.t('start');
-  }
-
   _bindUI() {
     document.getElementById('startBtn').onclick = () => this.startGame();
+    document.getElementById('storeBtn').onclick = () => this.openStore();
+    document.getElementById('storeCloseBtn').onclick = () => this.closeStore();
     document.getElementById('testBtn').onclick = () => this.startTestMode();
+    document.getElementById('resetDataBtn').onclick = () => this.askResetData();
+    document.getElementById('confirmResetDataYes').onclick = () => {
+      this.closeResetDataConfirm();
+      this.resetAllData();
+    };
+    document.getElementById('confirmResetDataNo').onclick = () => this.closeResetDataConfirm();
     document.getElementById('resumeBtn').onclick = () => this.resume();
     document.getElementById('restartBtn').onclick = () => this.askRestart();
     document.getElementById('confirmRestartYes').onclick = () => {
@@ -4925,7 +4932,9 @@ class Game {
       this.restartGame();
     };
     document.getElementById('confirmRestartNo').onclick = () => this.closeRestartConfirm();
-    document.getElementById('menuBtn').onclick = () => this.toMenu();
+    document.getElementById('menuBtn').onclick = () => this.askToMenu();
+    document.getElementById('confirmMenuYes').onclick = () => this.toMenu();
+    document.getElementById('confirmMenuNo').onclick = () => this.closeMenuConfirm();
     document.getElementById('goMenuBtn').onclick = () => this.toMenu();
     document.getElementById('helpBtnMain').onclick = () => this.help.open('menu');
     document.getElementById('helpBtnPause').onclick = () => this.help.open('pause');
@@ -4996,23 +5005,21 @@ class Game {
         case 'KeyS': case 'ArrowDown': this.input.down = v; break;
         case 'KeyA': case 'ArrowLeft': this.input.left = v; break;
         case 'KeyD': case 'ArrowRight': this.input.right = v; break;
-        case 'Space':
+        case 'Digit1': case 'Digit2': case 'Digit3': case 'Digit4': case 'Digit5':
+        case 'Numpad1': case 'Numpad2': case 'Numpad3': case 'Numpad4': case 'Numpad5':
           if (!v || e.repeat) break;
-          e.preventDefault();
-          if (this.state === 'playing') {
-            if (this.gacha.isOpen()) this.gacha.handleSpace(this);
-            else this.gacha.tryOpen(this);
-          }
-          break;
-        case 'KeyQ':
-          if (v && !this.gacha.isOpen()) this.input.ult = true;
+          if (this.upgrades.handleKey(e.code)) e.preventDefault();
           break;
         case 'Escape':
           if (v) {
-            if (this.isRestartConfirmOpen()) this.closeRestartConfirm();
+            // The upgrade choice is mandatory — Esc must not dismiss it
+            if (this.upgrades.isOpen()) break;
+            if (this.isResetDataConfirmOpen()) this.closeResetDataConfirm();
+            else if (this.isMenuConfirmOpen()) this.closeMenuConfirm();
+            else if (this.isRestartConfirmOpen()) this.closeRestartConfirm();
+            else if (this.isStoreOpen()) this.closeStore();
             else if (this.isStatsOpen()) this.closeStats();
             else if (this.help.isOpen()) this.help.close();
-            else if (this.gacha.isOpen()) this.gacha.exit(this);
             else this.togglePause();
           }
           break;
@@ -5035,31 +5042,32 @@ class Game {
     this.testMode = false;
     this.player.invulnerable = false;
     this._clearPools();
-    this.gacha.close(this);
-    this.ultWave = null;
+    this.upgrades.reset();
+    this.effects.reset();
+    this.weapons.reset();
+    SaveManager.clear();
 
-    const loaded = SaveManager.load(this);
-    if (!loaded) {
-      this.player.reset();
-      this.waves.reset();
-      this.killCount = 0;
-      this.survived = 0;
-    } else if (!this.player.alive) {
-      this.player.reviveRun();
-      this._clearPools();
-    }
+    this.player.reset();
+    this.waves.reset();
+    this.killCount = 0;
+    this.survived = 0;
+    this._bankedRunGold = 0;
+    // Every run opens with the boomstick
+    this.weapons.grant('shotgun', 1, null);
 
     this.state = 'playing';
     document.getElementById('mainMenu').classList.add('hidden');
     document.getElementById('pauseMenu').classList.add('hidden');
     document.getElementById('gameOverMenu').classList.add('hidden');
+    this.closeStore();
     this.ui.setControlsVisible(true);
   }
 
   startTestMode() {
     this._clearPools();
-    this.gacha.close(this);
-    this.ultWave = null;
+    this.upgrades.reset();
+    this.effects.reset();
+    this.weapons.reset();
     this.player.reset();
     this.waves.reset();
     this.killCount = 0;
@@ -5068,7 +5076,7 @@ class Game {
     this.player.invulnerable = true;
     this.player.level = 30;
     this.player.currency = 9999;
-    this.player.energy = this.player.maxEnergy;
+    for (const id of WEAPON_IDS) this.weapons.grant(id, 1, null);
 
     this.state = 'playing';
     document.getElementById('mainMenu').classList.add('hidden');
@@ -5135,14 +5143,18 @@ class Game {
       this.startTestMode();
       return;
     }
+    this._bankRunGold();
     SaveManager.clear();
     this._clearPools();
-    this.gacha.close(this);
+    this.upgrades.reset();
+    this.effects.reset();
+    this.weapons.reset();
     this.player.reset();
     this.waves.reset();
     this.killCount = 0;
     this.survived = 0;
-    this.ultWave = null;
+    this._bankedRunGold = 0;
+    this.weapons.grant('shotgun', 1, null);
     this.state = 'playing';
     document.getElementById('mainMenu').classList.add('hidden');
     document.getElementById('pauseMenu').classList.add('hidden');
@@ -5150,10 +5162,41 @@ class Game {
     this.ui.setControlsVisible(true);
   }
 
-  toMenu() {
-    this.gacha.close(this);
+  /* Commits run gold to the persistent save. Safe to call repeatedly (on pause,
+     on death, or when leaving to the menu): only the not-yet-banked portion is
+     added, so the run's own gold counter keeps showing the full total. */
+  _bankRunGold() {
+    if (this.testMode || typeof MetaProgression === 'undefined') return;
+    const total = Math.floor(this.player.currency);
+    const delta = total - (this._bankedRunGold || 0);
+    if (delta > 0) {
+      MetaProgression.addGold(delta);
+      this._bankedRunGold = total;
+    }
+  }
+
+  askToMenu() {
+    if (this.state === 'menu') return;
     this.closeRestartConfirm();
+    document.getElementById('confirmMenu').classList.remove('hidden');
+  }
+
+  closeMenuConfirm() {
+    document.getElementById('confirmMenu').classList.add('hidden');
+  }
+
+  isMenuConfirmOpen() {
+    return !document.getElementById('confirmMenu').classList.contains('hidden');
+  }
+
+  toMenu() {
+    this.upgrades.close();
+    this.closeRestartConfirm();
+    this.closeMenuConfirm();
     document.getElementById('currentStatsOverlay').classList.add('hidden');
+    this._bankRunGold();
+    // Runs are never resumed, so nothing about this one is kept
+    SaveManager.clear();
     this.testMode = false;
     this.player.invulnerable = false;
     this.state = 'menu';
@@ -5161,7 +5204,115 @@ class Game {
     document.getElementById('pauseMenu').classList.add('hidden');
     document.getElementById('gameOverMenu').classList.add('hidden');
     this.ui.setControlsVisible(false);
-    this._updateStartButton();
+    this._refreshMenuGold();
+  }
+
+  _refreshMenuGold() {
+    const el = document.getElementById('menuGold');
+    if (!el) return;
+    const g = (typeof MetaProgression !== 'undefined') ? MetaProgression.gold : 0;
+    el.textContent = I18n.t('menuGold', Math.floor(g));
+  }
+
+  isStoreOpen() {
+    const el = document.getElementById('storeOverlay');
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  openStore() {
+    if (this.state !== 'menu') return;
+    this.closeResetDataConfirm();
+    this._renderStore();
+    document.getElementById('storeOverlay').classList.remove('hidden');
+  }
+
+  closeStore() {
+    const el = document.getElementById('storeOverlay');
+    if (el) el.classList.add('hidden');
+  }
+
+  _storeHelpDesc(storeId) {
+    const map = {
+      moveSpeed: ['SPD'],
+      maxHealth: ['HP'],
+      attack: ['ATK'],
+      attackSpeed: ['ASP'],
+      bulletCount: ['BLT'],
+      critical: ['CRT', 'CDM'],
+      expMultiplier: ['EXP'],
+      luck: ['LCK']
+    };
+    const abbrs = map[storeId];
+    if (!abbrs) return '';
+    const stats = I18n.helpStats[I18n.lang] || I18n.helpStats.en;
+    return abbrs.map((abbr) => {
+      const entry = stats.find((s) => s.abbr === abbr);
+      return entry ? entry.desc : '';
+    }).filter(Boolean).join(' ');
+  }
+
+  _renderStore() {
+    const list = document.getElementById('storeList');
+    const goldEl = document.getElementById('storeGold');
+    if (!list || typeof MetaProgression === 'undefined') return;
+    goldEl.textContent = I18n.t('menuGold', Math.floor(MetaProgression.gold));
+    list.innerHTML = MetaProgression.DEFS.map((d) => {
+      const lv = MetaProgression.levelOf(d.id);
+      const maxed = lv >= d.max;
+      const cost = MetaProgression.costOf(d.id);
+      const spr = this.sprites[IconFactory.spriteKey(d.icon)];
+      const img = spr ? `<img src="${spr.toDataURL()}" alt="">` : '<span></span>';
+      const btnLabel = maxed ? I18n.t('storeMaxed') : I18n.t('storeBuy', cost);
+      const disabled = maxed || !MetaProgression.canBuy(d.id) ? ' disabled' : '';
+      const desc = this._storeHelpDesc(d.id);
+      return `<div class="store-row${maxed ? ' maxed' : ''}">
+        ${img}
+        <div class="store-info">
+          <div class="store-name">${I18n.t(d.labelKey)}</div>
+          <div class="store-meta">${I18n.t(d.valueKey)} · ${I18n.t('storeLevel', lv, d.max)}</div>
+          ${desc ? `<div class="store-desc">${desc}</div>` : ''}
+        </div>
+        <button type="button" class="btn" data-store-id="${d.id}"${disabled}>${btnLabel}</button>
+      </div>`;
+    }).join('');
+    list.querySelectorAll('[data-store-id]').forEach((btn) => {
+      btn.onclick = () => {
+        if (MetaProgression.buy(btn.dataset.storeId)) {
+          SoundManager.ui();
+          this._renderStore();
+          this._refreshMenuGold();
+        }
+      };
+    });
+  }
+
+  isResetDataConfirmOpen() {
+    const el = document.getElementById('confirmResetData');
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  askResetData() {
+    if (this.state !== 'menu') return;
+    this.closeStore();
+    document.getElementById('confirmResetData').classList.remove('hidden');
+  }
+
+  closeResetDataConfirm() {
+    const el = document.getElementById('confirmResetData');
+    if (el) el.classList.add('hidden');
+  }
+
+  resetAllData() {
+    SaveManager.clear();
+    if (typeof MetaProgression !== 'undefined') MetaProgression.clear();
+    this.upgrades.reset();
+    this.weapons.reset();
+    this.effects.reset();
+    this.player.reset();
+    this.waves.reset();
+    this.killCount = 0;
+    this.survived = 0;
+    this._refreshMenuGold();
   }
 
   askRestart() {
@@ -5199,17 +5350,19 @@ class Game {
     switch (abbr) {
       case 'SPD': return `${Math.round(s.moveSpeed)}`;
       case 'HP': return `${Math.round(p.health)} / ${Math.round(s.maxHealth)}`;
-      case 'SHD': return `${Math.round(p.shield)} / ${Math.round(s.maxShield)}`;
+      case 'SHD': {
+        const tower = this.weapons.get('towerShield');
+        if (!tower) return '—';
+        return `${Math.round(tower.state.shield || 0)} / ${Math.round(tower.state.maxShield || 0)}`;
+      }
       case 'ATK': return `${s.attack.toFixed(1)}`;
       case 'ASP': return `${s.attackSpeed.toFixed(2)}/s`;
       case 'BLT': return `${Math.round(s.bulletCount)}`;
       case 'BSP': return `${Math.round(s.bulletSpeed)}`;
       case 'CRT': return `${Math.round(s.critChance * 100)}%`;
       case 'CDM': return `${s.critDamage.toFixed(2)}×`;
-      case 'ERG': return `${s.energyRegen.toFixed(1)}/s`;
-      case 'SRG': return `${s.shieldRegen.toFixed(1)}/s`;
       case 'EXP': return `${s.expMultiplier.toFixed(2)}×`;
-      case 'LCK': return `${Math.round(s.luck)} (+${Math.round(s.luck * 2)}% ${I18n.lang === 'ru' ? 'золота' : 'gold'})`;
+      case 'LCK': return `${p.luckMult.toFixed(2)}×`;
       default: return '';
     }
   }
@@ -5217,19 +5370,36 @@ class Game {
   _buildStatsPanel() {
     const content = document.getElementById('currentStatsContent');
     const stats = I18n.helpStats[I18n.lang] || I18n.helpStats.en;
-    content.innerHTML = stats.map((s) => {
-      const statKey = HelpPanel.abbrToStat[s.abbr];
-      let icon = '';
-      const sprKey = statKey ? IconFactory.spriteKey(statKey) : '';
+    const selected = new Set(this.player.selectedStatIds.map((id) => STAT_DEFS[id] && STAT_DEFS[id].icon));
+    const iconHtml = (sprKey) => {
       const spr = sprKey ? this.sprites[sprKey] : null;
-      if (spr) {
-        icon = `<span class="stat-icon"><canvas width="${spr.width}" height="${spr.height}" data-sprite="${sprKey}"></canvas></span>`;
-      }
-      return `<div class="stat-entry"><div class="stat-head">${icon}` +
-        `<span class="stat-name">${s.name}<span class="stat-abbr">[${s.abbr}]</span></span>` +
-        `<span class="stat-value">${this._statValueText(s.abbr)}</span></div>` +
-        `<div class="stat-desc">${s.desc}</div></div>`;
+      if (!spr) return '';
+      return `<span class="stat-icon"><canvas width="${spr.width}" height="${spr.height}" data-sprite="${sprKey}"></canvas></span>`;
+    };
+
+    // Weapons the run is actually carrying, then the stats it committed to
+    const weaponRows = this.weapons.slots.map((w) => {
+      const def = WEAPON_DEFS[w.id];
+      const name = def ? I18n.t(def.nameKey) : w.id;
+      const branch = w.branch ? ` ${I18n.t('weaponBranch', w.branch)}` : '';
+      return `<div class="stat-entry"><div class="stat-head">` +
+        `<span class="stat-name">${name}</span>` +
+        `<span class="stat-value">${I18n.t('weaponLevel', w.level)}${branch}</span></div></div>`;
     }).join('');
+
+    content.innerHTML =
+      `<div class="help-section-title">${I18n.t('weaponsLabel')}</div>` +
+      (weaponRows || '') +
+      `<div class="help-section-title">${I18n.t('statsLabel')}</div>` +
+      stats.map((s) => {
+        const statKey = HelpPanel.abbrToStat[s.abbr];
+        const sprKey = statKey ? IconFactory.spriteKey(statKey) : '';
+        const chosen = selected.has(statKey) ? ' chosen' : '';
+        return `<div class="stat-entry${chosen}"><div class="stat-head">${iconHtml(sprKey)}` +
+          `<span class="stat-name">${s.name}<span class="stat-abbr">[${s.abbr}]</span></span>` +
+          `<span class="stat-value">${this._statValueText(s.abbr)}</span></div>` +
+          `<div class="stat-desc">${s.desc}</div></div>`;
+      }).join('');
     content.querySelectorAll('canvas[data-sprite]').forEach((c) => {
       const spr = this.sprites[c.dataset.sprite];
       if (!spr) return;
@@ -5241,12 +5411,14 @@ class Game {
   }
 
   togglePause() {
-    if (this.gacha.isOpen() || this.help.isOpen() || this.isStatsOpen()) return;
+    if (this.upgrades.isOpen() || this.help.isOpen() || this.isStatsOpen()) return;
     if (this.state === 'playing') {
       this.state = 'paused';
+      // Commit run gold to the persistent save whenever the run is paused
+      this._bankRunGold();
+      this._refreshMenuGold();
       document.getElementById('pauseMenu').classList.remove('hidden');
       this.ui.setControlsVisible(false);
-      SaveManager.save(this);
     } else if (this.state === 'paused') {
       this.resume();
     }
@@ -5267,14 +5439,16 @@ class Game {
       time: Math.floor(this.survived)
     };
 
+    this._bankRunGold();
     SaveManager.clear();
-    this.gacha.close(this);
+    this.upgrades.reset();
     this._clearPools();
+    this.effects.reset();
+    this.weapons.reset();
     this.player.reset();
     this.waves.reset();
     this.killCount = 0;
     this.survived = 0;
-    this.ultWave = null;
 
     this.state = 'gameover';
     SoundManager.death();
@@ -5284,9 +5458,10 @@ class Game {
   }
 
   _clearPools() {
-    for (const p of [this.enemyPool, this.projPool, this.chestPool, this.chickenLegPool, this.particlePool, this.goldCoinPool, this.floatingTextPool, this.aoePool, this.fireballPool]) {
+    for (const p of [this.enemyPool, this.projPool, this.grenadePool, this.chestPool, this.chickenLegPool, this.particlePool, this.goldCoinPool, this.floatingTextPool, this.aoePool, this.fireballPool]) {
       for (const item of p.items) item.active = false;
     }
+    this.spatial.clear();
     for (const e of this.enemyPool.items) {
       e.carrying = false;
       e.dying = false;
@@ -5324,7 +5499,7 @@ class Game {
   }
 
   addCurrency(amount) {
-    return this.player.addCurrency(amount);
+    return this.player.addCurrency(amount, this);
   }
 
   countEnemies(type) {
@@ -5405,16 +5580,7 @@ class Game {
   }
 
   findNearestEnemy(x, y, maxDist) {
-    let best = null;
-    let bestD = maxDist * maxDist;
-    this.enemyPool.forEachActive((e) => {
-      if (e.dying) return;
-      const dx = e.x - x;
-      const dy = e.y - y;
-      const d = dx * dx + dy * dy;
-      if (d < bestD) { bestD = d; best = e; }
-    });
-    return best;
+    return this.spatial.nearest(x, y, maxDist);
   }
 
   spawnPlayerProjectile(x, y, vx, vy, dmg, isCrit) {
@@ -5453,6 +5619,39 @@ class Game {
     }
   }
 
+  /* Richer blast for grenade landings: flash ring + fire/smoke/debris spray. */
+  spawnGrenadeSplash(x, y, radius = 55) {
+    if (this.aoePool) {
+      const flash = this.aoePool.acquire();
+      flash.spawn(x, y, radius, 0, 0, 'fire', { duration: 0.22, mode: 'hit' });
+    }
+    const colors = ['#ff4400', '#ffaa00', '#ffe680', '#ff7020', '#c04010', '#666'];
+    for (let i = 0; i < 34; i++) {
+      const a = Math.random() * Math.PI * 2;
+      const sp = 50 + Math.random() * 200;
+      const p = this.particlePool.acquire();
+      const smoke = i > 22;
+      p.spawn(
+        x + (Math.random() - 0.5) * 12,
+        y + (Math.random() - 0.5) * 12,
+        Math.cos(a) * sp * (smoke ? 0.45 : 1),
+        Math.sin(a) * sp * (smoke ? 0.45 : 1) - (smoke ? 20 : 40),
+        smoke ? 0.7 + Math.random() * 0.45 : 0.35 + Math.random() * 0.35,
+        smoke ? (Math.random() > 0.5 ? '#555' : '#888') : colors[(Math.random() * 5) | 0],
+        smoke ? 5 + Math.random() * 6 : 3 + Math.random() * 5,
+        smoke ? 30 : 90
+      );
+    }
+    // Bright upward sparks
+    for (let i = 0; i < 10; i++) {
+      const a = -Math.PI * 0.5 + (Math.random() - 0.5) * 1.2;
+      const sp = 80 + Math.random() * 160;
+      const p = this.particlePool.acquire();
+      p.spawn(x, y, Math.cos(a) * sp, Math.sin(a) * sp,
+        0.3 + Math.random() * 0.25, '#fff0a0', 2 + Math.random() * 2, 140);
+    }
+  }
+
   spawnChestParticles(x, y, tier) {
     const colors = { common: '#c9a227', rare: '#4a90ff', epic: '#c040ff' };
     const col = colors[tier];
@@ -5474,37 +5673,12 @@ class Game {
     }
   }
 
-  activateUltimate() {
-    SoundManager.ultimate();
-    const cx = this.player.x;
-    const cy = this.player.y;
-    this.ultWave = { x: cx, y: cy, r: 0, maxR: Math.max(this.camera.w, this.camera.h) * 0.75, life: 0.6 };
-
-    let kills = 0;
-    this.enemyPool.forEachActive((e) => {
-      if (e.dying) return;
-      const s = this.camera.worldToScreen(e.x, e.y);
-      if (s.x > -40 && s.x < this.camera.w + 40 && s.y > -40 && s.y < this.camera.h + 40) {
-        // The boss can't be one-shot by the ultimate — it only takes heavy damage
-        if (e.type === 'dragon') {
-          e.takeDamage(e.maxHp * 0.25);
-          return;
-        }
-        e.beginDeath();
-        kills++;
-        this._onEnemyKilled(e, true);
-      }
-    });
-    // Clear enemy projectiles on screen
-    this.projPool.forEachActive((p) => {
-      if (!p.fromPlayer) {
-        const s = this.camera.worldToScreen(p.x, p.y);
-        if (s.x > -20 && s.x < this.camera.w + 20 && s.y > -20 && s.y < this.camera.h + 20) {
-          p.active = false;
-        }
-      }
-    });
-    this.ui.toast(I18n.t('ultimateToast', kills), 'legendary');
+  _enemyDiscoveryId(e) {
+    if (e.type === 'dragon') {
+      const v = e.dragonVariant || 'crimson';
+      return 'dragon' + v.charAt(0).toUpperCase() + v.slice(1);
+    }
+    return e.type;
   }
 
   _onEnemyKilled(e, silent = false) {
@@ -5513,6 +5687,9 @@ class Game {
     // Dragon plays its own long groan; skip the short kill blip for it
     if (!silent && e.type !== 'dragon') SoundManager.kill();
     if (e.carrying) e.releaseAbduction(this.player, this);
+    if (typeof MetaProgression !== 'undefined') {
+      MetaProgression.discover('enemies', this._enemyDiscoveryId(e));
+    }
     const gold = this.addCurrency(e.goldDrop);
     this.killCount++;
     this.spawnGoldCoins(e.x, e.y, gold);
@@ -5534,15 +5711,12 @@ class Game {
     const dt = Math.min(0.05, (timestamp - this.lastTime) / 1000) || 0.016;
     this.lastTime = timestamp;
 
-    if (this.state === 'playing') {
-      if (!this.gacha.isOpen()) this.update(dt);
-      this.gacha.update(dt, this);
-    }
+    if (this.state === 'playing' && !this.upgrades.isOpen()) this.update(dt);
     if (this.state === 'playing' || this.state === 'paused' || this.state === 'gameover') {
       this.floatingTextPool.forEachActive((t) => t.update(dt));
       this.goldCoinPool.forEachActive((c) => c.update(dt, this.ui));
     }
-    this.ui.update(dt, this.state === 'playing' || this.state === 'paused' || this.state === 'gameover' ? this.player : null, this.gacha.cost, this.gacha.autoGacha);
+    this.ui.update(dt, this.state === 'playing' || this.state === 'paused' || this.state === 'gameover' ? this.player : null);
     this.draw();
 
     requestAnimationFrame((t) => this.loop(t));
@@ -5550,6 +5724,8 @@ class Game {
 
   update(dt) {
     this.survived += dt;
+    // Weapons query the grid as they fire, so it has to be current first
+    this.spatial.insertAll(this.enemyPool);
     this.player.update(dt, this.input, this);
     this.camera.follow(this.player);
     this.waves.update(dt, this);
@@ -5573,52 +5749,77 @@ class Game {
     });
 
     this.projPool.forEachActive((p) => {
-      p.update(dt);
+      p.update(dt, this);
       if (!p.active) return;
 
       if (p.fromPlayer) {
-        this.enemyPool.forEachActive((e) => {
-          if (!p.active || e.dying) return;
-          const dx = e.x - p.x;
-          const dy = e.y - p.y;
-          if (dx * dx + dy * dy < (e.radius + p.radius) * (e.radius + p.radius)) {
-            const dead = e.takeDamage(p.damage);
-
-            if (this.showEnemyDamageNumbers && this.floatingTextPool.countActive() < 28) {
-              const dmg = Math.max(1, Math.round(p.damage));
-              this.spawnFloatingText(
-                e.x, e.y, String(dmg),
-                p.isCrit ? '#ffd23d' : '#ffffff',
-                p.isCrit ? 26 : 20
-              );
-            }
-            p.active = false;
-            if (dead) this._onEnemyKilled(e);
-          }
-        });
+        this._resolvePlayerProjectile(p);
       } else {
+        if (this.weapons.tryBlockProjectile(this, p) || !p.active) return;
         const dx = this.player.x - p.x;
         const dy = this.player.y - p.y;
         if (dx * dx + dy * dy < (this.player.radius + p.radius) * (this.player.radius + p.radius)) {
-          this.player.takeDamage(p.damage);
+          this.player.takeDamage(p.damage, this);
           p.active = false;
         }
       }
     });
 
+    this.grenadePool.forEachActive((g) => g.update(dt, this));
+    this.effects.update(dt, this);
     this.chestPool.forEachActive((c) => c.update(dt, this.player, this));
     this.chickenLegPool.forEachActive((item) => item.update(dt, this.player, this));
-    this.aoePool.forEachActive((a) => a.update(dt, this.player));
+    this.aoePool.forEachActive((a) => a.update(dt, this.player, this));
     this.fireballPool.forEachActive((f) => f.update(dt, this));
     this.particlePool.forEachActive((p) => p.update(dt));
 
-    if (this.ultWave) {
-      this.ultWave.life -= dt;
-      this.ultWave.r += this.ultWave.maxR * dt * 2.5;
-      if (this.ultWave.life <= 0) this.ultWave = null;
-    }
-
     if (!this.player.alive) this.gameOver();
+  }
+
+  /* Player projectiles pierce, split, and explode, so hits run through the
+     shared _hitEnemy helper instead of touching enemy HP directly. */
+  _resolvePlayerProjectile(p) {
+    const hitRadius = p.radius + 40;
+    this.spatial.queryCircle(p.x, p.y, hitRadius, (e) => {
+      if (!p.active || e.dying) return;
+      if (p.hitSet && p.hitSet.has(e)) return;
+      const rr = e.radius + p.radius;
+      const dx = e.x - p.x;
+      const dy = e.y - p.y;
+      if (dx * dx + dy * dy > rr * rr) return;
+
+      if (p.hitSet) p.hitSet.add(e);
+      _hitEnemy(this, e, p.damage, p.isCrit, p.weaponOpts);
+      if (p.onHit) p.onHit(e, this);
+
+      if (p.explosive) {
+        this.spawnExplosion(p.x, p.y);
+        this.spatial.queryCircle(p.x, p.y, 46, (o) => {
+          if (o === e) return;
+          _hitEnemy(this, o, p.damage * 0.6, false, null);
+        }, 12);
+      }
+      if (p.split) {
+        p.split = false;
+        for (let i = -1; i <= 1; i += 2) {
+          const ang = Math.atan2(p.vy, p.vx) + i * 0.5;
+          const spd = p.speed() || 220;
+          const child = this.projPool.acquire();
+          child.spawn(p.x, p.y, Math.cos(ang) * spd, Math.sin(ang) * spd,
+            p.damage * 0.5, p.isCrit, true, null, 0.5);
+          child.color = p.color;
+          child.kind = p.kind;
+          child.radius = p.radius;
+        }
+      }
+
+      if (p.pierceLeft > 0) {
+        p.pierceLeft--;
+        if (!p.hitSet) p.hitSet = new Set([e]);
+      } else if (!p.keepFlying) {
+        p.active = false;
+      }
+    }, 16);
   }
 
   /* ---- World ground ---- */
@@ -5682,32 +5883,19 @@ class Game {
     this.chestPool.forEachActive((c) => c.draw(ctx, this.camera));
     this.chickenLegPool.forEachActive((item) => item.draw(ctx, this.camera));
     this.aoePool.forEachActive((a) => a.draw(ctx, this.camera));
+    this.effects.draw(ctx, this.camera);
     this.enemyPool.forEachActive((e) => e.draw(ctx, this.camera));
     this.projPool.forEachActive((p) => p.draw(ctx, this.camera));
-    this.fireballPool.forEachActive((f) => f.draw(ctx, this.camera));
+    this.grenadePool.forEachActive((g) => g.draw(ctx, this.camera));
     this.player.draw(ctx, this.camera);
+    this.weapons.draw(ctx, this.camera, this);
     this.floatingTextPool.forEachActive((t) => t.draw(ctx, this.camera));
     this.particlePool.forEachActive((p) => p.draw(ctx, this.camera));
-
-    // Ultimate wave
-    if (this.ultWave) {
-      const s = this.camera.worldToScreen(this.ultWave.x, this.ultWave.y);
-      const a = Math.max(0, this.ultWave.life / 0.6);
-      ctx.strokeStyle = `rgba(255,220,80,${a})`;
-      ctx.lineWidth = 6;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, this.ultWave.r, 0, Math.PI * 2);
-      ctx.stroke();
-      ctx.fillStyle = `rgba(255,240,150,${a * 0.15})`;
-      ctx.beginPath();
-      ctx.arc(s.x, s.y, this.ultWave.r, 0, Math.PI * 2);
-      ctx.fill();
-    }
 
     this._drawDamageVignette(ctx);
 
     if (this.state === 'playing' || this.state === 'paused' || this.state === 'gameover') {
-      this.ui.draw(ctx, this.player, this.camera, this.enemyPool.countActive(), this.gacha.cost);
+      this.ui.draw(ctx, this.player, this.camera, this.enemyPool.countActive(), this);
       this.goldCoinPool.forEachActive((c) => c.draw(ctx));
     }
   }
@@ -5734,6 +5922,8 @@ window.bootGame = async function bootGame(preloadedDragons) {
   I18n.init();
   SoundManager.init();
   SoundManager.bindUiClicks();
+  if (typeof MetaProgression !== 'undefined') MetaProgression.load();
+  if (typeof window._bindWeaponSounds === 'function') window._bindWeaponSounds();
   try {
     const dragons = preloadedDragons || await SpriteFactory.loadDragons();
     window.game = new Game(dragons);

@@ -72,6 +72,8 @@
   .btn.danger:active { box-shadow: 0 2px 0 #3a0c06; }
   #confirmRestart .title { color: #ff9a7a; text-shadow: 0 0 16px #ff5a3a, 3px 3px 0 #3a1008; }
   #confirmRestart { z-index: 12; }
+  #confirmMenu .title { color: #ff9a7a; text-shadow: 0 0 16px #ff5a3a, 3px 3px 0 #3a1008; }
+  #confirmMenu { z-index: 12; }
   #mainMenu .test-btn {
     position: absolute;
     left: max(10px, env(safe-area-inset-left));
@@ -649,6 +651,195 @@
     color: #ff8a7a;
     font-size: 11px;
     max-width: 80vw;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  /* Choice overlay */
+  #choiceOverlay {
+    position: fixed; inset: 0;
+    z-index: 80;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(0, 12, 4, 0.72);
+    pointer-events: auto;
+  }
+  #choiceOverlay.hidden { display: none; }
+  #choiceOverlay.choice-locked .choice-card {
+    pointer-events: none;
+    opacity: 0.72;
+  }
+  #choiceOverlay.choice-locked .choice-card:hover,
+  #choiceOverlay.choice-locked .choice-card:focus {
+    border-color: #3a6a4a;
+    transform: none;
+  }
+  .choice-panel {
+    display: flex; flex-direction: column; align-items: center;
+    padding: 22px 20px 16px;
+    background: linear-gradient(180deg, rgba(18, 45, 28, 0.98), rgba(8, 22, 12, 0.98));
+    border: 3px solid #7dff9a;
+    border-radius: 12px;
+    box-shadow: 0 0 40px rgba(125,255,154,0.25);
+    max-width: 96vw;
+  }
+  .choice-title {
+    font-size: clamp(14px, 3vw, 22px);
+    color: #ffd700;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+  }
+  .choice-cards {
+    display: flex; flex-wrap: wrap; gap: 10px;
+    justify-content: center; max-width: 920px;
+  }
+  .choice-card {
+    width: 168px; min-height: 190px;
+    padding: 12px 10px;
+    background: rgba(0,0,0,0.4);
+    border: 2px solid #3a6a4a;
+    border-radius: 10px;
+    color: #dff;
+    cursor: pointer;
+    font-family: "Courier New", monospace;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    transition: border-color 0.15s, transform 0.15s;
+  }
+  .choice-card:hover, .choice-card:focus {
+    border-color: #7dff9a;
+    transform: translateY(-2px);
+    outline: none;
+  }
+  .choice-card.weapon { border-color: #c040ff; width: 178px; min-height: 220px; }
+  .choice-card.auto {
+    border-color: #ffd23d;
+    width: 178px;
+    min-height: 220px;
+    background: rgba(40, 28, 0, 0.55);
+  }
+  .choice-card.auto:hover, .choice-card.auto:focus {
+    border-color: #ffe68a;
+  }
+  .choice-auto-glyph {
+    width: 48px; height: 48px;
+    border: 2px solid #ffd23d;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; font-weight: bold; color: #ffd23d;
+  }
+  .choice-key {
+    align-self: flex-start;
+    font-size: 11px; color: #ffd700;
+    border: 1px solid #ffd700; border-radius: 4px;
+    padding: 1px 6px;
+  }
+  .choice-icon { width: 48px; height: 48px; image-rendering: pixelated; }
+  .choice-name { font-size: 12px; text-align: center; color: #7dff9a; }
+  .choice-value { font-size: 11px; text-align: center; color: #ffd700; line-height: 1.3; }
+  .choice-desc {
+    font-size: 10px;
+    text-align: center;
+    color: #b8d4c0;
+    line-height: 1.35;
+    margin-top: 2px;
+    max-width: 100%;
+  }
+  .choice-hints { margin-top: 14px; font-size: 11px; color: #a8d4b0; }
+  .choice-hints kbd {
+    display: inline-block; padding: 2px 6px;
+    border: 1px solid #5a8a6a; border-radius: 3px; background: #0a1a0a;
+  }
+
+  #mainMenu .reset-data-btn {
+    left: auto;
+    right: max(10px, env(safe-area-inset-right));
+  }
+  .menu-gold {
+    margin: 8px 0 14px;
+    font-size: 42px;
+    font-weight: bold;
+    color: #ffd700;
+    text-shadow: 0 0 16px rgba(255, 215, 0, 0.45), 2px 2px 0 #3a2a00;
+    letter-spacing: 2px;
+  }
+  #confirmResetData .title { color: #ff9a7a; text-shadow: 0 0 16px #ff5a3a, 3px 3px 0 #3a1008; }
+  #confirmResetData { z-index: 13; }
+  #storeOverlay { z-index: 11; }
+  .store-panel {
+    max-width: min(1100px, 96vw);
+    width: min(1100px, 96vw);
+    padding: 28px 28px 22px;
+  }
+  .store-panel .help-title { font-size: clamp(22px, 3.5vw, 34px); margin-bottom: 8px; }
+  .store-gold {
+    text-align: center;
+    color: #ffd700;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 18px;
+  }
+  .store-panel .store-list,
+  .help-content.store-list {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    max-height: min(70vh, 640px);
+    overflow-y: auto;
+    padding: 4px 2px 8px;
+    width: 100%;
+  }
+  @media (max-width: 820px) {
+    .store-panel .store-list,
+    .help-content.store-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 520px) {
+    .store-panel .store-list,
+    .help-content.store-list { grid-template-columns: 1fr; }
+  }
+  .store-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    grid-template-rows: auto auto;
+    gap: 8px 12px;
+    align-items: start;
+    padding: 16px 14px;
+    background: rgba(0,0,0,0.35);
+    border: 2px solid #3a6a4a;
+    border-radius: 10px;
+    min-height: 120px;
+  }
+  .store-row.maxed { opacity: 0.55; border-color: #2a4a32; }
+  .store-row img {
+    width: 48px; height: 48px; image-rendering: pixelated;
+    grid-row: 1 / span 2;
+    margin-top: 2px;
+  }
+  .store-row .store-info { min-width: 0; }
+  .store-row .store-name { font-size: 15px; color: #7dff9a; }
+  .store-row .store-meta { font-size: 12px; color: #a8d4b0; margin-top: 4px; line-height: 1.35; }
+  .store-row .store-desc {
+    font-size: 11px;
+    color: #8ab898;
+    margin-top: 8px;
+    line-height: 1.4;
+  }
+  .store-row .btn {
+    margin: 0;
+    padding: 10px 12px;
+    font-size: 12px;
+    grid-column: 2;
+    justify-self: start;
+    min-width: 110px;
+  }
+  .store-row .btn:disabled {
+    opacity: 0.4;
+    cursor: default;
+    transform: none;
+    box-shadow: 0 4px 0 #1a3a22;
+  }
+  .help-empty {
+    color: #8ab898;
+    font-size: 12px;
+    padding: 18px 8px;
     text-align: center;
     line-height: 1.5;
   }
