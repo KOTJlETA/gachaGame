@@ -17,6 +17,16 @@ function weaponCooldown(def, player) {
   return def.cooldown / Math.max(0.15, player.stats.attackSpeed);
 }
 
+/* Multiplier for projectile hitboxes and splash / aura radii. */
+function weaponRadiusMult(player) {
+  if (!player || !player.stats) return 1;
+  return Math.max(0.25, player.stats.weaponRadius || 1);
+}
+
+function weaponScaleRadius(base, player) {
+  return base * weaponRadiusMult(player);
+}
+
 /* Tiny unique canvas icons for each weapon */
 const WeaponIcons = {
   _cache: {},
@@ -410,7 +420,7 @@ function _hitEnemy(game, e, dmg, isCrit, opts) {
   if (dead) {
     if (opts && opts.bleedExplode && e.bleedStacks > 0 && e.canChain !== false) {
       e.explodedBy = 'bleed';
-      game.spatial.queryCircle(e.x, e.y, 70, (o) => {
+      game.spatial.queryCircle(e.x, e.y, weaponScaleRadius(70, game.player), (o) => {
         if (o === e || o.explodedBy) return;
         const r = rollCritDamage(game.player, dmg * 0.6);
         _hitEnemy(game, o, r.damage, r.isCrit, { canChain: false });
@@ -424,7 +434,7 @@ function _hitEnemy(game, e, dmg, isCrit, opts) {
 function _spawnBullet(game, x, y, vx, vy, dmg, isCrit, opts) {
   const p = game.projPool.acquire();
   p.spawn(x, y, vx, vy, dmg, isCrit, true, null, opts.life || 1.6);
-  p.radius = opts.radius || 5;
+  p.radius = weaponScaleRadius(opts.radius || 5, game.player);
   p.piercing = opts.pierce || 0;
   p.pierceLeft = opts.pierce || 0;
   p.hitSet = null;
@@ -522,7 +532,7 @@ WEAPON_DEFS.chainLightning = {
           segs.push({ x1: cur.x, y1: cur.y - 120, x2: cur.x, y2: cur.y, sky: true });
         }
         if (m.field && jumps === 0) {
-          game.effects.spawnField('electric', cur.x, cur.y, 55, 2.5, base * 0.35, '#6cf', {
+          game.effects.spawnField('electric', cur.x, cur.y, weaponScaleRadius(55, p), 2.5, base * 0.35, '#6cf', {
             onExpire: m.fieldStrike ? (f, g) => {
               g.spatial.queryCircle(f.x, f.y, f.radius, (e) => {
                 const r = rollCritDamage(p, base * 0.5);
@@ -579,7 +589,7 @@ WEAPON_DEFS.garlicAura = {
     const p = game.player;
     const m = w.mods;
     const base = p.stats.attack * this.damageMult;
-    const radius = Math.min(150, 70 + w.level * 8);
+    const radius = weaponScaleRadius(Math.min(150, 70 + w.level * 8), p);
     w.state.radius = radius;
     w.state.pulse = 0.2;
     let healed = 0;
@@ -591,7 +601,7 @@ WEAPON_DEFS.garlicAura = {
       if (m.lifesteal) healed += roll.damage * 0.04;
       if (dead && m.healOrbs) healed += p.stats.maxHealth * 0.02;
       if (dead && m.weakSpread) {
-        game.spatial.queryCircle(e.x, e.y, 80, (o) => StatusEffects.applyWeak(o, 2), 8);
+        game.spatial.queryCircle(e.x, e.y, weaponScaleRadius(80, p), (o) => StatusEffects.applyWeak(o, 2), 8);
       }
     }, 40);
     if (healed > 0) {
@@ -683,7 +693,7 @@ WEAPON_DEFS.towerShield = {
     const base = p.stats.attack * this.damageMult;
     w.state.hitCD = (w.state.hitCD || 0) - dt;
     if (w.state.hitCD <= 0) {
-      game.spatial.queryCircle(sx, sy, 22, (e) => {
+      game.spatial.queryCircle(sx, sy, weaponScaleRadius(22, p), (e) => {
         const roll = rollCritDamage(p, base);
         _hitEnemy(game, e, roll.damage, roll.isCrit, {
           knockback: m.knockback ? 28 : 0,
@@ -696,7 +706,7 @@ WEAPON_DEFS.towerShield = {
       w.state.slamT = (w.state.slamT || 0) + dt;
       if (w.state.slamT >= 3.5) {
         w.state.slamT = 0;
-        game.spatial.queryCircle(p.x, p.y, 90, (e) => {
+        game.spatial.queryCircle(p.x, p.y, weaponScaleRadius(90, p), (e) => {
           const roll = rollCritDamage(p, base * 1.4);
           _hitEnemy(game, e, roll.damage, roll.isCrit, { knockback: 40, canChain: false });
         }, 24);
@@ -710,7 +720,7 @@ WEAPON_DEFS.towerShield = {
     }
     if (w.state.auraT > 0) {
       w.state.auraT -= dt;
-      game.spatial.queryCircle(p.x, p.y, 60, (e) => {
+      game.spatial.queryCircle(p.x, p.y, weaponScaleRadius(60, p), (e) => {
         StatusEffects.applySlow(e, 0.6, 0.4);
       }, 16);
     }
@@ -794,7 +804,7 @@ WEAPON_DEFS.bloodSpear = {
           bleedExplode: m.bleedExplode,
           onHit: (e) => {
             if (m.bloodPool) {
-              game.effects.spawnField('blood', e.x, e.y, 36, 2.2, base * 0.2, '#a22', null, EffectCaps.MAX_PUDDLES);
+              game.effects.spawnField('blood', e.x, e.y, weaponScaleRadius(36, p), 2.2, base * 0.2, '#a22', null, EffectCaps.MAX_PUDDLES);
             }
           }
         },
@@ -836,7 +846,7 @@ WEAPON_DEFS.phantomBlades = {
       const bx = p.x + Math.cos(a) * radius;
       const by = p.y + Math.sin(a) * radius;
       w.state.blades.push({ x: bx, y: by, a });
-      game.spatial.queryCircle(bx, by, m.linger ? 18 : 14, (e) => {
+      game.spatial.queryCircle(bx, by, weaponScaleRadius(m.linger ? 18 : 14, p), (e) => {
         if (e._bladeHit === w.state.tick) return;
         e._bladeHit = w.state.tick;
         const roll = rollCritDamage(p, base);
@@ -848,7 +858,7 @@ WEAPON_DEFS.phantomBlades = {
       w.state.slashT = (w.state.slashT || 0) + dt;
       if (w.state.slashT >= 4) {
         w.state.slashT = 0;
-        game.spatial.queryCircle(p.x, p.y, radius + 20, (e) => {
+        game.spatial.queryCircle(p.x, p.y, weaponScaleRadius(radius + 20, p), (e) => {
           const roll = rollCritDamage(p, base * 1.6);
           _hitEnemy(game, e, roll.damage, roll.isCrit, {});
         }, 32);
@@ -887,9 +897,10 @@ WEAPON_DEFS.cursedTotem = {
     w.state.totems = w.state.totems || [];
     while (w.state.totems.length >= maxT) w.state.totems.shift();
     // Always planted on the player — the field is a hold-the-zone circle
+    const auraR = weaponScaleRadius(this.auraRadius, p);
     w.state.totems.push({
       x: p.x, y: p.y, life: this.totemLife, cd: 0,
-      radius: this.auraRadius,
+      radius: auraR,
       amp: m.curseAmp, spread: m.curseSpread, strong: m.curseStrong,
       pulse: m.totemPulse, deathBoom: m.deathBoom
     });
@@ -901,14 +912,15 @@ WEAPON_DEFS.cursedTotem = {
     if (!w.state.totems) return;
     const p = game.player;
     const base = p.stats.attack * this.damageMult;
-    const auraR = this.auraRadius;
+    const auraR = weaponScaleRadius(this.auraRadius, p);
     w.state.totems = w.state.totems.filter((t) => {
       t.life -= dt;
       t.cd -= dt;
+      t.radius = auraR;
       if (t.auraPulse > 0) t.auraPulse -= dt;
       if (t.life <= 0) {
         if (t.deathBoom) {
-          game.spatial.queryCircle(t.x, t.y, 80, (e) => {
+          game.spatial.queryCircle(t.x, t.y, weaponScaleRadius(80, p), (e) => {
             if (e.curse > 0) {
               const roll = rollCritDamage(p, base * 1.5);
               _hitEnemy(game, e, roll.damage, roll.isCrit, { canChain: false });
@@ -931,7 +943,7 @@ WEAPON_DEFS.cursedTotem = {
           const strength = t.strong ? 0.35 : 0.2;
           StatusEffects.applyCurse(target, strength + (t.amp ? 0.1 : 0), 0);
           if (t.spread) {
-            game.spatial.queryCircle(target.x, target.y, 90, (e) => {
+            game.spatial.queryCircle(target.x, target.y, weaponScaleRadius(90, p), (e) => {
               if (e === target) return;
               StatusEffects.applyCurse(e, strength * 0.7, 1);
             }, 6);
@@ -943,7 +955,7 @@ WEAPON_DEFS.cursedTotem = {
         if (t.pulseT >= 2) {
           t.pulseT = 0;
           t.auraPulse = 0.35;
-          game.spatial.queryCircle(t.x, t.y, 70, (e) => {
+          game.spatial.queryCircle(t.x, t.y, weaponScaleRadius(70, p), (e) => {
             if (e.curse <= 0) return;
             const roll = rollCritDamage(p, base);
             _hitEnemy(game, e, roll.damage, roll.isCrit, {});
@@ -1022,10 +1034,10 @@ WEAPON_DEFS.iceCrystal = {
           }
           if (froze && m.statues) e.frozenT = Math.max(e.frozenT, 3);
           if (m.iceTrail) {
-            g.effects.spawnField('ice', e.x, e.y, 28, 1.8, 2, '#9ef', null, EffectCaps.MAX_TRAILS);
+            g.effects.spawnField('ice', e.x, e.y, weaponScaleRadius(28, p), 1.8, 2, '#9ef', null, EffectCaps.MAX_TRAILS);
           }
           if (m.shards) {
-            g.spatial.queryCircle(e.x, e.y, 70, (o) => {
+            g.spatial.queryCircle(e.x, e.y, weaponScaleRadius(70, p), (o) => {
               if (o === e) return;
               const r = rollCritDamage(p, base * mult * 0.4);
               _hitEnemy(g, o, r.damage, r.isCrit, { freeze: true, freezeAmt: 0.12 });
@@ -1119,7 +1131,7 @@ class GrenadeProjectile {
     this.y = this.sy + (this.ty - this.sy) * u - Math.sin(u * Math.PI) * this.arcHeight;
     const groundY = this.sy + (this.ty - this.sy) * u;
     if (this.mods.burnTrail && Math.random() < 0.35) {
-      game.effects.spawnField('trail', this.x, groundY, 18, 1.2, 3, '#f84', null, EffectCaps.MAX_TRAILS);
+      game.effects.spawnField('trail', this.x, groundY, weaponScaleRadius(18, game.player), 1.2, 3, '#f84', null, EffectCaps.MAX_TRAILS);
     }
     // Fuse sparks so the lob stays visible over green terrain
     this._sparkCd -= dt;
@@ -1132,7 +1144,7 @@ class GrenadeProjectile {
   }
   _land(game) {
     const p = game.player;
-    const r = 55;
+    const r = weaponScaleRadius(55, p);
     game.spatial.queryCircle(this.tx, this.ty, r, (e) => {
       _hitEnemy(game, e, this.damage, this.isCrit, {
         burn: this.mods.napalm
@@ -1144,7 +1156,7 @@ class GrenadeProjectile {
     const m = this.mods;
     if (m.puddle || m.acid || m.napalm) {
       const kind = m.acid ? 'acid' : m.napalm ? 'napalm' : 'acid';
-      const rad = m.expand ? 70 : 48;
+      const rad = weaponScaleRadius(m.expand ? 70 : 48, p);
       game.effects.spawnField(kind, this.tx, this.ty, rad, 3.2, this.damage * 0.25,
         m.napalm ? '#f84' : '#8f6', {
           onExpire: m.expireBlast ? (f, g) => {
@@ -1456,6 +1468,8 @@ class WeaponSystem {
 window.rollCritDamage = rollCritDamage;
 window.weaponProjectileCount = weaponProjectileCount;
 window.weaponCooldown = weaponCooldown;
+window.weaponRadiusMult = weaponRadiusMult;
+window.weaponScaleRadius = weaponScaleRadius;
 window.WeaponIcons = WeaponIcons;
 window.WEAPON_DEFS = WEAPON_DEFS;
 window.WeaponSystem = WeaponSystem;

@@ -37,6 +37,7 @@ class I18n {
       statMoveSpeed: 'Move Speed',
       statMaxHealth: 'Max Health',
       statBulletSpeed: 'Projectile Speed',
+      statWeaponRadius: 'Weapon Radius',
       statCritical: 'Critical',
       statExpGain: 'Exp Gain',
       statLuck: 'Luck',
@@ -202,6 +203,7 @@ class I18n {
       statMoveSpeed: 'Скорость',
       statMaxHealth: 'Макс. здоровье',
       statBulletSpeed: 'Скорость снарядов',
+      statWeaponRadius: 'Радиус оружия',
       statCritical: 'Критический удар',
       statExpGain: 'Прирост опыта',
       statLuck: 'Удача',
@@ -275,12 +277,14 @@ class I18n {
     en: {
       moveSpeed: 'Movement Speed', maxHealth: 'Max Health', maxShield: 'Shield',
       attack: 'Attack', attackSpeed: 'Attack Speed', bulletSpeed: 'Projectile Speed',
+      weaponRadius: 'Weapon Radius',
       critChance: 'Crit Chance', critDamage: 'Crit Damage',
       bulletCount: 'Projectile Count', expMultiplier: 'Exp Multiplier', luck: 'Luck'
     },
     ru: {
       moveSpeed: 'Скорость', maxHealth: 'Макс. здоровье', maxShield: 'Щит',
       attack: 'Атака', attackSpeed: 'Скорость атаки', bulletSpeed: 'Скорость снарядов',
+      weaponRadius: 'Радиус оружия',
       critChance: 'Шанс крита', critDamage: 'Урон крита',
       bulletCount: 'Число снарядов', expMultiplier: 'Множ. опыта', luck: 'Удача'
     }
@@ -295,6 +299,7 @@ class I18n {
       { abbr: 'ASP', name: 'Attack Speed', desc: 'Divides the reload time of every weapon, so all slots fire more often.' },
       { abbr: 'BLT', name: 'Projectile Count', desc: 'Adds one extra projectile, pellet, or strike to every weapon that fires them.' },
       { abbr: 'BSP', name: 'Projectile Speed', desc: 'Projectile travel speed. Faster shots reach distant enemies sooner.' },
+      { abbr: 'RAD', name: 'Weapon Radius', desc: 'Scales projectile hitboxes and splash / aura radii for weapons that use them (shotgun blasts, grenades, garlic, totem, ice shatter, and similar).' },
       { abbr: 'CRT', name: 'Critical Chance', desc: 'Probability each hit critically strikes. Crits roll independently per projectile.' },
       { abbr: 'CDM', name: 'Critical Damage', desc: 'Damage multiplier applied on critical hits (e.g. 1.5× = +50% damage). Once Crit Chance hits 100%, the Critical card gives only Crit Damage.' },
       { abbr: 'EXP', name: 'Experience Multiplier', desc: 'Multiplies XP gained from all gold pickups. XP raises level and scales difficulty.' },
@@ -308,6 +313,7 @@ class I18n {
       { abbr: 'ASP', name: 'Скорость атаки', desc: 'Делит время перезарядки всего оружия — все слоты стреляют чаще.' },
       { abbr: 'BLT', name: 'Число снарядов', desc: 'Добавляет по одному снаряду, дробине или удару каждому оружию, которое их выпускает.' },
       { abbr: 'BSP', name: 'Скорость снарядов', desc: 'Скорость полёта снарядов. Быстрее достают дальние цели.' },
+      { abbr: 'RAD', name: 'Радиус оружия', desc: 'Увеличивает размер снарядов и радиус взрывов / аур у оружия, где это применимо (дробовик, гранаты, чеснок, тотем, лёд и т.п.).' },
       { abbr: 'CRT', name: 'Шанс крита', desc: 'Вероятность критического попадания для каждого снаряда.' },
       { abbr: 'CDM', name: 'Урон крита', desc: 'Множитель урона при крите (напр. 1.5× = +50% урона). При 100% шансе крита карта «Критический удар» даёт только урон крита.' },
       { abbr: 'EXP', name: 'Множ. опыта', desc: 'Умножает опыт от всего золота. Опыт повышает уровень и сложность.' },
@@ -1754,6 +1760,27 @@ class IconFactory {
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
       ]
     },
+    weaponRadius: {
+      p: ['#0000','#1a3a2a','#3a8a5a','#7dff9a','#c8f5d0','#ffe080'],
+      px: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0,
+        0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,
+        0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,
+        0,0,2,0,0,0,3,3,3,3,0,0,0,2,0,0,
+        0,0,2,0,0,3,0,0,0,0,3,0,0,2,0,0,
+        0,0,2,0,0,3,0,5,5,0,3,0,0,2,0,0,
+        0,0,2,0,0,3,0,5,5,0,3,0,0,2,0,0,
+        0,0,2,0,0,3,0,0,0,0,3,0,0,2,0,0,
+        0,0,2,0,0,0,3,3,3,3,0,0,0,2,0,0,
+        0,0,0,2,0,0,0,0,0,0,0,0,2,0,0,0,
+        0,0,0,0,2,0,0,0,0,0,0,2,0,0,0,0,
+        0,0,0,0,0,2,2,2,2,2,2,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      ]
+    },
     critChance: {
       p: ['#0000','#7a3a00','#ff8c00','#ffd23d','#fff3a0'],
       px: [
@@ -2352,7 +2379,9 @@ class Projectile {
         }
       }
       if (m.pull && game.spatial) {
-        const pullR = m.collidePull ? 120 : 90;
+        const basePull = m.collidePull ? 120 : 90;
+        const pullR = typeof weaponScaleRadius === 'function'
+          ? weaponScaleRadius(basePull, game.player) : basePull;
         game.spatial.queryCircle(this.x, this.y, pullR, (e) => {
           if (StatusEffects.isControlImmune(e)) return;
           const dx = this.x - e.x;
@@ -2395,7 +2424,9 @@ class Projectile {
     if (this.vx !== 0 || this.vy !== 0) this.angle = Math.atan2(this.vy, this.vx);
 
     if (this.trail && game && game.effects && Math.random() < 0.3) {
-      game.effects.spawnField('trail', this.x, this.y, 16, 1.1, Math.max(3, this.damage * 0.15),
+      const trailR = typeof weaponScaleRadius === 'function'
+        ? weaponScaleRadius(16, game.player) : 16;
+      game.effects.spawnField('trail', this.x, this.y, trailR, 1.1, Math.max(3, this.damage * 0.15),
         '#f84', null, EffectCaps.MAX_TRAILS);
     }
 
@@ -3855,6 +3886,7 @@ class Player {
     attack: 8,
     attackSpeed: 1.0,
     bulletSpeed: 280,
+    weaponRadius: 1,
     critChance: 0.05,
     critDamage: 1.5,
     expMultiplier: 1
@@ -3875,6 +3907,7 @@ class Player {
       attack: 0,
       attackSpeed: 0,
       bulletSpeed: 0,
+      weaponRadius: 0,
       critChance: 0,
       critDamageBonus: 0,
       expMultiplier: 0,
@@ -3923,6 +3956,7 @@ class Player {
     s.attack = B.attack * (1 + a.attack + m.attack);
     s.attackSpeed = B.attackSpeed * (1 + a.attackSpeed + m.attackSpeed);
     s.bulletSpeed = B.bulletSpeed * (1 + a.bulletSpeed);
+    s.weaponRadius = B.weaponRadius * (1 + a.weaponRadius);
     s.critChance = Math.min(1, B.critChance + a.critChance + m.critChance);
     s.critDamage = B.critDamage + a.critDamageBonus + m.critDamageBonus;
     s.expMultiplier = B.expMultiplier * (1 + a.expMultiplier + m.expMultiplier);
@@ -4554,6 +4588,7 @@ class UI {
       ['moveSpeed', player.stats.moveSpeed.toFixed(0)],
       ['bulletCount', String(Math.floor(player.stats.bulletCount))],
       ['bulletSpeed', player.stats.bulletSpeed.toFixed(0)],
+      ['weaponRadius', `x${player.stats.weaponRadius.toFixed(2)}`],
       ['critChance', `${Math.round(player.stats.critChance * 100)}%`],
       ['critDamage', `x${player.stats.critDamage.toFixed(2)}`],
       ['expMultiplier', `x${player.stats.expMultiplier.toFixed(2)}`],
@@ -4682,6 +4717,7 @@ class HelpPanel {
   static abbrToStat = {
     SPD: 'moveSpeed', HP: 'maxHealth', SHD: 'maxShield', ATK: 'attack',
     ASP: 'attackSpeed', BLT: 'bulletCount', BSP: 'bulletSpeed',
+    RAD: 'weaponRadius',
     CRT: 'critChance', CDM: 'critDamage',
     EXP: 'expMultiplier', LCK: 'luck'
   };
@@ -5441,6 +5477,7 @@ class Game {
       case 'ASP': return `${s.attackSpeed.toFixed(2)}/s`;
       case 'BLT': return `${Math.round(s.bulletCount)}`;
       case 'BSP': return `${Math.round(s.bulletSpeed)}`;
+      case 'RAD': return `x${s.weaponRadius.toFixed(2)}`;
       case 'CRT': return `${Math.round(s.critChance * 100)}%`;
       case 'CDM': return `${s.critDamage.toFixed(2)}×`;
       case 'EXP': return `${s.expMultiplier.toFixed(2)}×`;
@@ -5876,7 +5913,9 @@ class Game {
 
       if (p.explosive) {
         this.spawnExplosion(p.x, p.y);
-        this.spatial.queryCircle(p.x, p.y, 46, (o) => {
+        const blastR = typeof weaponScaleRadius === 'function'
+          ? weaponScaleRadius(46, this.player) : 46;
+        this.spatial.queryCircle(p.x, p.y, blastR, (o) => {
           if (o === e) return;
           _hitEnemy(this, o, p.damage * 0.6, false, null);
         }, 12);

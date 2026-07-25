@@ -41,6 +41,13 @@ const STAT_DEFS = {
     value() { return '+12%'; },
     bonusText(p) { return `+${Math.round(p.statAdd.bulletSpeed * 100)}%`; }
   },
+  weaponRadius: {
+    id: 'weaponRadius', icon: 'weaponRadius',
+    apply(p) { p.statAdd.weaponRadius += 0.12; },
+    label() { return I18n.t('statWeaponRadius'); },
+    value() { return '+12%'; },
+    bonusText(p) { return `+${Math.round(p.statAdd.weaponRadius * 100)}%`; }
+  },
   critical: {
     id: 'critical', icon: 'critChance',
     apply(p) {
