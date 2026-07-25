@@ -152,7 +152,7 @@ function _modsFor(w) {
 const WEAPON_LEVEL_TEXT = {
   shotgun: {
     en: {
-      1: 'Wide pellet spray at short range.',
+      1: 'Pellet spray along your move direction.',
       2: 'Pellets pierce through 1 enemy.',
       '3A': 'Path A: 3-round burst fire.',
       '3B': 'Path B: tight choke cone.',
@@ -162,7 +162,7 @@ const WEAPON_LEVEL_TEXT = {
       '5B': 'Pellets ignite enemies.'
     },
     ru: {
-      1: 'Широкий дробовой залп вблизи.',
+      1: 'Дробь летит в сторону движения.',
       2: 'Дробь пробивает 1 врага.',
       '3A': 'Путь A: очередь из 3 выстрелов.',
       '3B': 'Путь B: узкий плотный конус.',
@@ -456,8 +456,10 @@ WEAPON_DEFS.shotgun = {
     const m = w.mods;
     const base = p.stats.attack * this.damageMult;
     const count = weaponProjectileCount(this, p);
-    const dx = aim.x - p.x; const dy = aim.y - p.y;
-    const baseAng = Math.atan2(dy, dx);
+    // Fire along the player's last move direction (held after stopping)
+    const sx = Number.isFinite(p.shootDirX) ? p.shootDirX : 1;
+    const sy = Number.isFinite(p.shootDirY) ? p.shootDirY : 0;
+    const baseAng = Math.atan2(sy, sx);
     let spread = m.choke ? 0.28 : 0.55;
     spread *= m.spreadTight;
     const bursts = m.burst || 1;
@@ -729,7 +731,7 @@ WEAPON_DEFS.towerShield = {
 
 WEAPON_DEFS.grenadeLauncher = {
   id: 'grenadeLauncher', nameKey: 'weaponGrenadeLauncher', kind: 'thrown',
-  cooldown: 1.4, damageMult: 1.1, projectiles: 1, hasReload: true,
+  cooldown: 2.8, damageMult: 2.2, projectiles: 1, hasReload: true,
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
@@ -1208,11 +1210,19 @@ class WeaponSystem {
     this.slots = [];
     this.maxSlots = 5;
     this.tempShield = 0;
+    this.refreshSlotCap();
+  }
+
+  refreshSlotCap() {
+    this.maxSlots = (typeof MetaProgression !== 'undefined')
+      ? MetaProgression.maxWeaponSlots()
+      : 5;
   }
 
   reset() {
     this.slots = [];
     this.tempShield = 0;
+    this.refreshSlotCap();
   }
 
   grant(id, level = 1, branch = null) {
@@ -1344,12 +1354,14 @@ class WeaponSystem {
       }
 
       let aim;
-      if (game.autoaim || (typeof MobileControls !== 'undefined' && MobileControls.isMobile)) {
+      if (w.id === 'shotgun') {
+        const sx = Number.isFinite(p.shootDirX) ? p.shootDirX : 1;
+        const sy = Number.isFinite(p.shootDirY) ? p.shootDirY : 0;
+        aim = { x: p.x + sx * 80, y: p.y + sy * 80 };
+      } else {
         const t = game.spatial.nearest(p.x, p.y, 500);
         if (!t && def.kind !== 'aura' && def.kind !== 'orbit') continue;
         aim = t || { x: p.x + p.facing * 80, y: p.y };
-      } else {
-        aim = game.getAimPoint();
       }
       const cd = weaponCooldown(def, p);
       w.lastCd = cd;

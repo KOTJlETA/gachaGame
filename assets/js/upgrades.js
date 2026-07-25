@@ -273,7 +273,8 @@ class UpgradeSystem {
 
     // Eligible stats fill the remaining slots (unique when possible)
     const selected = p.selectedStatIds;
-    let eligibleStats = selected.length >= 5 ? selected.slice() : STAT_IDS.slice();
+    const maxStats = typeof p.maxStatSlots === 'function' ? p.maxStatSlots() : 5;
+    let eligibleStats = selected.length >= maxStats ? selected.slice() : STAT_IDS.slice();
     this._shuffle(eligibleStats);
 
     for (const id of eligibleStats) {
@@ -343,7 +344,7 @@ class UpgradeSystem {
     if (opt.type === 'stat') {
       const def = STAT_DEFS[opt.statId];
       if (def) {
-        if (!p.selectedStatIds.includes(opt.statId) && p.selectedStatIds.length < 5) {
+        if (!p.selectedStatIds.includes(opt.statId) && p.selectedStatIds.length < p.maxStatSlots()) {
           p.selectedStatIds.push(opt.statId);
         }
         def.apply(p);

@@ -30,17 +30,10 @@
       <option value="joy-left">Joystick left</option>
     </select>
   </div>
-  <label class="gacha-autogacha" id="damageNumbersLabel">
-    <input type="checkbox" id="damageNumbersToggle">
-    <span data-i18n="damageNumbers">Show enemy damage numbers</span>
-  </label>
-  <label class="gacha-autogacha" id="autoaimLabel">
-    <input type="checkbox" id="autoaimToggle" checked>
-    <span data-i18n="autoaim">Autoaim</span>
-  </label>
   <div class="menu-gold" id="menuGold">Gold: 0</div>
   <button class="btn" id="startBtn" data-i18n="newGame">NEW GAME</button>
   <button class="btn" id="storeBtn" data-i18n="store">STORE</button>
+  <button class="btn" id="optionsBtn" data-i18n="options">OPTIONS</button>
   <button class="btn help-btn" id="helpBtnMain" data-i18n="help">HELP</button>
   <div class="controls-panel">
     <div class="controls-title" data-i18n="controls">CONTROLS</div>
@@ -96,6 +89,18 @@
     <div class="store-gold" id="storeGold">Gold: 0</div>
     <div class="help-content store-list" id="storeList"></div>
     <button class="btn help-close" id="storeCloseBtn" data-i18n="back">BACK</button>
+  </div>
+</div>
+<div id="optionsOverlay" class="overlay hidden">
+  <div class="help-panel options-panel">
+    <div class="help-title" data-i18n="optionsTitle">OPTIONS</div>
+    <div class="options-list">
+      <label class="gacha-autogacha" id="damageNumbersLabel">
+        <input type="checkbox" id="damageNumbersToggle">
+        <span data-i18n="damageNumbers">Show enemy damage numbers</span>
+      </label>
+    </div>
+    <button class="btn help-close" id="optionsCloseBtn" data-i18n="back">BACK</button>
   </div>
 </div>
 <div id="gameOverMenu" class="overlay hidden">

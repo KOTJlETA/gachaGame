@@ -60,6 +60,8 @@ class I18n {
       storeBuy: 'BUY {0}g',
       storeMaxed: 'MAX',
       storeLevel: '{0}/{1}',
+      storeToggleOn: 'BONUS: ON',
+      storeToggleOff: 'BONUS: OFF',
       storeMove: 'Movement Speed',
       storeMoveVal: '+10%',
       storeHealth: 'Max Health',
@@ -76,14 +78,21 @@ class I18n {
       storeExpVal: '+10%',
       storeLuck: 'Luck',
       storeLuckVal: '+10%',
+      storeWeaponSlots: 'Weapon Slots',
+      storeWeaponSlotsVal: '+1 slot',
+      storeWeaponSlotsDesc: 'Permanently adds one weapon slot for every run. Buy up to 5 extras (10 weapons total). Extremely expensive.',
+      storeStatSlots: 'Stat Slots',
+      storeStatSlotsVal: '+1 slot',
+      storeStatSlotsDesc: 'Permanently adds one committed-stat slot for every run. Buy up to 5 extras (10 stats total). Extremely expensive.',
       resetData: 'RESET DATA',
       resetDataTitle: 'RESET ALL DATA?',
       resetDataText: 'Gold, store upgrades, and run saves will be permanently erased.',
       resetDataYes: 'YES, ERASE EVERYTHING',
       resetDataNo: 'CANCEL',
       menuGold: 'Gold: {0}',
+      options: 'OPTIONS',
+      optionsTitle: 'OPTIONS',
       damageNumbers: 'Show enemy damage numbers',
-      autoaim: 'Autoaim',
       chestHint: 'Walk near chests to auto-open',
       paused: 'PAUSED',
       resume: 'Resume',
@@ -152,6 +161,8 @@ class I18n {
       storeBuy: 'КУПИТЬ {0} з.',
       storeMaxed: 'МАКС',
       storeLevel: '{0}/{1}',
+      storeToggleOn: 'БОНУС: ВКЛ',
+      storeToggleOff: 'БОНУС: ВЫКЛ',
       storeMove: 'Скорость',
       storeMoveVal: '+10%',
       storeHealth: 'Макс. здоровье',
@@ -168,6 +179,12 @@ class I18n {
       storeExpVal: '+10%',
       storeLuck: 'Удача',
       storeLuckVal: '+10%',
+      storeWeaponSlots: 'Слоты оружия',
+      storeWeaponSlotsVal: '+1 слот',
+      storeWeaponSlotsDesc: 'Навсегда добавляет один слот оружия в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
+      storeStatSlots: 'Слоты статов',
+      storeStatSlotsVal: '+1 слот',
+      storeStatSlotsDesc: 'Навсегда добавляет один слот выбранного стата в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
       resetData: 'СБРОС ДАННЫХ',
       resetDataTitle: 'СБРОСИТЬ ВСЕ ДАННЫЕ?',
       resetDataText: 'Золото, улучшения магазина и сохранения забегов будут удалены навсегда.',
@@ -203,8 +220,9 @@ class I18n {
       statsLabel: 'СТАТЫ',
       helpWeapons: 'Вы носите до 5 оружий, каждое стреляет само по своему таймеру перезарядки — вручную стрелять не нужно. Любое оружие растёт до 5 уровня; на 3 уровне вы выбираете путь A или B, который определяет его развитие. В HUD у каждого оружия свой слот с полосой перезарядки.',
       helpChoices: 'Каждый новый уровень ставит забег на паузу и выдаёт 5 карт: новое оружие, улучшение оружия или прирост стата. Нажмите 1-5 или щёлкните по карте. Можно держать не более 5 разных статов, поэтому позже предлагаются только уже выбранные. Сундуки дают дополнительные выборы — 1 за обычный, 3 за редкий, 5 за эпический.',
+      options: 'НАСТРОЙКИ',
+      optionsTitle: 'НАСТРОЙКИ',
       damageNumbers: 'Показывать урон врагов',
-      autoaim: 'Автоприцел',
       chestHint: 'Подойдите к сундукам для авто-открытия',
       paused: 'ПАУЗА',
       resume: 'Продолжить',
@@ -378,7 +396,7 @@ class I18n {
 
   static helpWeaponDescs = {
     en: {
-      shotgun: 'Fan of pellets at close range. Best when enemies pack in front of you.',
+      shotgun: 'Fan of pellets along your move direction. Keeps firing that way after you stop.',
       chainLightning: 'Arc bolt that jumps between nearby foes.',
       garlicAura: 'Damaging aura around you that ticks continuously.',
       boomerang: 'Throws toward the furthest enemy in range, pierces on the way out, then returns through the pack.',
@@ -390,7 +408,7 @@ class I18n {
       iceCrystal: 'Fans homing ice shards in a 90° cone; each shard locks onto an enemy.'
     },
     ru: {
-      shotgun: 'Веер дроби на близкой дистанции. Лучше всего против скученных врагов.',
+      shotgun: 'Веер дроби в сторону движения. После остановки продолжает стрелять в том же направлении.',
       chainLightning: 'Дуга, прыгающая между ближайшими врагами.',
       garlicAura: 'Постоянная аура урона вокруг вас.',
       boomerang: 'Бросается в самого дальнего врага в радиусе, пробивает на пути и возвращается сквозь толпу.',
@@ -802,23 +820,6 @@ class MobileControls {
   static _syncMobileMenu() {
     const row = document.getElementById('touchLayoutSelector');
     if (row) row.classList.toggle('hidden', !this.isMobile);
-    const aimLabel = document.getElementById('autoaimLabel');
-    if (aimLabel) aimLabel.classList.toggle('hidden', this.isMobile);
-    if (!this.game) return;
-    if (this.isMobile) {
-      this.game.autoaim = true;
-      const toggle = document.getElementById('autoaimToggle');
-      if (toggle) toggle.checked = true;
-    } else {
-      let saved = true;
-      try {
-        const stored = localStorage.getItem('gachaSurvivorsAutoaim');
-        if (stored !== null) saved = stored === '1';
-      } catch (e) {}
-      this.game.autoaim = saved;
-      const toggle = document.getElementById('autoaimToggle');
-      if (toggle) toggle.checked = saved;
-    }
   }
 
   static init(game) {
@@ -1876,6 +1877,48 @@ class IconFactory {
         0,0,0,0,3,3,0,1,1,0,3,3,0,0,0,0,
         0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      ]
+    },
+    weaponSlots: {
+      p: ['#0000','#3a2040','#c040ff','#e8a0ff','#ffd700','#fff'],
+      px: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,1,2,2,1,0,0,0,1,2,2,1,0,0,0,
+        0,0,1,2,2,1,0,0,0,1,2,2,1,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,4,4,4,4,0,0,0,0,0,0,0,
+        0,0,0,0,0,4,5,5,4,0,0,0,0,0,0,0,
+        0,0,0,0,0,4,4,4,4,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,1,3,3,1,0,0,0,1,3,3,1,0,0,0,
+        0,0,1,3,3,1,0,0,0,1,3,3,1,0,0,0,
+        0,0,1,1,1,1,0,0,0,1,1,1,1,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
+      ]
+    },
+    statSlots: {
+      p: ['#0000','#0a3a2a','#1a6a4a','#7dff9a','#ffd700','#fff'],
+      px: [
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
+        0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+        0,0,1,2,2,2,2,2,2,2,2,2,2,1,0,0,
+        0,0,1,2,3,3,2,2,2,2,3,3,2,1,0,0,
+        0,0,1,2,3,3,2,4,4,2,3,3,2,1,0,0,
+        0,0,1,2,2,2,2,4,4,2,2,2,2,1,0,0,
+        0,0,1,2,2,2,2,4,4,2,2,2,2,1,0,0,
+        0,0,1,2,3,3,2,4,4,2,3,3,2,1,0,0,
+        0,0,1,2,3,3,2,2,2,2,3,3,2,1,0,0,
+        0,0,1,2,2,2,2,2,2,2,2,2,2,1,0,0,
+        0,0,1,1,1,1,1,1,1,1,1,1,1,1,0,0,
+        0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,5,5,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
         0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
       ]
     }
@@ -3856,6 +3899,8 @@ class Player {
     this.health = this.stats.maxHealth;
     this.hurtFlash = 0;
     this.facing = 1;
+    this.shootDirX = 1;
+    this.shootDirY = 0;
     this.anim = 0;
     this.slowTimer = 0;
     this.slowFactor = 1;
@@ -3891,6 +3936,12 @@ class Player {
     return 1 + this.stats.luck;
   }
 
+  maxStatSlots() {
+    return (typeof MetaProgression !== 'undefined')
+      ? MetaProgression.maxStatSlots()
+      : 5;
+  }
+
   toSaveData() {
     return {
       x: this.x,
@@ -3921,6 +3972,8 @@ class Player {
     this._recomputeStats();
     this.health = data.health ?? this.stats.maxHealth;
     this.facing = data.facing ?? 1;
+    this.shootDirX = this.facing;
+    this.shootDirY = 0;
     this.hurtFlash = 0;
     this.anim = 0;
     this.slowTimer = 0;
@@ -4059,6 +4112,8 @@ class Player {
       const speed = this.stats.moveSpeed * this.slowFactor;
       this.x += mx * speed * dt;
       this.y += my * speed * dt;
+      this.shootDirX = mx;
+      this.shootDirY = my;
       if (mx !== 0) this.facing = mx > 0 ? 1 : -1;
     }
 
@@ -4342,18 +4397,25 @@ class UI {
     ctx.textAlign = 'left';
 
     // Top-left: one slot per weapon, each with its own reload sweep
-    const slot = Math.round(19 * S);
-    const gap = Math.round(4 * S);
+    const weaponCap = weapons ? weapons.maxSlots : 5;
+    const statCap = typeof player.maxStatSlots === 'function' ? player.maxStatSlots() : 5;
+    const slotCount = Math.max(weaponCap, statCap, 5);
+    const baseSlot = Math.round(19 * S);
+    // Shrink slightly when store extras push past the default 5 so the row still fits
+    const slot = slotCount > 5
+      ? Math.max(Math.round(12 * S), Math.round(baseSlot * 5 / slotCount))
+      : baseSlot;
+    const gap = Math.max(2, Math.round(4 * S * (slot / baseSlot)));
     const weaponsY = pad;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < weaponCap; i++) {
       const x = pad + i * (slot + gap);
       const w = weapons && weapons.slots[i] ? weapons.slots[i] : null;
       this._weaponSlot(ctx, x, weaponsY, slot, w, weapons, S);
     }
 
-    // Below them: the (max 5) stats this run has committed to
+    // Below them: committed stats for this run (base 5 + store extras)
     const statsY = weaponsY + slot + gap;
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < statCap; i++) {
       const x = pad + i * (slot + gap);
       const statId = player.selectedStatIds[i];
       this._statSlot(ctx, x, statsY, slot, statId, player, S);
@@ -4870,11 +4932,6 @@ class Game {
       const stored = localStorage.getItem('gachaSurvivorsShowEnemyDamage');
       if (stored !== null) this.showEnemyDamageNumbers = stored === '1';
     } catch (e) {}
-    this.autoaim = true;
-    try {
-      const storedAim = localStorage.getItem('gachaSurvivorsAutoaim');
-      if (storedAim !== null) this.autoaim = storedAim === '1';
-    } catch (e) {}
     this.pointerX = 0;
     this.pointerY = 0;
     this.hasPointerAim = false;
@@ -4918,6 +4975,8 @@ class Game {
     document.getElementById('startBtn').onclick = () => this.startGame();
     document.getElementById('storeBtn').onclick = () => this.openStore();
     document.getElementById('storeCloseBtn').onclick = () => this.closeStore();
+    document.getElementById('optionsBtn').onclick = () => this.openOptions();
+    document.getElementById('optionsCloseBtn').onclick = () => this.closeOptions();
     document.getElementById('testBtn').onclick = () => this.startTestMode();
     document.getElementById('resetDataBtn').onclick = () => this.askResetData();
     document.getElementById('confirmResetDataYes').onclick = () => {
@@ -4950,25 +5009,6 @@ class Game {
           localStorage.setItem(
             'gachaSurvivorsShowEnemyDamage',
             this.showEnemyDamageNumbers ? '1' : '0'
-          );
-        } catch (e) {}
-      };
-    }
-
-    const aimToggle = document.getElementById('autoaimToggle');
-    if (aimToggle) {
-      aimToggle.checked = !!this.autoaim;
-      aimToggle.onchange = () => {
-        if (MobileControls.isMobile) {
-          aimToggle.checked = true;
-          this.autoaim = true;
-          return;
-        }
-        this.autoaim = !!aimToggle.checked;
-        try {
-          localStorage.setItem(
-            'gachaSurvivorsAutoaim',
-            this.autoaim ? '1' : '0'
           );
         } catch (e) {}
       };
@@ -5018,6 +5058,7 @@ class Game {
             else if (this.isMenuConfirmOpen()) this.closeMenuConfirm();
             else if (this.isRestartConfirmOpen()) this.closeRestartConfirm();
             else if (this.isStoreOpen()) this.closeStore();
+            else if (this.isOptionsOpen()) this.closeOptions();
             else if (this.isStatsOpen()) this.closeStats();
             else if (this.help.isOpen()) this.help.close();
             else this.togglePause();
@@ -5060,6 +5101,7 @@ class Game {
     document.getElementById('pauseMenu').classList.add('hidden');
     document.getElementById('gameOverMenu').classList.add('hidden');
     this.closeStore();
+    this.closeOptions();
     this.ui.setControlsVisible(true);
   }
 
@@ -5082,6 +5124,8 @@ class Game {
     document.getElementById('mainMenu').classList.add('hidden');
     document.getElementById('pauseMenu').classList.add('hidden');
     document.getElementById('gameOverMenu').classList.add('hidden');
+    this.closeStore();
+    this.closeOptions();
     this.ui.setControlsVisible(true);
 
     const types = [
@@ -5222,6 +5266,7 @@ class Game {
   openStore() {
     if (this.state !== 'menu') return;
     this.closeResetDataConfirm();
+    this.closeOptions();
     this._renderStore();
     document.getElementById('storeOverlay').classList.remove('hidden');
   }
@@ -5231,7 +5276,26 @@ class Game {
     if (el) el.classList.add('hidden');
   }
 
+  isOptionsOpen() {
+    const el = document.getElementById('optionsOverlay');
+    return !!(el && !el.classList.contains('hidden'));
+  }
+
+  openOptions() {
+    if (this.state !== 'menu') return;
+    this.closeResetDataConfirm();
+    this.closeStore();
+    document.getElementById('optionsOverlay').classList.remove('hidden');
+  }
+
+  closeOptions() {
+    const el = document.getElementById('optionsOverlay');
+    if (el) el.classList.add('hidden');
+  }
+
   _storeHelpDesc(storeId) {
+    const def = typeof MetaProgression !== 'undefined' ? MetaProgression.def(storeId) : null;
+    if (def && def.descKey) return I18n.t(def.descKey);
     const map = {
       moveSpeed: ['SPD'],
       maxHealth: ['HP'],
@@ -5262,17 +5326,27 @@ class Game {
       const cost = MetaProgression.costOf(d.id);
       const spr = this.sprites[IconFactory.spriteKey(d.icon)];
       const img = spr ? `<img src="${spr.toDataURL()}" alt="">` : '<span></span>';
-      const btnLabel = maxed ? I18n.t('storeMaxed') : I18n.t('storeBuy', cost);
+      const costLabel = cost != null ? cost.toLocaleString('en-US') : '';
+      const btnLabel = maxed ? I18n.t('storeMaxed') : I18n.t('storeBuy', costLabel);
       const disabled = maxed || !MetaProgression.canBuy(d.id) ? ' disabled' : '';
       const desc = this._storeHelpDesc(d.id);
-      return `<div class="store-row${maxed ? ' maxed' : ''}">
+      const owned = lv > 0;
+      const on = MetaProgression.isEnabled(d.id);
+      const toggleLabel = on ? I18n.t('storeToggleOn') : I18n.t('storeToggleOff');
+      const toggleBtn = owned
+        ? `<button type="button" class="btn store-toggle${on ? '' : ' off'}" data-toggle-id="${d.id}">${toggleLabel}</button>`
+        : '';
+      return `<div class="store-row${maxed ? ' maxed' : ''}${owned && !on ? ' bonus-off' : ''}">
         ${img}
         <div class="store-info">
           <div class="store-name">${I18n.t(d.labelKey)}</div>
           <div class="store-meta">${I18n.t(d.valueKey)} · ${I18n.t('storeLevel', lv, d.max)}</div>
           ${desc ? `<div class="store-desc">${desc}</div>` : ''}
         </div>
-        <button type="button" class="btn" data-store-id="${d.id}"${disabled}>${btnLabel}</button>
+        <div class="store-actions">
+          <button type="button" class="btn" data-store-id="${d.id}"${disabled}>${btnLabel}</button>
+          ${toggleBtn}
+        </div>
       </div>`;
     }).join('');
     list.querySelectorAll('[data-store-id]').forEach((btn) => {
@@ -5282,6 +5356,13 @@ class Game {
           this._renderStore();
           this._refreshMenuGold();
         }
+      };
+    });
+    list.querySelectorAll('[data-toggle-id]').forEach((btn) => {
+      btn.onclick = () => {
+        MetaProgression.toggle(btn.dataset.toggleId);
+        SoundManager.ui();
+        this._renderStore();
       };
     });
   }
@@ -5294,6 +5375,7 @@ class Game {
   askResetData() {
     if (this.state !== 'menu') return;
     this.closeStore();
+    this.closeOptions();
     document.getElementById('confirmResetData').classList.remove('hidden');
   }
 
