@@ -46,6 +46,7 @@ class I18n {
       autoSelectUpgrades: 'AUTOSELECT',
       autoSelectDesc: 'Auto-pick upgrades for the rest of this run. The choice menu will no longer appear.',
       autoSelectOn: 'Autoselect enabled',
+      skipUpgrade: 'SKIP THIS UPGRADE',
       statDamage: 'Damage',
       statAttackSpeed: 'Attack Speed',
       statMoveSpeed: 'Move Speed',
@@ -55,8 +56,9 @@ class I18n {
       statCritical: 'Critical',
       statExpGain: 'Exp Gain',
       statLuck: 'Luck',
-      statCurse: 'Cursed',
+      statCurse: 'Curse',
       statBulletCount: 'Projectile Count',
+      statArmor: 'Armor',
       weaponShotgun: 'Boomstick',
       weaponChainLightning: 'Chain Lightning',
       weaponGarlicAura: 'Garlic Aura',
@@ -69,8 +71,8 @@ class I18n {
       weaponIceCrystal: 'Ice Crystal',
       weaponsLabel: 'WEAPONS',
       statsLabel: 'STATS',
-      helpWeapons: 'You carry up to 5 weapons, each firing on its own reload timer — no manual shooting. Every weapon reaches level 5; at level 3 you commit to path A or path B, which decides how it mutates. The HUD shows one slot per weapon with a reload sweep.',
-      helpChoices: 'Each level-up pauses the run and deals 5 cards. Weapon cards (new or upgrades) appear on your first level-up and then every 5 levels (5, 10, 15…). Other levels offer stats only. Press 1-5 or click to pick. You may keep at most 5 different stats, so later rolls only re-offer stats you already own. Chests grant extra picks that can include weapons — 1 for common, 3 for rare, 5 for epic.',
+      helpWeapons: 'You carry up to 5 weapons, each firing on its own reload timer. Weapons have 10 core levels: weapon upgrades on even levels, global stat bonuses on odd levels after 1. Choose path A or B at level 4. Further upgrades past 10 grant a repeatable, weapon-specific global bonus.',
+      helpChoices: 'Each level-up pauses the run and deals at least 6 cards. Milestone and chest rolls put 2–3 weapon choices first. Every run stat can be upgraded 10 times. One upgrade may be skipped per batch. Chests grant 1/3/5 weapon picks and also 1/3/5 levels with their normal choices.',
       store: 'STORE',
       storeTitle: 'STORE',
       storeBuy: 'BUY {0} G',
@@ -102,6 +104,9 @@ class I18n {
       storeCurse: 'Curse',
       storeCurseVal: '+10% Enemy HP / DMG / EXP / Mobs',
       storeCurseDesc: 'Enemies gain more HP and deal more damage, more of them spawn, and kills grant extra EXP. Stacks as a separate multiplier on top of Experience Multiplier.',
+      storeArmor: 'Armor',
+      storeArmorVal: '+1 Armor',
+      storeArmorDesc: 'Subtracts a flat amount from every hit before shields. With 8 Armor, an 8-damage hit deals nothing.',
       storeWeaponSlots: 'Weapon Slots',
       storeWeaponSlotsVal: '+1 slot',
       storeWeaponSlotsDesc: 'Permanently adds one weapon slot for every run. Buy up to 5 extras (10 weapons total). Extremely expensive.',
@@ -110,7 +115,7 @@ class I18n {
       storeStatSlotsDesc: 'Permanently adds one committed-stat slot for every run. Buy up to 5 extras (10 stats total). Extremely expensive.',
       storeChoiceOptions: 'Choice Options',
       storeChoiceOptionsVal: '+1 choice card',
-      storeChoiceOptionsDesc: 'Permanently adds one extra card to every level-up and chest choice. Buy up to 2 extras (7 cards total). Extremely expensive.',
+      storeChoiceOptionsDesc: 'Permanently adds one extra card to every level-up and chest choice. Buy up to 2 extras (8 cards total). Extremely expensive.',
       wholeChicken: 'Whole Chicken',
       wholeChickenVal: 'Restore 15% max HP',
       wholeChickenHeal: '+{0} HP (whole chicken)',
@@ -204,7 +209,7 @@ class I18n {
       charHighCultistDesc: 'Killing cursed foes sends souls to your Totem. At 5 souls the totem curses up to 6 enemies in range.',
       charIceWitchDesc: 'Solidified Ice Crystal targets become Supercooling auras (max 3). Nearby foes freeze 1.6× faster.',
       charBaseStats: 'BASE STATS',
-      charCultistKit: 'No base-stat bonuses. Choose a second starting weapon when the run begins.',
+      charCultistKit: 'Choose a second starting weapon when the run begins.',
       charCultistPickTitle: 'CHOOSE SECOND WEAPON'
     },
     ru: {
@@ -269,6 +274,9 @@ class I18n {
       storeCurse: 'Проклятие',
       storeCurseVal: '+10% HP / урон / опыт / мобы',
       storeCurseDesc: 'Враги получают больше HP и наносят больше урона, их становится больше, и убийства дают больше опыта. Отдельный множитель поверх множителя опыта.',
+      storeArmor: 'Броня',
+      storeArmorVal: '+1 брони',
+      storeArmorDesc: 'Вычитает фиксированное значение из каждого удара до щитов. При 8 брони удар на 8 урона не наносит ничего.',
       storeWeaponSlots: 'Слоты оружия',
       storeWeaponSlotsVal: '+1 слот',
       storeWeaponSlotsDesc: 'Навсегда добавляет один слот оружия в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
@@ -277,7 +285,7 @@ class I18n {
       storeStatSlotsDesc: 'Навсегда добавляет один слот выбранного стата в каждом забеге. Можно купить до 5 доп. (всего 10). Очень дорого.',
       storeChoiceOptions: 'Варианты выбора',
       storeChoiceOptionsVal: '+1 карта выбора',
-      storeChoiceOptionsDesc: 'Навсегда добавляет одну карту к каждому выбору при уровне и из сундука. Можно купить до 2 доп. (всего 7 карт). Очень дорого.',
+      storeChoiceOptionsDesc: 'Навсегда добавляет одну карту к каждому выбору при уровне и из сундука. Можно купить до 2 доп. (всего 8 карт). Очень дорого.',
       wholeChicken: 'Целая курица',
       wholeChickenVal: 'Восстановить 15% макс. ОЗ',
       wholeChickenHeal: '+{0} ОЗ (целая курица)',
@@ -293,6 +301,7 @@ class I18n {
       autoSelectUpgrades: 'АВТОВЫБОР',
       autoSelectDesc: 'Автовыбор улучшений до конца забега. Меню выбора больше не появится.',
       autoSelectOn: 'Автовыбор включён',
+      skipUpgrade: 'ПРОПУСТИТЬ ЭТО УЛУЧШЕНИЕ',
       statDamage: 'Урон',
       statAttackSpeed: 'Скорость атаки',
       statMoveSpeed: 'Скорость',
@@ -304,6 +313,7 @@ class I18n {
       statLuck: 'Удача',
       statCurse: 'Проклятие',
       statBulletCount: 'Число снарядов',
+      statArmor: 'Броня',
       weaponShotgun: 'Дробовик',
       weaponChainLightning: 'Цепная молния',
       weaponGarlicAura: 'Чесночная аура',
@@ -316,8 +326,8 @@ class I18n {
       weaponIceCrystal: 'Ледяной кристалл',
       weaponsLabel: 'ОРУЖИЕ',
       statsLabel: 'СТАТЫ',
-      helpWeapons: 'Вы носите до 5 оружий, каждое стреляет само по своему таймеру перезарядки — вручную стрелять не нужно. Любое оружие растёт до 5 уровня; на 3 уровне вы выбираете путь A или B, который определяет его развитие. В HUD у каждого оружия свой слот с полосой перезарядки.',
-      helpChoices: 'Каждый новый уровень ставит забег на паузу и выдаёт 5 карт. Оружие (новое или улучшение) появляется на первом повышении уровня и далее каждые 5 уровней (5, 10, 15…). На остальных уровнях только статы. Нажмите 1-5 или щёлкните по карте. Можно держать не более 5 разных статов, поэтому позже предлагаются только уже выбранные. Сундуки дают дополнительные выборы с оружием — 1 за обычный, 3 за редкий, 5 за эпический.',
+      helpWeapons: 'Вы носите до 5 оружий с независимой перезарядкой. У оружия 10 основных уровней: улучшения оружия на чётных уровнях, глобальные бонусы статов на нечётных после 1. Путь A или B выбирается на 4 уровне. Дальнейшие улучшения после 10 повторяют уникальный глобальный бонус оружия.',
+      helpChoices: 'Каждый уровень выдаёт не менее 6 карт. В этапах с оружием первые 2–3 карты — оружие. Каждый стат можно улучшить 10 раз. За одну серию можно пропустить одно улучшение. Сундуки дают 1/3/5 оружейных выборов и столько же уровней с обычными выборами.',
       options: 'НАСТРОЙКИ',
       optionsTitle: 'НАСТРОЙКИ',
       damageNumbers: 'Показывать урон врагов',
@@ -402,7 +412,7 @@ class I18n {
       charHighCultistDesc: 'Убийства проклятых шлют души к тотему. На 5 душах тотем проклинает до 6 врагов в радиусе.',
       charIceWitchDesc: 'Замороженные цели Ледяного кристалла становятся аурами Переохлаждения (макс. 3). Рядом лёд копится ×1.6.',
       charBaseStats: 'БАЗОВЫЕ СТАТЫ',
-      charCultistKit: 'Без бонусов к базовым статам. В начале забега выберите второе стартовое оружие.',
+      charCultistKit: 'В начале забега выберите второе стартовое оружие.',
       charCultistPickTitle: 'ВЫБЕРИТЕ ВТОРОЕ ОРУЖИЕ'
     }
   };
@@ -414,7 +424,7 @@ class I18n {
       weaponRadius: 'Weapon Radius',
       critChance: 'Crit Chance', critDamage: 'Crit Damage',
       bulletCount: 'Projectile Count', expMultiplier: 'Exp Multiplier', luck: 'Luck',
-      curse: 'Cursed'
+      curse: 'Curse', armor: 'Armor'
     },
     ru: {
       moveSpeed: 'Скорость', maxHealth: 'Макс. здоровье', maxShield: 'Щит',
@@ -422,7 +432,7 @@ class I18n {
       weaponRadius: 'Радиус оружия',
       critChance: 'Шанс крита', critDamage: 'Урон крита',
       bulletCount: 'Число снарядов', expMultiplier: 'Множ. опыта', luck: 'Удача',
-      curse: 'Проклятие'
+      curse: 'Проклятие', armor: 'Броня'
     }
   };
 
@@ -430,6 +440,7 @@ class I18n {
     en: [
       { abbr: 'SPD', name: 'Movement Speed', desc: 'How fast you move across the field. Higher speed helps dodge enemy swarms and reach chests.' },
       { abbr: 'HP', name: 'Health', desc: 'Your life total. When HP reaches zero, the run ends. Max Health is raised by level-up cards, and each boost heals you for the same amount it adds.' },
+      { abbr: 'ARM', name: 'Armor', desc: 'Subtracts a flat amount from every incoming hit before shields. Damage cannot fall below zero.' },
       { abbr: 'SHD', name: 'Shield', desc: 'Only exists while you carry the Tower Shield weapon. It absorbs damage before HP and regenerates based on Attack Speed; a full break delays regeneration by 3 seconds. The Garlic Aura can also stack a small temporary shield.' },
       { abbr: 'ATK', name: 'Attack', desc: 'Base damage every weapon scales from. Each weapon applies its own multiplier on top, and critical hits multiply the result by Crit Damage.' },
       { abbr: 'ASP', name: 'Attack Speed', desc: 'Divides the reload time of every weapon, so all slots fire more often. Also speeds up Tower Shield regeneration.' },
@@ -440,11 +451,12 @@ class I18n {
       { abbr: 'CDM', name: 'Critical Damage', desc: 'Damage multiplier applied on critical hits (e.g. 1.5× = +50% damage). Once Crit Chance hits 100%, the Critical card gives only Crit Damage.' },
       { abbr: 'EXP', name: 'Experience Multiplier', desc: 'Multiplies XP gained from all gold pickups. XP raises level and scales difficulty.' },
       { abbr: 'LCK', name: 'Luck', desc: 'Multiplies all gold gained, raises the chest drop rate, and improves the rare/epic quality roll.' },
-      { abbr: 'CRS', name: 'Cursed', desc: 'Multiplies enemy HP, damage, spawn count, and EXP from gold. Stacks with the store Curse bonus. Boss Dragon HP scales with total damage you dealt this run × Cursed.' }
+      { abbr: 'CRS', name: 'Curse', desc: 'Multiplies enemy HP, damage, spawn count, and EXP from gold. Stacks with the store Curse bonus. Boss Dragon HP scales with total damage you dealt this run × Curse.' }
     ],
     ru: [
       { abbr: 'SPD', name: 'Скорость', desc: 'Скорость передвижения по полю. Помогает уклоняться от толпы и добираться до сундуков.' },
       { abbr: 'HP', name: 'Здоровье', desc: 'Запас жизни. При нуле OЗ забег заканчивается. Макс. здоровье растёт от карт улучшений, и каждая прибавка сразу лечит на ту же величину.' },
+      { abbr: 'ARM', name: 'Броня', desc: 'Вычитает фиксированное значение из каждого входящего удара до щитов. Урон не может быть ниже нуля.' },
       { abbr: 'SHD', name: 'Щит', desc: 'Существует только с оружием «Башенный щит». Поглощает урон до OЗ и восстанавливается со скоростью атаки; после полного слома регенерация ждёт 3 секунды. «Чесночная аура» тоже может дать небольшой временный щит.' },
       { abbr: 'ATK', name: 'Атака', desc: 'Базовый урон, от которого считается всё оружие. У каждого оружия свой множитель сверху, а криты умножают результат на урон крита.' },
       { abbr: 'ASP', name: 'Скорость атаки', desc: 'Делит время перезарядки всего оружия — все слоты стреляют чаще. Также ускоряет регенерацию Башенного щита.' },
@@ -464,7 +476,7 @@ class I18n {
       playerStats: 'PLAYER STATS',
       combatSystems: 'COMBAT & SYSTEMS',
       weaponsTitle: 'Weapon Slots',
-      choicesTitle: 'Level-Up Choices [1-5]',
+      choicesTitle: 'Level-Up Choices [1-8]',
       difficultyTitle: 'Difficulty Scaling',
       difficultyDesc: 'XP and level increase spawn rate, enemy count, HP, damage, speed, and dangerous enemy mix. Weak enemies retire as you level — slimes stop by 22, zombies by 40, skeletons by 48 — so the field fills with tougher types instead. Levels 20–50 stay gentler; from level 50 onward scaling ramps up sharply. The Boss Dragon always appears at level 75, then at most once every 5 minutes.',
       enemies: 'ENEMIES',
@@ -479,7 +491,7 @@ class I18n {
       playerStats: 'СТАТЫ ИГРОКА',
       combatSystems: 'БОЙ И СИСТЕМЫ',
       weaponsTitle: 'Слоты оружия',
-      choicesTitle: 'Выбор при уровне [1-5]',
+      choicesTitle: 'Выбор при уровне [1-8]',
       difficultyTitle: 'Масштаб сложности',
       difficultyDesc: 'Опыт и уровень повышают частоту спавна, число врагов, HP, урон, скорость и долю опасных типов. Слабые враги перестают появляться с ростом уровня: слизни к 22, зомби к 40, скелеты к 48 — вместо них поле заполняют более опасные типы. Уровни 20–50 мягче; с 50 уровня рост резкий. Босс-дракон всегда появляется на 75 уровне, затем не чаще раза в 5 минут.',
       enemies: 'ВРАГИ',
@@ -501,8 +513,8 @@ class I18n {
       { id: 'bomber', name: 'Bomb Goblin', threat: 'extreme', gold: 8, speed: '140 (+scale)', hp: '1', dmg: 'Instant kill', ability: 'Suicide explosion', desc: 'Appears from level 10. Fastest enemy with only 1 HP. On contact: destroys all shield, or kills instantly if shield is empty.', sprite: 'bomber' },
       { id: 'robot', name: 'War Automaton', threat: 'high', gold: 14, speed: 'Always below yours', hp: '260 (+scale)', dmg: '26 (+scale)', ability: 'Melee only · Very tanky', desc: 'A walking wall from level 12. Its speed is hard-capped below your movement speed, so you can always outrun it.', sprite: 'robot' },
       { id: 'wolf', name: 'White Wolf', threat: 'high', gold: 7, speed: '80% of player', hp: '55 (+scale)', dmg: '16 (+scale)', ability: 'Bite · Slows you 0.5s', desc: 'Appears from level 8. Always runs at 80% of your speed so you can outrun it. When a bullet closes in, it blinks sideways with a ghost trail (1s cooldown). A bite cuts your movement speed for half a second.', sprite: 'wolf' },
-      { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Holy heal aura', desc: 'From level 15. Keeps a golden aura that continuously heals nearby enemies. Does not heal himself, other priests, or Elder Dragons. A Cursed Totem blocks healing for foes inside its field (or already cursed).', sprite: 'priest' },
-      { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'None', ability: 'Lifts and drops you', desc: 'From level 18, max 3 at once. Catches you, carries you for ~2.4s and dumps you into the thickest pack of enemies. Deals no damage.', sprite: 'ufo' },
+      { id: 'priest', name: 'Zealot Priest', threat: 'extreme', gold: 16, speed: '58 (+scale)', hp: '95 (+scale)', dmg: 'No direct attack', ability: 'Holy heal aura', desc: 'From level 15, max 3 at once. Keeps a golden aura that continuously heals nearby enemies. Heal strength scales with your Level and Curse — at high values, packs under the aura are barely killable until the priest dies. Does not heal himself, other priests, or Elder Dragons. A Cursed Totem blocks healing for foes inside its field (or already cursed).', sprite: 'priest' },
+      { id: 'ufo', name: 'Alien Saucer', threat: 'extreme', gold: 45, speed: '125 (+scale)', hp: '320 (+scale)', dmg: 'None', ability: 'Freezes you in place', desc: 'From level 18, max 3 at once. Catches you in its beam and holds you immobilized for ~2.4s. Deals no damage.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Crimson Tyrant (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (one of four Elder Dragon forms). Walks the field; never flies. Immune to freeze, stun, slow, pull, knockback, and curse. Only one Elder Dragon at a time, max once per 5 minutes. Hurls 3 arcing fireballs that leave burning zones.', sprite: 'dragonCrimson' },
       { id: 'dragonVoid', name: 'Void Elder (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (void form of the Elder Dragon). Same rules as Crimson Tyrant: ground walker, control immune, one dragon at a time, 5-minute cooldown, triple fireball volleys with lingering flames.', sprite: 'dragonVoid' },
       { id: 'dragonBone', name: 'Bone Sovereign (BOSS)', threat: 'extreme', gold: 260, speed: '58 (+scale)', hp: '4200 (+scale)', dmg: '42 (+scale)', ability: 'Triple fireball · Control immune', desc: 'Rare boss from level 25 (undead form of the Elder Dragon). Same rules as Crimson Tyrant: walks, control immune, one at a time, 5-minute cooldown, triple fireball barrages.', sprite: 'dragonBone' },
@@ -516,8 +528,8 @@ class I18n {
       { id: 'bomber', name: 'Гоблин-бомба', threat: 'extreme', gold: 8, speed: '140 (+масш.)', hp: '1', dmg: 'Мгнов. смерть', ability: 'Самоподрыв', desc: 'С 10 уровня. Самый быстрый, 1 HP. Контакт: снимает весь щит или убивает без щита.', sprite: 'bomber' },
       { id: 'robot', name: 'Боевой автоматон', threat: 'high', gold: 14, speed: 'Всегда медленнее вас', hp: '260 (+масш.)', dmg: '26 (+масш.)', ability: 'Ближний бой · Очень живучий', desc: 'Ходячая стена с 12 уровня. Его скорость жёстко ограничена ниже вашей — от него всегда можно убежать.', sprite: 'robot' },
       { id: 'wolf', name: 'Белый волк', threat: 'high', gold: 7, speed: '80% от игрока', hp: '55 (+масш.)', dmg: '16 (+масш.)', ability: 'Укус · Замедляет на 0.5с', desc: 'С 8 уровня. Всегда бежит на 80% вашей скорости — от него можно убежать. Когда пуля близко — мигает в сторону с призрачным шлейфом (кд 1с). Укус замедляет вас на полсекунды.', sprite: 'wolf' },
-      { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Аура исцеления', desc: 'С 15 уровня. Держит золотую ауру, которая постоянно лечит ближайших врагов. Не лечит себя, других жрецов и Драконов. Проклятый тотем блокирует лечение врагов в своём поле (или уже проклятых).', sprite: 'priest' },
-      { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Нет', ability: 'Поднимает и бросает вас', desc: 'С 18 уровня, максимум 3 сразу. Хватает вас, несёт ~2.4с и сбрасывает в самую гущу врагов. Урона не наносит.', sprite: 'ufo' },
+      { id: 'priest', name: 'Жрец-фанатик', threat: 'extreme', gold: 16, speed: '58 (+масш.)', hp: '95 (+масш.)', dmg: 'Не атакует сам', ability: 'Аура исцеления', desc: 'С 15 уровня, максимум 3 сразу. Держит золотую ауру, которая постоянно лечит ближайших врагов. Сила лечения растёт с вашим уровнем и Проклятием — на высоких значениях пачки под аурой почти неубиваемы, пока жрец жив. Не лечит себя, других жрецов и Драконов. Проклятый тотем блокирует лечение врагов в своём поле (или уже проклятых).', sprite: 'priest' },
+      { id: 'ufo', name: 'НЛО', threat: 'extreme', gold: 45, speed: '125 (+масш.)', hp: '320 (+масш.)', dmg: 'Нет', ability: 'Замораживает на месте', desc: 'С 18 уровня, максимум 3 сразу. Хватает лучом и держит вас неподвижно ~2.4с. Урона не наносит.', sprite: 'ufo' },
       { id: 'dragonCrimson', name: 'Алый тиран (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (одна из четырёх форм Древнего дракона). Ходит по земле, не летает. Иммунен к заморозке, стану, замедлению, притягиванию, откидыванию и проклятию. Только один дракон за раз, не чаще чем раз в 5 минут. Бросает 3 фаербола с горящими зонами.', sprite: 'dragonCrimson' },
       { id: 'dragonVoid', name: 'Старейшина Бездны (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (бездная форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonVoid' },
       { id: 'dragonBone', name: 'Костяной владыка (БОСС)', threat: 'extreme', gold: 260, speed: '58 (+масш.)', hp: '4200 (+масш.)', dmg: '42 (+масш.)', ability: 'Залп из 3 фаерболов · Иммун к контролю', desc: 'Редкий босс с 25 уровня (нежить-форма). Те же правила: ходит, иммунен к контролю, один за раз, кд 5 минут, тройной залп фаерболов.', sprite: 'dragonBone' },
@@ -2343,6 +2355,12 @@ class IconFactory {
   }
 }
 
+// Armor uses the shield silhouette while remaining a separate stat/icon key.
+IconFactory.defs.armor = {
+  p: IconFactory.defs.maxShield.p.slice(),
+  px: IconFactory.defs.maxShield.px.slice()
+};
+
 /* Pixel menu button icons (16×16 → scale 2) */
 const MenuIcons = {
   /* 0 clear · 1 ink · 2 green · 3 gold · 4 deep red · 5 white · 6 cyan
@@ -2394,22 +2412,22 @@ const MenuIcons = {
     ],
     /* Gray mechanical gear */
     options: [
-      0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0,
-      0,0,0,0,0,0,8,7,7,8,0,0,0,0,0,0,
-      0,0,0,0,8,8,7,7,7,7,8,8,0,0,0,0,
-      0,0,0,8,7,7,7,5,5,7,7,7,8,0,0,0,
-      0,0,8,7,7,5,5,9,9,5,5,7,7,8,0,0,
-      0,8,7,7,5,9,9,0,0,9,9,5,7,7,8,0,
-      0,8,7,7,5,9,0,0,0,0,9,5,7,7,8,0,
-      8,7,7,5,9,0,0,0,0,0,0,9,5,7,7,8,
-      8,7,7,5,9,0,0,0,0,0,0,9,5,7,7,8,
-      0,8,7,7,5,9,0,0,0,0,9,5,7,7,8,0,
-      0,8,7,7,5,9,9,0,0,9,9,5,7,7,8,0,
-      0,0,8,7,7,5,5,9,9,5,5,7,7,8,0,0,
-      0,0,0,8,7,7,7,5,5,7,7,7,8,0,0,0,
-      0,0,0,0,8,8,7,7,7,7,8,8,0,0,0,0,
-      0,0,0,0,0,0,8,7,7,8,0,0,0,0,0,0,
-      0,0,0,0,0,0,0,8,8,0,0,0,0,0,0,0
+      0,0,0,8,8,0,0,8,8,0,0,8,8,0,0,0,
+      0,0,0,8,7,8,8,7,7,8,8,7,8,0,0,0,
+      0,8,8,0,8,7,7,7,7,7,7,8,0,8,8,0,
+      8,7,8,8,7,7,7,7,7,7,7,7,8,8,7,8,
+      8,7,7,7,7,7,9,9,9,9,7,7,7,7,7,8,
+      0,8,7,7,7,9,9,9,9,9,9,7,7,7,8,0,
+      0,8,7,7,9,9,0,0,0,0,9,9,7,7,8,0,
+      8,7,7,7,9,9,0,0,0,0,9,9,7,7,7,8,
+      8,7,7,7,9,9,0,0,0,0,9,9,7,7,7,8,
+      0,8,7,7,9,9,0,0,0,0,9,9,7,7,8,0,
+      0,8,7,7,7,9,9,9,9,9,9,7,7,7,8,0,
+      8,7,7,7,7,7,9,9,9,9,7,7,7,7,7,8,
+      8,7,8,8,7,7,7,7,7,7,7,7,8,8,7,8,
+      0,8,8,0,8,7,7,7,7,7,7,8,0,8,8,0,
+      0,0,0,8,7,8,8,7,7,8,8,7,8,0,0,0,
+      0,0,0,8,8,0,0,8,8,0,0,8,8,0,0,0
     ],
     /* Book with red bookmark ribbon */
     help: [
@@ -3249,11 +3267,12 @@ class AoEZone {
       ctx.arc(s.x, s.y, this.radius * (0.96 + Math.sin(this.timer * 12) * 0.03), 0, Math.PI * 2);
       ctx.stroke();
     } else {
-      ctx.fillStyle = fire ? 'rgba(255,90,20,0.5)' : 'rgba(200,40,255,0.45)';
+      // Fire hit rings are grenade landing flashes — keep them softer than mage warns
+      ctx.fillStyle = fire ? 'rgba(255,90,20,0.1875)' : 'rgba(200,40,255,0.45)';
       ctx.beginPath();
       ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
       ctx.fill();
-      ctx.strokeStyle = fire ? '#ffd23d' : '#e0a0ff';
+      ctx.strokeStyle = fire ? 'rgba(255,210,61,0.375)' : '#e0a0ff';
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.arc(s.x, s.y, this.radius, 0, Math.PI * 2);
@@ -3397,6 +3416,8 @@ class Fireball {
    ENEMY
    ============================================================ */
 class Enemy {
+  static TANK_MULT = 3;
+
   static goldDrops = {
     slime: 1,
     zombie: 3,
@@ -3411,7 +3432,8 @@ class Enemy {
   };
 
   static PRIEST_HEAL_RADIUS = 150;
-  static PRIEST_HEAL_RATE = 0.08; // fraction of target max HP restored per second
+  static PRIEST_HEAL_RATE = 0.08; // base fraction of target max HP / sec (before level × Curse)
+  static PRIEST_MAX = 3;
   static BUFF_GROWTH = 1 / 10;   // leftover size-buff decay (no longer applied by priests)
   static BUFF_DECAY = 1 / 7;
   static _uid = 0;
@@ -3648,6 +3670,9 @@ class Enemy {
       }
       this.damage *= curseMult;
     }
+    // Fewer enemies are spawned, so every mob has three times its former HP.
+    this.maxHp = Math.max(1, Math.floor(this.maxHp * Enemy.TANK_MULT));
+    this.hp = this.maxHp;
     this.baseSprite = this.sprite;
     this.baseMaxHp = this.maxHp;
     this.baseDamage = this.damage;
@@ -4036,8 +4061,15 @@ class Enemy {
 
   _tickPriestHeal(dt, game) {
     if (!game || !game.spatial) return;
+    const p = game.player;
+    const lv = (p && p.level) || 1;
+    const curse = (p && p.curseMult) || 1;
+    // Scales with player Level and Curse so late packs under the aura barely die
+    // until the priest is killed.
+    const levelFactor = 1 + Math.max(0, lv - 15) / 18;
+    const curseFactor = Math.pow(curse, 1.5);
+    const rate = Enemy.PRIEST_HEAL_RATE * levelFactor * curseFactor * dt;
     const r = Enemy.PRIEST_HEAL_RADIUS;
-    const rate = Enemy.PRIEST_HEAL_RATE * dt;
     game.spatial.queryCircle(this.x, this.y, r, (e) => {
       if (e === this || !e.canBeHealedByPriest()) return;
       if (game.isPriestHealBlocked(e)) return;
@@ -4126,18 +4158,15 @@ class Enemy {
 
     if (this.carrying) {
       this.carryTimer -= dt;
-      const dx = this.dropX - this.x;
-      const dy = this.dropY - this.y;
-      const d = Math.sqrt(dx * dx + dy * dy) || 1;
-      this.x += (dx / d) * this.speed * 1.35 * dt;
-      this.y += (dy / d) * this.speed * 1.35 * dt;
-      // Keep player hanging below the saucer, never overlapping it
-      player.x = this.x;
-      player.y = this.y + HOVER;
+      // Hold still over the grab point — no ferry to enemy packs
+      this.x = this.dropX;
+      this.y = this.dropY;
+      player.x = this.dropX;
+      player.y = this.dropY + HOVER;
       this.beamOn = true;
       this.beamTargetX = player.x;
       this.beamTargetY = player.y;
-      if (this.carryTimer <= 0 || d < 26) this.releaseAbduction(player, game);
+      if (this.carryTimer <= 0) this.releaseAbduction(player, game);
       return;
     }
 
@@ -4162,11 +4191,10 @@ class Enemy {
       this.beamTargetX = player.x;
       this.beamTargetY = player.y;
       if (this.grabCD <= 0 && !player.carriedBy) {
-        const spot = game.findEnemyCluster(this);
         this.carrying = true;
         this.carryTimer = 2.4;
-        this.dropX = spot.x;
-        this.dropY = spot.y - HOVER;
+        this.dropX = player.x;
+        this.dropY = player.y - HOVER;
         player.carriedBy = this;
         SoundManager.ufoPull();
       }
@@ -4509,7 +4537,11 @@ class Chest {
       game.ui.toast(I18n.t('chestGold', Math.floor(amount), I18n.chestTierLabel(this.tier)), this.tier === 'epic' ? 'epic' : this.tier === 'rare' ? 'rare' : '');
       // Better chests are worth several extra upgrade picks
       const rolls = { common: 1, rare: 3, epic: 5 };
-      if (game.upgrades) game.upgrades.enqueue(rolls[this.tier] || 1, { weaponEligible: true });
+      const count = rolls[this.tier] || 1;
+      // Chest rewards keep their weapon picks and also grant real player levels,
+      // each of which queues its normal level-up choice.
+      game.player.grantLevels(count, game);
+      if (game.upgrades) game.upgrades.enqueue(count, { weaponEligible: true });
     }
   }
   draw(ctx, cam) {
@@ -4542,7 +4574,11 @@ class Player {
     weaponRadius: 1,
     critChance: 0.05,
     critDamage: 1.5,
-    expMultiplier: 1
+    expMultiplier: 1,
+    bulletCount: 1,
+    luck: 0,
+    curse: 0,
+    armor: 0
   };
 
   constructor(sprites) {
@@ -4565,7 +4601,8 @@ class Player {
       critDamageBonus: 0,
       expMultiplier: 0,
       luck: 0,
-      curse: 0
+      curse: 0,
+      armor: 0
     };
   }
 
@@ -4581,7 +4618,9 @@ class Player {
     this.charBase = null;
     this.statAdd = Player.emptyStatAdd();
     this.selectedStatIds = [];
+    this.statLevels = {};
     this.bulletCount = 1;
+    this.weaponDmgMult = 1;
     this._recomputeStats();
 
     this.health = this.stats.maxHealth;
@@ -4605,7 +4644,7 @@ class Player {
     const m = (typeof MetaProgression !== 'undefined') ? MetaProgression.bonuses() : {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
       bulletCount: 0, critChance: 0, critDamageBonus: 0, expMultiplier: 0, luck: 0,
-      weaponRadius: 0, bulletSpeed: 0, curse: 0
+      weaponRadius: 0, bulletSpeed: 0, curse: 0, armor: 0
     };
     const s = this.stats;
     s.moveSpeed = B.moveSpeed * (1 + a.moveSpeed + m.moveSpeed);
@@ -4617,8 +4656,9 @@ class Player {
     s.critChance = Math.min(1, B.critChance + a.critChance + m.critChance);
     s.critDamage = B.critDamage + a.critDamageBonus + m.critDamageBonus;
     s.expMultiplier = B.expMultiplier * (1 + a.expMultiplier + m.expMultiplier);
-    s.luck = a.luck + m.luck;
-    s.curse = (a.curse || 0) + (m.curse || 0);
+    s.luck = (B.luck || 0) + a.luck + m.luck;
+    s.curse = (B.curse || 0) + (a.curse || 0) + (m.curse || 0);
+    s.armor = (B.armor || 0) + (a.armor || 0) + (m.armor || 0);
     s.bulletCount = this.bulletCount + m.bulletCount;
     if (this.health > s.maxHealth) this.health = s.maxHealth;
   }
@@ -4655,7 +4695,9 @@ class Player {
       charBase: this.charBase ? { ...this.charBase } : null,
       statAdd: { ...this.statAdd },
       selectedStatIds: this.selectedStatIds.slice(),
+      statLevels: { ...this.statLevels },
       bulletCount: this.bulletCount,
+      weaponDmgMult: this.weaponDmgMult,
       health: this.health,
       facing: this.facing
     };
@@ -4672,7 +4714,9 @@ class Player {
     this.charBase = data.charBase ? { ...data.charBase } : null;
     this.statAdd = { ...Player.emptyStatAdd(), ...(data.statAdd || {}) };
     this.selectedStatIds = Array.isArray(data.selectedStatIds) ? data.selectedStatIds.slice() : [];
+    this.statLevels = { ...(data.statLevels || {}) };
     this.bulletCount = data.bulletCount ?? 1;
+    this.weaponDmgMult = data.weaponDmgMult ?? 1;
     this._recomputeStats();
     this.health = data.health ?? this.stats.maxHealth;
     this.facing = data.facing ?? 1;
@@ -4740,6 +4784,22 @@ class Player {
     return gained;
   }
 
+  grantLevels(amount, game) {
+    const count = Math.max(0, amount | 0);
+    if (!count) return 0;
+    const weaponFlags = [];
+    for (let i = 0; i < count; i++) {
+      this.level++;
+      this.xpToNext = Player.xpToNextFor(this.level);
+      weaponFlags.push(this.level === 2 || this.level % 5 === 0);
+    }
+    if (game && game.upgrades) {
+      if (typeof SoundManager !== 'undefined') SoundManager.levelUp();
+      game.upgrades.enqueue(count, { weaponEligible: weaponFlags });
+    }
+    return count;
+  }
+
   takeDamage(amount, game) {
     if (!this.alive || this.invulnerable || this.invulnTimer > 0) return;
     this.hurtFlash = 0.15;
@@ -4752,6 +4812,9 @@ class Player {
       if (garlic && garlic.mods.auraDr && garlic.state.dr > 0) {
         dmg *= 1 - Math.min(0.35, garlic.state.dr);
       }
+    }
+    dmg = Math.max(0, dmg - (this.stats.armor || 0));
+    if (weapons) {
       const absorbed = weapons.absorbShield(dmg);
       if (absorbed > 0) {
         dmg -= absorbed;
@@ -4915,22 +4978,27 @@ class FloatingText {
    ============================================================ */
 class WaveManager {
   static DRAGON_COOLDOWN = 300; // 5 minutes between boss appearances
+  static HOLE_ARC = Math.PI / 4;
+  static HOLE_ROT_SPEED = 0.4;
 
   constructor() {
     this.spawnTimer = 0;
     this.elapsed = 0;
     this.lastDragonAt = -WaveManager.DRAGON_COOLDOWN;
+    this.holeAngle = 0;
   }
 
   reset() {
     this.spawnTimer = 0;
     this.elapsed = 0;
     this.lastDragonAt = -WaveManager.DRAGON_COOLDOWN;
+    this.holeAngle = 0;
   }
 
   loadSaveData(data) {
     this.elapsed = data.elapsed ?? 0;
     this.lastDragonAt = data.lastDragonAt ?? -WaveManager.DRAGON_COOLDOWN;
+    this.holeAngle = data.holeAngle ?? 0;
     this.spawnTimer = 0;
   }
 
@@ -4944,6 +5012,7 @@ class WaveManager {
   update(dt, game) {
     if (game.testMode) return;
     this.elapsed += dt;
+    this.holeAngle = (this.holeAngle + dt * WaveManager.HOLE_ROT_SPEED) % (Math.PI * 2);
     const diff = game.player.getDifficulty();
     const exp = game.player.experience;
     const level = game.player.level;
@@ -4973,18 +5042,18 @@ class WaveManager {
     const baseInterval = Math.max(0.06, (1.2 - exp * 0.002 - diff * 0.03) * spawnEase / density / curseMult);
     this.spawnTimer -= dt;
 
-    const rawCap = 36 + Math.floor(exp * 0.08) + Math.floor(diff * 5) + Math.floor(level * 1.15);
-    const earlyFloor = level <= 10 ? Math.floor((28 + level * 3) * curseMult) : 0;
+    const rawCap = 12 + Math.floor(exp * 0.027) + Math.floor(diff * 1.67) + Math.floor(level * 0.383);
+    const earlyFloor = level <= 10 ? Math.floor((9 + level) * curseMult) : 0;
     // Soft floor after early game so the field never goes empty
-    const midFloor = level < 50 ? Math.floor(22 * curseMult) : 0;
-    const maxEnemies = Math.min(Math.floor(220 * curseMult), Math.max(earlyFloor, midFloor, Math.floor(rawCap * density * capMult * curseMult)));
+    const midFloor = level < 50 ? Math.floor(7 * curseMult) : 0;
+    const maxEnemies = Math.min(Math.floor(73 * curseMult), Math.max(earlyFloor, midFloor, Math.floor(rawCap * density * capMult * curseMult)));
     const active = game.enemyPool.countActive();
 
     if (this.spawnTimer <= 0 && active < maxEnemies) {
       this.spawnTimer = baseInterval;
       const baseBurst = 1 + Math.floor(diff / 3) + Math.floor(exp / 80);
-      const earlyBurst = level <= 10 ? 2 : 0;
-      const burst = Math.min(Math.floor(14 * curseMult), Math.max(1, Math.floor(baseBurst * Math.min(density, 1.4) * burstMult * curseMult) + earlyBurst));
+      const earlyBurst = level <= 10 ? 1 : 0;
+      const burst = Math.min(Math.floor(5 * curseMult), Math.max(1, Math.ceil((baseBurst * Math.min(density, 1.4) * burstMult * curseMult + earlyBurst) / 3)));
       for (let i = 0; i < burst && game.enemyPool.countActive() < maxEnemies; i++) {
         this._spawnEnemy(game, diff, exp);
       }
@@ -4998,7 +5067,10 @@ class WaveManager {
     const halfW = (cam ? cam.w : 800) * 0.5;
     const halfH = (cam ? cam.h : 600) * 0.5;
     const buffer = 80 + Math.random() * 140;
-    const angle = Math.random() * Math.PI * 2;
+    const halfHole = WaveManager.HOLE_ARC * 0.5;
+    // Sample directly from the complementary arc, so the escape lane is exact.
+    const angle = this.holeAngle + halfHole
+      + Math.random() * (Math.PI * 2 - WaveManager.HOLE_ARC);
     const dx = Math.cos(angle);
     const dy = Math.sin(angle);
     // Distance from center to the rectangle edge along this direction, plus buffer
@@ -5054,9 +5126,13 @@ class WaveManager {
         ? (2.2 + diff * 0.28 + late * 0.1) * fade(55, 78)
         : 0,
       mage: 0, // TEMP: Dark Mage disabled
-      wolf: level >= 8 ? Math.max(0, -4 + diff * 1.2 + late * 0.22) : 0,
+      wolf: level >= 8 && game.countEnemies('wolf') < 7
+        ? Math.max(0, -4 + diff * 1.2 + late * 0.22)
+        : 0,
       robot: level >= 12 ? Math.max(0, -3 + diff * 0.7 + late * 0.18) : 0,
-      priest: level >= 15 ? Math.min(6, Math.max(0, -2 + diff * 0.35 + late * 0.08)) : 0,
+      priest: level >= 15 && game.countEnemies('priest') < Enemy.PRIEST_MAX
+        ? Math.min(6, Math.max(0, -2 + diff * 0.35 + late * 0.08))
+        : 0,
       ufo: level >= 18 && game.countEnemies('ufo') < 3 ? 0.9 + late * 0.02 : 0,
       dragon: 0
     };
@@ -5342,7 +5418,9 @@ class UI {
     ctx.font = `bold ${Math.round(6 * S)}px "Courier New", monospace`;
     ctx.textAlign = 'right';
     ctx.fillStyle = '#ffd23d';
-    const tag = w.level + (w.branch || '');
+    const tag = (typeof weaponProgressText === 'function')
+      ? weaponProgressText(w.level)
+      : String(w.level);
     ctx.fillText(tag, x + size - 2 * S, y + size - 4 * S);
     ctx.textAlign = 'left';
   }
@@ -5366,6 +5444,7 @@ class UI {
       ['attack', player.stats.attack.toFixed(1)],
       ['attackSpeed', `${player.stats.attackSpeed.toFixed(2)}/s`],
       ['moveSpeed', player.stats.moveSpeed.toFixed(0)],
+      ['armor', String(Math.round(player.stats.armor || 0))],
       ['bulletCount', String(Math.floor(player.stats.bulletCount))],
       ['bulletSpeed', player.stats.bulletSpeed.toFixed(0)],
       ['weaponRadius', `x${player.stats.weaponRadius.toFixed(2)}`],
@@ -5421,7 +5500,11 @@ class SaveManager {
         player: game.player.toSaveData(),
         killCount: game.killCount,
         survived: game.survived,
-        waves: { elapsed: game.waves.elapsed, lastDragonAt: game.waves.lastDragonAt },
+        waves: {
+          elapsed: game.waves.elapsed,
+          lastDragonAt: game.waves.lastDragonAt,
+          holeAngle: game.waves.holeAngle
+        },
         weapons: game.weapons.toSaveData(),
         upgrades: game.upgrades.toSaveData()
       };
@@ -5500,7 +5583,7 @@ class HelpPanel {
     ASP: 'attackSpeed', BLT: 'bulletCount', BSP: 'bulletSpeed',
     RAD: 'weaponRadius',
     CRT: 'critChance', CDM: 'critDamage',
-    EXP: 'expMultiplier', LCK: 'luck', CRS: 'curse'
+    EXP: 'expMultiplier', LCK: 'luck', CRS: 'curse', ARM: 'armor'
   };
 
   _iconHtml(statKey) {
@@ -5924,6 +6007,7 @@ class Game {
         case 'Digit6': case 'Digit7': case 'Digit8': case 'Digit9':
         case 'Numpad1': case 'Numpad2': case 'Numpad3': case 'Numpad4': case 'Numpad5':
         case 'Numpad6': case 'Numpad7': case 'Numpad8': case 'Numpad9':
+        case 'Space':
           if (!v || e.repeat) break;
           if (this.upgrades.handleKey(e.code)) e.preventDefault();
           break;
@@ -6090,6 +6174,8 @@ class Game {
         weaponRadius: 0.5,
         expMultiplier: 0,
         luck: 0,
+        curse: 0,
+        armor: 0,
         critChance: 0.25,
         critDamageBonus: 0.5,
         bulletCount: 2
@@ -6111,11 +6197,13 @@ class Game {
         weaponRadius: 3,
         expMultiplier: 2,
         luck: 2,
+        curse: 1,
+        armor: 10,
         critChance: 1,
         critDamageBonus: 3,
         bulletCount: 8
       },
-      weapons: WEAPON_IDS.map((id) => ({ id, enabled: true, level: 5, branch: 'A' }))
+      weapons: WEAPON_IDS.map((id) => ({ id, enabled: true, level: 10, branch: 'A' }))
     };
   }
 
@@ -6196,6 +6284,7 @@ class Game {
     html += statRow('expMultiplier', I18n.t('statExpGain') + ' %', pct(s.expMultiplier));
     html += statRow('luck', I18n.t('statLuck') + ' %', pct(s.luck));
     html += statRow('curse', I18n.t('statCurse') + ' %', pct(s.curse || 0));
+    html += statRow('armor', I18n.t('statArmor'), s.armor || 0, 1);
     html += statRow('critChance', I18n.t('testCritChance'), pct(s.critChance), 1);
     html += statRow('critDamageBonus', I18n.t('testCritDamage'), pct(s.critDamageBonus), 5);
     html += `<div class="test-field"><label>${I18n.t('testBulletCount')}</label>` +
@@ -6214,11 +6303,11 @@ class Game {
         `<input type="checkbox" data-w-on="${w.id}"${w.enabled ? ' checked' : ''}>` +
         `<span>${name}</span>` +
         `<select data-w-lv="${w.id}">` +
-        [1, 2, 3, 4, 5].map((lv) =>
+        [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((lv) =>
           `<option value="${lv}"${w.level === lv ? ' selected' : ''}>${I18n.t('testWeaponLv')}${lv}</option>`
         ).join('') +
         `</select>` +
-        `<select data-w-br="${w.id}"${w.level < 3 ? ' disabled' : ''}>` +
+        `<select data-w-br="${w.id}"${w.level < 4 ? ' disabled' : ''}>` +
         `<option value="A"${w.branch !== 'B' ? ' selected' : ''}>${I18n.t('testBranch')} A</option>` +
         `<option value="B"${w.branch === 'B' ? ' selected' : ''}>${I18n.t('testBranch')} B</option>` +
         `</select></div>`;
@@ -6234,7 +6323,7 @@ class Game {
     root.querySelectorAll('[data-w-lv]').forEach((el) => {
       el.onchange = () => {
         const br = root.querySelector(`[data-w-br="${el.dataset.wLv}"]`);
-        if (br) br.disabled = (+el.value) < 3;
+        if (br) br.disabled = (+el.value) < 4;
       };
     });
   }
@@ -6249,6 +6338,7 @@ class Game {
       let v = parseFloat(el.value);
       if (!Number.isFinite(v)) return;
       if (key === 'bulletCount') stats.bulletCount = Math.max(1, Math.min(20, Math.round(v)));
+      else if (key === 'armor') stats.armor = Math.max(0, Math.min(100, Math.round(v)));
       else stats[key] = Math.max(0, v) / 100;
     });
     const levelEl = document.getElementById('testLevelInput');
@@ -6257,12 +6347,12 @@ class Game {
       const on = root.querySelector(`[data-w-on="${id}"]`);
       const lv = root.querySelector(`[data-w-lv="${id}"]`);
       const br = root.querySelector(`[data-w-br="${id}"]`);
-      const level = Math.max(1, Math.min(5, (lv && +lv.value) || 1));
+      const level = Math.max(1, Math.min(10, (lv && +lv.value) || 1));
       return {
         id,
         enabled: !!(on && on.checked),
         level,
-        branch: level >= 3 ? ((br && br.value === 'B') ? 'B' : 'A') : 'A'
+        branch: level >= 4 ? ((br && br.value === 'B') ? 'B' : 'A') : 'A'
       };
     });
     return {
@@ -6286,6 +6376,7 @@ class Game {
     p.statAdd.expMultiplier = st.expMultiplier || 0;
     p.statAdd.luck = st.luck || 0;
     p.statAdd.curse = st.curse || 0;
+    p.statAdd.armor = st.armor || 0;
     p.statAdd.critChance = st.critChance || 0;
     p.statAdd.critDamageBonus = st.critDamageBonus || 0;
     p.bulletCount = Math.max(1, st.bulletCount | 0 || 1);
@@ -6668,6 +6759,7 @@ class Game {
       case 'EXP': return `${s.expMultiplier.toFixed(2)}×`;
       case 'LCK': return `${p.luckMult.toFixed(2)}×`;
       case 'CRS': return `${p.curseMult.toFixed(2)}×`;
+      case 'ARM': return `${Math.round(s.armor || 0)}`;
       default: return '';
     }
   }
@@ -7105,7 +7197,7 @@ class Game {
       const dx = e.x - this.player.x;
       const dy = e.y - this.player.y;
       // Must exceed off-screen spawn distance or fresh spawns get culled instantly
-      const cullR = Math.hypot(this.camera.w * 0.5, this.camera.h * 0.5) + 420;
+      const cullR = Math.hypot(this.camera.w * 0.5, this.camera.h * 0.5) + 260;
       if (dx * dx + dy * dy <= cullR * cullR) return;
       // Wounded enemies are never lost — they get relocated to a fresh spawn ring
       if (e.hp < e.maxHp) {

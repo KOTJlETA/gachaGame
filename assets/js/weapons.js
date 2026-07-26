@@ -17,6 +17,121 @@ function weaponCooldown(def, player) {
   return def.cooldown / Math.max(0.15, player.stats.attackSpeed);
 }
 
+function weaponBaseDamage(player, weaponMult = 1) {
+  return player.stats.attack * weaponMult * (player.weaponDmgMult || 1);
+}
+
+/* Display level → old 5-step mechanic tier.
+   L1 base, L2 mech, L3 stat, L4 branch mech, L5 stat, L6 mech,
+   L7 stat, L8 final mech, L9 stat, L10 final weapon power (ladder bonus, still M5). */
+function weaponMechanicLevel(displayLevel) {
+  if (displayLevel >= 8) return 5;
+  if (displayLevel >= 6) return 4;
+  if (displayLevel >= 4) return 3;
+  if (displayLevel >= 2) return 2;
+  return 1;
+}
+
+const WEAPON_LADDER = {
+  shotgun: {
+    3: { bulletCount: 3 }, 5: { bulletSpeed: 0.24 }, 7: { critChance: 0.10 },
+    9: { weaponRadius: 0.24 }, 10: { weaponDamage: 0.20 }
+  },
+  chainLightning: {
+    3: { bulletSpeed: 0.24 }, 5: { attackSpeed: 0.60 }, 7: { critChance: 0.10 },
+    9: { weaponRadius: 0.30 }, 10: { weaponDamage: 0.15 }
+  },
+  garlicAura: {
+    3: { maxHealth: 0.15 }, 5: { armor: 2 }, 7: { weaponRadius: 0.25 },
+    9: { luck: 0.15 }, 10: { weaponDamage: 0.15 }
+  },
+  boomerang: {
+    3: { moveSpeed: 0.16 }, 5: { bulletSpeed: 0.24 }, 7: { bulletCount: 1 },
+    9: { critChance: 0.10 }, 10: { weaponDamage: 0.15 }
+  },
+  towerShield: {
+    3: { baseHealth: 15 }, 5: { armor: 2 }, 7: { moveSpeed: 0.12 },
+    9: { weaponRadius: 0.25 }, 10: { weaponDamage: 0.15 }
+  },
+  grenadeLauncher: {
+    3: { attack: 0.30 }, 5: { weaponRadius: 0.30 }, 7: { armor: 1 },
+    9: { bulletCount: 1 }, 10: { weaponDamage: 0.20 }
+  },
+  bloodSpear: {
+    3: { criticalLevels: 2 }, 5: { maxHealth: 0.15 }, 7: { armor: 1 },
+    9: { weaponRadius: 0.20 }, 10: { weaponDamage: 0.15 }
+  },
+  phantomBlades: {
+    3: { attackSpeed: 0.24 }, 5: { moveSpeed: 0.16 }, 7: { bulletCount: 2 },
+    9: { critChance: 0.10 }, 10: { weaponDamage: 0.15 }
+  },
+  cursedTotem: {
+    3: { expMultiplier: 0.18 }, 5: { luck: 0.15 }, 7: { weaponRadius: 0.25 },
+    9: { armor: 1 }, 10: { weaponDamage: 0.15 }
+  },
+  iceCrystal: {
+    3: { bulletSpeed: 0.24 }, 5: { weaponRadius: 0.25 }, 7: { armor: 1 },
+    9: { criticalLevels: 2 }, 10: { weaponDamage: 0.15 }
+  }
+};
+
+const WEAPON_OVERCAP = {
+  shotgun: { weaponDamage: 0.10 },
+  chainLightning: { attackSpeed: 0.12 },
+  garlicAura: { armor: 1 },
+  boomerang: { moveSpeed: 0.08 },
+  towerShield: { baseHealth: 10 },
+  grenadeLauncher: { weaponRadius: 0.12 },
+  bloodSpear: { criticalLevels: 5 },
+  phantomBlades: { bulletCount: 1 },
+  cursedTotem: { luck: 0.10 },
+  iceCrystal: { critChance: 0.05, critDamageBonus: 0.10 }
+};
+
+function applyWeaponBonus(player, bonus) {
+  if (!player || !bonus) return;
+  const beforeHp = player.stats.maxHealth;
+  for (const [key, value] of Object.entries(bonus)) {
+    if (key === 'bulletCount') player.bulletCount += value;
+    else if (key === 'weaponDamage') player.weaponDmgMult += value;
+    else if (key === 'baseHealth') {
+      player.charBase = { ...(player.charBase || Player.BASE) };
+      player.charBase.maxHealth += value;
+    } else if (key === 'criticalLevels') {
+      player.statAdd.critChance += 0.05 * value;
+      player.statAdd.critDamageBonus += 0.10 * value;
+    } else {
+      player.statAdd[key] = (player.statAdd[key] || 0) + value;
+    }
+  }
+  player._recomputeStats();
+  if (player.stats.maxHealth > beforeHp) player.health += player.stats.maxHealth - beforeHp;
+}
+
+function weaponBonusText(bonus) {
+  if (!bonus) return '';
+  const ru = typeof I18n !== 'undefined' && I18n.lang === 'ru';
+  return Object.entries(bonus).map(([key, value]) => {
+    const names = ru ? {
+      bulletCount: 'снарядов', weaponDamage: 'базового урона всего оружия', baseHealth: 'базового HP',
+      criticalLevels: 'уровней крита', critChance: 'шанса крита', critDamageBonus: 'урона крита',
+      attack: 'атаки', attackSpeed: 'скорости атаки', moveSpeed: 'скорости', bulletSpeed: 'скорости снарядов',
+      weaponRadius: 'радиуса оружия', maxHealth: 'макс. здоровья', armor: 'брони',
+      luck: 'удачи', expMultiplier: 'опыта'
+    } : {
+      bulletCount: 'Projectiles', weaponDamage: 'all-weapon base damage', baseHealth: 'base HP',
+      criticalLevels: 'Critical levels', critChance: 'Crit Chance', critDamageBonus: 'Crit Damage',
+      attack: 'Attack', attackSpeed: 'Attack Speed', moveSpeed: 'Move Speed', bulletSpeed: 'Projectile Speed',
+      weaponRadius: 'Weapon Radius', maxHealth: 'Max Health', armor: 'Armor',
+      luck: 'Luck', expMultiplier: 'Exp Gain'
+    };
+    if (key === 'bulletCount' || key === 'baseHealth' || key === 'criticalLevels' || key === 'armor') {
+      return `+${value} ${names[key]}`;
+    }
+    return `+${Math.round(value * 100)}% ${names[key]}`;
+  }).join(', ');
+}
+
 /* Multiplier for projectile hitboxes and splash / aura radii. */
 function weaponRadiusMult(player) {
   if (!player || !player.stats) return 1;
@@ -129,7 +244,7 @@ function _modsFor(w) {
     curseAmp: false, curseSpread: false, curseStrong: false, totemPulse: false, recharge: false, deathBoom: false, multiTotem: false,
     freeze: false, freezeSolid: false, shatter: false, statues: false, shards: false, ricochet: 0, iceTrail: false
   };
-  const lv = w.level;
+  const lv = weaponMechanicLevel(w.level);
   const b = w.branch;
   if (w.id === 'shotgun') {
     if (lv >= 2) m.pierce = 1;
@@ -400,12 +515,17 @@ const WEAPON_LEVEL_TEXT = {
 };
 
 function weaponLevelDesc(weaponId, level, branch) {
+  const bonus = level > 10
+    ? WEAPON_OVERCAP[weaponId]
+    : (WEAPON_LADDER[weaponId] && WEAPON_LADDER[weaponId][level]);
+  if (bonus) return weaponBonusText(bonus);
   const pack = WEAPON_LEVEL_TEXT[weaponId];
   if (!pack) return '';
   const lang = (typeof I18n !== 'undefined' && I18n.lang) || 'en';
   const table = pack[lang] || pack.en;
-  let key = String(level);
-  if (level >= 3 && branch) key = `${level}${branch}`;
+  const mechanicLevel = weaponMechanicLevel(level);
+  let key = String(mechanicLevel);
+  if (mechanicLevel >= 3 && branch) key = `${mechanicLevel}${branch}`;
   return table[key] || table['1'] || '';
 }
 
@@ -485,7 +605,7 @@ WEAPON_DEFS.shotgun = {
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     const count = weaponProjectileCount(this, p);
     // Fire along the player's last move direction (held after stopping)
     const sx = Number.isFinite(p.shootDirX) ? p.shootDirX : 1;
@@ -529,7 +649,7 @@ WEAPON_DEFS.chainLightning = {
     const p = game.player;
     const m = w.mods;
     const strikes = weaponProjectileCount(this, p);
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     for (let s = 0; s < strikes; s++) {
       const start = s === 0
         ? (game.spatial.nearest(aim.x, aim.y, 420) || game.spatial.nearest(p.x, p.y, 420))
@@ -614,8 +734,9 @@ WEAPON_DEFS.garlicAura = {
   fire(w, game) {
     const p = game.player;
     const m = w.mods;
-    const base = p.stats.attack * this.damageMult;
-    const radius = weaponScaleRadius(Math.min(150, 70 + w.level * 8), p);
+    const base = weaponBaseDamage(p, this.damageMult);
+    const mechanicLevel = weaponMechanicLevel(w.level);
+    const radius = weaponScaleRadius(Math.min(150, 70 + mechanicLevel * 8), p);
     w.state.radius = radius;
     w.state.pulse = 0.2;
     let healed = 0;
@@ -663,9 +784,9 @@ WEAPON_DEFS.garlicAura = {
     ctx.save();
     ctx.beginPath();
     ctx.arc(s.x, s.y, r, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(226, 215, 193, ${0.22 + a * 0.35})`;
+    ctx.fillStyle = `rgba(226, 215, 193, ${(0.22 + a * 0.35) * 0.5})`;
     ctx.fill();
-    ctx.strokeStyle = `rgba(226, 215, 193, ${0.45 + a})`;
+    ctx.strokeStyle = `rgba(226, 215, 193, ${(0.45 + a) * 0.5})`;
     ctx.lineWidth = 2;
     ctx.stroke();
     ctx.restore();
@@ -678,7 +799,7 @@ WEAPON_DEFS.boomerang = {
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     const count = weaponProjectileCount(this, p);
     // Always lob toward the furthest foe so the return path cuts through the pack
     const target = game.spatial.furthest(p.x, p.y, 720)
@@ -715,20 +836,21 @@ WEAPON_DEFS.towerShield = {
     const p = game.player;
     const m = w.mods;
     w.state.angle = (w.state.angle || 0) + dt * 2.2;
-    const maxShield = 30 + w.level * 12;
+    const mechanicLevel = weaponMechanicLevel(w.level);
+    const maxShield = 30 + mechanicLevel * 12;
     if (w.state.shield == null) w.state.shield = maxShield;
     w.state.maxShield = maxShield;
     if (w.state.regenDelay > 0) w.state.regenDelay -= dt;
     else {
       const aspd = Math.max(0.15, p.stats.attackSpeed || 1);
-      w.state.shield = Math.min(maxShield, w.state.shield + (4 + w.level) * aspd * dt);
+      w.state.shield = Math.min(maxShield, w.state.shield + (4 + mechanicLevel) * aspd * dt);
     }
 
     const radius = 42;
     const sx = p.x + Math.cos(w.state.angle) * radius;
     const sy = p.y + Math.sin(w.state.angle) * radius;
     w.state.x = sx; w.state.y = sy;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     w.state.hitCD = (w.state.hitCD || 0) - dt;
     if (w.state.hitCD <= 0) {
       game.spatial.queryCircle(sx, sy, weaponScaleRadius(22, p), (e) => {
@@ -832,7 +954,7 @@ WEAPON_DEFS.grenadeLauncher = {
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     const count = weaponProjectileCount(this, p);
     const dx = aim.x - p.x;
     const dy = aim.y - p.y;
@@ -875,7 +997,7 @@ WEAPON_DEFS.bloodSpear = {
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     const count = weaponProjectileCount(this, p);
     const dx = aim.x - p.x; const dy = aim.y - p.y;
     const ang = Math.atan2(dy, dx);
@@ -949,7 +1071,7 @@ WEAPON_DEFS.phantomBlades = {
     // Base 2 blades + Projectile Count extras + Path B phantoms
     const blades = Math.max(1,
       weaponProjectileCount(this, p) + Math.min(EffectCaps.MAX_PHANTOMS, m.phantoms || 0));
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     w.state.blades = [];
     const half = Math.ceil(blades / 2);
     for (let i = 0; i < blades; i++) {
@@ -1035,7 +1157,7 @@ WEAPON_DEFS.cursedTotem = {
   update(w, dt, game) {
     if (!w.state.totems) return;
     const p = game.player;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     const auraR = weaponScaleRadius(this.auraRadius, p);
     w.state.totems = w.state.totems.filter((t) => {
       t.life -= dt;
@@ -1132,7 +1254,7 @@ WEAPON_DEFS.iceCrystal = {
   fire(w, game, aim) {
     const p = game.player;
     const m = w.mods;
-    const base = p.stats.attack * this.damageMult;
+    const base = weaponBaseDamage(p, this.damageMult);
     const count = weaponProjectileCount(this, p);
     const targets = game.spatial.kNearest(p.x, p.y, 480, count + 3).filter((e) => !e.dying);
     if (!targets.length) return;
@@ -1406,19 +1528,22 @@ class WeaponSystem {
     return this.slots.find((w) => w.id === id) || null;
   }
 
-  upgrade(id, branch) {
+  upgrade(id, branch, player = null) {
     const w = this.get(id);
-    if (!w || w.level >= 5) return false;
-    if (w.level === 2 && branch) {
+    if (!w) return false;
+    const nextLevel = w.level + 1;
+    if (nextLevel === 4) {
+      if (branch !== 'A' && branch !== 'B') return false;
       w.branch = branch;
-      w.level = 3;
-    } else if (w.level >= 3) {
-      if (branch && w.branch && branch !== w.branch) return false;
-      w.level++;
-    } else {
-      w.level++;
+    } else if (branch && w.branch && branch !== w.branch) {
+      return false;
     }
+    w.level = nextLevel;
     w.mods = _modsFor(w);
+    const bonus = nextLevel > 10
+      ? WEAPON_OVERCAP[id]
+      : (WEAPON_LADDER[id] && WEAPON_LADDER[id][nextLevel]);
+    if (bonus && player) applyWeaponBonus(player, bonus);
     return true;
   }
 
@@ -1476,7 +1601,7 @@ class WeaponSystem {
       proj._reflected = true;
       proj.fromPlayer = true;
       proj.vx *= -1; proj.vy *= -1;
-      proj.damage = game.player.stats.attack * 0.5;
+      proj.damage = weaponBaseDamage(game.player, 0.5);
       return true;
     }
     proj.active = false;

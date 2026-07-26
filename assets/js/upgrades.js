@@ -1,26 +1,50 @@
 'use strict';
 
+const STAT_MAX_LEVEL = 10;
+const WEAPON_CORE_MAX = 10;
+const STAT_MAX_LEVELS = {
+  bulletCount: 5
+};
+
+function statMaxLevel(statId) {
+  return STAT_MAX_LEVELS[statId] || STAT_MAX_LEVEL;
+}
+
+function statPickCount(player, statId) {
+  return (player && player.statLevels && player.statLevels[statId]) || 0;
+}
+
+function statProgressText(player, statId) {
+  return `${statPickCount(player, statId)}/${statMaxLevel(statId)}`;
+}
+
+function weaponProgressText(level) {
+  const lv = Math.max(1, level | 0);
+  if (lv > WEAPON_CORE_MAX) return `${lv}+`;
+  return `${lv}/${WEAPON_CORE_MAX}`;
+}
+
 const STAT_DEFS = {
   attack: {
     id: 'attack', icon: 'attack',
     apply(p) { p.statAdd.attack += 0.15; },
     label() { return I18n.t('statDamage'); },
     value() { return '+15%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.attack * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'attack')); }
   },
   attackSpeed: {
     id: 'attackSpeed', icon: 'attackSpeed',
     apply(p) { p.statAdd.attackSpeed += 0.12; },
     label() { return I18n.t('statAttackSpeed'); },
     value() { return '+12%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.attackSpeed * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'attackSpeed')); }
   },
   moveSpeed: {
     id: 'moveSpeed', icon: 'moveSpeed',
     apply(p) { p.statAdd.moveSpeed += 0.08; },
     label() { return I18n.t('statMoveSpeed'); },
     value() { return '+8%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.moveSpeed * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'moveSpeed')); }
   },
   maxHealth: {
     id: 'maxHealth', icon: 'maxHealth',
@@ -32,21 +56,21 @@ const STAT_DEFS = {
     },
     label() { return I18n.t('statMaxHealth'); },
     value() { return '+15%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.maxHealth * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'maxHealth')); }
   },
   bulletSpeed: {
     id: 'bulletSpeed', icon: 'bulletSpeed',
     apply(p) { p.statAdd.bulletSpeed += 0.12; },
     label() { return I18n.t('statBulletSpeed'); },
     value() { return '+12%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.bulletSpeed * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'bulletSpeed')); }
   },
   weaponRadius: {
     id: 'weaponRadius', icon: 'weaponRadius',
     apply(p) { p.statAdd.weaponRadius += 0.12; },
     label() { return I18n.t('statWeaponRadius'); },
     value() { return '+12%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.weaponRadius * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'weaponRadius')); }
   },
   critical: {
     id: 'critical', icon: 'critChance',
@@ -63,39 +87,42 @@ const STAT_DEFS = {
       if (p && p.stats.critChance >= 1) return '+20% Crit Damage';
       return '+5% Chance / +10% Crit Damage';
     },
-    bonusText(p) {
-      const ch = Math.round(p.stats.critChance * 100);
-      const cd = Math.round((p.stats.critDamage - 1) * 100);
-      return `${ch}% / +${cd}%`;
-    }
+    bonusText(p) { return String(statPickCount(p, 'critical')); }
   },
   expMultiplier: {
     id: 'expMultiplier', icon: 'expMultiplier',
     apply(p) { p.statAdd.expMultiplier += 0.12; },
     label() { return I18n.t('statExpGain'); },
     value() { return '+12%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.expMultiplier * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'expMultiplier')); }
   },
   luck: {
     id: 'luck', icon: 'luck',
     apply(p) { p.statAdd.luck += 0.15; },
     label() { return I18n.t('statLuck'); },
     value() { return '+15%'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.luck * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'luck')); }
   },
   curse: {
     id: 'curse', icon: 'curse',
     apply(p) { p.statAdd.curse += 0.10; },
     label() { return I18n.t('statCurse'); },
     value() { return '+10% Enemy HP / DMG / EXP / Mobs'; },
-    bonusText(p) { return `+${Math.round(p.statAdd.curse * 100)}%`; }
+    bonusText(p) { return String(statPickCount(p, 'curse')); }
   },
   bulletCount: {
     id: 'bulletCount', icon: 'bulletCount',
     apply(p) { p.bulletCount += 1; },
     label() { return I18n.t('statBulletCount'); },
     value() { return '+1'; },
-    bonusText(p) { return `+${p.bulletCount - 1}`; }
+    bonusText(p) { return String(statPickCount(p, 'bulletCount')); }
+  },
+  armor: {
+    id: 'armor', icon: 'armor',
+    apply(p) { p.statAdd.armor += 1; },
+    label() { return I18n.t('statArmor'); },
+    value() { return '+1 Armor'; },
+    bonusText(p) { return String(statPickCount(p, 'armor')); }
   }
 };
 
@@ -124,6 +151,7 @@ class UpgradeSystem {
     // Per pending roll: whether weapon cards are allowed
     this.pendingWeaponEligible = [];
     this._currentWeaponEligible = false;
+    this.skipUsed = false;
     // High Cultist one-shot second-weapon picker (mandatory, Esc-proof)
     this.startWeaponPick = false;
   }
@@ -133,8 +161,13 @@ class UpgradeSystem {
     this.overlay = document.getElementById('choiceOverlay');
     this.cardsEl = document.getElementById('choiceCards');
     this.titleEl = document.getElementById('choiceTitle');
+    this.skipEl = document.getElementById('choiceSkipBtn');
     if (!this.overlay) return;
     this.overlay.addEventListener('click', (e) => {
+      if (e.target.closest('[data-skip-upgrade]')) {
+        this.skip();
+        return;
+      }
       const card = e.target.closest('[data-choice-idx]');
       if (!card) return;
       const idx = +card.dataset.choiceIdx;
@@ -148,11 +181,9 @@ class UpgradeSystem {
     return this.open && performance.now() >= this.readyAt;
   }
 
-  /* All five weapon slots filled and every weapon at level 5. */
+  /* Weapons now have repeatable overcap upgrades, so they are never exhausted. */
   _weaponsFullyUpgraded() {
-    const weapons = this.game && this.game.weapons;
-    if (!weapons || weapons.slots.length < weapons.maxSlots) return false;
-    return weapons.slots.every((w) => w.level >= 5);
+    return false;
   }
 
   enqueue(n, opts) {
@@ -170,7 +201,10 @@ class UpgradeSystem {
     this.pendingRolls += n;
     // Extend the active batch, or start a new one
     if (this.open || this.batchTotal > 0) this.batchTotal += n;
-    else this.batchTotal = this.pendingRolls;
+    else {
+      this.batchTotal = this.pendingRolls;
+      this.skipUsed = false;
+    }
     if (this.autoSelect) {
       this._drainAuto();
       return;
@@ -185,6 +219,7 @@ class UpgradeSystem {
     this.batchIndex = 0;
     this.pendingWeaponEligible = [];
     this._currentWeaponEligible = false;
+    this.skipUsed = false;
     this.startWeaponPick = false;
     this.close();
   }
@@ -222,7 +257,8 @@ class UpgradeSystem {
       batchTotal: this.batchTotal,
       batchIndex: this.batchIndex,
       pendingWeaponEligible: this.pendingWeaponEligible.slice(),
-      currentWeaponEligible: this._currentWeaponEligible
+      currentWeaponEligible: this._currentWeaponEligible,
+      skipUsed: this.skipUsed
     };
   }
 
@@ -235,6 +271,7 @@ class UpgradeSystem {
       ? data.pendingWeaponEligible.map(Boolean)
       : [];
     this._currentWeaponEligible = !!(data && data.currentWeaponEligible);
+    this.skipUsed = !!(data && data.skipUsed);
     // Older saves: pad missing flags as weapon-eligible so picks aren't empty
     while (this.pendingWeaponEligible.length < this.pendingRolls) {
       this.pendingWeaponEligible.push(true);
@@ -247,6 +284,11 @@ class UpgradeSystem {
 
   handleKey(code) {
     if (!this.open) return false;
+    if (code === 'Space') {
+      if (!this._canPick()) return true;
+      this.skip();
+      return true;
+    }
     const map = {
       Digit1: 0, Digit2: 1, Digit3: 2, Digit4: 3, Digit5: 4,
       Digit6: 5, Digit7: 6, Digit8: 7, Digit9: 8,
@@ -309,6 +351,7 @@ class UpgradeSystem {
       this.overlay.classList.remove('choice-locked');
       this.overlay.classList.remove('start-weapon-pick');
     }
+    if (this.skipEl) this.skipEl.classList.add('hidden');
   }
 
   generateOptions() {
@@ -320,15 +363,18 @@ class UpgradeSystem {
     const allowWeapons = !!this._currentWeaponEligible;
     const cardCount = (typeof MetaProgression !== 'undefined' && MetaProgression.maxChoiceOptions)
       ? MetaProgression.maxChoiceOptions()
-      : 5;
+      : 6;
 
-    // Weapon options — only on milestone level-ups / chest rolls that allow them
+    // Weapon options — only on milestone level-ups / chest rolls that allow them.
+    // Branch-choice weapons always contribute both Path A and Path B cards.
+    const branchPairs = [];
     if (allowWeapons) {
       for (const w of weapons.slots) {
-        if (w.level >= 5) continue;
-        if (w.level === 2) {
-          weaponOpts.push({ type: 'weapon', weaponId: w.id, level: 3, branch: 'A' });
-          weaponOpts.push({ type: 'weapon', weaponId: w.id, level: 3, branch: 'B' });
+        if (w.level === 3) {
+          branchPairs.push([
+            { type: 'weapon', weaponId: w.id, level: 4, branch: 'A' },
+            { type: 'weapon', weaponId: w.id, level: 4, branch: 'B' }
+          ]);
         } else {
           weaponOpts.push({ type: 'weapon', weaponId: w.id, level: w.level + 1, branch: w.branch });
         }
@@ -341,23 +387,42 @@ class UpgradeSystem {
     }
 
     this._shuffle(weaponOpts);
+    this._shuffle(branchPairs);
 
     const result = [];
     const used = new Set();
     // Reserve one slot for Autoselect when offered
     const maxCards = offerAuto ? Math.max(1, cardCount - 1) : cardCount;
 
-    // Guarantee at least one weapon option when any exist
-    if (weaponOpts.length) {
-      const first = weaponOpts.shift();
-      result.push(first);
-      used.add(this._key(first));
+    // Always surface both A and B when any owned weapon is choosing a path.
+    // Keep each A/B pair together; stop once another full pair cannot fit.
+    for (const pair of branchPairs) {
+      if (result.length + pair.length > maxCards) break;
+      for (const option of pair) {
+        const key = this._key(option);
+        if (used.has(key)) continue;
+        result.push(option);
+        used.add(key);
+      }
+    }
+
+    // Weapon-eligible rolls reserve the first 2–3 slots for weapon choices.
+    const desiredWeapons = allowWeapons
+      ? Math.max(result.length, 2 + (Math.random() < 0.5 ? 0 : 1))
+      : result.length;
+    while (result.length < desiredWeapons && weaponOpts.length) {
+      const option = weaponOpts.shift();
+      const key = this._key(option);
+      if (used.has(key)) continue;
+      result.push(option);
+      used.add(key);
     }
 
     // Eligible stats + whole chicken fill remaining slots (unique when possible)
     const selected = p.selectedStatIds;
     const maxStats = typeof p.maxStatSlots === 'function' ? p.maxStatSlots() : 5;
-    let eligibleStats = selected.length >= maxStats ? selected.slice() : STAT_IDS.slice();
+    const belowCap = (id) => statPickCount(p, id) < statMaxLevel(id);
+    let eligibleStats = (selected.length >= maxStats ? selected.slice() : STAT_IDS.slice()).filter(belowCap);
     const filler = eligibleStats.map((id) => ({ type: 'stat', statId: id }));
     filler.push({ type: 'heal', id: 'wholeChicken' });
     this._shuffle(filler);
@@ -375,29 +440,12 @@ class UpgradeSystem {
       const o = weaponOpts.shift();
       const k = this._key(o);
       if (used.has(k)) continue;
-      if (o.type === 'weapon' && o.branch) {
-        const other = result.find((r) => r.type === 'weapon' && r.weaponId === o.weaponId && r.branch && r.branch !== o.branch);
-        if (other) continue;
-      }
       used.add(k);
       result.push(o);
     }
 
-    // Last resort: repeat eligible stats / chicken so there are always enough cards
-    let si = 0;
-    while (result.length < maxCards && filler.length) {
-      result.push(filler[si % filler.length]);
-      si++;
-    }
-
-    this._shuffle(result);
-    // Keep a weapon card visible in slot 1 when we guaranteed one (after shuffle, re-pin one)
-    const weaponIdx = result.findIndex((o) => o.type === 'weapon');
-    if (weaponIdx > 0) {
-      const tmp = result[0];
-      result[0] = result[weaponIdx];
-      result[weaponIdx] = tmp;
-    }
+    // Never repeat bonus stats (or chicken) in a single choice round —
+    // prefer fewer unique cards over duplicates.
 
     // Autoselect is always the last card once every weapon is maxed
     if (offerAuto) result.push({ type: 'auto' });
@@ -428,11 +476,13 @@ class UpgradeSystem {
 
     if (opt.type === 'stat') {
       const def = STAT_DEFS[opt.statId];
-      if (def) {
+      if (def && statPickCount(p, opt.statId) < statMaxLevel(opt.statId)) {
+        if (!p.statLevels) p.statLevels = {};
         if (!p.selectedStatIds.includes(opt.statId) && p.selectedStatIds.length < p.maxStatSlots()) {
           p.selectedStatIds.push(opt.statId);
         }
         def.apply(p);
+        p.statLevels[opt.statId] = (p.statLevels[opt.statId] || 0) + 1;
         p._recomputeStats();
         if (!silent) game.ui.toast(`${def.label()}: ${def.value(p)}`, 'rare');
       }
@@ -456,7 +506,7 @@ class UpgradeSystem {
         game.weapons.grant(opt.weaponId, 1, null);
         if (!silent) game.ui.toast(`${name} Lv1`, 'epic');
       } else {
-        game.weapons.upgrade(opt.weaponId, opt.branch || existing.branch);
+        game.weapons.upgrade(opt.weaponId, opt.branch || existing.branch, p);
         const w = game.weapons.get(opt.weaponId);
         const br = w.branch ? ` ${w.branch}` : '';
         if (!silent) game.ui.toast(`${name} Lv${w.level}${br}`, 'epic');
@@ -552,6 +602,14 @@ class UpgradeSystem {
     }
   }
 
+  skip() {
+    if (!this._canPick() || this.startWeaponPick || this.skipUsed) return;
+    this.skipUsed = true;
+    this.close();
+    if (this.pendingRolls > 0) setTimeout(() => this._openNext(), 80);
+    else this._endBatchIfDone();
+  }
+
   _render() {
     if (!this.cardsEl) return;
     if (this.titleEl) {
@@ -579,11 +637,13 @@ class UpgradeSystem {
         const iconKey = IconFactory.spriteKey(def.icon);
         const spr = this.game.sprites[iconKey];
         const img = spr ? `<img class="choice-icon" src="${spr.toDataURL()}">` : '';
+        const progress = statProgressText(p, o.statId);
         return `<button type="button" class="choice-card" data-choice-idx="${i}">
           <div class="choice-key">${i + 1}</div>
           ${img}
           <div class="choice-name">${def.label()}</div>
           <div class="choice-value">${def.value(p)}</div>
+          <div class="choice-progress">${progress}</div>
         </button>`;
       }
       if (o.type === 'heal') {
@@ -601,10 +661,11 @@ class UpgradeSystem {
       const def = WEAPON_DEFS[o.weaponId];
       const icon = WeaponIcons.get(o.weaponId);
       const name = I18n.t(def.nameKey);
-      let sub;
-      if (o.level === 1) sub = I18n.t('newWeapon');
-      else if (o.branch && o.level === 3) sub = I18n.t('weaponBranch', o.branch);
-      else sub = I18n.t('weaponLevel', o.level);
+      const owned = this.game.weapons.get(o.weaponId);
+      const progress = weaponProgressText(o.level);
+      let sub = progress;
+      if (o.level === 1 && !owned) sub = `${I18n.t('newWeapon')} · ${progress}`;
+      else if (o.branch && o.level === 4) sub = `${I18n.t('weaponBranch', o.branch)} · ${progress}`;
       const desc = typeof weaponLevelDesc === 'function'
         ? weaponLevelDesc(o.weaponId, o.level, o.branch)
         : '';
@@ -616,10 +677,23 @@ class UpgradeSystem {
         ${desc ? `<div class="choice-desc">${desc}</div>` : ''}
       </button>`;
     }).join('');
+
+    if (this.skipEl) {
+      const showSkip = !this.startWeaponPick && !this.skipUsed;
+      this.skipEl.textContent = I18n.t('skipUpgrade');
+      this.skipEl.classList.toggle('hidden', !showSkip);
+    }
   }
 }
 
 window.STAT_DEFS = STAT_DEFS;
 window.STAT_IDS = STAT_IDS;
+window.STAT_MAX_LEVEL = STAT_MAX_LEVEL;
+window.STAT_MAX_LEVELS = STAT_MAX_LEVELS;
+window.WEAPON_CORE_MAX = WEAPON_CORE_MAX;
+window.statMaxLevel = statMaxLevel;
+window.statPickCount = statPickCount;
+window.statProgressText = statProgressText;
+window.weaponProgressText = weaponProgressText;
 window.WEAPON_IDS = WEAPON_IDS;
 window.UpgradeSystem = UpgradeSystem;

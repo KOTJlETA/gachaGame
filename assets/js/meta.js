@@ -17,6 +17,10 @@ const MetaProgression = {
     { id: 'maxHealth', max: 10, perLevel: 0.20,
       costs: [150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 76800],
       icon: 'maxHealth', labelKey: 'storeHealth', valueKey: 'storeHealthVal' },
+    { id: 'armor', max: 10, perLevel: 1,
+      costs: [300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 76800, 153600],
+      icon: 'armor', labelKey: 'storeArmor', valueKey: 'storeArmorVal',
+      descKey: 'storeArmorDesc' },
     { id: 'attack', max: 10, perLevel: 0.20,
       costs: [150, 300, 600, 1200, 2400, 4800, 9600, 19200, 38400, 76800],
       icon: 'attack', labelKey: 'storeAttack', valueKey: 'storeAttackVal' },
@@ -53,7 +57,7 @@ const MetaProgression = {
       costs: [50000, 150000, 350000, 700000, 1000000],
       icon: 'statSlots', labelKey: 'storeStatSlots', valueKey: 'storeStatSlotsVal',
       descKey: 'storeStatSlotsDesc' },
-    /* Extra level-up / chest choice cards — steep luxury (base 5 → up to 7) */
+    /* Extra level-up / chest choice cards — steep luxury (base 6 → up to 8) */
     { id: 'choiceOptions', max: 2, perLevel: 1,
       costs: [120000, 500000],
       icon: 'choiceOptions', labelKey: 'storeChoiceOptions', valueKey: 'storeChoiceOptionsVal',
@@ -201,7 +205,7 @@ const MetaProgression = {
     const b = {
       moveSpeed: 0, maxHealth: 0, attack: 0, attackSpeed: 0,
       bulletCount: 0, critChance: 0, critDamageBonus: 0,
-      expMultiplier: 0, luck: 0, weaponRadius: 0, bulletSpeed: 0, curse: 0,
+      expMultiplier: 0, luck: 0, weaponRadius: 0, bulletSpeed: 0, curse: 0, armor: 0,
       weaponSlots: 0, statSlots: 0, choiceOptions: 0
     };
     for (const d of this.DEFS) {
@@ -227,9 +231,9 @@ const MetaProgression = {
     return 5 + (this.isEnabled('statSlots') ? this.levelOf('statSlots') : 0);
   },
 
-  /* Base 5 choice cards + store extras (max +2 → 7). */
+  /* Base 6 choice cards + store extras (max +2 → 8). */
   maxChoiceOptions() {
-    return 5 + (this.isEnabled('choiceOptions') ? this.levelOf('choiceOptions') : 0);
+    return 6 + (this.isEnabled('choiceOptions') ? this.levelOf('choiceOptions') : 0);
   }
 };
 

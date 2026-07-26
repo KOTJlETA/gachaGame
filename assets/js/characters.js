@@ -10,53 +10,73 @@ const CHARACTER_DEFS = [
   {
     id: 'hunter', weapon: 'shotgun', sprite: 'charHunter',
     nameKey: 'charHunter', passiveKey: 'passiveAdrenaline', descKey: 'charHunterDesc',
-    baseStats: { attack: 8.4, moveSpeed: 147 }
+    baseStats: { moveSpeed: 147, maxHealth: 100, attack: 8.4, attackSpeed: 1, bulletSpeed: 280,
+      weaponRadius: 0.95, critChance: 0.06, critDamage: 1.5, expMultiplier: 1,
+      bulletCount: 4, luck: 0.03, curse: 0, armor: 0 }
   },
   {
     id: 'stormcaller', weapon: 'chainLightning', sprite: 'charStormcaller',
     nameKey: 'charStormcaller', passiveKey: 'passiveStaticCharge', descKey: 'charStormcallerDesc',
-    baseStats: { attack: 8.96, attackSpeed: 0.95, maxHealth: 90, bulletSpeed: 308 }
+    baseStats: { moveSpeed: 136, maxHealth: 90, attack: 8.96, attackSpeed: 0.95, bulletSpeed: 308,
+      weaponRadius: 1.05, critChance: 0.05, critDamage: 1.55, expMultiplier: 1.04,
+      bulletCount: 1, luck: 0.08, curse: 0.05, armor: 0 }
   },
   {
     id: 'plagueDoctor', weapon: 'garlicAura', sprite: 'charPlagueDoctor',
     nameKey: 'charPlagueDoctor', passiveKey: 'passiveInfection', descKey: 'charPlagueDoctorDesc',
-    baseStats: { maxHealth: 115, weaponRadius: 1.15, moveSpeed: 128.8, attack: 7.6 }
+    baseStats: { moveSpeed: 129, maxHealth: 115, attack: 7.6, attackSpeed: 0.96, bulletSpeed: 265,
+      weaponRadius: 1.15, critChance: 0.04, critDamage: 1.45, expMultiplier: 1.06,
+      bulletCount: 1, luck: 0.04, curse: 0.08, armor: 1 }
   },
   {
     id: 'ranger', weapon: 'boomerang', sprite: 'charRanger',
     nameKey: 'charRanger', passiveKey: 'passivePerfectCatch', descKey: 'charRangerDesc',
-    baseStats: { moveSpeed: 161, bulletSpeed: 313.6, maxHealth: 92 }
+    baseStats: { moveSpeed: 161, maxHealth: 92, attack: 8.1, attackSpeed: 1.06, bulletSpeed: 314,
+      weaponRadius: 1, critChance: 0.09, critDamage: 1.55, expMultiplier: 1,
+      bulletCount: 2, luck: 0.06, curse: 0, armor: 0 }
   },
   {
     id: 'guardian', weapon: 'towerShield', sprite: 'charGuardian',
     nameKey: 'charGuardian', passiveKey: 'passiveResolve', descKey: 'charGuardianDesc',
-    baseStats: { maxHealth: 125, moveSpeed: 123.2, attack: 7.36, weaponRadius: 1.08 }
+    baseStats: { moveSpeed: 123, maxHealth: 125, attack: 7.36, attackSpeed: 0.92, bulletSpeed: 255,
+      weaponRadius: 1.08, critChance: 0.03, critDamage: 1.4, expMultiplier: 0.98,
+      bulletCount: 1, luck: 0.02, curse: 0, armor: 4 }
   },
   {
     id: 'demolition', weapon: 'grenadeLauncher', sprite: 'charDemolition',
     nameKey: 'charDemolition', passiveKey: 'passiveDelayedDetonation', descKey: 'charDemolitionDesc',
-    baseStats: { attack: 9.44, attackSpeed: 0.88, moveSpeed: 133, weaponRadius: 1.10 }
+    baseStats: { moveSpeed: 133, maxHealth: 108, attack: 9.44, attackSpeed: 0.88, bulletSpeed: 250,
+      weaponRadius: 1.1, critChance: 0.04, critDamage: 1.6, expMultiplier: 0.96,
+      bulletCount: 2, luck: 0.03, curse: 0.05, armor: 1 }
   },
   {
     id: 'bloodKnight', weapon: 'bloodSpear', sprite: 'charBloodKnight',
     nameKey: 'charBloodKnight', passiveKey: 'passiveBloodlust', descKey: 'charBloodKnightDesc',
-    baseStats: { attack: 8.8, critChance: 0.10, critDamage: 1.65, maxHealth: 95 }
+    baseStats: { moveSpeed: 138, maxHealth: 95, attack: 8.8, attackSpeed: 1.02, bulletSpeed: 285,
+      weaponRadius: 1.02, critChance: 0.1, critDamage: 1.65, expMultiplier: 1,
+      bulletCount: 1, luck: 0.02, curse: 0.08, armor: 2 }
   },
   {
     id: 'bladeDancer', weapon: 'phantomBlades', sprite: 'charBladeDancer',
     nameKey: 'charBladeDancer', passiveKey: 'passiveRhythm', descKey: 'charBladeDancerDesc',
-    baseStats: { attackSpeed: 1.15, moveSpeed: 154, maxHealth: 88, bulletSpeed: 302.4 }
+    baseStats: { moveSpeed: 154, maxHealth: 88, attack: 7.8, attackSpeed: 1.15, bulletSpeed: 302,
+      weaponRadius: 0.92, critChance: 0.08, critDamage: 1.55, expMultiplier: 1.02,
+      bulletCount: 2, luck: 0.05, curse: 0.03, armor: 0 }
   },
   {
     id: 'highCultist', weapon: 'cursedTotem', sprite: 'charHighCultist',
     nameKey: 'charHighCultist', passiveKey: 'passiveSoulHarvest', descKey: 'charHighCultistDesc',
-    baseStats: {},
+    baseStats: { moveSpeed: 133, maxHealth: 105, attack: 7.8, attackSpeed: 1, bulletSpeed: 270,
+      weaponRadius: 1.1, critChance: 0.05, critDamage: 1.5, expMultiplier: 1.08,
+      bulletCount: 1, luck: 0.08, curse: 0.15, armor: 1 },
     startWeaponPick: true
   },
   {
     id: 'iceWitch', weapon: 'iceCrystal', sprite: 'charIceWitch',
     nameKey: 'charIceWitch', passiveKey: 'passiveSupercooling', descKey: 'charIceWitchDesc',
-    baseStats: { weaponRadius: 1.12, bulletSpeed: 302.4, attack: 7.6, attackSpeed: 0.95, maxHealth: 105 }
+    baseStats: { moveSpeed: 136, maxHealth: 105, attack: 7.6, attackSpeed: 0.95, bulletSpeed: 302,
+      weaponRadius: 1.12, critChance: 0.06, critDamage: 1.5, expMultiplier: 1.05,
+      bulletCount: 1, luck: 0.05, curse: 0.04, armor: 1 }
   }
 ];
 
@@ -66,12 +86,14 @@ function getCharacterDef(id) {
 
 const CHARACTER_STAT_KEYS = [
   'moveSpeed', 'maxHealth', 'attack', 'attackSpeed', 'bulletSpeed',
-  'weaponRadius', 'critChance', 'critDamage', 'expMultiplier'
+  'weaponRadius', 'critChance', 'critDamage', 'expMultiplier',
+  'bulletCount', 'luck', 'curse', 'armor'
 ];
 
 const CHARACTER_STAT_DECIMALS = {
   moveSpeed: 0, maxHealth: 0, attack: 1, attackSpeed: 2, bulletSpeed: 0,
-  weaponRadius: 2, critChance: 2, critDamage: 2, expMultiplier: 2
+  weaponRadius: 2, critChance: 2, critDamage: 2, expMultiplier: 2,
+  bulletCount: 0, luck: 2, curse: 2, armor: 0
 };
 
 /* Build the full base table for a character (global defaults + overrides). */
@@ -89,7 +111,11 @@ function resolveCharacterBase(def) {
     weaponRadius: B.weaponRadius,
     critChance: B.critChance,
     critDamage: B.critDamage,
-    expMultiplier: B.expMultiplier
+    expMultiplier: B.expMultiplier,
+    bulletCount: B.bulletCount || 1,
+    luck: B.luck || 0,
+    curse: B.curse || 0,
+    armor: B.armor || 0
   };
   const stats = (def && def.baseStats) || {};
   for (const key of CHARACTER_STAT_KEYS) {
@@ -102,40 +128,51 @@ function resolveCharacterBase(def) {
 function applyCharacterBaseStats(player, def) {
   if (!player || !def) return;
   player.charBase = resolveCharacterBase(def);
+  player.bulletCount = player.charBase.bulletCount;
+}
+
+/* Global default bases used for green/red deltas on character cards. */
+function defaultCharacterBase() {
+  return resolveCharacterBase({ baseStats: {} });
 }
 
 function formatCharacterStatValue(key, value) {
+  if (key === 'critChance' || key === 'luck' || key === 'curse') {
+    return `${Math.round(value * 100)}%`;
+  }
   const d = CHARACTER_STAT_DECIMALS[key] ?? 2;
   return Number(value).toFixed(d);
 }
 
-/* HTML block for char select / help — absolute base values only (no +/-). */
+/* HTML block for char select / help — absolute bases; green/red vs global defaults. */
 function formatCharacterBaseStatsHtml(def) {
   if (!def) return '';
-  if (def.startWeaponPick) {
-    return `<div class="char-card-stats">` +
-      `<div class="char-card-stats-title">${I18n.t('charBaseStats')}</div>` +
-      `<div class="char-stat-note">${I18n.t('charCultistKit')}</div>` +
-      `</div>`;
-  }
-  const stats = def.baseStats || {};
+  const stats = resolveCharacterBase(def);
+  const defaults = defaultCharacterBase();
   const rows = [];
   const names = (I18n.statNames && (I18n.statNames[I18n.lang] || I18n.statNames.en)) || {};
   const labelKey = {
     moveSpeed: 'moveSpeed', maxHealth: 'maxHealth', attack: 'attack',
     attackSpeed: 'attackSpeed', bulletSpeed: 'bulletSpeed', weaponRadius: 'weaponRadius',
-    critChance: 'critChance', critDamage: 'critDamage', expMultiplier: 'expMultiplier'
+    critChance: 'critChance', critDamage: 'critDamage', expMultiplier: 'expMultiplier',
+    bulletCount: 'bulletCount', luck: 'luck', curse: 'curse', armor: 'armor'
   };
   for (const key of CHARACTER_STAT_KEYS) {
     const v = stats[key];
     if (!Number.isFinite(v)) continue;
+    const base = defaults[key];
+    let tone = '';
+    if (Number.isFinite(base) && Math.abs(v - base) > 1e-6) {
+      tone = v > base ? ' buff' : ' debuff';
+    }
     const name = names[labelKey[key]] || key;
-    rows.push(`<div class="char-stat-row"><span>${name}</span>` +
+    rows.push(`<div class="char-stat-row${tone}"><span>${name}</span>` +
       `<span>${formatCharacterStatValue(key, v)}</span></div>`);
   }
   if (!rows.length) return '';
   return `<div class="char-card-stats">` +
     `<div class="char-card-stats-title">${I18n.t('charBaseStats')}</div>` +
+    (def.startWeaponPick ? `<div class="char-stat-note">${I18n.t('charCultistKit')}</div>` : '') +
     rows.join('') +
     `</div>`;
 }
