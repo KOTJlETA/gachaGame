@@ -15,6 +15,13 @@ const CHARACTER_DEFS = [
       bulletCount: 4, luck: 0.03, curse: 0, armor: 0 }
   },
   {
+    id: 'catWitch', weapon: 'madCat', sprite: 'charCatWitch',
+    nameKey: 'charCatWitch', passiveKey: 'passiveFamiliarMark', descKey: 'charCatWitchDesc',
+    baseStats: { moveSpeed: 142, maxHealth: 95, attack: 8.0, attackSpeed: 1.08, bulletSpeed: 320,
+      weaponRadius: 1.1, critChance: 0.07, critDamage: 1.55, expMultiplier: 1.02,
+      bulletCount: 2, luck: 0.06, curse: 0.02, armor: 0 }
+  },
+  {
     id: 'stormcaller', weapon: 'chainLightning', sprite: 'charStormcaller',
     nameKey: 'charStormcaller', passiveKey: 'passiveStaticCharge', descKey: 'charStormcallerDesc',
     baseStats: { moveSpeed: 136, maxHealth: 90, attack: 8.96, attackSpeed: 0.95, bulletSpeed: 308,
@@ -388,7 +395,27 @@ const CharacterSprites = {
         0,0,0,1,1,8,0,0,0,8,1,1,0,0,0,0,
         0,0,0,0,1,8,0,0,0,8,1,0,0,0,0,0,
         0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0
-      ], ['#0000','#0a2030','#1a3a4a','#40a0c0','#e0f8ff','#d0e8f0','#90e0ff','#e74c3c','#2a4a5a','#f0f8ff'])
+      ], ['#0000','#0a2030','#1a3a4a','#40a0c0','#e0f8ff','#d0e8f0','#90e0ff','#e74c3c','#2a4a5a','#f0f8ff']),
+
+      /* Cat Witch — tall pointy hat, black/white robes, pale face, cat-ear tips */
+      charCatWitch: this._make([
+        0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,
+        0,0,0,0,0,0,1,7,1,0,0,0,0,0,0,0,
+        0,0,0,0,0,1,4,4,4,1,0,0,0,0,0,0,
+        0,0,0,0,1,4,4,4,4,4,1,0,0,0,0,0,
+        0,0,0,1,4,4,4,7,4,4,4,1,0,0,0,0,
+        1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,
+        0,1,2,2,2,2,2,2,2,2,2,2,2,2,1,0,
+        0,0,7,0,1,9,9,9,9,9,1,0,7,0,0,0,
+        0,0,1,7,9,1,9,9,1,9,9,7,1,0,0,0,
+        0,0,0,1,9,9,9,9,9,9,1,0,0,0,0,0,
+        0,0,0,1,3,3,3,7,3,3,3,1,0,0,0,0,
+        0,0,1,3,3,3,3,3,3,3,3,3,1,0,0,0,
+        0,0,1,2,3,3,3,3,3,3,3,2,1,0,0,0,
+        0,0,0,1,2,2,1,1,1,1,2,1,0,0,0,0,
+        0,0,0,0,1,8,0,0,0,8,1,0,0,0,0,0,
+        0,0,0,0,1,1,0,0,0,1,1,0,0,0,0,0
+      ], ['#0000','#050505','#1a1a1a','#2e2e2e','#0a0a0a','#a8a8a8','#606060','#f5f5f5','#111111','#ececec'])
     };
   }
 };
@@ -813,6 +840,39 @@ const CHARACTER_PASSIVES = {
     hud(game, s) {
       this._ensure(s);
       return { label: 'ICE', ratio: s.sources.length / 3, pips: s.sources.length };
+    }
+  },
+
+  /* ---- 11. Cat Witch / Familiar Mark ---- */
+  catWitch: {
+    init(game, s) {
+      s.marks = 0;
+      s.markCd = 0;
+    },
+    _ensure(s) {
+      if (s.marks == null) s.marks = 0;
+      if (s.markCd == null) s.markCd = 0;
+    },
+    update(game, s, dt) {
+      this._ensure(s);
+      if (s.markCd > 0) s.markCd -= dt;
+    },
+    onHit(game, s, e, weaponId) {
+      this._ensure(s);
+      if (weaponId !== 'madCat' || !e) return;
+      if (s.markCd > 0) return;
+      s.markCd = 0.22;
+      s.marks = Math.min(4, (s.marks | 0) + 1);
+      if (s.marks < 4) return;
+      s.marks = 0;
+      const w = game.weapons && game.weapons.get('madCat');
+      if (w && typeof madCatSpawnScratch === 'function') {
+        madCatSpawnScratch(game, w, e.x, e.y, { dmgMult: 1.25, life: 0.55 });
+      }
+    },
+    hud(game, s) {
+      this._ensure(s);
+      return { label: 'FAM', ratio: (s.marks || 0) / 4, pips: s.marks || 0 };
     }
   }
 };

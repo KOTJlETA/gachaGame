@@ -69,8 +69,10 @@ class I18n {
       weaponPhantomBlades: 'Phantom Blades',
       weaponCursedTotem: 'Cursed Totem',
       weaponIceCrystal: 'Ice Crystal',
+      weaponMadCat: 'Mad Cat',
       weaponsLabel: 'WEAPONS',
       statsLabel: 'STATS',
+      characterLabel: 'CHARACTER',
       helpWeapons: 'You carry up to 5 weapons, each firing on its own reload timer. Weapons have 10 core levels: weapon upgrades on even levels, global stat bonuses on odd levels after 1. Choose path A or B at level 4. Further upgrades past 10 grant a repeatable, weapon-specific global bonus.',
       helpChoices: 'Each level-up pauses the run and deals at least 6 cards. Milestone and chest rolls put 2–3 weapon choices first. Every run stat can be upgraded 10 times. One upgrade may be skipped per batch. Chests grant 1/3/5 weapon picks and also 1/3/5 levels with their normal choices.',
       store: 'STORE',
@@ -188,6 +190,7 @@ class I18n {
       charBladeDancer: 'Blade Dancer',
       charHighCultist: 'High Cultist',
       charIceWitch: 'Ice Witch',
+      charCatWitch: 'Cat Witch',
       passiveAdrenaline: 'Adrenaline',
       passiveStaticCharge: 'Static Charge',
       passiveInfection: 'Infection',
@@ -198,6 +201,7 @@ class I18n {
       passiveRhythm: 'Rhythm',
       passiveSoulHarvest: 'Soul Harvest',
       passiveSupercooling: 'Supercooling',
+      passiveFamiliarMark: 'Familiar Mark',
       charHunterDesc: 'Near 6+ foes build Adrenaline (max 5): tighter Boomstick spread and up to +2 pierce.',
       charStormcallerDesc: 'Chain Lightning marks foes with Static Charge. 3+ charged foes link with non-recursive arcs (max 10 marks, 3 arcs / 0.6s).',
       charPlagueDoctorDesc: 'Garlic Aura infects after 3 pulses. Infected deaths spread poison once to a nearby foe (depth 1, max 24).',
@@ -208,6 +212,7 @@ class I18n {
       charBladeDancerDesc: 'Phantom Blade hits build Rhythm (40). Full meter starts a fixed 4s Sync: faster spin and clustered orbits.',
       charHighCultistDesc: 'Killing cursed foes sends souls to your Totem. At 5 souls the totem curses up to 6 enemies in range.',
       charIceWitchDesc: 'Solidified Ice Crystal targets become Supercooling auras (max 3). Nearby foes freeze 1.6× faster.',
+      charCatWitchDesc: 'Mad Cat scratches mark foes. At 4 Familiar Marks, a bonus scratch bursts on the target. Scratches also briefly slow.',
       charBaseStats: 'BASE STATS',
       charCultistKit: 'Choose a second starting weapon when the run begins.',
       charCultistPickTitle: 'CHOOSE SECOND WEAPON'
@@ -324,8 +329,10 @@ class I18n {
       weaponPhantomBlades: 'Призрачные клинки',
       weaponCursedTotem: 'Проклятый тотем',
       weaponIceCrystal: 'Ледяной кристалл',
+      weaponMadCat: 'Бешеный кот',
       weaponsLabel: 'ОРУЖИЕ',
       statsLabel: 'СТАТЫ',
+      characterLabel: 'ПЕРСОНАЖ',
       helpWeapons: 'Вы носите до 5 оружий с независимой перезарядкой. У оружия 10 основных уровней: улучшения оружия на чётных уровнях, глобальные бонусы статов на нечётных после 1. Путь A или B выбирается на 4 уровне. Дальнейшие улучшения после 10 повторяют уникальный глобальный бонус оружия.',
       helpChoices: 'Каждый уровень выдаёт не менее 6 карт. В этапах с оружием первые 2–3 карты — оружие. Каждый стат можно улучшить 10 раз. За одну серию можно пропустить одно улучшение. Сундуки дают 1/3/5 оружейных выборов и столько же уровней с обычными выборами.',
       options: 'НАСТРОЙКИ',
@@ -391,6 +398,7 @@ class I18n {
       charBladeDancer: 'Танцор клинков',
       charHighCultist: 'Верховный культист',
       charIceWitch: 'Ледяная ведьма',
+      charCatWitch: 'Кошачья ведьма',
       passiveAdrenaline: 'Адреналин',
       passiveStaticCharge: 'Статический заряд',
       passiveInfection: 'Инфекция',
@@ -401,6 +409,7 @@ class I18n {
       passiveRhythm: 'Ритм',
       passiveSoulHarvest: 'Жатва душ',
       passiveSupercooling: 'Переохлаждение',
+      passiveFamiliarMark: 'Метка фамильяра',
       charHunterDesc: 'Рядом с 6+ врагами копится Адреналин (макс. 5): уже веер дробовика и до +2 пробивания.',
       charStormcallerDesc: 'Цепная молния помечает врагов. 3+ заряженных связываются дугами без рекурсии (макс. 10 меток, 3 дуги / 0.6с).',
       charPlagueDoctorDesc: 'Чесночная аура заражает после 3 импульсов. Смерть заражённого разносит яд один раз (глубина 1, макс. 24).',
@@ -411,6 +420,7 @@ class I18n {
       charBladeDancerDesc: 'Удары клинков копят Ритм (40). Полная шкала — 4с Синхрон: быстрее вращение и сгруппированные орбиты.',
       charHighCultistDesc: 'Убийства проклятых шлют души к тотему. На 5 душах тотем проклинает до 6 врагов в радиусе.',
       charIceWitchDesc: 'Замороженные цели Ледяного кристалла становятся аурами Переохлаждения (макс. 3). Рядом лёд копится ×1.6.',
+      charCatWitchDesc: 'Царапины Бешеного кота метят врагов. На 4 Метках фамильяра вспыхивает бонусная царапина. Царапины также ненадолго замедляют.',
       charBaseStats: 'БАЗОВЫЕ СТАТЫ',
       charCultistKit: 'В начале забега выберите второе стартовое оружие.',
       charCultistPickTitle: 'ВЫБЕРИТЕ ВТОРОЕ ОРУЖИЕ'
@@ -565,7 +575,8 @@ class I18n {
       bloodSpear: 'Piercing spears that can apply bleed.',
       phantomBlades: 'Orbiting phantom blades. Projectile Speed spins them, Projectile Count adds blades, Weapon Radius sets orbit distance.',
       cursedTotem: 'Plants a long-lived curse zone at your feet. Stay inside the radius for it to curse foes. Also blocks Priest healing for enemies in the field.',
-      iceCrystal: 'Fans homing ice shards in a 90° cone; each shard locks onto an enemy.'
+      iceCrystal: 'Fans homing ice shards in a 90° cone; each shard locks onto an enemy.',
+      madCat: 'Spawns ally cats around you (base 2). Attack Speed respawns them; Projectile Count raises the cap; Projectile Speed makes them run faster. Cats leave scratching zones that deal Attack/Crit damage.'
     },
     ru: {
       shotgun: 'Веер дроби в сторону движения. После остановки продолжает стрелять в том же направлении.',
@@ -577,7 +588,8 @@ class I18n {
       bloodSpear: 'Пронзающие копья, способные накладывать кровотечение.',
       phantomBlades: 'Орбитальные призрачные клинки. Скорость снарядов крутит их, число снарядов добавляет клинки, радиус оружия — дистанцию орбиты.',
       cursedTotem: 'Ставит долгую зону проклятия у ног. Оставайтесь внутри радиуса, чтобы тотем проклинал врагов. Также блокирует лечение Жреца для врагов в поле.',
-      iceCrystal: 'Веер самонаводящихся ледяных осколков в конусе 90°; каждый осколок ловит свою цель.'
+      iceCrystal: 'Веер самонаводящихся ледяных осколков в конусе 90°; каждый осколок ловит свою цель.',
+      madCat: 'Призывает котов вокруг вас (база 2). Скорость атаки отвечает за появление, число снарядов — за лимит, скорость снарядов — за бег. Коты оставляют зоны царапин с уроном от Атаки/Крита.'
     }
   };
 
@@ -6856,17 +6868,44 @@ class Game {
       return `<span class="stat-icon"><canvas width="${spr.width}" height="${spr.height}" data-sprite="${sprKey}"></canvas></span>`;
     };
 
-    // Weapons the run is actually carrying, then the stats it committed to
+    const ch = this.character;
+    let characterHtml = '';
+    if (ch) {
+      const art = ch.sprite && this.sprites[ch.sprite]
+        ? `<canvas class="stats-char-art" width="${this.sprites[ch.sprite].width}" height="${this.sprites[ch.sprite].height}" data-sprite="${ch.sprite}"></canvas>`
+        : '';
+      const startW = WEAPON_DEFS[ch.weapon] ? I18n.t(WEAPON_DEFS[ch.weapon].nameKey) : ch.weapon;
+      characterHtml =
+        `<div class="help-section-title">${I18n.t('characterLabel')}</div>` +
+        `<div class="stat-entry stats-char">` +
+        `<div class="stat-head">${art}` +
+        `<span class="stat-name">${I18n.t(ch.nameKey)}</span></div>` +
+        `<div class="stats-char-meta">${startW} · ${I18n.t(ch.passiveKey)}</div>` +
+        `<div class="stat-desc">${I18n.t(ch.descKey)}</div>` +
+        `</div>`;
+    }
+
+    // Weapons the run is actually carrying, with current mechanic text
     const weaponRows = this.weapons.slots.map((w) => {
       const def = WEAPON_DEFS[w.id];
       const name = def ? I18n.t(def.nameKey) : w.id;
       const branch = w.branch ? ` ${I18n.t('weaponBranch', w.branch)}` : '';
-      return `<div class="stat-entry"><div class="stat-head">` +
+      const icon = (typeof WeaponIcons !== 'undefined') ? WeaponIcons.get(w.id) : null;
+      const iconImg = icon
+        ? `<img class="stats-weapon-icon" src="${icon.toDataURL()}" alt="" width="24" height="24">`
+        : '';
+      const mechanic = (typeof weaponLevelDesc === 'function')
+        ? weaponLevelDesc(w.id, w.level, w.branch)
+        : '';
+      return `<div class="stat-entry"><div class="stat-head">${iconImg}` +
         `<span class="stat-name">${name}</span>` +
-        `<span class="stat-value">${I18n.t('weaponLevel', w.level)}${branch}</span></div></div>`;
+        `<span class="stat-value">${I18n.t('weaponLevel', w.level)}${branch}</span></div>` +
+        (mechanic ? `<div class="stat-desc">${mechanic}</div>` : '') +
+        `</div>`;
     }).join('');
 
     content.innerHTML =
+      characterHtml +
       `<div class="help-section-title">${I18n.t('weaponsLabel')}</div>` +
       (weaponRows || '') +
       `<div class="help-section-title">${I18n.t('statsLabel')}</div>` +

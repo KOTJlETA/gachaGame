@@ -73,6 +73,10 @@ const WEAPON_LADDER = {
   iceCrystal: {
     3: { bulletSpeed: 0.24 }, 5: { weaponRadius: 0.25 }, 7: { armor: 1 },
     9: { criticalLevels: 2 }, 10: { weaponDamage: 0.15 }
+  },
+  madCat: {
+    3: { attackSpeed: 0.20 }, 5: { weaponRadius: 0.22 }, 7: { critChance: 0.08 },
+    9: { bulletCount: 1 }, 10: { weaponDamage: 0.15 }
   }
 };
 
@@ -86,7 +90,8 @@ const WEAPON_OVERCAP = {
   bloodSpear: { criticalLevels: 5 },
   phantomBlades: { bulletCount: 1 },
   cursedTotem: { luck: 0.10 },
-  iceCrystal: { critChance: 0.05, critDamageBonus: 0.10 }
+  iceCrystal: { critChance: 0.05, critDamageBonus: 0.10 },
+  madCat: { attackSpeed: 0.10 }
 };
 
 function applyWeaponBonus(player, bonus) {
@@ -216,6 +221,21 @@ const WeaponIcons = {
         ctx.fillStyle = '#9ef';
         ctx.beginPath(); ctx.moveTo(24, 6); ctx.lineTo(36, 24); ctx.lineTo(24, 42); ctx.lineTo(12, 24); ctx.closePath(); ctx.fill();
         ctx.fillStyle = '#eff'; ctx.beginPath(); ctx.moveTo(24, 14); ctx.lineTo(30, 24); ctx.lineTo(24, 34); ctx.lineTo(18, 24); ctx.closePath(); ctx.fill();
+      },
+      madCat: () => {
+        // Orange heck-cat face with ears
+        ctx.fillStyle = '#c06020';
+        ctx.beginPath(); ctx.moveTo(10, 18); ctx.lineTo(16, 6); ctx.lineTo(20, 16); ctx.closePath(); ctx.fill();
+        ctx.beginPath(); ctx.moveTo(28, 16); ctx.lineTo(32, 6); ctx.lineTo(38, 18); ctx.closePath(); ctx.fill();
+        ctx.fillStyle = '#e08030';
+        ctx.beginPath(); ctx.arc(24, 26, 14, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#1a1008';
+        ctx.beginPath(); ctx.arc(18, 24, 2.5, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(30, 24, 2.5, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#ffe080';
+        ctx.fillRect(22, 28, 4, 3);
+        ctx.strokeStyle = '#1a1008'; ctx.lineWidth = 2;
+        ctx.beginPath(); ctx.arc(24, 32, 6, 0.2, Math.PI - 0.2); ctx.stroke();
       }
     };
     ctx.fillStyle = 'rgba(0,0,0,0.35)';
@@ -243,7 +263,8 @@ function _modsFor(w) {
     keepFlying: false, bleed: false, bloodPool: false, bleedExplode: false, returns: false, home: false, spinReturn: false,
     linger: false, oscillate: false, expandBurst: false, dashIn: false, phantoms: 0, ghostWall: false, finalSlash: false,
     curseAmp: false, curseSpread: false, curseStrong: false, totemPulse: false, recharge: false, deathBoom: false, multiTotem: false,
-    freeze: false, freezeSolid: false, shatter: false, statues: false, shards: false, ricochet: 0, iceTrail: false
+    freeze: false, freezeSolid: false, shatter: false, statues: false, shards: false, ricochet: 0, iceTrail: false,
+    yarnTrail: false, kittenScratch: false, hiss: false, doubleSwipe: false, rebound: false, nineLives: false, huntingCircle: false
   };
   const lv = weaponMechanicLevel(w.level);
   const b = w.branch;
@@ -287,6 +308,10 @@ function _modsFor(w) {
     if (lv >= 2) m.freeze = true;
     if (b === 'A') { if (lv >= 3) m.freezeSolid = true; if (lv >= 4) m.shatter = true; if (lv >= 5) m.statues = true; }
     if (b === 'B') { if (lv >= 3) m.shards = true; if (lv >= 4) m.ricochet = 2; if (lv >= 5) m.iceTrail = true; }
+  } else if (w.id === 'madCat') {
+    if (lv >= 2) m.yarnTrail = true;
+    if (b === 'A') { if (lv >= 3) m.kittenScratch = true; if (lv >= 4) m.doubleSwipe = true; if (lv >= 5) m.nineLives = true; }
+    if (b === 'B') { if (lv >= 3) m.hiss = true; if (lv >= 4) m.rebound = true; if (lv >= 5) m.huntingCircle = true; }
   }
   return m;
 }
@@ -511,6 +536,28 @@ const WEAPON_LEVEL_TEXT = {
       '4B': 'Рикошетит между врагами.',
       '5A': 'Ледяные статуи остаются преградой.',
       '5B': 'Оставляет ледяной след.'
+    }
+  },
+  madCat: {
+    en: {
+      1: 'Spawns ally cats around you. They dash into foes and leave scratching zones.',
+      2: 'Yarn trail: cats briefly slow foes they pass.',
+      '3A': 'Path A Clowder: scratches may spawn a kitten swipe nearby.',
+      '3B': 'Path B Hiss: scratches weaken and fear-slow foes.',
+      '4A': 'Double swipe: scratch hits twice.',
+      '4B': 'Rebound: cats may leap to a second foe.',
+      '5A': 'Nine Lives: scratch kills may refund a cat.',
+      '5B': 'Hunting circle: larger, longer scratch zones.'
+    },
+    ru: {
+      1: 'Призывает котов вокруг вас. Они врезаются во врагов и оставляют зоны царапин.',
+      2: 'Нить: коты ненадолго замедляют тех, мимо кого пробегают.',
+      '3A': 'Путь A Стая: царапина может породить соседний кошачий удар.',
+      '3B': 'Путь B Шипение: царапины ослабляют и пугают врагов.',
+      '4A': 'Двойной удар: царапина бьёт дважды.',
+      '4B': 'Отскок: кот может прыгнуть ко второму врагу.',
+      '5A': 'Девять жизней: убийство царапиной может вернуть кота.',
+      '5B': 'Круг охоты: больше и дольше зоны царапин.'
     }
   }
 };
@@ -1355,6 +1402,301 @@ WEAPON_DEFS.iceCrystal = {
   }
 };
 
+/* ---- Mad Cat helpers ---- */
+function madCatEnsureState(w) {
+  if (!w.state.cats) w.state.cats = [];
+  if (!w.state.scratches) w.state.scratches = [];
+}
+
+function madCatPickRimAngle(player, cats) {
+  const rim = 44;
+  let bestAng = Math.random() * Math.PI * 2;
+  let bestScore = -1;
+  for (let i = 0; i < 16; i++) {
+    const ang = (i / 16) * Math.PI * 2 + Math.random() * 0.08;
+    const sx = player.x + Math.cos(ang) * rim;
+    const sy = player.y + Math.sin(ang) * rim;
+    let minD = Infinity;
+    for (const c of cats) {
+      const dx = sx - c.x;
+      const dy = sy - c.y;
+      minD = Math.min(minD, dx * dx + dy * dy);
+    }
+    if (!cats.length) minD = 1e9;
+    if (minD > bestScore) {
+      bestScore = minD;
+      bestAng = ang;
+    }
+  }
+  return bestAng;
+}
+
+function madCatSpawnCat(game, w, x, y, opts = {}) {
+  madCatEnsureState(w);
+  const p = game.player;
+  const spd = 90 + (p.stats.bulletSpeed || 280) * 0.45;
+  w.state.cats.push({
+    x, y,
+    vx: 0, vy: 0,
+    spd,
+    life: opts.life || 4.5,
+    reboundLeft: opts.reboundLeft != null ? opts.reboundLeft : 0,
+    ignore: opts.ignore || null
+  });
+}
+
+function madCatSpawnScratch(game, w, x, y, opts = {}) {
+  madCatEnsureState(w);
+  const p = game.player;
+  const m = w.mods || {};
+  let r = weaponScaleRadius(opts.radius || 48, p);
+  if (m.huntingCircle) r *= 1.35;
+  let life = opts.life || (m.huntingCircle ? 0.72 : 0.5);
+  const slashes = [];
+  for (let i = 0; i < 5; i++) {
+    const a = Math.random() * Math.PI * 2;
+    slashes.push({
+      a,
+      len: r * (0.55 + Math.random() * 0.45),
+      phase: Math.random(),
+      thick: 1.5 + Math.random() * 2
+    });
+  }
+  const scratch = {
+    x, y, r, life, maxLife: life,
+    tick: 0,
+    tickEvery: m.doubleSwipe ? 0.12 : 0.14,
+    hitsLeft: m.doubleSwipe ? 6 : 4,
+    secondBurst: m.doubleSwipe ? 0.15 : -1,
+    slashes,
+    dmgMult: opts.dmgMult || 1,
+    kitten: !!opts.kitten
+  };
+  w.state.scratches.push(scratch);
+
+  if (m.kittenScratch && !opts.kitten && Math.random() < 0.3) {
+    const ang = Math.random() * Math.PI * 2;
+    madCatSpawnScratch(game, w,
+      x + Math.cos(ang) * r * 0.7,
+      y + Math.sin(ang) * r * 0.7,
+      { radius: 32, life: 0.35, dmgMult: 0.55, kitten: true });
+  }
+}
+
+function madCatTickScratch(game, w, sc, dt) {
+  const p = game.player;
+  const m = w.mods || {};
+  const base = weaponBaseDamage(p, WEAPON_DEFS.madCat.damageMult) * (sc.dmgMult || 1);
+  const isCatWitch = !!(game.character && game.character.id === 'catWitch');
+
+  sc.life -= dt;
+  sc.tick -= dt;
+  if (sc.secondBurst > 0) {
+    sc.secondBurst -= dt;
+    if (sc.secondBurst <= 0) sc.hitsLeft = Math.max(sc.hitsLeft, 2);
+  }
+
+  if (sc.tick <= 0 && sc.hitsLeft > 0) {
+    sc.tick = sc.tickEvery;
+    sc.hitsLeft--;
+    let anyKill = false;
+    game.spatial.queryCircle(sc.x, sc.y, sc.r, (e) => {
+      const roll = rollCritDamage(p, base * 0.55);
+      const hitOpts = { weaponId: 'madCat' };
+      if (m.hiss) {
+        hitOpts.slow = true;
+        hitOpts.slowFactor = 0.55;
+        hitOpts.slowDur = 0.7;
+      }
+      if (isCatWitch) {
+        hitOpts.slow = true;
+        hitOpts.slowFactor = Math.min(hitOpts.slowFactor || 1, 0.7);
+        hitOpts.slowDur = Math.max(hitOpts.slowDur || 0, 0.45);
+      }
+      const dead = _hitEnemy(game, e, roll.damage, roll.isCrit, hitOpts);
+      if (m.hiss) StatusEffects.applyWeak(e, 1.2);
+      if (dead) anyKill = true;
+    }, 28);
+
+    if (anyKill && m.nineLives && Math.random() < 0.25) {
+      const ang = madCatPickRimAngle(p, w.state.cats);
+      madCatSpawnCat(game, w, p.x + Math.cos(ang) * 44, p.y + Math.sin(ang) * 44);
+    }
+  }
+}
+
+WEAPON_DEFS.madCat = {
+  id: 'madCat', nameKey: 'weaponMadCat', kind: 'summon',
+  cooldown: 1.05, damageMult: 0.7, projectiles: 2, hasReload: true,
+  fire(w, game) {
+    const p = game.player;
+    madCatEnsureState(w);
+    const maxCats = weaponProjectileCount(this, p);
+    if (w.state.cats.length >= maxCats) return;
+    const ang = madCatPickRimAngle(p, w.state.cats);
+    const rim = 44;
+    madCatSpawnCat(game, w, p.x + Math.cos(ang) * rim, p.y + Math.sin(ang) * rim, {
+      reboundLeft: (w.mods && w.mods.rebound) ? 1 : 0
+    });
+    if (typeof SoundManager !== 'undefined' && SoundManager.weaponWhoosh) SoundManager.weaponWhoosh();
+  },
+  update(w, dt, game) {
+    madCatEnsureState(w);
+    const p = game.player;
+    const m = w.mods || {};
+
+    for (let i = w.state.cats.length - 1; i >= 0; i--) {
+      const c = w.state.cats[i];
+      c.life -= dt;
+      if (c.life <= 0) {
+        w.state.cats.splice(i, 1);
+        continue;
+      }
+      let foe = null;
+      game.spatial.queryCircle(c.x, c.y, 520, (e) => {
+        if (e.dying || e === c.ignore) return;
+        if (!foe) foe = e;
+        else {
+          const d0 = (foe.x - c.x) * (foe.x - c.x) + (foe.y - c.y) * (foe.y - c.y);
+          const d1 = (e.x - c.x) * (e.x - c.x) + (e.y - c.y) * (e.y - c.y);
+          if (d1 < d0) foe = e;
+        }
+      }, 28);
+      if (!foe) {
+        // Idle orbit near player
+        const ang = Math.atan2(c.y - p.y, c.x - p.x) + dt * 2;
+        const wantX = p.x + Math.cos(ang) * 50;
+        const wantY = p.y + Math.sin(ang) * 50;
+        c.x += (wantX - c.x) * Math.min(1, dt * 3);
+        c.y += (wantY - c.y) * Math.min(1, dt * 3);
+        continue;
+      }
+      const dx = foe.x - c.x;
+      const dy = foe.y - c.y;
+      const dist = Math.sqrt(dx * dx + dy * dy) || 1;
+      const spd = c.spd || 160;
+      c.x += (dx / dist) * spd * dt;
+      c.y += (dy / dist) * spd * dt;
+      c.facing = dx >= 0 ? 1 : -1;
+
+      if (m.yarnTrail && Math.random() < 0.35) {
+        game.spatial.queryCircle(c.x, c.y, 22, (e) => {
+          StatusEffects.applySlow(e, 0.7, 0.35);
+        }, 6);
+      }
+
+      if (dist < (foe.radius || 14) + 10) {
+        const hx = c.x;
+        const hy = c.y;
+        const reboundLeft = c.reboundLeft | 0;
+        w.state.cats.splice(i, 1);
+        madCatSpawnScratch(game, w, hx, hy);
+        if (m.rebound && reboundLeft > 0 && Math.random() < 0.4) {
+          madCatSpawnCat(game, w, hx, hy, { reboundLeft: reboundLeft - 1, ignore: foe, life: 2.8 });
+        }
+      }
+    }
+
+    for (let i = w.state.scratches.length - 1; i >= 0; i--) {
+      const sc = w.state.scratches[i];
+      madCatTickScratch(game, w, sc, dt);
+      if (sc.life <= 0) w.state.scratches.splice(i, 1);
+    }
+  },
+  draw(w, ctx, cam) {
+    madCatEnsureState(w);
+    for (const sc of w.state.scratches) {
+      const s = cam.worldToScreen(sc.x, sc.y);
+      const fade = Math.max(0, sc.life / (sc.maxLife || 0.5));
+      ctx.save();
+      ctx.globalAlpha = 0.12 + fade * 0.2;
+      ctx.fillStyle = '#ff8040';
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, sc.r, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.globalAlpha = 0.35 + fade * 0.55;
+      ctx.strokeStyle = '#ffe0a0';
+      ctx.lineWidth = 2;
+      for (const sl of sc.slashes) {
+        const pulse = 0.75 + Math.sin((1 - fade) * 18 + sl.phase * 10) * 0.25;
+        const len = sl.len * pulse;
+        const ox = Math.cos(sl.a) * len;
+        const oy = Math.sin(sl.a) * len;
+        const px = -Math.sin(sl.a) * 5;
+        const py = Math.cos(sl.a) * 5;
+        ctx.lineWidth = sl.thick;
+        ctx.beginPath();
+        ctx.moveTo(s.x - ox * 0.2 + px, s.y - oy * 0.2 + py);
+        ctx.lineTo(s.x + ox * 0.85 - px, s.y + oy * 0.85 - py);
+        ctx.stroke();
+        ctx.strokeStyle = '#fff6d0';
+        ctx.lineWidth = Math.max(1, sl.thick * 0.45);
+        ctx.beginPath();
+        ctx.moveTo(s.x - ox * 0.1 - px, s.y - oy * 0.1 - py);
+        ctx.lineTo(s.x + ox * 0.7 + px, s.y + oy * 0.7 + py);
+        ctx.stroke();
+        ctx.strokeStyle = '#ffe0a0';
+      }
+      ctx.restore();
+    }
+
+    for (const c of w.state.cats) {
+      const s = cam.worldToScreen(c.x, c.y);
+      const face = c.facing || 1;
+      const gait = Math.sin((c.x + c.y) * 0.45);
+      const gait2 = Math.sin((c.x + c.y) * 0.45 + Math.PI);
+      ctx.save();
+      ctx.translate(s.x, s.y);
+      ctx.scale(face, 1);
+      // Four legs (back pair first, then front)
+      ctx.strokeStyle = '#c05020';
+      ctx.lineWidth = 2.4;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-6, 7); ctx.lineTo(-7 + gait * 2.5, 15);
+      ctx.moveTo(-3, 7); ctx.lineTo(-2 + gait2 * 2.5, 15);
+      ctx.moveTo(3, 6); ctx.lineTo(2 + gait2 * 2.5, 14);
+      ctx.moveTo(6, 6); ctx.lineTo(7 + gait * 2.5, 14);
+      ctx.stroke();
+      // Paws
+      ctx.fillStyle = '#1a1008';
+      ctx.beginPath(); ctx.arc(-7 + gait * 2.5, 15.5, 1.4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(-2 + gait2 * 2.5, 15.5, 1.4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(2 + gait2 * 2.5, 14.5, 1.4, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(7 + gait * 2.5, 14.5, 1.4, 0, Math.PI * 2); ctx.fill();
+      // Body
+      ctx.fillStyle = '#e07030';
+      ctx.beginPath();
+      ctx.ellipse(0, 2, 11, 8, 0, 0, Math.PI * 2);
+      ctx.fill();
+      // Head
+      ctx.beginPath();
+      ctx.arc(8, -4, 7, 0, Math.PI * 2);
+      ctx.fill();
+      // Ears
+      ctx.fillStyle = '#c05020';
+      ctx.beginPath(); ctx.moveTo(3, -10); ctx.lineTo(6, -18); ctx.lineTo(9, -9); ctx.closePath(); ctx.fill();
+      ctx.beginPath(); ctx.moveTo(10, -9); ctx.lineTo(14, -17); ctx.lineTo(16, -7); ctx.closePath(); ctx.fill();
+      // Eye
+      ctx.fillStyle = '#1a1008';
+      ctx.beginPath(); ctx.arc(10, -5, 1.6, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#ffe080';
+      ctx.fillRect(11, -3, 2, 1.5);
+      // Tail
+      ctx.strokeStyle = '#e07030';
+      ctx.lineWidth = 3;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(-10, 2);
+      ctx.quadraticCurveTo(-18, -8, -14, -14);
+      ctx.stroke();
+      ctx.restore();
+    }
+  }
+};
+
+window.madCatSpawnScratch = madCatSpawnScratch;
+
 class GrenadeProjectile {
   constructor() {
     this.active = false;
@@ -1652,7 +1994,7 @@ class WeaponSystem {
         aim = { x: p.x + sx * 80, y: p.y + sy * 80 };
       } else {
         const t = game.spatial.nearest(p.x, p.y, 500);
-        if (!t && def.kind !== 'aura' && def.kind !== 'orbit') continue;
+        if (!t && def.kind !== 'aura' && def.kind !== 'orbit' && def.kind !== 'summon') continue;
         aim = t || { x: p.x + p.facing * 80, y: p.y };
       }
       const cd = weaponCooldown(def, p);

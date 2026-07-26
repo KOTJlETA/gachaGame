@@ -590,6 +590,23 @@
   }
   .stat-entry .stat-abbr { font-size: 9px; color: #6a9a72; margin-left: 2px; }
   .stat-entry .stat-desc { font-size: 10px; color: #c8e8d0; line-height: 1.55; }
+  .stats-char-art {
+    image-rendering: pixelated;
+    width: 40px; height: 40px;
+    flex-shrink: 0;
+  }
+  .stats-char-meta {
+    font-size: 10px;
+    color: #7dff9a;
+    margin: 2px 0 6px;
+    letter-spacing: 0.3px;
+  }
+  .stats-weapon-icon {
+    image-rendering: pixelated;
+    width: 24px; height: 24px;
+    flex-shrink: 0;
+    border-radius: 4px;
+  }
   .stat-icon {
     flex-shrink: 0;
     display: inline-flex; align-items: center; justify-content: center;

@@ -129,7 +129,7 @@ const STAT_DEFS = {
 const STAT_IDS = Object.keys(STAT_DEFS);
 const WEAPON_IDS = [
   'shotgun', 'chainLightning', 'garlicAura', 'boomerang', 'towerShield',
-  'grenadeLauncher', 'bloodSpear', 'phantomBlades', 'cursedTotem', 'iceCrystal'
+  'grenadeLauncher', 'bloodSpear', 'phantomBlades', 'cursedTotem', 'iceCrystal', 'madCat'
 ];
 
 class UpgradeSystem {
