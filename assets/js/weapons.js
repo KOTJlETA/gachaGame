@@ -14,7 +14,8 @@ function weaponProjectileCount(def, player) {
 }
 
 function weaponCooldown(def, player) {
-  return def.cooldown / Math.max(0.15, player.stats.attackSpeed);
+  const aspd = player.stats.attackSpeed * (player.aspdMult || 1);
+  return def.cooldown / Math.max(0.15, aspd);
 }
 
 function weaponBaseDamage(player, weaponMult = 1) {
@@ -534,6 +535,9 @@ function _hitEnemy(game, e, dmg, isCrit, opts) {
   // Enemy.takeDamage applies StatusEffects.damageMult itself; mirror it here only
   // so the floating number matches what actually landed
   const final = dmg * StatusEffects.damageMult(e);
+  if (game.player) {
+    game.player.recentWeaponDamage = (game.player.recentWeaponDamage || 0) * 0.65 + final;
+  }
   const dead = e.takeDamage(dmg);
   if (game.showEnemyDamageNumbers && game.floatingTextPool.countActive() < 28) {
     game.spawnFloatingText(e.x, e.y, String(Math.max(1, Math.round(final))),

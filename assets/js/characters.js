@@ -785,7 +785,12 @@ const CHARACTER_PASSIVES = {
       s.sources = [];
       s.scanT = 0;
     },
+    _ensure(s) {
+      if (!s.sources) s.sources = [];
+      if (s.scanT == null) s.scanT = 0;
+    },
     update(game, s, dt) {
+      this._ensure(s);
       s.scanT -= dt;
       s.sources = s.sources.filter((e) => e && e.active && !e.dying && e.frozenT > 0);
       if (s.scanT > 0) return;
@@ -798,6 +803,7 @@ const CHARACTER_PASSIVES = {
       }
     },
     onHit(game, s, e, weaponId) {
+      this._ensure(s);
       if (weaponId !== 'iceCrystal' || !e) return;
       if (e.frozenT <= 0) return;
       if (s.sources.indexOf(e) >= 0) return;
@@ -805,6 +811,7 @@ const CHARACTER_PASSIVES = {
       s.sources.push(e);
     },
     hud(game, s) {
+      this._ensure(s);
       return { label: 'ICE', ratio: s.sources.length / 3, pips: s.sources.length };
     }
   }

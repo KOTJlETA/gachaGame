@@ -916,6 +916,38 @@
     line-height: 1.45;
     color: #9ab89e;
   }
+  .char-card-start-weapon {
+    padding: 8px 0 2px;
+    border-top: 1px solid rgba(125, 255, 154, 0.12);
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .char-card-start-weapon-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+    image-rendering: pixelated;
+    border-radius: 4px;
+    background: rgba(0, 0, 0, 0.35);
+  }
+  .char-card-start-weapon-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+  }
+  .char-card-start-weapon-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: #c9e8b0;
+  }
+  .char-card-start-weapon-desc {
+    font-size: 10px;
+    line-height: 1.4;
+    color: #8aab92;
+  }
   .char-card-stats {
     margin-top: 2px;
     padding-top: 8px;

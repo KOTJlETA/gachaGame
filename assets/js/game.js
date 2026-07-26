@@ -3431,6 +3431,12 @@ class Enemy {
     dragon: 260
   };
 
+  static goldFor(type) {
+    if (Enemy.goldDrops[type] != null) return Enemy.goldDrops[type];
+    if (typeof EnemyRoster !== 'undefined' && EnemyRoster.def(type)) return EnemyRoster.def(type).gold;
+    return 1;
+  }
+
   static PRIEST_HEAL_RADIUS = 150;
   static PRIEST_HEAL_RATE = 0.08; // base fraction of target max HP / sec (before level × Curse)
   static PRIEST_MAX = 3;
@@ -3532,7 +3538,7 @@ class Enemy {
     this.uid = ++Enemy._uid;
     this.sprites = sprites;
     this._game = game || null;
-    this.goldDrop = Enemy.goldDrops[type] || 1;
+    this.goldDrop = Enemy.goldFor(type);
     this.x = x; this.y = y;
     this.vx = 0; this.vy = 0;
     this.flash = 0;
@@ -3570,6 +3576,9 @@ class Enemy {
     this.dragonVariant = 'crimson';
     this.dodgeCD = 0;
     this.ghostTrail.length = 0;
+    this._bloomChild = false;
+    this._noSplit = false;
+    this._omenBuffT = 0;
     const d = 1 + difficulty * 0.08;
     const lvMult = Enemy._getLevelMult(level);
     const hpScale = Enemy.earlyHpScale(level);
@@ -3581,7 +3590,10 @@ class Enemy {
         ? (1 + (MetaProgression.bonuses().curse || 0))
         : 1);
 
-    switch (type) {
+    const rosterDef = (typeof EnemyRoster !== 'undefined') ? EnemyRoster.def(type) : null;
+    if (rosterDef && rosterDef.isNew) {
+      EnemyRoster.applySpawn(this, rosterDef, sprites, difficulty, level, curseMult, lvMult, hpScale, speedMult);
+    } else switch (type) {
       case 'slime':
         this.hp = this.maxHp = Math.max(1, Math.floor(20 * d * lvMult * hpScale));
         this.speed = (35 + difficulty * 0.5) * speedMult;
@@ -3717,6 +3729,9 @@ class Enemy {
     if (this.type === 'priest') {
       this.buffTargets.length = 0;
     }
+    if (typeof EnemyRoster !== 'undefined' && EnemyRoster.onBeginDeath) {
+      EnemyRoster.onBeginDeath(this, this._game);
+    }
     return true;
   }
 
@@ -3774,6 +3789,11 @@ class Enemy {
     const moveFactor = StatusEffects.moveFactor(this);
     this.speed = this.baseSpeed * moveFactor;
     if (moveFactor <= 0) return;
+
+    if (this._omenBuffT > 0) {
+      this._omenBuffT -= dt;
+      if (this._omenBuffT <= 0) this.damage = this.baseDamage;
+    }
 
     const dx = player.x - this.x;
     const dy = player.y - this.y;
@@ -3838,6 +3858,20 @@ class Enemy {
       case 'dragon':
         this._updateDragon(dt, nx, ny, dist, player, game);
         break;
+      default: {
+        if (typeof EnemyRoster !== 'undefined' && EnemyRoster.def(this.type)) {
+          const skipContact = EnemyRoster.update(this, dt, nx, ny, dist, player, game);
+          if (skipContact) {
+            // Still allow specials that opted out of shared contact
+            if (dist < this.radius + player.radius && this.contactCD <= 0) {
+              EnemyRoster.onContact(this, player, game);
+              this.contactCD = 0.6;
+            }
+            return;
+          }
+        }
+        break;
+      }
     }
 
     // Contact damage
@@ -3851,7 +3885,11 @@ class Enemy {
         return;
       }
       if (this.type === 'priest') return;
-      player.takeDamage(this.damage, game);
+      if (typeof EnemyRoster !== 'undefined' && EnemyRoster.def(this.type)) {
+        EnemyRoster.onContact(this, player, game);
+      } else {
+        player.takeDamage(this.damage, game);
+      }
       this.contactCD = 0.6;
       if (this.type === 'wolf') {
         player.applySlow(0.45, 0.5);
@@ -4306,6 +4344,10 @@ class Enemy {
       this._drawWolfGhosts(ctx, cam);
     }
 
+    if (!this.dying && typeof EnemyRoster !== 'undefined' && EnemyRoster.drawExtra) {
+      EnemyRoster.drawExtra(this, ctx, cam);
+    }
+
     if (this.sprite) {
       const bossScale = this.type === 'dragon' ? 1.5 : 1;
       const mult = (this.dying
@@ -4331,6 +4373,9 @@ class Enemy {
         ctx.globalAlpha = Math.max(0.15, 1 - this.deathTimer / this.deathDuration * 0.85);
       } else if (this.flash > 0) {
         ctx.globalAlpha = 0.5;
+      } else if (this._drawAlpha != null) {
+        ctx.globalAlpha = this._drawAlpha;
+        this._drawAlpha = null;
       }
       drawMob();
       ctx.restore();
@@ -4636,6 +4681,9 @@ class Player {
     this.hpFlash = 0;
     this.invulnerable = false;
     this.invulnTimer = 0;
+    this.aspdMult = 1;
+    this.aspdMultTimer = 0;
+    this.recentWeaponDamage = 0;
   }
 
   _recomputeStats() {
@@ -4876,6 +4924,13 @@ class Player {
     if (this.slowTimer > 0) {
       this.slowTimer -= dt;
       if (this.slowTimer <= 0) this.slowFactor = 1;
+    }
+    if (this.aspdMultTimer > 0) {
+      this.aspdMultTimer -= dt;
+      if (this.aspdMultTimer <= 0) this.aspdMult = 1;
+    }
+    if (this.recentWeaponDamage > 0) {
+      this.recentWeaponDamage = Math.max(0, this.recentWeaponDamage - this.recentWeaponDamage * 1.2 * dt);
     }
     if (this.carriedBy && !this.carriedBy.active) this.carriedBy = null;
     const abducted = !!this.carriedBy;
@@ -5136,6 +5191,9 @@ class WaveManager {
       ufo: level >= 18 && game.countEnemies('ufo') < 3 ? 0.9 + late * 0.02 : 0,
       dragon: 0
     };
+    if (typeof EnemyRoster !== 'undefined' && EnemyRoster.collectWeights) {
+      EnemyRoster.collectWeights(game, diff, level, late, fade, weights);
+    }
     let total = 0;
     let fallback = null;
     let fallbackWeight = -1;
@@ -5804,7 +5862,8 @@ class Game {
       flower2: SpriteFactory.flower(2),
       stone: SpriteFactory.stone(),
       plant: SpriteFactory.plant(),
-      ...(typeof CharacterSprites !== 'undefined' ? CharacterSprites.build() : {})
+      ...(typeof CharacterSprites !== 'undefined' ? CharacterSprites.build() : {}),
+      ...(typeof EnemyRoster !== 'undefined' ? EnemyRoster.buildSprites(SpriteFactory) : {})
     };
 
     // Bestiary stills for each dragon variant
@@ -5815,8 +5874,11 @@ class Game {
 
     // Death animation sheets (3 frames normal / 10 frames per dragon variant)
     const deathTypes = ['slime', 'skeleton', 'zombie', 'bomber', 'mage', 'robot', 'wolf', 'priest', 'ufo'];
+    if (typeof EnemyRoster !== 'undefined') {
+      for (const t of EnemyRoster.deathTypes()) deathTypes.push(t);
+    }
     for (const t of deathTypes) {
-      this.sprites[t + 'Death'] = SpriteFactory.makeDeathFrames(this.sprites[t], 3);
+      if (this.sprites[t]) this.sprites[t + 'Death'] = SpriteFactory.makeDeathFrames(this.sprites[t], 3);
     }
     this.sprites.dragonDeaths = {};
     for (const v of SpriteFactory.DRAGON_VARIANTS) {
@@ -5837,7 +5899,7 @@ class Game {
     this.upgrades = new UpgradeSystem();
     this.upgrades.bindGame(this);
 
-    this.enemyPool = new Pool(() => new Enemy(), 200);
+    this.enemyPool = new Pool(() => new Enemy(), 320);
     this.projPool = new Pool(() => new Projectile(), 300);
     this.grenadePool = new Pool(() => new GrenadeProjectile(), 24);
     this.chestPool = new Pool(() => new Chest(), 20);
@@ -6132,17 +6194,30 @@ class Game {
     const defs = CHARACTER_DEFS;
     root.innerHTML = defs.map((c) => {
       const weaponName = WEAPON_DEFS[c.weapon] ? I18n.t(WEAPON_DEFS[c.weapon].nameKey) : c.weapon;
+      const weaponDescs = I18n.helpWeaponDescs[I18n.lang] || I18n.helpWeaponDescs.en;
+      const weaponDesc = (weaponDescs && weaponDescs[c.weapon]) || '';
+      const weaponIcon = (typeof WeaponIcons !== 'undefined') ? WeaponIcons.get(c.weapon) : null;
+      const weaponImg = weaponIcon
+        ? `<img class="char-card-start-weapon-icon" src="${weaponIcon.toDataURL()}" alt="">`
+        : '';
       const selected = c.id === this._charSelectId ? ' selected' : '';
       const spr = this.sprites[c.sprite];
       const art = spr
         ? `<canvas class="char-card-art" width="${spr.width}" height="${spr.height}" data-sprite="${c.sprite}"></canvas>`
         : '';
+      const weaponBlock = `<div class="char-card-start-weapon">` +
+        weaponImg +
+        `<div class="char-card-start-weapon-text">` +
+        `<div class="char-card-start-weapon-name">${weaponName}</div>` +
+        (weaponDesc ? `<div class="char-card-start-weapon-desc">${weaponDesc}</div>` : '') +
+        `</div></div>`;
       return `<button type="button" class="char-card${selected}" data-char-id="${c.id}">` +
         `<div class="char-card-head">${art}<div>` +
         `<div class="char-card-name">${I18n.t(c.nameKey)}</div>` +
         `<div class="char-card-weapon">${weaponName} · ${I18n.t(c.passiveKey)}</div>` +
         `</div></div>` +
         `<div class="char-card-desc">${I18n.t(c.descKey)}</div>` +
+        weaponBlock +
         `${typeof formatCharacterBaseStatsHtml === 'function' ? formatCharacterBaseStatsHtml(c) : ''}` +
         `</button>`;
     }).join('');
@@ -6448,12 +6523,19 @@ class Game {
       { type: 'dragon', variant: 'bone' },
       { type: 'dragon', variant: 'ember' }
     ];
+    if (typeof EnemyRoster !== 'undefined') {
+      for (const id of EnemyRoster.SPECIAL_IDS) types.push({ type: id });
+      // A few chase samples across bands
+      for (const id of ['petalSlug', 'centaurScout', 'gildedMummy', 'cathedralGolem', 'novaLeviathan']) {
+        types.push({ type: id });
+      }
+    }
 
     const cellX = 720;
     const cellY = 520;
     const coords = [];
-    for (let row = -2; row <= 2; row++) {
-      for (let col = -3; col <= 3; col++) {
+    for (let row = -4; row <= 4; row++) {
+      for (let col = -5; col <= 5; col++) {
         if (row === 0 && col === 0) continue;
         if (((row + col) & 1) !== 0) continue;
         coords.push({ x: col * cellX, y: row * cellY });
@@ -6463,7 +6545,7 @@ class Game {
 
     this.player.x = 0;
     this.player.y = 0;
-    this.testSpawns = types.map((slot, i) => ({
+    this.testSpawns = types.slice(0, coords.length).map((slot, i) => ({
       type: slot.type,
       variant: slot.variant || null,
       x: coords[i].x,
@@ -6852,7 +6934,7 @@ class Game {
     this.waves.reset();
     this.killCount = 0;
     this.survived = 0;
-    this.passive = {};
+    // Keep passive state for the game-over HUD; reset happens on next start/test
 
     this.state = 'gameover';
     SoundManager.death();
